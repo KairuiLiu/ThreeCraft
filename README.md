@@ -6,7 +6,7 @@
 
 <p align="center"><strong>⛏🧱基于Three.js的MineCraft网页版实现</strong></p>
 
-![Minecraft](https://img.shields.io/badge/Minecraft-62B47A?style=flat-square&logo=Minecraft&logoColor=white)![Threejs](https://img.shields.io/badge/Three\.js-000000?style=flat-square&logo=Three.js&logoColor=white)![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)![Socketio](https://img.shields.io/badge/Socket\.io-010101?style=flat-square&logo=Socket.io&logoColor=white)![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white)
+![Threejs](https://img.shields.io/badge/Three\.js-000000?style=flat-square&logo=Three.js&logoColor=white)![Socketio](https://img.shields.io/badge/Socket\.io-010101?style=flat-square&logo=Socket.io&logoColor=white)![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white)![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)![Minecraft](https://img.shields.io/badge/Minecraft-62B47A?style=flat-square&logo=Minecraft&logoColor=white)
 
 
 
