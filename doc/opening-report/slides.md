@@ -24,13 +24,16 @@ twitterUrl: 'https://github.com/KairuiLiu'
 
 截至2021年5月，《我的世界》拥有2.38亿销量，1.5亿月活跃用户，成为有史以来最畅销的电子游戏.
 
+<v-clicks>
 
-- 🤹 **丰富游戏模式** - 生存模式 / 创造模式 / 冒险模式 / 极限模式 / 旁观模式
+- 🤹 **丰富模式** - 生存模式 / 创造模式 / 冒险模式 / 极限模式 / 旁观模式
 - 🧑‍🤝‍🧑 **方便联机** - 局域网联机 / 互联网联机(官方/自建服务器)
-- 🧩 **高可扩展性** - 提供开放接口, 模组 / 贴图 / 地图等均可从自定义
-- 🧑‍💻 **跨平台支持** - <LogosMicrosoftWindows/> Windows / <LogosLinuxTux/> Linux / <LogosMacosx/> macOS / IOS / <MdiMicrosoftXbox/> XBox / <IcOutlineAndroid/> Android / <MdiSonyPlaystation/> PlayStation / <MdiNintendoSwitch/> Switch / **<BiHeadsetVr/> VR**
+- 🧩 **高可扩展** - 提供开放接口, 模组 / 贴图 / 地图等均可从自定义
+- 🧑‍💻 **跨平台&nbsp;&nbsp;&nbsp;&nbsp;** - <LogosMicrosoftWindows/> / <LogosLinuxTux/> / <LogosMacosx/>  / <MdiAppleIos/> / <MdiMicrosoftXbox/> / <IcOutlineAndroid/> / <MdiSonyPlaystation/> / <MdiNintendoSwitch/> / <BiHeadsetVr/>
 - 🙌 **社区活跃** - 玩家基数多
-- 🗽 **自由高质量** - 无限地图, 光追...
+- 🗽 **高自由度** - 无限地图, 光追...
+
+</v-clicks>
 
 <br/>
 <br/>
@@ -109,9 +112,9 @@ WebGL实践
 
 # 技术路线🗺️
 
-- <p v-click-hide>常见游戏制作引擎: <SimpleIconsUnrealengine/>, <MdiUnity/></p>
-- <p v-click-hide>常见的H5游戏引擎: <SimpleIconsCocos/>, Phaser</p>
-- <p v-click-hide>MVVM框架: <LogosVue/>, <LogosReact/>, <LogosAngularIcon/></p>
+- <p v-click-hide>游戏制作引擎: <SimpleIconsUnrealengine/>, <MdiUnity/></p>
+- <p v-click-hide>H5游戏引擎&nbsp;&nbsp;: <SimpleIconsCocos/>, Phaser</p>
+- <p v-click-hide>MVVM框架&nbsp;&nbsp;&nbsp;: <LogosVue/>, <LogosReact/>, <LogosAngularIcon/></p>
 
 ---
 
@@ -159,7 +162,7 @@ openGL(openGL) --> openGLES(openGL ES) --> webGL(webGL) --> Three(Three.JS)
 
 # 更多工作🍪
 
-- 😀基于WebSocket的局域网多人游戏
-- 😕可视化[<LogosRedditIcon/> r/place](https://www.reddit.com/r/place)
-- 🙃光线追踪
-- 🙃TAA
+- 😀 基于WebSocket的局域网多人游戏
+- 😕 可视化[<LogosRedditIcon/> r/place](https://www.reddit.com/r/place)
+- 🙃 光线追踪
+- 🙃 AA算法
