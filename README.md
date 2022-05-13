@@ -12,19 +12,19 @@
 
 ### ✨RoadMap
 
-- [ ] The first stage
+- [ ] STAGE 1
    - [ ] Placement / Destruction of Blocks
    - [ ] Movement and collision detection
    - [ ] Basic UI
    - [ ] Run and Fly
    - [ ] Highlight crosshair square
-- [ ] second stage
+- [ ] STAGE 2
    - [ ] save/load game
    - [ ] Infinite World
    - [ ] Random terrain and tree generation
    - [ ] Mouse wheel (number keys) to select different block types
    - [ ] Adjustable rendering distance and field of view
-- [ ] The third phase
+- [ ] STAGE 3
    - [ ] Simple multiplayer support
    - [ ] Sound effects and background music
    - [ ] Generate water
