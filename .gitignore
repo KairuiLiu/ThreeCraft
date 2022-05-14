@@ -98,3 +98,6 @@ typings/
 
 # TernJS port file
 .tern-port
+
+
+static/sounds
