@@ -3,4 +3,3 @@ node_modules
 dist
 vite.config.ts
 doc
-src/assets
