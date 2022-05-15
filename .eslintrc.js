@@ -2,13 +2,12 @@ module.exports = {
 	env: {
 		browser: true,
 		es2021: true,
-		'vue/setup-compiler-macros': true,
 	},
 	extends: ['eslint:recommended', 'airbnb-base', 'plugin:prettier/recommended', 'prettier'],
 	parserOptions: {
-		ecmaVersion: 21,
+		ecmaVersion: 13,
 		parser: '@typescript-eslint/parser',
-		sourceType: ['module', 'dom'],
+		sourceType: 'module',
 	},
 	plugins: ['@typescript-eslint'],
 	rules: {
