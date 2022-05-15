@@ -100,4 +100,4 @@ typings/
 .tern-port
 
 
-static/sounds
+src/static/sounds
