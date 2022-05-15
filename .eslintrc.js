@@ -9,7 +9,7 @@ module.exports = {
 		parser: '@typescript-eslint/parser',
 		sourceType: 'module',
 	},
-	plugins: ['@typescript-eslint'],
+	plugins: ['@typescript-eslint', 'html'],
 	rules: {
 		'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'warn',
 		'no-debugger': process.env.NODE_ENV === 'development' ? 'off' : 'warn',
