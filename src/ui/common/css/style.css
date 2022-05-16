@@ -1,16 +1,1 @@
-@font-face {
-	font-family: mplus;
-	src: url(../../../assets/font/mplus_hzk_12.ttf);
-	font-display: swap;
-}
-html,
-body {
-	height: 100%;
-}
-body {
-	font-family: mplus, Arial, Helvetica, sans-serif;
-}
-#background {
-	background: center url(../../../assets/pictures/background.png) no-repeat;
-	background-size: 100% 100%;
-} /*# sourceMappingURL=./style.css.map */
+@font-face{font-family:mplus;src:url(../../../assets/font/mplus_hzk_12.ttf);font-display:swap}*{box-sizing:border-box}html,body{width:100%;height:100%;font-family:mplus,Arial,Helvetica,sans-serif;font-size:1.2rem;line-height:2}#menu{display:flex;flex-direction:column;align-items:center}#menu.background-img{background:center url(../../../assets/pictures/background.png) no-repeat;background-size:100% 100%}#menu .title{margin:50px 0;background:center url(../../../assets/pictures/logo-minecraft.png) no-repeat;height:150px;width:100%;background-size:480px auto}#menu .box{background-color:#f00;padding:15px;border:3px solid;display:flex;flex-direction:column;align-items:center;gap:20px;box-shadow:0 0 0 2px #000}#menu .btn{width:448px;text-align:center;background-color:#0f0;border:3px #000000 solid}.covered{position:fixed;top:0;left:0;height:100%;width:100%}.hidden{display:none}/*# sourceMappingURL=./style.css.map */
