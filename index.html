@@ -12,24 +12,45 @@
 
 <body>
 	<div class="" id="app">
-		<div class="covered background-img" id="menu">
-			<div class="title"></div>
-			<div class="box border-box">
-				<div class="btn">OK</div>
-				<div class="btn">OK</div>
-				<div class="btn">OK</div>
-				<div class="btn">OK</div>
-				<div class="btn">OK</div>
-				<div class="btn">OK</div>
-			</div>
-		</div>
-		<div class="covered" id="background"></div>
 		<div class="covered" id="HUD-stage">
 			<div class="covered" id="bag"></div>
 			<div class="covered" id="cross"></div>
 			<div class="covered" id="controller"></div>
 		</div>
 		<div class="covered" id="game-stage"></div>
+		<div class="covered background-image" id="menu">
+			<div class="title"></div>
+			<div class="box border-box">
+				<button class="button" disabled>单人游戏 </button>
+				<div class="box-line">
+					<button class="button">单人游戏 </button>
+					<button class="button">单人游戏 </button>
+				</div>
+				<label for="mod1">123</label>
+				<input type="text" class="text-input" name="mod1">
+				<div class="box-line">
+					<!-- <label for="mod2">122</label> -->
+					<input type="text" class="text-input" name="mod2" id="32">
+					<input type="text" class="text-input" name="mod3" id="33">
+				</div>
+				<div class="box-line">
+					<div class="range-item">
+						<label for="volume">Volume</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11">
+					</div>
+				</div>
+				<div class="box-line">
+					<div class="range-item">
+						<label for="volume">Vo</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11">
+					</div>
+					<div class="range-item">
+						<label for="volume">Vl</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11" step="0.1">
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script type="module" src="/src/index.ts"></script>
 </body>

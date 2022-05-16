@@ -1,57 +1,166 @@
-@font-face {
-	font-family: mplus;
-	src: url(../../../assets/font/mplus_hzk_12.ttf);
-	font-display: swap;
-}
-
-* {
-	box-sizing: border-box;
-}
+@import './tool-kits.less';
 
 html,
 body {
 	width: 100%;
 	height: 100%;
 	font-family: mplus, Arial, Helvetica, sans-serif;
-	font-size: 1.2rem;
-	line-height: 2;
+	font-size: 1.1rem;
+	line-height: 1.2rem;
 }
 
+// 菜单组件
 #menu {
+	padding: 50px 0;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	&.background-img {
+	justify-content: space-around;
+	// 开局背景图
+	&.background-image {
 		background: center url(../../../assets/pictures/background.png) no-repeat;
 		background-size: 100% 100%;
 	}
+	// 开局后菜单的纯色背景
+	&.background-pain-color {
+		background: @color-background-semi-trans-grey;
+	}
+	// logo
 	.title {
-		margin: 50px 0;
+		position: fixed;
+		top: 50px;
 		background: center url(../../../assets/pictures/logo-minecraft.png) no-repeat;
 		height: 150px;
 		width: 100%;
-		background-size: 480px auto;
+		background-size: 560px auto;
 	}
+	// 菜单盒
 	.box {
-		background-color: #f00;
 		padding: 15px;
-		border: 3px solid;
+		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 20px;
-		box-shadow: 0 0 0 2px #000;
+		gap: 10px;
+		// 显示边框与背景
+		&.border-box {
+			box-shadow: @box-shadow;
+			background-color: @color-btn-gray;
+			border: 2px #000 solid;
+		}
 	}
-	.btn {
-		width: 448px;
+
+	label {
+		line-height: 36px;
+	}
+
+	.box-line {
+		display: flex;
+		gap: 15px;
+		width: 400px;
+	}
+
+	// 按钮
+	.button {
+		.box-item;
+		.box-item-block;
 		text-align: center;
-		background-color: #0f0;
-		border: 3px #000000 solid;
+		background: url(../../../assets/pictures/button-wallpaper.png);
+	}
+	// 下拉框
+	.select {
+		.box-item;
+		.box-item-block;
+		padding: 1px 4px;
+		background: url(../../../assets/pictures/button-wallpaper.png);
+		option {
+			background: @color-btn-gray;
+		}
+	}
+	// 输入框
+	.text-input {
+		.box-item;
+		background: @color-box-input-deep-grey;
+		padding: 1px 4px;
+		border: 3px @color-box-shadow-light-gray solid;
+		min-width: 0;
+		&:active,
+		&:focus {
+			border: 3px @color-box-highlight solid;
+		}
+	}
+	// 复选框
+	.checkbox-item {
+		.box-item;
+		min-width: 0;
+		input[type^='checkbox'] {
+			outline: none;
+			height: 0;
+			width: 0;
+			margin-right: 2rem;
+			line-height: 1rem;
+			&::before {
+				content: '';
+				.box-item-block;
+				display: block;
+				text-align: center;
+				margin-top: -1rem;
+				width: 1rem;
+				height: 1rem;
+				background-color: @color-box-shadow-light-gray;
+			}
+			&:checked::before {
+				content: 'X';
+			}
+			&:active::before {
+				box-shadow: @box-shadow-reverse;
+			}
+		}
+	}
+	// 滑轨
+	.range-item {
+		flex-grow: 1;
+		flex-shrink: 1;
+		display: flex;
+		gap: 1rem;
+		.range {
+			flex-grow: 1;
+			flex-shrink: 1;
+			min-width: 0;
+			height: 36px;
+			appearance: none;
+			-webkit-appearance: none;
+			background-color: #00000000;
+			&::-webkit-slider-runnable-track {
+				height: 16px;
+				box-sizing: content-box;
+				border: 2px #000 solid;
+				background-color: @color-box-shadow-light-gray;
+			}
+			&::-webkit-slider-thumb {
+				width: 27px;
+				height: 36px;
+				margin-top: -9px;
+				box-shadow: @box-shadow;
+				border: 2px #000 solid;
+				-webkit-appearance: none;
+				background: url(../../../assets/pictures/button-wallpaper.png);
+				&:active {
+					box-shadow: @box-shadow-reverse;
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+		}
+		label {
+			flex-shrink: 0;
+			flex-grow: 0;
+		}
 	}
 }
 
 .covered {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	height: 100%;

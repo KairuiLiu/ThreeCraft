@@ -1,0 +1,45 @@
+@color-btn-gray: #666;
+@color-box-shadow-light-gray: #aaaaaa;
+@color-box-shadow-deep-gray: #565656;
+@color-box-highlight: #fcfcfc;
+@color-background-semi-trans-grey: rgba(0, 0, 0, 0.66);
+@color-box-input-deep-grey: #262626;
+
+@box-shadow: inset 2px 1px @color-box-shadow-light-gray, inset -2px -1px @color-box-shadow-deep-gray;
+@box-shadow-reverse: inset -2px -1px @color-box-shadow-light-gray, inset 2px 1px @color-box-shadow-deep-gray;
+@text-shadow-btn: #000 1px 1px;
+
+@font-face {
+	font-family: mplus;
+	src: url(../../../assets/font/mplus_hzk_12.ttf);
+	font-display: swap;
+}
+
+* {
+	box-sizing: border-box;
+	user-select: none;
+}
+
+.box-item {
+	flex-shrink: 1;
+	min-height: 36px;
+	width: 400px;
+	color: @color-box-highlight;
+	text-shadow: @text-shadow-btn;
+	outline: none;
+}
+
+.box-item-block {
+	border: 2px #000 solid;
+	box-shadow: @box-shadow;
+	&:hover {
+		border: 2px @color-box-highlight solid;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+
+.text-left {
+	text-align: left;
+}
