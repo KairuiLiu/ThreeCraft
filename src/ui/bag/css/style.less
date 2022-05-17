@@ -7,17 +7,12 @@
 	&.active {
 		border-image-source: url(../../../assets/pictures/hud-box-border-active.png);
 	}
-	&::after {
-		content: '';
-		display: block;
-		width: 40px;
-		height: 40px;
+	.bag-item-image {
 		position: relative;
-		left: -3px;
-		top: -3px;
-		background: center no-repeat;
-		background-image: url(../../../assets/pictures/blocks-3d/TheOverworld/Granite.png);
-		background-size: 70%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 70%;
 	}
 }
 
