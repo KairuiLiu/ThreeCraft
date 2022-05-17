@@ -1,0 +1,26 @@
+@import url(../../common/css/tool-kits.less);
+
+.bag-item {
+  .hud-box;
+  width: 40px;
+  height: 40px;
+  &.active {
+    border-image-source: url(../../../assets/pictures/hud-box-border-active.png);
+  }
+  &::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: -3px;
+    top: -3px;
+    background: center no-repeat;
+    background-image: url(../../../assets/pictures/blocks-3d/TheOverworld/Granite.png);
+    background-size: 70%;
+  }
+}
+
+#game-stage {
+	background: url(../../../assets/pictures/background.png);
+}
