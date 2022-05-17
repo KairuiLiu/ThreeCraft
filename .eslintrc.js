@@ -3,13 +3,13 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	extends: ['eslint:recommended', 'airbnb-base', 'plugin:prettier/recommended', 'prettier'],
+	extends: ['eslint:recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended', 'airbnb-base', 'plugin:prettier/recommended', 'prettier'],
 	parserOptions: {
-		ecmaVersion: 13,
+		ecmaVersion: 2018,
 		parser: '@typescript-eslint/parser',
 		sourceType: 'module',
 	},
-	plugins: ['@typescript-eslint', 'html'],
+	plugins: ['@typescript-eslint', 'html', '@typescript-eslint'],
 	rules: {
 		'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'warn',
 		'no-debugger': process.env.NODE_ENV === 'development' ? 'off' : 'warn',
