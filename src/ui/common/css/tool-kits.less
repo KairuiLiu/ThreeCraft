@@ -3,6 +3,7 @@
 @color-box-shadow-deep-gray: #565656;
 @color-box-highlight: #fcfcfc;
 @color-background-semi-trans-grey: rgba(0, 0, 0, 0.66);
+@color-box-shadow-semi-trans-deep-gray: rgb(86, 86, 86, 0.66);
 @color-box-input-deep-grey: #262626;
 
 @box-shadow: inset 2px 1px @color-box-shadow-light-gray, inset -2px -1px @color-box-shadow-deep-gray;
@@ -37,6 +38,19 @@
 	}
 	&:focus {
 		outline: none;
+	}
+}
+
+.hud-box {
+	flex-shrink: 1;
+	color: @color-box-highlight;
+	background-clip: padding-box;
+	border: 3px solid transparent;
+	background: url(../../../assets/pictures/hud-box-background.png);
+	border-image: url('../../../assets/pictures/hud-box-border.png') 3;
+	box-shadow: inset 2px 2px @color-background-semi-trans-grey, inset -1px -1px @color-box-shadow-semi-trans-deep-gray;
+	&.bold-border {
+		border-width: 6px;
 	}
 }
 

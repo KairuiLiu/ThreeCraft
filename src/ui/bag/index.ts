@@ -1,0 +1,2 @@
+import './pc';
+import './mobile';
