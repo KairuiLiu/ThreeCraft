@@ -10,7 +10,8 @@ body {
 }
 
 // 菜单组件
-#menu {
+#menu,
+.mc-menu {
 	padding: 50px 0;
 	display: flex;
 	flex-direction: column;
@@ -91,10 +92,12 @@ body {
 		}
 	}
 	// 复选框
-	.checkbox-item {
+	.checkbox-item,
+	.radio-item {
 		.box-item;
 		min-width: 0;
-		input[type^='checkbox'] {
+		input[type^='checkbox'],
+		input[type^='radio'] {
 			outline: none;
 			height: 0;
 			width: 0;
@@ -111,10 +114,16 @@ body {
 				background-color: @color-box-shadow-light-gray;
 			}
 			&:checked::before {
-				content: 'X';
+				content: '×';
 			}
 			&:active::before {
 				box-shadow: @box-shadow-reverse;
+			}
+		}
+		input[type^='radio'] {
+			&::before {
+				border-radius: 1rem;
+				overflow: hidden;
 			}
 		}
 	}
@@ -174,6 +183,12 @@ body {
 }
 
 .mc-menu {
-	#menu;
 	padding: 0;
+}
+
+#HUD-stage,
+#game-stage,
+#menu,
+#controller {
+	.covered;
 }

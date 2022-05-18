@@ -1,80 +1,92 @@
 <!DOCTYPE html>
 <html lang="zh-Hans, zh">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="author" content="LiuKairui" />
-		<meta name="description" content="MineCraft Release Based on Three.js" />
-		<link rel="icon" href="/src/assets/favicon.ico" />
-		<title>ThreeCraft</title>
-	</head>
 
-	<body>
-		<div class="" id="app">
-			<div class="covered" id="game-stage"></div>
-			<div class="covered" id="HUD-stage">
-				<div class="covered" id="controller"></div>
-			</div>
-			<div class="covered background-image hidden" id="menu">
-				<div class="title"></div>
-				<div class="box border-box">
-					<button class="button" disabled>单人游戏</button>
-					<div class="box-line">
-						<button class="button">单人游戏</button>
-						<button class="button">单人游戏</button>
-					</div>
-					<input type="text" class="text-input" name="mod1" />
-					<div class="box-line">
-						<input type="text" class="text-input" name="mod2" id="32" />
-						<input type="text" class="text-input" name="mod3" id="33" />
-					</div>
-					<div class="box-line">
-						<div class="range-item">
-							<label for="volume">Volume</label>
-							<input type="range" class="range" id="volume" name="volume" min="0" max="11" />
-						</div>
-					</div>
-					<div class="box-line">
-						<div class="range-item">
-							<label for="volume">Vo</label>
-							<input type="range" class="range" id="volume" name="volume" min="0" max="11" />
-						</div>
-						<div class="range-item">
-							<label for="volume">Vl</label>
-							<input type="range" class="range" id="volume" name="volume" min="0" max="11" step="0.1" />
-						</div>
-					</div>
-					<div class="box-line">
-						<select class="select" name="S1" id="S1">
-							<option value="1">请选择</option>
-							<option value="2">鱼跃龙门</option>
-							<option value="3">龙飞凤舞</option>
-						</select>
-					</div>
-					<div class="box-line">
-						<select class="select" name="S1" id="S1">
-							<option value="1">请选择</option>
-							<option value="2">鱼跃龙门</option>
-							<option value="3">龙飞凤舞</option>
-						</select>
-						<select class="select" name="S1" id="S1">
-							<option value="1">请选择</option>
-							<option value="2">鱼跃龙门</option>
-							<option value="3">龙飞凤舞</option>
-						</select>
-					</div>
-					<div class="box-line">
-						<div class="checkbox-item"><input type="checkbox" name="C11" id="C11" /><label for="C11">PC端支持</label></div>
-						<div class="checkbox-item"><input type="checkbox" name="C12" id="C12" /><label for="C12">移动端支持</label></div>
-					</div>
-					<div class="checkbox-item"><input type="checkbox" name="C13" id="C13" /><label for="C13">Lorem ipsum dolor, sit aimed comments :)</label></div>
-					<div class="box-line text-left">
-						Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum
-						dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="author" content="LiuKairui" />
+	<meta name="description" content="MineCraft Release Based on Three.js" />
+	<link rel="icon" href="/src/assets/favicon.ico" />
+	<title>ThreeCraft</title>
+</head>
+
+<body>
+	<div class="" id="app">
+		<div id="game-stage"></div>
+		<div id="HUD-stage">
+			<div id="controller"></div>
+		</div>
+		<!-- <div class="background-image covered mc-menu">
+			<div class="title"></div>
+			<div class="box border-box">
+				<button class="button" disabled>单人游戏</button>
+				<div class="box-line">
+					<button class="button">单人游戏</button>
+					<button class="button">单人游戏</button>
+				</div>
+				<input type="text" class="text-input" name="mod1" />
+				<div class="box-line">
+					<input type="text" class="text-input" name="mod2" id="32" />
+					<input type="text" class="text-input" name="mod3" id="33" />
+				</div>
+				<div class="box-line">
+					<div class="range-item">
+						<label for="volume">Volume</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11" />
 					</div>
 				</div>
+				<div class="box-line">
+					<div class="range-item">
+						<label for="volume">Vo</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11" />
+					</div>
+					<div class="range-item">
+						<label for="volume">Vl</label>
+						<input type="range" class="range" id="volume" name="volume" min="0" max="11" step="0.1" />
+					</div>
+				</div>
+				<div class="box-line">
+					<select class="select" name="S1" id="S1">
+						<option value="1">请选择</option>
+						<option value="2">鱼跃龙门</option>
+						<option value="3">龙飞凤舞</option>
+					</select>
+				</div>
+				<div class="box-line">
+					<select class="select" name="S1" id="S1">
+						<option value="1">请选择</option>
+						<option value="2">鱼跃龙门</option>
+						<option value="3">龙飞凤舞</option>
+					</select>
+					<select class="select" name="S1" id="S1">
+						<option value="1">请选择</option>
+						<option value="2">鱼跃龙门</option>
+						<option value="3">龙飞凤舞</option>
+					</select>
+				</div>
+				<div class="box-line">
+					<div class="checkbox-item"><input type="checkbox" name="C11" id="C11" /><label for="C11">PC端支持</label></div>
+					<div class="checkbox-item"><input type="checkbox" name="C12" id="C12" /><label for="C12">移动端支持</label></div>
+				</div>
+				<div class="checkbox-item"><input type="checkbox" name="C13" id="C13" /><label for="C13">Lorem ipsum dolor, sit
+						aimed comments :)</label></div>
+				<div class="box-line">
+					<div class="radio-item"><input type="radio" name="C21" id="C21" /><label for="C21">PC端支持</label></div>
+					<div class="radio-item"><input type="radio" name="C22" id="C22" /><label for="C22">移动端支持</label></div>
+				</div>
+				<div class="radio-item"><input type="radio" name="C23" id="C23" /><label for="C23">Lorem ipsum dolor, sit
+						aimed comments :)</label></div>
+				<div class="box-line text-left">
+					Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit
+					Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum
+					dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum dolor sit Lorem ipsum
+					dolor sit Lorem ipsum dolor sit
+				</div>
 			</div>
-		</div>
-		<script type="module" src="/src/index.ts"></script>
-	</body>
+		</div> -->
+
+	</div>
+	<script type="module" src="/src/index.ts"></script>
+</body>
+
 </html>
