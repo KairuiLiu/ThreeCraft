@@ -42,3 +42,7 @@ file structure
 TODO
 
 - fix z-index
+- bag note
+- bag code position
+- control
+- base ui interface

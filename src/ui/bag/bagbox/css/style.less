@@ -6,13 +6,41 @@
 	height: 100%;
 	z-index: 9999;
 	background-color: @color-background-semi-trans-grey;
+	display: flex;
 	.bag-box-content {
+		.hud-box;
+		.bold-border;
 		position: fixed;
+		flex-direction: column;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		width: 100px;
-		height: 100px;
-		background-color: #bfa;
+		background: none;
+		background-clip: padding-box;
+		background-color: @color-btn-gray;
+		padding: 15px;
+		display: flex;
+		gap: 15px;
+		.select {
+			.bag-item-all {
+				display: grid;
+				grid-template-columns: repeat(10, 1fr);
+				grid-template-rows: repeat(5, 1fr);
+			}
+			.bag-item-active {
+				display: flex;
+			}
+			.bag-item:hover {
+				border-image-source: url(../../../../assets/pictures/hud-box-border-active.png);
+			}
+		}
+		.title {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			.close {
+				width: 36px;
+			}
+		}
 	}
 }

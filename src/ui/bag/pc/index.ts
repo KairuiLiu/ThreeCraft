@@ -1,4 +1,4 @@
-import config from '../../../core/config';
+import { config } from '../../../core/config';
 import './css/style.less';
 
 class BagPcPlugin {
@@ -8,7 +8,7 @@ class BagPcPlugin {
 
 	bagItemsElem: HTMLElement[];
 
-	host: { highlight: () => void; openBag: () => void };
+	host: { highlight: () => void; toggleBag: () => void };
 
 	// eslint-disable-next-line
 	clickItemEventListener: (e: MouseEvent) => void;
@@ -23,7 +23,7 @@ class BagPcPlugin {
 		this.bagInnerElem = document.createElement('div');
 		this.bagInnerElem.classList.add('pc');
 		this.bagOuterElem = bagOuterElem;
-		[...this.bagOuterElem.children].forEach(d => d.className !== 'bag-box' && d.remove());
+		[...this.bagOuterElem.children].forEach(d => !d.className.includes('bag-box') && d.remove());
 		this.bagOuterElem.appendChild(this.bagInnerElem);
 		this.host = host;
 		this.clickItemEventListener = BagPcPlugin.getClickItemEventListener(this.host);
@@ -70,7 +70,7 @@ class BagPcPlugin {
 	static getKeyupBagOpenEventListener(host) {
 		return e => {
 			if (e.key === 'e' || e.key === 'E') {
-				host.openBag();
+				host.toggleBag();
 			}
 		};
 	}
