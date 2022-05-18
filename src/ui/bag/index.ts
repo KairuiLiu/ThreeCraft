@@ -20,22 +20,24 @@ class Bag {
 	available: boolean;
 
 	constructor(el) {
+		// 将背包挂载到el上, 清除el上其他背包
 		[...el.children].forEach((d: HTMLElement) => d.getAttribute('id') === 'bag' && d.remove());
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
 		this.bagElem.classList.add('covered');
 		el.appendChild(this.bagElem);
-		this.type = config.bag.type;
-		this.items = config.bag.bagItem;
+		this.type = config.bag.type; // 背包样式
+		this.items = config.bag.bagItem; // 背包中元素String[]
 		this.items.push(...Array(10).fill(null));
 		this.available = false;
 		this.items.length = 10;
-		this.plugin = null;
-		this.bagBox = new BagBoxPlugin(this.bagElem, this);
-		this.place();
+		this.plugin = null; // 背包框插件, 管理元素位置与背包框事件
+		this.bagBox = new BagBoxPlugin(this.bagElem, this); // 背包选项插件
+		this.place(); // 加载
 	}
 
 	place() {
+		// 加载背包框插件
 		if (this.type === 'pc') {
 			this.plugin = new BagPcPlugin(this.bagElem, this);
 		} else if (this.type === 'mobile') {
@@ -44,6 +46,7 @@ class Bag {
 			// VR
 		}
 
+		// 将框加入Block框
 		const itemElem = document.createElement('div');
 		itemElem.classList.add('bag-item');
 		const itemImage = document.createElement('img');
@@ -55,13 +58,14 @@ class Bag {
 			(elem.childNodes[0] as HTMLElement).setAttribute('idx', `${i}`);
 			this.plugin.bagInnerElem.appendChild(elem);
 		});
-		this.itemsElem = [...this.plugin.bagInnerElem.children] as HTMLElement[];
-		this.plugin.place();
-		this.update();
-		this.listen();
-		this.highlight();
+		this.itemsElem = [...this.plugin.bagInnerElem.children] as HTMLElement[]; // 每个框
+		this.plugin.place(); // 调整背包框位置
+		this.update(); // 载入图片
+		this.listen(); // 开启背包框监听
+		this.highlight(); // 刷新高亮
 	}
 
+	// 刷新背包框图片
 	update() {
 		this.items.forEach((d, i) => {
 			if (d === null) (this.itemsElem[i].children[0] as HTMLElement).removeAttribute('src');
@@ -69,35 +73,42 @@ class Bag {
 		});
 	}
 
+	// 销毁背包框
 	remove() {
 		[...this.bagElem.children].forEach(d => !d.className.includes('bag-box') && d.remove());
 		this.pause();
 	}
 
+	// 开关背包
 	toggleBag() {
 		this.bagBox.toggleUseable();
 	}
 
+	// 开关背包后刷新背包框
 	onToggleBag() {
 		this.update();
 	}
 
+	// 禁用/启用背包框
 	toggleUseable() {
 		this.bagElem.classList.toggle('hidden');
 		if (this.available) this.pause();
 		else this.listen();
 	}
 
+	// 开启监听
 	listen() {
 		this.available = true;
 		this.plugin.listen();
 	}
 
+	// 停止监听
 	pause() {
 		this.available = false;
 		this.plugin.pause();
 	}
 
+	// 刷新背包框高亮
 	highlight() {
 		this.itemsElem.forEach(d => d.classList.remove('active'));
 		this.itemsElem[config.bag.activeIndex].classList.add('active');

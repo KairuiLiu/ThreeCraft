@@ -14,15 +14,19 @@ class BagMobilePlugin {
 	clickItemEventListener: (e: MouseEvent) => void;
 
 	constructor(bagOuterElem: HTMLElement, host) {
+		// 清除其他插件
 		this.host = host;
 		this.bagInnerElem = document.createElement('div');
 		this.bagInnerElem.classList.add('mobile');
 		this.bagOuterElem = bagOuterElem;
 		[...this.bagOuterElem.children].forEach(d => !d.className.includes('bag-box') && d.remove());
+		// 载入插件
 		this.bagOuterElem.appendChild(this.bagInnerElem);
+		// 点击框事件
 		this.clickItemEventListener = BagMobilePlugin.getClickItemEventListener(this.host);
 	}
 
+	// 调整位置
 	place() {
 		this.bagItemsElem = [...this.bagInnerElem.children] as HTMLElement[];
 		this.bagItemsElem.forEach((d, i) => {
@@ -30,14 +34,17 @@ class BagMobilePlugin {
 		});
 	}
 
+	// 监听事件
 	listen() {
 		this.bagInnerElem.addEventListener('click', this.clickItemEventListener);
 	}
 
+	// 取消监听
 	pause() {
 		this.bagInnerElem.removeEventListener('click', this.clickItemEventListener);
 	}
 
+	// 单击选中框， 单击已选框打开背包
 	static getClickItemEventListener(host) {
 		return e => {
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
