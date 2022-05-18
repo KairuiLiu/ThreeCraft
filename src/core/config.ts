@@ -2,6 +2,7 @@ const config: {
 	bag: {
 		type: 'pc' | 'mobile' | 'vr';
 		bagItem: (string | null)[];
+		availableBlock: string[];
 		activeIndex: number;
 		mobile: {
 			rotateDegree: number;
@@ -12,7 +13,8 @@ const config: {
 	bag: {
 		type: 'pc',
 		bagItem: ['Granite', 'Lava', 'Ice'],
-		activeIndex: 0,
+		availableBlock: ['Granite', 'Lava', 'Ice', 'Granite', 'Lava', 'Ice', 'Granite', 'Lava', 'Ice'],
+		activeIndex: 2,
 		mobile: {
 			rotateDegree: 12,
 			radius: 300,

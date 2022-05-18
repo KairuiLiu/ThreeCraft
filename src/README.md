@@ -12,13 +12,14 @@ file structure
 │   └── (weather)     天气时间处理
 ├── player            存储用户数据 / 配置文件
 │   └── bag           背包维护
-├── controller
+├── controller*
 │   ├── game-control  游戏配置
-│   ├── action-plugin 用户交互插件
+│   ├── action-control用户交互插件
 │   │   ├── mobile
 │   │   ├── pc
 │   │   └── xr
-│   └── moveHandler   运动事件处理
+│   ├── moveHandler   运动事件处理
+│   └── bag-control   背包交互插件
 ├── ws                WebSocket通信
 ├── ui                UI组件
 │   ├── common        通用DOM组件
@@ -37,3 +38,7 @@ file structure
 └── utils
     └── collision     碰撞检测封装
 ```
+
+TODO
+
+- fix z-index

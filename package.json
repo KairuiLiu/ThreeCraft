@@ -7,6 +7,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
+		"lint": "cross-env NODE_ENV=development eslint src/ --fix --ext .ts,.tsx,.vue,.js,.jsx",
 		"lint:development": "cross-env NODE_ENV=development eslint src/ --fix --ext .ts,.tsx,.vue,.js,.jsx",
 		"lint:production": "cross-env NODE_ENV=production eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
 		"prettier": "prettier --write .",
