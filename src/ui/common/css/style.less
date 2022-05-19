@@ -16,6 +16,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	overflow-y: hidden;
 	// 开局背景图
 	&.background-image {
 		background: center url(../../../assets/pictures/background.png) no-repeat;
@@ -25,8 +26,12 @@ body {
 	&.background-pain-color {
 		background: @color-background-semi-trans-grey;
 	}
+	.box {
+		max-height: calc(100% - 2.5rem);
+		overflow-y: auto;
+	}
 	// logo
-	.title {
+	#title {
 		z-index: 9999;
 		position: fixed;
 		top: 50px;
@@ -54,12 +59,25 @@ body {
 
 	label {
 		line-height: 36px;
+		white-space: nowrap;
+		&.fix-width {
+			width: 5rem;
+			min-width: 5rem;
+		}
+		&.fix-width-mini {
+			width: 2rem;
+			min-width: 2rem;
+		}
 	}
 
 	.box-line {
 		display: flex;
 		gap: 15px;
 		width: 400px;
+		&.title {
+			justify-content: space-around;
+			height: 2rem;
+		}
 	}
 
 	// 按钮
@@ -167,6 +185,15 @@ body {
 			flex-shrink: 0;
 			flex-grow: 0;
 		}
+	}
+}
+
+#help {
+	li {
+		list-style-type: none;
+	}
+	.help-item {
+		margin-left: -1rem;
 	}
 }
 
