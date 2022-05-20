@@ -1,3 +1,5 @@
+import Controller from '../../controller';
+
 class Menu {
 	elem: HTMLElement;
 
@@ -5,7 +7,10 @@ class Menu {
 
 	boxElem: HTMLElement;
 
-	constructor(el: HTMLElement) {
+	controller: Controller;
+
+	constructor(el: HTMLElement, controller) {
+		this.controller = controller;
 		[...el.children].forEach(d => d.getAttribute('id') === 'menu' && d.remove());
 		this.elem = document.createElement('div');
 		this.elem.setAttribute('id', 'menu');
@@ -55,7 +60,7 @@ class Menu {
 		this.boxElem.innerHTML = `
 			<div class="box-line">
 				<button id="single-player-game" class="button">单人游戏</button>
-				<button id="single-player-game" class="button">多人游戏</button>
+				<button id="multi-player-game" class="button">多人游戏</button>
 			</div>
 			<div class="box-line">
 				<button id="load-archive-file" class="button">上载存档</button>
@@ -67,9 +72,41 @@ class Menu {
 				<button id="help" class="button">帮助</button>
 				<button id="about" class="button">关于项目</button>
 			</div>`;
+		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
+		singlePlayerGame.addEventListener('click', () => {
+			this.controller.startGame(true);
+		});
+		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');
+		multiPlayerGame.addEventListener('click', () => {
+			this.toSocketConfigMenu({ back: this });
+		});
+		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file');
+		loadArchiveFile.addEventListener('click', () => {
+			// TODO
+		});
+		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
+		loadArchiveStorage.addEventListener('click', () => {
+			// TODO
+		});
+		const loadArchiveCancel = this.boxElem.querySelector('#load-archive-cancel');
+		loadArchiveCancel.addEventListener('click', () => {
+			// TODO
+		});
+		const gameSetting = this.boxElem.querySelector('#game-setting');
+		gameSetting.addEventListener('click', () => {
+			this.toSettingMenu({ back: this });
+		});
+		const help = this.boxElem.querySelector('#help');
+		help.addEventListener('click', () => {
+			this.toHelpMenu({ back: this });
+		});
+		const about = this.boxElem.querySelector('#about');
+		about.addEventListener('click', () => {
+			this.toAboutMenu({ back: this });
+		});
 	}
 
-	toSocketConfigMenu() {
+	toSocketConfigMenu({ back }) {
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -91,9 +128,10 @@ class Menu {
 			<button id="socket-join-room" class="button hidden">加入房间</button>
 			<button id="socket-exit-room" class="button hidden">退出房间</button>
 			<button class="button" id="backMenu">返回</button>`;
+		back();
 	}
 
-	toSettingMenu() {
+	toSettingMenu({ back }) {
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -164,13 +202,31 @@ class Menu {
 		</div>
 		<br />
 		<button class="button" id="backMenu">返回</button>`;
+		back();
 	}
 
 	toInnerGameSettingMenu() {
-		this;
+		this.toSettingMenu({ back: this });
+		this.removeTitle();
+		this.setGrayBkg();
 	}
 
-	toHelpMenu() {
+	toInnerGameMenu() {
+		this.setGrayBkg();
+		this.removeTitle();
+		this.showBorder();
+		this.clearMenuItem();
+		this.boxElem.innerHTML = `
+		<button id="back-game" class="button">返回游戏</button>
+		<button id="game-setting" class="button">游戏设置</button>
+		<button id="help" class="button">帮助</button>
+		<button id="about" class="button">关于项目</button>
+		<br>
+		<button id="save-game" class="button">存档</button>
+		<button id="exit-game" class="button">退出</button>`;
+	}
+
+	toHelpMenu({ back }) {
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -214,9 +270,10 @@ class Menu {
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
+		back();
 	}
 
-	toAboutMenu() {
+	toAboutMenu({ back }) {
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -230,6 +287,7 @@ class Menu {
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
+		back();
 	}
 
 	static templateElement = `
