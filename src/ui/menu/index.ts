@@ -78,7 +78,7 @@ class Menu {
 		});
 		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');
 		multiPlayerGame.addEventListener('click', () => {
-			this.toSocketConfigMenu({ back: this });
+			this.toSocketConfigMenu({ back: 'toStartMenu' });
 		});
 		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file');
 		loadArchiveFile.addEventListener('click', () => {
@@ -94,15 +94,15 @@ class Menu {
 		});
 		const gameSetting = this.boxElem.querySelector('#game-setting');
 		gameSetting.addEventListener('click', () => {
-			this.toSettingMenu({ back: this });
+			this.toSettingMenu({ back: 'toStartMenu' });
 		});
 		const help = this.boxElem.querySelector('#help');
 		help.addEventListener('click', () => {
-			this.toHelpMenu({ back: this });
+			this.toHelpMenu({ back: 'toStartMenu' });
 		});
 		const about = this.boxElem.querySelector('#about');
 		about.addEventListener('click', () => {
-			this.toAboutMenu({ back: this });
+			this.toAboutMenu({ back: 'toStartMenu' });
 		});
 	}
 
@@ -111,6 +111,7 @@ class Menu {
 		this.removeTitle();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
+			<div class="box-line title color-white">帮助</div>
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">创建房间</label></div>
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">加入房间</label></div>
 			<br/>
@@ -128,7 +129,10 @@ class Menu {
 			<button id="socket-join-room" class="button hidden">加入房间</button>
 			<button id="socket-exit-room" class="button hidden">退出房间</button>
 			<button class="button" id="backMenu">返回</button>`;
-		back();
+		const backMenu = document.getElementById('backMenu');
+		backMenu.addEventListener('click', () => {
+			this[back]();
+		});
 	}
 
 	toSettingMenu({ back }) {
@@ -202,11 +206,14 @@ class Menu {
 		</div>
 		<br />
 		<button class="button" id="backMenu">返回</button>`;
-		back();
+		const backMenu = document.getElementById('backMenu');
+		backMenu.addEventListener('click', () => {
+			this[back]();
+		});
 	}
 
 	toInnerGameSettingMenu() {
-		this.toSettingMenu({ back: this });
+		this.toSettingMenu({ back: this.toInnerGameSettingMenu });
 		this.removeTitle();
 		this.setGrayBkg();
 	}
@@ -270,7 +277,10 @@ class Menu {
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
-		back();
+		const backMenu = document.getElementById('backMenu');
+		backMenu.addEventListener('click', () => {
+			this[back]();
+		});
 	}
 
 	toAboutMenu({ back }) {
@@ -287,7 +297,10 @@ class Menu {
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
-		back();
+		const backMenu = document.getElementById('backMenu');
+		backMenu.addEventListener('click', () => {
+			this[back]();
+		});
 	}
 
 	static templateElement = `
