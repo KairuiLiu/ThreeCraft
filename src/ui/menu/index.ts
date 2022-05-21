@@ -20,7 +20,7 @@ class Menu {
 		this.titleElem = this.elem.querySelector('#title');
 		this.boxElem = this.elem.querySelector('.box');
 		el.appendChild(this.elem);
-		this.toInnerGameMenu();
+		this.hideMenu();
 	}
 
 	clearMenuItem() {

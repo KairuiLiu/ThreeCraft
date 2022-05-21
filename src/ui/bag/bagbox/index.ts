@@ -26,6 +26,7 @@ class BagBoxPlugin {
 		this.elem = document.getElementById('bag-box');
 		this.allBlockElem = el.querySelector('.bag-item-all');
 		this.activeBlockElem = el.querySelector('.bag-item-active');
+		config.bag.bagBox.activeIdx = config.bag.activeIndex;
 		this.allItemClickListener = BagBoxPlugin.getAllItemClickListener(this);
 		this.activeItemClickListener = BagBoxPlugin.getActiveItemClickListener(this);
 		this.bagCloseClickListener = BagBoxPlugin.getBagCloseClickListener(this);
