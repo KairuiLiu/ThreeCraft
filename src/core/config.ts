@@ -26,6 +26,20 @@ const config: {
 			activeIdx: number;
 		};
 	};
+	camera: {
+		fov: number;
+		camHeight: number;
+	};
+	renderer: {
+		fog: number;
+		simulateDistance: number;
+		renderDistance: number;
+	};
+	controller: {
+		volume: number;
+		operation: 'pc' | 'mobile' | 'vr';
+		language: 'cn' | 'en';
+	};
 } = {
 	bag: {
 		type: 'pc',
@@ -39,6 +53,20 @@ const config: {
 			activeItems: [],
 			activeIdx: 0,
 		},
+	},
+	camera: {
+		fov: 100,
+		camHeight: 2,
+	},
+	renderer: {
+		fog: 0.2,
+		simulateDistance: 100,
+		renderDistance: 100,
+	},
+	controller: {
+		volume: 80,
+		operation: 'pc',
+		language: 'cn',
 	},
 };
 

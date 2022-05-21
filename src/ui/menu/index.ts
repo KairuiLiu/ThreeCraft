@@ -1,4 +1,5 @@
 import Controller from '../../controller';
+import { config } from '../../core/config';
 
 class Menu {
 	elem: HTMLElement;
@@ -19,7 +20,7 @@ class Menu {
 		this.titleElem = this.elem.querySelector('#title');
 		this.boxElem = this.elem.querySelector('.box');
 		el.appendChild(this.elem);
-		this.toStartMenu();
+		this.toInnerGameMenu();
 	}
 
 	clearMenuItem() {
@@ -52,6 +53,15 @@ class Menu {
 		this.boxElem.classList.remove('border-box');
 	}
 
+	showMenu() {
+		this.elem.classList.remove('hidden');
+	}
+
+	hideMenu() {
+		this.elem.classList.add('hidden');
+	}
+
+	// TODO
 	toStartMenu() {
 		this.showTitle();
 		this.setImgBkg();
@@ -106,6 +116,7 @@ class Menu {
 		});
 	}
 
+	// TODO
 	toSocketConfigMenu({ back }) {
 		this.showBorder();
 		this.removeTitle();
@@ -133,6 +144,7 @@ class Menu {
 		backMenu.addEventListener('click', () => {
 			this[back]();
 		});
+		// TODO
 	}
 
 	toSettingMenu({ back }) {
@@ -144,64 +156,62 @@ class Menu {
 			<div class="range-item">
 				<label for="fov-range" class="fix-width">FOV</label>
 				<input type="range" class="range" id="fov-range" name="fov-range" min="30" max="120" step="10" />
-				<label for="fov-range" class="fix-width-mini text-right">100</label>
+				<label for="fov-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
 				<label for="fog-range" class="fix-width">雾气因子</label>
-				<input type="range" class="range" id="fog-range" name="fog-range" min="0" max="9.9" step="0.1" />
-				<label for="fog-range" class="fix-width-mini text-right">0.1</label>
-
+				<input type="range" class="range" id="fog-range" name="fog-range" min="0" max="10" step="1" />
+				<label for="fog-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
 				<label for="sim-range" class="fix-width">模拟距离</label>
 				<input type="range" class="range" id="sim-range" name="sim-range" min="0" max="999" step="1" />
-
-				<label for="sim-range" class="fix-width-mini text-right">999</label>
+				<label for="sim-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
 				<label for="rend-range" class="fix-width">渲染距离</label>
 				<input type="range" class="range" id="rend-range" name="rend-range" min="0" max="999" step="1" />
-				<label for="rend-range" class="fix-width-mini text-right">100</label>
+				<label for="rend-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
 				<label for="volume-range" class="fix-width">音量</label>
 				<input type="range" class="range" id="volume-range" name="volume-range" min="0" max="100" step="5" />
-				<label for="volume-range" class="fix-width-mini text-right">100</label>
+				<label for="volume-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
+			<label for="lang-select" class="fix-width">语言</label>
+			<select class="select" name="lang-select" id="lang-select">
+				<option value="cn">中文</option>
+				<option value="en">En&nbsp;&nbsp;</option>
+			</select>
 			<label for="operate-select" class="fix-width">操纵模式</label>
 			<select class="select" name="operate-select" id="operate-select">
 				<option value="pc">PC端</option>
 				<option value="mobile">移动端</option>
 				<option value="vr">VR</option>
 			</select>
+		</div>
+		<div class="box-line">
 			<label for="camera-select" class="fix-width">相机角度</label>
 			<select class="select" name="camera-select" id="camera-select">
 				<option value="3">高</option>
 				<option value="2">中</option>
 				<option value="1">低</option>
 			</select>
-		</div>
-		<div class="box-line">
-			<label for="S1" class="fix-width">语言</label>
-			<select class="select" name="S1" id="S1">
-				<option value="1">中文</option>
-				<option value="2">English</option>
-			</select>
-			<label for="fov" class="fix-width">Mipmap</label>
-			<select class="select" name="S1" id="S1">
-				<option value="1">高</option>
-				<option value="2">中</option>
-				<option value="3">低</option>
+			<label for="bag-type-select" class="fix-width">背包模式</label>
+			<select class="select" name="bag-type-select" id="bag-type-select">
+				<option value="pc">PC端</option>
+				<option value="mobile">移动端</option>
+				<option value="vr">VR</option>
 			</select>
 		</div>
 		<br />
@@ -210,14 +220,60 @@ class Menu {
 		backMenu.addEventListener('click', () => {
 			this[back]();
 		});
+		const fovRange = document.getElementById('fov-range') as HTMLInputElement;
+		fovRange.value = `${config.camera.fov}`;
+		fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
+		fovRange.addEventListener('input', () => {
+			config.camera.fov = Number.parseInt(fovRange.value, 10);
+			fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
+		});
+		const fogRange = document.getElementById('fog-range') as HTMLInputElement;
+		fogRange.value = `${config.renderer.fog * 10}`;
+		fogRange.nextElementSibling.innerHTML = `${config.renderer.fog}`;
+		fogRange.addEventListener('input', () => {
+			config.renderer.fog = Number.parseInt(fogRange.value, 10) / 10;
+			fogRange.nextElementSibling.innerHTML = `${config.renderer.fog}`;
+		});
+		const simRange = document.getElementById('sim-range') as HTMLInputElement;
+		simRange.value = `${config.renderer.simulateDistance}`;
+		simRange.nextElementSibling.innerHTML = `${config.renderer.simulateDistance}`;
+		simRange.addEventListener('input', () => {
+			config.renderer.simulateDistance = Number.parseInt(simRange.value, 10);
+			simRange.nextElementSibling.innerHTML = `${config.renderer.simulateDistance}`;
+		});
+		const renderRange = document.getElementById('rend-range') as HTMLInputElement;
+		renderRange.value = `${config.renderer.renderDistance}`;
+		renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
+		renderRange.addEventListener('input', () => {
+			config.renderer.renderDistance = Number.parseInt(renderRange.value, 10);
+			renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
+		});
+		const volumeRange = document.getElementById('volume-range') as HTMLInputElement;
+		volumeRange.value = `${config.controller.volume}`;
+		volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
+		volumeRange.addEventListener('input', () => {
+			config.controller.volume = Number.parseInt(volumeRange.value, 10);
+			volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
+		});
+		const cameraSelect = document.getElementById('camera-select') as HTMLInputElement;
+		cameraSelect.value = `${config.camera.camHeight}`;
+		cameraSelect.addEventListener('change', () => {
+			config.camera.camHeight = Number.parseInt(cameraSelect.value, 10);
+		});
+		const langSelect = document.getElementById('lang-select') as HTMLInputElement;
+		langSelect.value = `${config.controller.language}`;
+		langSelect.addEventListener('change', () => {
+			config.controller.language = langSelect.value as 'cn' | 'en';
+		});
 	}
 
 	toInnerGameSettingMenu() {
-		this.toSettingMenu({ back: this.toInnerGameSettingMenu });
+		this.toSettingMenu({ back: 'toInnerGameMenu' });
 		this.removeTitle();
 		this.setGrayBkg();
 	}
 
+	// TODO
 	toInnerGameMenu() {
 		this.setGrayBkg();
 		this.removeTitle();
@@ -231,6 +287,40 @@ class Menu {
 		<br>
 		<button id="save-game" class="button">存档</button>
 		<button id="exit-game" class="button">退出</button>`;
+
+		const backGameButton = document.getElementById('back-game');
+		backGameButton.addEventListener('click', () => {
+			this.hideMenu();
+		});
+
+		const settingGameButton = document.getElementById('game-setting');
+		settingGameButton.addEventListener('click', () => {
+			this.toInnerGameSettingMenu();
+		});
+
+		const help = this.boxElem.querySelector('#help');
+		help.addEventListener('click', () => {
+			this.toHelpMenu({ back: 'toInnerGameMenu' });
+		});
+		const about = this.boxElem.querySelector('#about');
+		about.addEventListener('click', () => {
+			this.toAboutMenu({ back: 'toInnerGameMenu' });
+		});
+
+		const saveGameButton = document.getElementById('save-game');
+		saveGameButton.addEventListener('click', () => {
+			// TODO: clean game
+			saveGameButton.innerText = '已保存';
+			setTimeout(() => {
+				saveGameButton.innerText = '存档';
+			}, 1000);
+		});
+
+		const exitGameButton = document.getElementById('exit-game');
+		exitGameButton.addEventListener('click', () => {
+			// TODO: clean game
+			this.toStartMenu();
+		});
 	}
 
 	toHelpMenu({ back }) {
@@ -293,7 +383,7 @@ class Menu {
 				基于Three.js的Minecraft实现.
 			</div>
 			<div class="box-line color-white">
-				去<a href="https://github.com/KairuiLiu/ThreeCraft">Github</a>了解更多
+				去<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>了解更多
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
