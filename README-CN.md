@@ -3,7 +3,7 @@
 <br/>ThreeCraft
 </h2>
 
-<p align="center"><strong>⛏🧱基于Three.js的MineCraft网页版实现</strong></p>
+<p align="center"><strong>⛏ 基于Three.js的MineCraft网页版实现</strong></p>
 
 ![Threejs](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white) ![Socketio](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)
 
@@ -12,7 +12,7 @@
 - [ ] 第一阶段
   - [ ] 方块的放置 / 破坏
   - [ ] 移动和碰撞检测
-  - [ ] 基本的 UI
+  - [x] 基本的 UI
   - [ ] 奔跑与飞翔
   - [ ] 高亮准心方块
 - [ ] 第二阶段
