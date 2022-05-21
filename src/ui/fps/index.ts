@@ -40,10 +40,11 @@ class Fps {
 			this.lastTime = cur;
 		}
 		this.cnt += 1;
-		if (this.available)
+		if (this.available) {
 			requestAnimationFrame(() => {
 				this.work();
 			});
+		}
 	}
 }
 

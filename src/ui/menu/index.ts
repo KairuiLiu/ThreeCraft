@@ -1,4 +1,4 @@
-import Controller from '../../controller';
+import { Controller } from '../../controller';
 import { config } from '../../core/config';
 
 class Menu {
@@ -83,35 +83,43 @@ class Menu {
 				<button id="about" class="button">关于项目</button>
 			</div>`;
 		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
-		singlePlayerGame.addEventListener('click', () => {
+		singlePlayerGame.addEventListener('click', e => {
+			e.stopPropagation();
 			this.controller.startGame(true);
 		});
 		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');
-		multiPlayerGame.addEventListener('click', () => {
+		multiPlayerGame.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toSocketConfigMenu({ back: 'toStartMenu' });
 		});
 		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file');
-		loadArchiveFile.addEventListener('click', () => {
+		loadArchiveFile.addEventListener('click', e => {
+			e.stopPropagation();
 			// TODO
 		});
 		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
-		loadArchiveStorage.addEventListener('click', () => {
+		loadArchiveStorage.addEventListener('click', e => {
+			e.stopPropagation();
 			// TODO
 		});
 		const loadArchiveCancel = this.boxElem.querySelector('#load-archive-cancel');
-		loadArchiveCancel.addEventListener('click', () => {
+		loadArchiveCancel.addEventListener('click', e => {
+			e.stopPropagation();
 			// TODO
 		});
 		const gameSetting = this.boxElem.querySelector('#game-setting');
-		gameSetting.addEventListener('click', () => {
+		gameSetting.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toSettingMenu({ back: 'toStartMenu' });
 		});
 		const help = this.boxElem.querySelector('#help');
-		help.addEventListener('click', () => {
+		help.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toHelpMenu({ back: 'toStartMenu' });
 		});
 		const about = this.boxElem.querySelector('#about');
-		about.addEventListener('click', () => {
+		about.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toAboutMenu({ back: 'toStartMenu' });
 		});
 	}
@@ -141,7 +149,8 @@ class Menu {
 			<button id="socket-exit-room" class="button hidden">退出房间</button>
 			<button class="button" id="backMenu">返回</button>`;
 		const backMenu = document.getElementById('backMenu');
-		backMenu.addEventListener('click', () => {
+		backMenu.addEventListener('click', e => {
+			e.stopPropagation();
 			this[back]();
 		});
 		// TODO
@@ -217,7 +226,8 @@ class Menu {
 		<br />
 		<button class="button" id="backMenu">返回</button>`;
 		const backMenu = document.getElementById('backMenu');
-		backMenu.addEventListener('click', () => {
+		backMenu.addEventListener('click', e => {
+			e.stopPropagation();
 			this[back]();
 		});
 		const fovRange = document.getElementById('fov-range') as HTMLInputElement;
@@ -289,26 +299,31 @@ class Menu {
 		<button id="exit-game" class="button">退出</button>`;
 
 		const backGameButton = document.getElementById('back-game');
-		backGameButton.addEventListener('click', () => {
+		backGameButton.addEventListener('click', e => {
+			e.stopPropagation();
 			this.hideMenu();
 		});
 
 		const settingGameButton = document.getElementById('game-setting');
-		settingGameButton.addEventListener('click', () => {
+		settingGameButton.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toInnerGameSettingMenu();
 		});
 
 		const help = this.boxElem.querySelector('#help');
-		help.addEventListener('click', () => {
+		help.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toHelpMenu({ back: 'toInnerGameMenu' });
 		});
 		const about = this.boxElem.querySelector('#about');
-		about.addEventListener('click', () => {
+		about.addEventListener('click', e => {
+			e.stopPropagation();
 			this.toAboutMenu({ back: 'toInnerGameMenu' });
 		});
 
 		const saveGameButton = document.getElementById('save-game');
-		saveGameButton.addEventListener('click', () => {
+		saveGameButton.addEventListener('click', e => {
+			e.stopPropagation();
 			// TODO: clean game
 			saveGameButton.innerText = '已保存';
 			setTimeout(() => {
@@ -317,7 +332,8 @@ class Menu {
 		});
 
 		const exitGameButton = document.getElementById('exit-game');
-		exitGameButton.addEventListener('click', () => {
+		exitGameButton.addEventListener('click', e => {
+			e.stopPropagation();
 			// TODO: clean game
 			this.toStartMenu();
 		});
@@ -368,7 +384,8 @@ class Menu {
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
 		const backMenu = document.getElementById('backMenu');
-		backMenu.addEventListener('click', () => {
+		backMenu.addEventListener('click', e => {
+			e.stopPropagation();
 			this[back]();
 		});
 	}
@@ -388,7 +405,8 @@ class Menu {
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
 		const backMenu = document.getElementById('backMenu');
-		backMenu.addEventListener('click', () => {
+		backMenu.addEventListener('click', e => {
+			e.stopPropagation();
 			this[back]();
 		});
 	}

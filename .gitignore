@@ -102,3 +102,5 @@ typings/
 
 src/assets/sounds
 dist
+.vscode
+/src/.vscode

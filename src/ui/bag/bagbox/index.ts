@@ -89,6 +89,7 @@ class BagBoxPlugin {
 
 	static getAllItemClickListener(host) {
 		return e => {
+			e.stopPropagation();
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
 			if (idx >= 0 && idx < 50) {
 				config.bag.bagItem[config.bag.bagBox.activeIdx] = symConfig.bag.bagBox.allItems[idx];
@@ -102,6 +103,7 @@ class BagBoxPlugin {
 
 	static getActiveItemClickListener(host) {
 		return e => {
+			e.stopPropagation();
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
 			if (idx >= 0 && idx < 10) {
 				config.bag.bagBox.activeIdx = idx;
@@ -111,7 +113,8 @@ class BagBoxPlugin {
 	}
 
 	static getBagCloseClickListener(host) {
-		return () => {
+		return e => {
+			e.stopPropagation();
 			host.toggleUseable();
 		};
 	}

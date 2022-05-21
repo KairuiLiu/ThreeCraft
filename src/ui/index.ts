@@ -3,10 +3,22 @@ import Crosshair from './crosshair';
 import Fps from './fps';
 import Bag from './bag';
 import Menu from './menu';
+import ActonControl from './action';
+import { Controller } from '../controller';
 
-const fps = new Fps(document.getElementById('HUD-stage'));
-const bag = new Bag(document.getElementById('HUD-stage'));
 const crosshair = new Crosshair(document.getElementById('HUD-stage'));
-const menu = new Menu(document.getElementById('app'));
+const fps = new Fps(document.getElementById('HUD-stage'));
+const actionControl = new ActonControl(document.getElementById('HUD-stage'), new Controller());
+const bag = new Bag(document.getElementById('HUD-stage'));
+const menu = new Menu(document.getElementById('app'), null); // TODO
 
-export default { fps, bag, crosshair, menu };
+// others
+document.oncontextmenu = () => false;
+
+export default {
+	fps,
+	bag,
+	crosshair,
+	menu,
+	actionControl,
+};

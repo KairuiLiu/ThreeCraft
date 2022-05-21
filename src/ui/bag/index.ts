@@ -24,7 +24,7 @@ class Bag {
 		[...el.children].forEach((d: HTMLElement) => d.getAttribute('id') === 'bag' && d.remove());
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
-		this.bagElem.classList.add('covered');
+		// this.bagElem.classList.add('covered');
 		el.appendChild(this.bagElem);
 		this.type = config.bag.type; // 背包样式
 		this.items = config.bag.bagItem; // 背包中元素String[]

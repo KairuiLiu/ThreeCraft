@@ -3,9 +3,9 @@ module.exports = {
 		browser: true,
 		es2021: true,
 	},
-	extends: ['eslint:recommended', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended', 'airbnb-base', 'plugin:prettier/recommended', 'prettier'],
+	extends: ['eslint:recommended', 'airbnb-base', 'plugin:@typescript-eslint/eslint-recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'prettier'],
 	parserOptions: {
-		ecmaVersion: 2018,
+		ecmaVersion: 2022,
 		parser: '@typescript-eslint/parser',
 		sourceType: 'module',
 	},

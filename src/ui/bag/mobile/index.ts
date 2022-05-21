@@ -47,6 +47,7 @@ class BagMobilePlugin {
 	// 单击选中框， 单击已选框打开背包
 	static getClickItemEventListener(host) {
 		return e => {
+			e.stopPropagation();
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
 			if (idx >= 0 && idx <= 9) {
 				if (idx === config.bag.activeIndex) host.toggleBag();
