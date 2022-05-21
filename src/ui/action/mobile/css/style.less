@@ -1,0 +1,54 @@
+@import '../../../bag/css/style.less';
+
+#mobile-joy-stick {
+	position: fixed;
+	left: 5%;
+	bottom: 10%;
+}
+
+.mobile-operate-button {
+	.hud-box;
+	position: fixed;
+	right: 10%;
+	bottom: 10%;
+	width: auto;
+	height: auto;
+	transform: translate(0);
+	outline: none;
+	&.active {
+		border-image-source: url(../../../../assets/pictures/hud-box-border-active.png);
+	}
+}
+
+#mobile-jump-button,
+#remove-block-button,
+#create-block-button,
+#jump-down-button {
+	.mobile-operate-button;
+	padding: 0.3rem;
+	font-size: 1.7rem;
+	transform: translate(-66.5px, -115.18px);
+}
+
+#mobile-jump-button {
+	.mobile-operate-button;
+	.bold-border;
+	padding: 0.5rem;
+	font-size: 2.5rem;
+}
+
+#create-block-button {
+	transform: translate(-124.98px, -45.49px);
+}
+
+#jump-down-button {
+	transform: translate(23.1px, -130.98px);
+}
+
+#open-bag-button {
+	.hud-box;
+	top: 0;
+	right: 0;
+	padding: 0.5rem;
+	position: absolute;
+}

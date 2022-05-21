@@ -1,11 +1,12 @@
 import { config } from '../../core/config';
 import { Controller } from '../../controller';
 import ActionPluginPc from './pc';
+import ActionPluginMobile from './mobile';
 
 class ActonControl {
 	elem: HTMLElement;
 
-	plugin: null | ActionPluginPc;
+	plugin: null | ActionPluginPc | ActionPluginMobile;
 
 	controller: Controller;
 
@@ -23,7 +24,7 @@ class ActonControl {
 		if (config.controller.operation === 'pc') {
 			this.plugin = new ActionPluginPc(this.elem, this.controller);
 		} else if (config.controller.operation === 'mobile') {
-			// code for mobile
+			this.plugin = new ActionPluginMobile(this.elem, this.controller);
 		} else {
 			// code for vr
 		}

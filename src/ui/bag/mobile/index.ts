@@ -11,7 +11,7 @@ class BagMobilePlugin {
 	host: { highlight: () => void; toggleBag: () => void };
 
 	// eslint-disable-next-line
-	clickItemEventListener: (e: MouseEvent) => void;
+	clickItemEventListener: (e: TouchEvent | MouseEvent) => void;
 
 	constructor(bagOuterElem: HTMLElement, host) {
 		// 清除其他插件
@@ -36,18 +36,20 @@ class BagMobilePlugin {
 
 	// 监听事件
 	listen() {
-		this.bagInnerElem.addEventListener('click', this.clickItemEventListener);
+		if (config.controller.dev) this.bagInnerElem.addEventListener('click', this.clickItemEventListener);
+		this.bagInnerElem.addEventListener('touchstart', this.clickItemEventListener);
 	}
 
 	// 取消监听
 	pause() {
-		this.bagInnerElem.removeEventListener('click', this.clickItemEventListener);
+		this.bagInnerElem.removeEventListener('touchstart', this.clickItemEventListener);
 	}
 
 	// 单击选中框， 单击已选框打开背包
 	static getClickItemEventListener(host) {
 		return e => {
 			e.stopPropagation();
+			e.preventDefault();
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
 			if (idx >= 0 && idx <= 9) {
 				if (idx === config.bag.activeIndex) host.toggleBag();

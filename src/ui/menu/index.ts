@@ -63,6 +63,7 @@ class Menu {
 
 	// TODO
 	toStartMenu() {
+		this.showMenu();
 		this.showTitle();
 		this.setImgBkg();
 		this.removeBorder();
@@ -126,6 +127,7 @@ class Menu {
 
 	// TODO
 	toSocketConfigMenu({ back }) {
+		this.showMenu();
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -157,6 +159,7 @@ class Menu {
 	}
 
 	toSettingMenu({ back }) {
+		this.showMenu();
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -285,6 +288,7 @@ class Menu {
 
 	// TODO
 	toInnerGameMenu() {
+		this.showMenu();
 		this.setGrayBkg();
 		this.removeTitle();
 		this.showBorder();
@@ -292,6 +296,7 @@ class Menu {
 		this.boxElem.innerHTML = `
 		<button id="back-game" class="button">返回游戏</button>
 		<button id="game-setting" class="button">游戏设置</button>
+		<button id="game-full-screen" class="button">全屏/取消全屏</button>
 		<button id="help" class="button">帮助</button>
 		<button id="about" class="button">关于项目</button>
 		<br>
@@ -320,6 +325,15 @@ class Menu {
 			e.stopPropagation();
 			this.toAboutMenu({ back: 'toInnerGameMenu' });
 		});
+		const fullScreen = this.boxElem.querySelector('#game-full-screen');
+		fullScreen.addEventListener('click', e => {
+			e.stopPropagation();
+			if (document.fullscreenElement) {
+				document.exitFullscreen();
+			} else {
+				document.body.requestFullscreen();
+			}
+		});
 
 		const saveGameButton = document.getElementById('save-game');
 		saveGameButton.addEventListener('click', e => {
@@ -340,6 +354,7 @@ class Menu {
 	}
 
 	toHelpMenu({ back }) {
+		this.showMenu();
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
@@ -391,6 +406,7 @@ class Menu {
 	}
 
 	toAboutMenu({ back }) {
+		this.showMenu();
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();

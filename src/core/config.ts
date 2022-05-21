@@ -24,15 +24,16 @@ const config: {
 		volume: number;
 		operation: 'pc' | 'mobile' | 'vr';
 		language: 'cn' | 'en';
+		dev: boolean;
 	};
 } = {
 	bag: {
-		type: 'pc',
+		type: 'mobile',
 		bagItem: ['Grass_Block', 'Diorite', 'Dark_Oak_Leaves', 'Gold_Ore', 'Water', 'Coal_Ore', 'Glass', 'Slime_Block', 'Emerald_Ore', 'Block_of_Diamond'],
 		activeIndex: 2,
 		mobile: {
-			rotateDegree: 12,
-			radius: 300,
+			rotateDegree: 12.5,
+			radius: 233,
 		},
 		bagBox: {
 			activeIdx: 0,
@@ -49,8 +50,9 @@ const config: {
 	},
 	controller: {
 		volume: 80,
-		operation: 'pc',
+		operation: 'mobile',
 		language: 'cn',
+		dev: false,
 	},
 };
 

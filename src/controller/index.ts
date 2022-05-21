@@ -9,9 +9,9 @@ enum actionMoveEvent {
 }
 
 // eslint-disable-next-line
-enum actionKeyEvent {
-	LEFT,
-	RIGHT,
+enum actionBlockEvent {
+	ADD,
+	REMOVE,
 }
 
 class Controller {
@@ -21,12 +21,12 @@ class Controller {
 		this;
 	}
 
-	handleMoveAction(key) {
+	handleMoveAction({ font, left, up }) {
 		this;
-		console.log(key);
+		console.log({ font, left, up });
 	}
 
-	handleBlockAction(key) {
+	handleBlockAction(key: actionBlockEvent) {
 		this;
 		console.log('type', key);
 	}
@@ -37,4 +37,4 @@ class Controller {
 	}
 }
 
-export { Controller, actionMoveEvent, actionKeyEvent };
+export { Controller, actionMoveEvent, actionBlockEvent };

@@ -6,19 +6,25 @@ import Menu from './menu';
 import ActonControl from './action';
 import { Controller } from '../controller';
 
-const crosshair = new Crosshair(document.getElementById('HUD-stage'));
-const fps = new Fps(document.getElementById('HUD-stage'));
-const actionControl = new ActonControl(document.getElementById('HUD-stage'), new Controller());
-const bag = new Bag(document.getElementById('HUD-stage'));
-const menu = new Menu(document.getElementById('app'), null); // TODO
+class UI {
+	crosshair: Crosshair;
 
-// others
-document.oncontextmenu = () => false;
+	fps: Fps;
 
-export default {
-	fps,
-	bag,
-	crosshair,
-	menu,
-	actionControl,
-};
+	actionControl: ActonControl;
+
+	bag: Bag;
+
+	menu: Menu;
+
+	constructor() {
+		this.crosshair = new Crosshair(document.getElementById('HUD-stage'));
+		this.fps = new Fps(document.getElementById('HUD-stage'));
+		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), new Controller()); // todo
+		this.bag = new Bag(document.getElementById('HUD-stage'));
+		this.menu = new Menu(document.getElementById('app'), null); // TODO
+		document.oncontextmenu = () => false;
+	}
+}
+
+export default UI;
