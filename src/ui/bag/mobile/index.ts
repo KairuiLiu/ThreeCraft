@@ -1,4 +1,4 @@
-import { config } from '../../../core/config';
+import { config } from '../../../controller/config';
 import './css/style.less';
 
 class BagMobilePlugin {

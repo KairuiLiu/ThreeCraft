@@ -28,7 +28,7 @@ const config: {
 	};
 } = {
 	bag: {
-		type: 'mobile',
+		type: 'pc',
 		bagItem: ['Grass_Block', 'Diorite', 'Dark_Oak_Leaves', 'Gold_Ore', 'Water', 'Coal_Ore', 'Glass', 'Slime_Block', 'Emerald_Ore', 'Block_of_Diamond'],
 		activeIndex: 2,
 		mobile: {
@@ -50,7 +50,7 @@ const config: {
 	},
 	controller: {
 		volume: 80,
-		operation: 'mobile',
+		operation: 'pc',
 		language: 'cn',
 		dev: false,
 	},

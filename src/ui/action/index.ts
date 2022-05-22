@@ -1,4 +1,4 @@
-import { config } from '../../core/config';
+import { config } from '../../controller/config';
 import { Controller } from '../../controller';
 import ActionPluginPc from './pc';
 import ActionPluginMobile from './mobile';

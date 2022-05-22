@@ -1,5 +1,5 @@
 import './css/style.less';
-import { config, symConfig } from '../../../core/config';
+import { config, symConfig } from '../../../controller/config';
 
 class BagBoxPlugin {
 	host: { onToggleBag: () => void };

@@ -1,5 +1,5 @@
 import { Controller } from '../../controller';
-import { config } from '../../core/config';
+import { config } from '../../controller/config';
 
 class Menu {
 	elem: HTMLElement;

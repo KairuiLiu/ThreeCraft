@@ -1,12 +1,10 @@
-// eslint-disable-next-line
-enum actionMoveEvent {
-	FONT,
-	BACK,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-}
+import UI from '../ui';
+import Gl from '../gl';
+import { config } from './config';
+import BlockController from './block-controller';
+import GameController from './game-controller';
+import MoveController from './move-controller';
+import UiController from './ui-controller';
 
 // eslint-disable-next-line
 enum actionBlockEvent {
@@ -15,6 +13,28 @@ enum actionBlockEvent {
 }
 
 class Controller {
+	ui: UI;
+
+	gl: Gl;
+
+	blockController: BlockController;
+
+	gameController: GameController;
+
+	moveController: MoveController;
+
+	uiController: UiController;
+
+	constructor(ui: UI, gl: Gl) {
+		this.ui = ui;
+		this.gl = gl;
+
+		this.blockController = new BlockController(this.gl);
+		this.gameController = new GameController(this.gl);
+		this.moveController = new MoveController(this.blockController);
+		this.uiController = new UiController(this.ui);
+	}
+
 	startGame(single: boolean) {
 		console.log('game start');
 		console.log('single', single);
@@ -37,4 +57,4 @@ class Controller {
 	}
 }
 
-export { Controller, actionMoveEvent, actionBlockEvent };
+export { Controller, actionBlockEvent };

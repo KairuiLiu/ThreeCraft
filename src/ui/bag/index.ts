@@ -2,7 +2,7 @@ import BagPcPlugin from './pc';
 import BagMobilePlugin from './mobile/index';
 import BagBoxPlugin from './bagbox';
 import './css/style.less';
-import { config } from '../../core/config';
+import { config } from '../../controller/config';
 
 class Bag {
 	type: 'pc' | 'mobile' | 'vr';
