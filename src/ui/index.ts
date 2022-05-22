@@ -17,10 +17,13 @@ class UI {
 
 	menu: Menu;
 
-	constructor() {
+	controller: Controller;
+
+	loadController(controller: Controller) {
+		this.controller = controller;
 		this.crosshair = new Crosshair(document.getElementById('HUD-stage'));
 		this.fps = new Fps(document.getElementById('HUD-stage'));
-		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), new Controller()); // todo
+		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), this.controller); // todo
 		this.bag = new Bag(document.getElementById('HUD-stage'));
 		this.menu = new Menu(document.getElementById('app'), null); // TODO
 		document.oncontextmenu = () => false;

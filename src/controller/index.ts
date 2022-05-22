@@ -1,10 +1,7 @@
 import UI from '../ui';
-import Gl from '../gl';
-import { config } from './config';
-import BlockController from './block-controller';
-import GameController from './game-controller';
-import MoveController from './move-controller';
+import Core from '../core';
 import UiController from './ui-controller';
+import GameController from './game-controller';
 
 // eslint-disable-next-line
 enum actionBlockEvent {
@@ -15,24 +12,20 @@ enum actionBlockEvent {
 class Controller {
 	ui: UI;
 
-	gl: Gl;
-
-	blockController: BlockController;
+	core: Core;
 
 	gameController: GameController;
 
-	moveController: MoveController;
-
 	uiController: UiController;
 
-	constructor(ui: UI, gl: Gl) {
+	constructor(ui: UI, core: Core) {
 		this.ui = ui;
-		this.gl = gl;
+		this.core = core;
 
-		this.blockController = new BlockController(this.gl);
-		this.gameController = new GameController(this.gl);
-		this.moveController = new MoveController(this.blockController);
+		this.gameController = new GameController(this.core);
 		this.uiController = new UiController(this.ui);
+
+		this.ui.loadController(this);
 	}
 
 	startGame(single: boolean) {

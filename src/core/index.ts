@@ -1,4 +1,4 @@
-class Gl {
+class Core {
 	gl: number;
 
 	constructor() {
@@ -6,4 +6,4 @@ class Gl {
 	}
 }
 
-export default Gl;
+export default Core;
