@@ -17,7 +17,8 @@ class ActionPluginPc {
 
 	listen() {
 		// TODO Mouse Move
-		// document.body.requestPointerLock();
+		document.body.requestPointerLock();
+		this.elem.requestPointerLock();
 		document.addEventListener('keydown', e => this.keyListener(e));
 		this.elem.addEventListener('contextmenu', e => this.clickListener(e));
 		this.elem.addEventListener('click', e => this.clickListener(e));
@@ -25,7 +26,8 @@ class ActionPluginPc {
 
 	pause() {
 		// TODO
-		// document.body.requestPointerLock();
+		document.exitPointerLock();
+		document.body.requestPointerLock;
 		document.removeEventListener('keydown', e => this.keyListener(e));
 		this.elem.removeEventListener('contextmenu', e => this.clickListener(e));
 		this.elem.removeEventListener('click', e => this.clickListener(e));
@@ -39,7 +41,11 @@ class ActionPluginPc {
 		else if (e.key === ' ') this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
 		else if (e.key === 'Shift') this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
 		else if (['q', 'Q'].includes(e.key)) this.controller.toggleCheatMode();
-		else if (e.key === 'Escape') this.controller.uiController.ui.menu.toInnerGameMenu();
+		else if (e.key === 'Escape') {
+			// todo 按下esc后不显示
+			this.pause();
+			this.controller.uiController.ui.menu.toInnerGameMenu();
+		}
 	}
 
 	clickListener(e) {

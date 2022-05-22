@@ -26,6 +26,8 @@ class Controller {
 	startGame(single: boolean) {
 		console.log('game start');
 		console.log('single', single);
+		this.uiController.ui.menu.hideMenu();
+		this.uiController.ui.actionControl.listen();
 		this;
 	}
 

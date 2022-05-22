@@ -29,7 +29,14 @@ class ActonControl {
 			// code for vr
 		}
 		this.plugin.load();
+	}
+
+	listen() {
 		this.plugin.listen();
+	}
+
+	pause() {
+		this.plugin.pause();
 	}
 }
 

@@ -1,3 +1,5 @@
+// reference from https://juejin.cn/post/6844903620190666759
+
 export function deepClone(source) {
 	const copyedObjs = []; // 此数组解决了循环引用和相同引用的问题，它存放已经递归到的目标对象
 	function deepCopyFunction(target) {
