@@ -38,6 +38,7 @@ class ActionPluginPc {
 		else if (e.key === ' ') this.controller.handleMoveAction({ font: 0, left: 0, up: 1 });
 		else if (e.key === 'Shift') this.controller.handleMoveAction({ font: 0, left: 0, up: -1 });
 		else if (['q', 'Q'].includes(e.key)) this.controller.toggleCheatMode();
+		else if (e.key === 'Escape') this.controller.uiController.ui.menu.toInnerGameMenu();
 	}
 
 	clickListener(e) {
