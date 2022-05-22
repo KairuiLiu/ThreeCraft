@@ -25,6 +25,14 @@ const config: {
 		operation: 'pc' | 'mobile' | 'vr';
 		language: 'cn' | 'en';
 		dev: boolean;
+		cheat: boolean;
+		fps: boolean;
+	};
+	state: {
+		posX: number;
+		posY: number;
+		posZ: number;
+		jumping: boolean;
 	};
 } = {
 	bag: {
@@ -52,7 +60,89 @@ const config: {
 		volume: 80,
 		operation: 'pc',
 		language: 'cn',
+		cheat: false,
 		dev: false,
+		fps: true,
+	},
+	state: {
+		posX: 0,
+		posY: 0,
+		posZ: 0,
+		jumping: false,
+	},
+};
+
+const defaultConfig: {
+	bag: {
+		type: 'pc' | 'mobile' | 'vr';
+		bagItem: (string | null)[];
+		activeIndex: number;
+		mobile: {
+			rotateDegree: number;
+			radius: number;
+		};
+		bagBox: {
+			activeIdx: number;
+		};
+	};
+	camera: {
+		fov: number;
+		camHeight: number;
+	};
+	renderer: {
+		fog: number;
+		simulateDistance: number;
+		renderDistance: number;
+	};
+	controller: {
+		volume: number;
+		operation: 'pc' | 'mobile' | 'vr';
+		language: 'cn' | 'en';
+		dev: boolean;
+		cheat: boolean;
+		fps: boolean;
+	};
+	state: {
+		posX: number;
+		posY: number;
+		posZ: number;
+		jumping: boolean;
+	};
+} = {
+	bag: {
+		type: 'pc',
+		bagItem: ['Grass_Block', 'Diorite', 'Dark_Oak_Leaves', 'Gold_Ore', 'Water', 'Coal_Ore', 'Glass', 'Slime_Block', 'Emerald_Ore', 'Block_of_Diamond'],
+		activeIndex: 2,
+		mobile: {
+			rotateDegree: 12.5,
+			radius: 233,
+		},
+		bagBox: {
+			activeIdx: 0,
+		},
+	},
+	camera: {
+		fov: 100,
+		camHeight: 2,
+	},
+	renderer: {
+		fog: 0.2,
+		simulateDistance: 100,
+		renderDistance: 100,
+	},
+	controller: {
+		volume: 80,
+		operation: 'pc',
+		language: 'cn',
+		cheat: false,
+		dev: false,
+		fps: true,
+	},
+	state: {
+		posX: 0,
+		posY: 0,
+		posZ: 0,
+		jumping: false,
 	},
 };
 
@@ -104,4 +194,4 @@ const symConfig: {
 	},
 };
 
-export { config, symConfig };
+export { config, symConfig, defaultConfig };

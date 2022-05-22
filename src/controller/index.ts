@@ -1,13 +1,8 @@
 import UI from '../ui';
 import Core from '../core';
 import UiController from './ui-controller';
-import GameController from './game-controller';
-
-// eslint-disable-next-line
-enum actionBlockEvent {
-	ADD,
-	REMOVE,
-}
+import { GameController } from './game-controller';
+import { config } from './config';
 
 class Controller {
 	ui: UI;
@@ -34,20 +29,11 @@ class Controller {
 		this;
 	}
 
-	handleMoveAction({ font, left, up }) {
-		this;
-		console.log({ font, left, up });
-	}
-
-	handleBlockAction(key: actionBlockEvent) {
-		this;
-		console.log('type', key);
-	}
-
 	toggleCheatMode() {
+		config.controller.cheat = !config.controller.cheat;
+		console.log('cheat', config.controller.cheat);
 		this;
-		console.log('cheat');
 	}
 }
 
-export { Controller, actionBlockEvent };
+export { Controller };

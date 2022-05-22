@@ -1,4 +1,5 @@
-import { Controller, actionBlockEvent } from '../../../controller';
+import { Controller } from '../../../controller';
+import { actionBlockEvent } from '../../../controller/game-controller';
 import JoyStick from './joy-stick';
 import './css/style.less';
 
@@ -32,7 +33,7 @@ class ActionPluginMobile {
 		this.jumpButton.innerText = '跳';
 		this.elem.appendChild(this.jumpButton);
 		this.jumpButton.addEventListener('touchstart', () => {
-			this.controller.handleMoveAction({ font: 0, left: 0, up: 1 });
+			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
 		});
 
 		this.removeBlockButton = document.createElement('button');
@@ -40,7 +41,7 @@ class ActionPluginMobile {
 		this.removeBlockButton.innerText = '拆';
 		this.elem.appendChild(this.removeBlockButton);
 		this.removeBlockButton.addEventListener('touchstart', () => {
-			this.controller.handleBlockAction(actionBlockEvent.REMOVE);
+			this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
 		});
 
 		this.createBlockButton = document.createElement('button');
@@ -48,7 +49,7 @@ class ActionPluginMobile {
 		this.createBlockButton.innerText = '建';
 		this.elem.appendChild(this.createBlockButton);
 		this.createBlockButton.addEventListener('touchstart', () => {
-			this.controller.handleBlockAction(actionBlockEvent.ADD);
+			this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
 		});
 
 		this.jumpDownButton = document.createElement('button');
@@ -56,7 +57,7 @@ class ActionPluginMobile {
 		this.jumpDownButton.innerText = '落';
 		this.elem.appendChild(this.jumpDownButton);
 		this.jumpDownButton.addEventListener('touchstart', () => {
-			this.controller.handleMoveAction({ font: 0, left: 0, up: -1 });
+			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
 		});
 
 		this.openBagButton = document.createElement('button');
@@ -78,6 +79,7 @@ class ActionPluginMobile {
 	}
 
 	listen() {
+		// TODO Touch Move
 		this.joyStick.enable = true;
 		this.handleJoystickDirection();
 	}
@@ -90,7 +92,7 @@ class ActionPluginMobile {
 		if (!this.joyStick.enable) return;
 		if (this.joyStick.pressed) {
 			const { dirX, dirY } = this.joyStick.getDirection();
-			this.controller.handleMoveAction({ font: dirY / 100, left: -dirX / 100, up: 0 });
+			this.controller.gameController.handleMoveAction({ font: dirY / 100, left: -dirX / 100, up: 0 });
 		}
 		requestAnimationFrame(this.handleJoystickDirection.bind(this));
 	}

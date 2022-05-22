@@ -1,6 +1,14 @@
 import Core from '../../core';
 import BlockController from './block-controller';
 import MoveController from './move-controller';
+import { collisionCheck } from '../../utils/collision';
+import { config } from '../config';
+
+// eslint-disable-next-line
+enum actionBlockEvent {
+	ADD,
+	REMOVE,
+}
 
 class GameController {
 	core: Core;
@@ -14,6 +22,33 @@ class GameController {
 		this.blockController = new BlockController(this.core);
 		this.moveController = new MoveController(this.core);
 	}
+
+	// TODO
+	handleMoveAction({ font, left, up }) {
+		if (!config.controller.cheat && up !== 0 && config.state.jumping) {
+			up = 0;
+		}
+		const collision = collisionCheck({
+			posX: config.state.posX,
+			posY: config.state.posY,
+			posZ: config.state.posZ,
+			dirX: font,
+			dirY: left,
+			dirZ: up,
+			gl: this.core,
+		});
+		if (!collision)
+			this.moveController.move({
+				font,
+				left,
+				up,
+			});
+	}
+
+	handleBlockAction(key: actionBlockEvent) {
+		this;
+		console.log('block', key);
+	}
 }
 
-export default GameController;
+export { GameController, actionBlockEvent };

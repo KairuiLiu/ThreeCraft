@@ -1,5 +1,6 @@
 import { Controller } from '../../controller';
-import { config } from '../../controller/config';
+import { deepCopy } from '../../utils/deep-copy';
+import { config, defaultConfig } from '../../controller/config';
 
 class Menu {
 	elem: HTMLElement;
@@ -21,6 +22,7 @@ class Menu {
 		this.boxElem = this.elem.querySelector('.box');
 		el.appendChild(this.elem);
 		this.hideMenu();
+		// this.toInnerGameMenu();
 	}
 
 	clearMenuItem() {
@@ -61,7 +63,32 @@ class Menu {
 		this.elem.classList.add('hidden');
 	}
 
-	// TODO
+	setNotify(info, timeout = 1000) {
+		const existNotifyElem = this.elem.querySelectorAll('#notify');
+		[...existNotifyElem].forEach(d => d.remove());
+		const elem = document.createElement('div');
+		elem.setAttribute('id', 'notify');
+		elem.innerText = info;
+		const timeOutId = setTimeout(() => {
+			elem.remove();
+		}, timeout);
+		elem.setAttribute('timeOutId', `${timeOutId}`);
+		this.elem.appendChild(elem);
+	}
+
+	onLoadArchiveSuccess() {
+		document.getElementById('load-archive').classList.add('hidden');
+		document.getElementById('load-archive-cancel').classList.remove('hidden');
+		this;
+	}
+
+	onLoadArchivecancel() {
+		document.getElementById('load-archive').classList.remove('hidden');
+		document.getElementById('load-archive-cancel').classList.add('hidden');
+		this;
+	}
+
+	// TODO * 3
 	toStartMenu() {
 		this.showMenu();
 		this.showTitle();
@@ -73,7 +100,7 @@ class Menu {
 				<button id="single-player-game" class="button">单人游戏</button>
 				<button id="multi-player-game" class="button">多人游戏</button>
 			</div>
-			<div class="box-line">
+			<div class="box-line" id="load-archive">
 				<button id="load-archive-file" class="button">上载存档</button>
 				<button id="load-archive-storage" class="button">缓存读档</button>
 			</div>
@@ -96,17 +123,27 @@ class Menu {
 		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file');
 		loadArchiveFile.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO
+			// TODO 实现存档文件上载
 		});
 		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
 		loadArchiveStorage.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO
+			// TODO 实现从浏览器读取存档
+			const configLocalStorage = localStorage.getItem('config');
+			if (configLocalStorage) {
+				deepCopy(JSON.parse(configLocalStorage), config);
+				this.setNotify('读档成功');
+				this.onLoadArchiveSuccess();
+			} else {
+				this.setNotify('浏览器无存档');
+			}
 		});
 		const loadArchiveCancel = this.boxElem.querySelector('#load-archive-cancel');
 		loadArchiveCancel.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO
+			deepCopy(defaultConfig, config);
+			this.onLoadArchivecancel();
+			this.setNotify('取消成功');
 		});
 		const gameSetting = this.boxElem.querySelector('#game-setting');
 		gameSetting.addEventListener('click', e => {
@@ -125,7 +162,7 @@ class Menu {
 		});
 	}
 
-	// TODO
+	// TODO 实现Socket
 	toSocketConfigMenu({ back }) {
 		this.showMenu();
 		this.showBorder();
@@ -155,7 +192,6 @@ class Menu {
 			e.stopPropagation();
 			this[back]();
 		});
-		// TODO
 	}
 
 	toSettingMenu({ back }) {
@@ -286,7 +322,8 @@ class Menu {
 		this.setGrayBkg();
 	}
 
-	// TODO
+	// TODO 存档相关, 退出游戏
+	// ! 游戏状态管理
 	toInnerGameMenu() {
 		this.showMenu();
 		this.setGrayBkg();
@@ -297,6 +334,10 @@ class Menu {
 		<button id="back-game" class="button">返回游戏</button>
 		<button id="game-setting" class="button">游戏设置</button>
 		<button id="game-full-screen" class="button">全屏/取消全屏</button>
+		<div class="box-line color-white">
+			<button id="game-fps-mode" class="button"></button>
+			<button id="game-cheat-mode" class="button"></button>
+		</div>
 		<button id="help" class="button">帮助</button>
 		<button id="about" class="button">关于项目</button>
 		<br>
@@ -338,17 +379,31 @@ class Menu {
 		const saveGameButton = document.getElementById('save-game');
 		saveGameButton.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO: clean game
-			saveGameButton.innerText = '已保存';
-			setTimeout(() => {
-				saveGameButton.innerText = '存档';
-			}, 1000);
+			localStorage.setItem('config', JSON.stringify(config));
+			this.setNotify('保存成功');
+		});
+
+		const cheatModeButton = document.getElementById('game-cheat-mode');
+		cheatModeButton.innerText = `作弊模式: ${config.controller.cheat ? '开' : '关'}`;
+		cheatModeButton.addEventListener('click', e => {
+			e.stopPropagation();
+			this.controller.toggleCheatMode();
+			cheatModeButton.innerText = `作弊模式: ${config.controller.cheat ? '开' : '关'}`;
+		});
+
+		const fpsModeButton = document.getElementById('game-fps-mode');
+		fpsModeButton.innerText = `FPS: ${config.controller.fps ? '开' : '关'}`;
+		fpsModeButton.addEventListener('click', e => {
+			e.stopPropagation();
+			config.controller.fps = !config.controller.fps;
+			if (config.controller.fps) this.controller.uiController.ui.fps.begin();
+			else this.controller.uiController.ui.fps.stop();
+			fpsModeButton.innerText = `FPS: ${config.controller.fps ? '开' : '关'}`;
 		});
 
 		const exitGameButton = document.getElementById('exit-game');
 		exitGameButton.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO: clean game
 			this.toStartMenu();
 		});
 	}

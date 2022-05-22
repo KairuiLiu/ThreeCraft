@@ -6,6 +6,11 @@ class MoveController {
 	constructor(core: Core) {
 		this.core = core;
 	}
+
+	move(arg) {
+		console.log('move', arg);
+		this;
+	}
 }
 
 export default MoveController;

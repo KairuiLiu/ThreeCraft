@@ -25,7 +25,7 @@ class UI {
 		this.fps = new Fps(document.getElementById('HUD-stage'));
 		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), this.controller); // todo
 		this.bag = new Bag(document.getElementById('HUD-stage'));
-		this.menu = new Menu(document.getElementById('app'), null); // TODO
+		this.menu = new Menu(document.getElementById('app'), this.controller);
 		document.oncontextmenu = () => false;
 	}
 }
