@@ -82,7 +82,7 @@ class Menu {
 		this;
 	}
 
-	onLoadArchivecancel() {
+	onLoadArchiveCancel() {
 		document.getElementById('load-archive').classList.remove('hidden');
 		document.getElementById('load-archive-cancel').classList.add('hidden');
 		this;
@@ -142,7 +142,7 @@ class Menu {
 		loadArchiveCancel.addEventListener('click', e => {
 			e.stopPropagation();
 			deepCopy(defaultConfig, config);
-			this.onLoadArchivecancel();
+			this.onLoadArchiveCancel();
 			this.setNotify('取消成功');
 		});
 		const gameSetting = this.boxElem.querySelector('#game-setting');

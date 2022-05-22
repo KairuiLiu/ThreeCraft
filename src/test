@@ -1,0 +1,82 @@
+{ fromTarget: [ 1, 2, 3, { key: '123' } ], toTarget: [ 1, 2, 3 ] }
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: {}
+}
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: { arr: undefined }
+}
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: { arr: undefined, self: undefined }
+}
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: { arr: undefined, self: undefined, common1: undefined }
+}
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: {
+    arr: undefined,
+    self: undefined,
+    common1: undefined,
+    common2: undefined
+  }
+}
+{
+  fromTarget: <ref *1> {
+    arr: [ 1, 2, 3, [Object] ],
+    self: [Circular *1],
+    common1: { name: 'ccc' },
+    common2: { name: 'ccc' }
+  },
+  toTarget: {
+    arr: undefined,
+    self: undefined,
+    common1: undefined,
+    common2: undefined
+  }
+}
+<ref *1> {
+  arr: [ 1, 2, 3, { key: '123' } ],
+  self: [Circular *1],
+  common1: { name: 'ccc' },
+  common2: { name: 'ccc' }
+}
+{
+  arr: [ 1, 2, 3, undefined ],
+  self: {
+    arr: undefined,
+    self: undefined,
+    common1: undefined,
+    common2: undefined
+  },
+  common1: undefined,
+  common2: undefined
+}
