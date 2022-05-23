@@ -29,11 +29,18 @@ class ActionPluginPc {
 
 	listen() {
 		// TODO Mouse Move
-		document.addEventListener('keydown', this.keyListener);
-		this.elem.addEventListener('contextmenu', this.clickListener);
-		this.elem.addEventListener('click', this.clickListener);
-		this.elem.addEventListener('mousemove', this.mouseMoveListener);
-		this.elem.requestPointerLock();
+		// eslint-disable-next-line
+		(this.elem.requestPointerLock() as unknown as Promise<null>).then(
+			() => {
+				document.addEventListener('keydown', this.keyListener);
+				this.elem.addEventListener('contextmenu', this.clickListener);
+				this.elem.addEventListener('click', this.clickListener);
+				this.elem.addEventListener('mousemove', this.mouseMoveListener);
+			},
+			() => {
+				this.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, this.elem);
+			}
+		);
 	}
 
 	pause() {
@@ -66,7 +73,7 @@ class ActionPluginPc {
 			e.preventDefault();
 			e.stopPropagation();
 			if (!document.pointerLockElement) {
-				document.body.requestPointerLock();
+				self.listen();
 				return false;
 			}
 			if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);

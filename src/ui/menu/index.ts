@@ -1,6 +1,7 @@
 import { Controller } from '../../controller';
 import { deepCopy } from '../../utils/deep-copy';
 import { config, defaultConfig } from '../../controller/config';
+import { downloadJson } from '../../utils/download';
 
 class Menu {
 	elem: HTMLElement;
@@ -63,8 +64,8 @@ class Menu {
 		this.elem.classList.add('hidden');
 	}
 
-	setNotify(info, timeout = 1000) {
-		const existNotifyElem = this.elem.querySelectorAll('#notify');
+	setNotify(info, timeout = 1000, el = this.elem) {
+		const existNotifyElem = el.querySelectorAll('#notify');
 		[...existNotifyElem].forEach(d => d.remove());
 		const elem = document.createElement('div');
 		elem.setAttribute('id', 'notify');
@@ -73,7 +74,7 @@ class Menu {
 			elem.remove();
 		}, timeout);
 		elem.setAttribute('timeOutId', `${timeOutId}`);
-		this.elem.appendChild(elem);
+		el.appendChild(elem);
 	}
 
 	onLoadArchiveSuccess() {
@@ -101,7 +102,8 @@ class Menu {
 				<button id="multi-player-game" class="button">多人游戏</button>
 			</div>
 			<div class="box-line" id="load-archive">
-				<button id="load-archive-file" class="button">上载存档</button>
+				<input id="load-archive-file" type="file" id="load-archive-file" class="file-loader" />
+				<button id="load-archive-file-button" class="button">上载存档</button>
 				<button id="load-archive-storage" class="button">缓存读档</button>
 			</div>
 			<button id="load-archive-cancel" class="button hidden">已加载, 点击取消</button>
@@ -120,10 +122,25 @@ class Menu {
 			e.stopPropagation();
 			this.toSocketConfigMenu({ back: 'toStartMenu' });
 		});
-		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file');
-		loadArchiveFile.addEventListener('click', e => {
+		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file') as HTMLInputElement;
+		loadArchiveFile.addEventListener('change', e => {
 			e.stopPropagation();
-			// TODO 实现存档文件上载
+			const { files } = loadArchiveFile;
+			if (files.length === 0) return false;
+			const file = files[0];
+			const reader = new FileReader();
+			reader.onload = () => {
+				deepCopy(JSON.parse(reader.result as string), config);
+				this.setNotify('读档成功');
+				this.onLoadArchiveSuccess();
+			};
+			reader.readAsText(file);
+			return false;
+		});
+		const loadArchiveFileButton = this.boxElem.querySelector('#load-archive-file-button') as HTMLInputElement;
+		loadArchiveFileButton.addEventListener('click', e => {
+			e.stopPropagation();
+			loadArchiveFile.click();
 		});
 		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
 		loadArchiveStorage.addEventListener('click', e => {
@@ -380,6 +397,7 @@ class Menu {
 		saveGameButton.addEventListener('click', e => {
 			e.stopPropagation();
 			localStorage.setItem('config', JSON.stringify(config));
+			downloadJson(JSON.stringify(config));
 			this.setNotify('保存成功');
 		});
 
