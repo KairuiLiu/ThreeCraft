@@ -1,5 +1,6 @@
 // eslint-disable-next-line
-import * as THREE from '../../node_modules/three/build/three.module';
+// import * as THREE from '../../node_modules/three/build/three.module';
+import * as THREE from 'three';
 import { config, symConfig } from '../controller/config';
 
 class Core {
@@ -70,6 +71,10 @@ class Core {
 		window.addEventListener('resize', () => {
 			this.renderer.setSize(window.innerWidth, window.innerHeight);
 		});
+	}
+
+	addTestScene() {
+		this;
 	}
 
 	work() {
