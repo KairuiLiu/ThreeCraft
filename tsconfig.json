@@ -13,14 +13,9 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
-		"lib": [
-			"esnext",
-			"dom"
-		],
+		"lib": ["esnext", "dom"],
 		"baseUrl": "./",
 		"paths": {}
 	},
-	"include": [
-		"./src",
-	]
+	"include": ["./src"]
 }
