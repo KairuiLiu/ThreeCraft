@@ -347,7 +347,7 @@ class Menu {
 		const backGameButton = document.getElementById('back-game');
 		backGameButton.addEventListener('click', e => {
 			e.stopPropagation();
-			this.hideMenu();
+			this.controller.backGame();
 		});
 
 		const settingGameButton = document.getElementById('game-setting');

@@ -28,7 +28,11 @@ class Controller {
 		console.log('single', single);
 		this.uiController.ui.menu.hideMenu();
 		this.uiController.ui.actionControl.listen();
-		this;
+	}
+
+	backGame() {
+		this.uiController.ui.menu.hideMenu();
+		this.uiController.ui.actionControl.listen();
 	}
 
 	toggleCheatMode() {

@@ -22,9 +22,12 @@ class JoyStick {
 
 	internalRadius: number;
 
-	constructor(el: HTMLElement, jConfig) {
+	emitFun: (unknown) => void;
+
+	constructor(el: HTMLElement, jConfig, emitFun) {
 		this.el = el;
 		this.enable = true;
+		this.emitFun = emitFun;
 		this.canvas = document.createElement('canvas');
 		this.canvas.setAttribute('id', 'mobile-joy-stick');
 		this.canvas.setAttribute('width', `${jConfig.width}`);
@@ -96,6 +99,7 @@ class JoyStick {
 			this.drawInternal();
 			this.dirX = 100 * ((this.movedX - this.canvas.width / 2) / (this.internalRadius + 30));
 			this.dirY = 100 * ((this.movedY - this.canvas.height / 2) / (this.canvas.height / 2 - 40)) * -1;
+			this.emitFun({ font: this.dirY / 100, left: -this.dirX / 100, up: 0 });
 		}
 	}
 
@@ -107,6 +111,7 @@ class JoyStick {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 		this.dirX = 100 * ((this.movedX - this.canvas.width / 2) / (this.internalRadius + 30));
 		this.dirY = 100 * ((this.movedY - this.canvas.height / 2) / (this.canvas.height / 2 - 40)) * -1;
+		this.emitFun({ font: this.dirY / 100, left: -this.dirX / 100, up: 0 });
 		this.drawExternal();
 		this.drawInternal();
 	}

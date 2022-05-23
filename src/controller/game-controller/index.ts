@@ -38,7 +38,7 @@ class GameController {
 			gl: this.core,
 		});
 		if (!collision)
-			this.moveController.move({
+			this.moveController.positionMove({
 				font,
 				left,
 				up,
@@ -48,6 +48,10 @@ class GameController {
 	handleBlockAction(key: actionBlockEvent) {
 		this;
 		console.log('block', key);
+	}
+
+	handleViewAction({ vertical, horizontal }) {
+		this.moveController.viewDirectionMove({ vertical, horizontal });
 	}
 }
 

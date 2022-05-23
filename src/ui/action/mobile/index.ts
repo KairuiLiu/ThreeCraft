@@ -2,6 +2,7 @@ import { Controller } from '../../../controller';
 import { actionBlockEvent } from '../../../controller/game-controller';
 import JoyStick from './joy-stick';
 import './css/style.less';
+import { config } from '../../../controller/config';
 
 class ActionPluginMobile {
 	elem: HTMLElement;
@@ -20,13 +21,21 @@ class ActionPluginMobile {
 
 	jumpDownButton: HTMLButtonElement;
 
+	touchMoveListener: (Event) => boolean;
+
+	touchMoveInitListener: (Event) => boolean;
+
+	lastTouchMovePosition: unknown;
+
 	constructor(el: HTMLElement, controller: Controller) {
 		this.elem = el;
 		this.controller = controller;
+		this.touchMoveListener = ActionPluginMobile.getTouchMoveListener(this);
+		this.touchMoveInitListener = ActionPluginMobile.getTouchInitListener(this);
 	}
 
 	load() {
-		this.joyStick = new JoyStick(this.elem, { width: 200, height: 200 });
+		this.joyStick = new JoyStick(this.elem, { width: 200, height: 200 }, ActionPluginMobile.getJoyStickChange(this));
 
 		this.jumpButton = document.createElement('button');
 		this.jumpButton.setAttribute('id', 'mobile-jump-button');
@@ -81,20 +90,57 @@ class ActionPluginMobile {
 	listen() {
 		// TODO Touch Move
 		this.joyStick.enable = true;
-		this.handleJoystickDirection();
+		this.elem.addEventListener('touchmove', this.touchMoveListener);
+		this.elem.addEventListener('touchstart', this.touchMoveInitListener);
+		this.elem.addEventListener('touchend', this.touchMoveInitListener);
+		this.elem.addEventListener('touchcancel', this.touchMoveInitListener);
+		if (config.controller.dev) {
+			this.elem.addEventListener('mousemove', this.touchMoveListener);
+		}
 	}
 
 	pause() {
 		this.joyStick.enable = false;
+		this.elem.removeEventListener('touchmove', this.touchMoveListener);
+		this.elem.removeEventListener('touchstart', this.touchMoveInitListener);
+		this.elem.removeEventListener('touchend', this.touchMoveInitListener);
+		this.elem.removeEventListener('touchcancel', this.touchMoveInitListener);
+		if (config.controller.dev) {
+			this.elem.removeEventListener('mousemove', this.touchMoveListener);
+		}
 	}
 
-	handleJoystickDirection() {
-		if (!this.joyStick.enable) return;
-		if (this.joyStick.pressed) {
-			const { dirX, dirY } = this.joyStick.getDirection();
-			this.controller.gameController.handleMoveAction({ font: dirY / 100, left: -dirX / 100, up: 0 });
-		}
-		requestAnimationFrame(this.handleJoystickDirection.bind(this));
+	static getJoyStickChange(self) {
+		return args => {
+			self.controller.gameController.handleMoveAction(args);
+		};
+	}
+
+	static getTouchMoveListener(self) {
+		return e => {
+			const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+			if (targetTouches.target !== self.elem) return false;
+			if (self.lastTouchMovePosition) {
+				self.controller.gameController.handleViewAction({
+					horizontal: targetTouches.clientX - self.lastTouchMovePosition.clientX,
+					vertical: -(targetTouches.clientY - self.lastTouchMovePosition.clientY),
+				});
+			}
+			self.lastTouchMovePosition = {
+				clientX: targetTouches.clientX,
+				clientY: targetTouches.clientY,
+			};
+			return false;
+		};
+	}
+
+	static getTouchInitListener(self) {
+		return e => {
+			const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+			if (targetTouches && targetTouches.target !== self.elem) return false;
+			self.lastTouchMovePosition = null;
+			return false;
+		};
 	}
 }
 

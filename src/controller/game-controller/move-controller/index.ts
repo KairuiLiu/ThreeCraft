@@ -7,8 +7,13 @@ class MoveController {
 		this.core = core;
 	}
 
-	move(arg) {
-		console.log('move', arg);
+	positionMove(arg) {
+		console.log('pos move', arg);
+		this;
+	}
+
+	viewDirectionMove(arg) {
+		console.log('view move', arg);
 		this;
 	}
 }
