@@ -21,6 +21,7 @@ class Core {
 		this.initCamera();
 		this.initScene();
 		this.initRenderer();
+		this.addTestScene();
 		this.work();
 	}
 
@@ -74,7 +75,11 @@ class Core {
 	}
 
 	addTestScene() {
-		this;
+		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
+		this.scene.add(cube);
+		const plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), new THREE.MeshBasicMaterial({ color: 0xbbffaa }));
+		plane.rotation.set(0, 0.5 * Math.PI, 0);
+		this.scene.add(plane);
 	}
 
 	work() {
