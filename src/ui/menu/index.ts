@@ -186,7 +186,7 @@ class Menu {
 		this.removeTitle();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
-			<div class="box-line title color-white">帮助</div>
+			<div class="box-line title color-white">多人游戏</div>
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">创建房间</label></div>
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">加入房间</label></div>
 			<br/>
@@ -489,7 +489,7 @@ class Menu {
 				基于Three.js的Minecraft实现.
 			</div>
 			<div class="box-line color-white">
-				去<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>了解更多
+				去<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>了解更多:)
 			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
