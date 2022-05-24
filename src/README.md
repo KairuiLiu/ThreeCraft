@@ -1,3 +1,8 @@
+TODO
+
+- language
+
+
 file structure
 
 ```
@@ -82,10 +87,3 @@ file structure
 └── utils                           // 工具函数
     └── collision
 ```
-
-TODO
-
-- fix z-index
-- control
-- base ui interface
-- language

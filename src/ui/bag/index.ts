@@ -88,13 +88,6 @@ class Bag {
 		this.update();
 	}
 
-	// 禁用/启用背包框
-	toggleUseable() {
-		this.bagElem.classList.toggle('hidden');
-		if (this.available) this.pause();
-		else this.listen();
-	}
-
 	// 开启监听
 	listen() {
 		this.available = true;

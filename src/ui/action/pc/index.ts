@@ -29,17 +29,13 @@ class ActionPluginPc {
 
 	listen() {
 		// eslint-disable-next-line
-		(this.elem.requestPointerLock() as unknown as Promise<null>).then(
-			() => {
-				document.addEventListener('keydown', this.keyListener);
-				this.elem.addEventListener('contextmenu', this.clickListener);
-				this.elem.addEventListener('click', this.clickListener);
-				this.elem.addEventListener('mousemove', this.mouseMoveListener);
-			},
-			() => {
-				this.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, this.elem);
-			}
-		);
+		(this.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
+			this.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, this.elem);
+		});
+		document.addEventListener('keydown', this.keyListener);
+		this.elem.addEventListener('contextmenu', this.clickListener);
+		this.elem.addEventListener('click', this.clickListener);
+		this.elem.addEventListener('mousemove', this.mouseMoveListener);
 	}
 
 	pause() {
@@ -52,6 +48,12 @@ class ActionPluginPc {
 
 	static getKeyListener(self) {
 		return e => {
+			if (e.key === 'Escape') {
+				self.controller.pauseGame();
+				self.controller.uiController.ui.menu.toInnerGameMenu();
+				return;
+			}
+			if (self.controller.uiController.ui.bag.bagBox.working) return;
 			if (['w', 'W'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 1, left: 0, up: 0 });
 			else if (['a', 'A'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 0, left: 1, up: 0 });
 			else if (['s', 'S'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: -1, left: 0, up: 0 });
@@ -59,10 +61,6 @@ class ActionPluginPc {
 			else if (e.key === ' ') self.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
 			else if (e.key === 'Shift') self.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
 			else if (['q', 'Q'].includes(e.key)) self.controller.toggleCheatMode();
-			else if (e.key === 'Escape') {
-				self.controller.pauseGame();
-				self.controller.uiController.ui.menu.toInnerGameMenu();
-			}
 		};
 	}
 
@@ -71,7 +69,9 @@ class ActionPluginPc {
 			e.preventDefault();
 			e.stopPropagation();
 			if (!document.pointerLockElement) {
-				self.listen();
+				(self.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
+					self.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, self.elem);
+				});
 				return false;
 			}
 			if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);

@@ -57,7 +57,7 @@ class BagPcPlugin {
 		document.removeEventListener('keyup', this.keyupBagOpenEventListener);
 	}
 
-	// 点击背包框激活对应元素
+	// 点击背包框激活对应元素??
 	static getClickItemEventListener(host) {
 		return e => {
 			e.stopPropagation();
@@ -73,6 +73,7 @@ class BagPcPlugin {
 	// 按0-9激活不同背包框
 	static getKeyupItemEventListener(host) {
 		return e => {
+			if (host.bagBox.working) return;
 			const idx = Number.parseInt(e.key, 10);
 			if (idx >= 0 && idx <= 9) {
 				config.bag.activeIndex = (idx + 9) % 10;
@@ -85,6 +86,7 @@ class BagPcPlugin {
 	static getWheelItemEventListener(host) {
 		let lenCnt = 0;
 		return e => {
+			if (host.bagBox.working) return;
 			if (lenCnt * e.deltaY < 0) {
 				lenCnt = e.deltaY;
 			} else {

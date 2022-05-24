@@ -39,6 +39,13 @@ class GameController {
 
 	nextTrickBlockTask: Block[];
 
+	lastMove: {
+		haveChange: boolean;
+		font: number;
+		left: number;
+		up: number;
+	};
+
 	constructor(core: Core) {
 		this.core = core;
 		this.blockController = new BlockController(this.core);
@@ -53,6 +60,12 @@ class GameController {
 			viewHorizontal: 0,
 			viewVertical: 0,
 		};
+		this.lastMove = {
+			haveChange: false,
+			font: 0,
+			left: 0,
+			up: 0,
+		};
 	}
 
 	handleMoveAction({ font, left, up }) {
@@ -65,6 +78,13 @@ class GameController {
 		this.nextTrickMoveTask.font += font;
 		this.nextTrickMoveTask.left += left;
 		this.nextTrickMoveTask.up += up;
+		this.lastMove.haveChange = true;
+		this.lastMove = {
+			haveChange: true,
+			font,
+			left,
+			up,
+		};
 	}
 
 	handleViewAction({ vertical, horizontal }) {
@@ -112,13 +132,16 @@ class GameController {
 	}
 
 	update() {
+		if (config.controller.operation === 'mobile' && !this.lastMove.haveChange) {
+			this.nextTrickMoveTask = { ...this.lastMove };
+		}
 		// TODO camear.lookat + config.position + this.nextTrackMove => nextPosition
 		const nextPosition = {
-			posX: 1,
-			posY: 1,
-			posZ: 1,
+			posX: config.state.posX,
+			posY: config.state.posY,
+			posZ: config.state.posZ,
 		};
-		if (collisionCheck({ ...nextPosition, core: this.core })) {
+		if (!collisionCheck({ ...nextPosition, core: this.core })) {
 			this.moveController.positionMove(this.nextTrickMoveTask);
 		}
 		this.moveController.viewDirectionMove(this.nextTrickViewTask);
@@ -128,6 +151,7 @@ class GameController {
 		this.nextTrickViewTask = { viewHorizontal: 0, viewVertical: 0 };
 		// TODO record block action
 		config.state = { ...config.state, ...nextPosition };
+		this.lastMove.haveChange = false;
 	}
 }
 

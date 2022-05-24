@@ -10,6 +10,8 @@ class BagBoxPlugin {
 
 	activeBlockElem: HTMLElement;
 
+	working: boolean;
+
 	// eslint-disable-next-line
 	allItemClickListener: (e: MouseEvent) => void;
 
@@ -21,6 +23,7 @@ class BagBoxPlugin {
 
 	constructor(el: HTMLElement, host) {
 		this.host = host;
+		this.working = false;
 		[...el.children].forEach(d => d.className.includes('bag-box') && d.remove());
 		el.innerHTML += BagBoxPlugin.getBoxElementHTML();
 		this.elem = document.getElementById('bag-box');
@@ -63,6 +66,7 @@ class BagBoxPlugin {
 	}
 
 	toggleUseable() {
+		this.working = !this.working;
 		this.elem.classList.toggle('hidden');
 		this.host.onToggleBag();
 	}

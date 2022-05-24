@@ -30,21 +30,22 @@ class Controller {
 		this.ui.loadController(this);
 	}
 
-	// 第一次进入游戏
+	// 开始游戏, 载入世界模型
 	startGame(single: boolean) {
 		this.single = single;
 		if (config.berlinSeed === null) {
 			// TODO 随机数种子
 		}
+		this.core.terrain.setSeed(config.berlinSeed);
 		// TODO scene 维护
+		this.core.terrain.buildWorld();
 		this.runGame();
 	}
 
-	// 开启游戏
-	// ? 销毁不彻底, 但是好像又解决了?
+	// 开启游戏, update相机信息, 不得修改场景
 	runGame() {
 		this.running = true;
-		// TODO 开启相机全局信息
+		this.core.updateCore();
 		this.uiController.ui.listenAll();
 		this.uiController.ui.menu.hideMenu();
 		this.tryRender();
@@ -59,13 +60,12 @@ class Controller {
 	// 结束游戏(清除当前状态)
 	endGame() {
 		deepCopy(defaultConfig, config);
-		this;
+		this.core.terrain.clear();
 	}
 
 	// 游戏配置即时事件
 	toggleCheatMode() {
 		config.controller.cheat = !config.controller.cheat;
-		// TODO THREE核心清理
 		this;
 	}
 

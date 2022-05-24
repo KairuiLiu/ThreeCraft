@@ -33,7 +33,6 @@ body {
 	}
 	// logo
 	#title {
-		z-index: 9999;
 		position: fixed;
 		top: 50px;
 		background: center url(../../../assets/pictures/logo-minecraft.png) no-repeat;
@@ -43,7 +42,6 @@ body {
 	}
 	// 菜单盒
 	.box {
-		z-index: 99999;
 		padding: 15px;
 		margin: 0 auto;
 		display: flex;
@@ -193,6 +191,7 @@ body {
 	}
 }
 
+// elements
 #help {
 	li {
 		list-style-type: none;
@@ -237,6 +236,53 @@ body {
 	.covered;
 }
 
-#bag {
-	z-index: 99999999;
+// z-index
+
+// - game-stage: 9
+// - fps: 99
+// - crosshairs: 99
+// - controller: 999
+// - bag: 9999
+// 	- bag-box: 99999
+// - menu: 999999
+// 	- .box: 9999999
+// - notify: 99999999
+#app {
+	#game-stage {
+		&,
+		canvas {
+			z-index: 9;
+		}
+	}
+	#HUD-stage {
+		&,
+		#crosshairs,
+		#fps {
+			z-index: 99;
+		}
+		#controller {
+			z-index: 999;
+		}
+		#bag {
+			&,
+			& > div {
+				z-index: 9999;
+			}
+			#bag-box {
+				z-index: 99999;
+			}
+		}
+	}
+	#menu {
+		&,
+		& > div {
+			z-index: 999999;
+		}
+		& > .box {
+			z-index: 9999999;
+		}
+	}
+	#notify {
+		z-index: 99999999;
+	}
 }
