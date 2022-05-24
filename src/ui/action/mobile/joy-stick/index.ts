@@ -42,7 +42,6 @@ class JoyStick {
 		this.drawInternal();
 		this.dirX = 0;
 		this.dirY = 0;
-		this.listen();
 	}
 
 	listen() {

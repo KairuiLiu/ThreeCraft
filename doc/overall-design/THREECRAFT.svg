@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="1684" height="990" viewBox="0 0 1684 990">
+<style type="text/css"><![CDATA[
+text { font:12px Dialog; }
+]]></style>
+<rect x="-1122" y="-1550" width="4658" height="3920" style="fill:rgb(243,244,249);stroke:none" />
+<clipPath id="clip1"><path d="M15,15 L1344,15 L1344,975 L15,975 Z M25,538 C20.5820313,538 17,541.5820313 17,546 L17,614 C17,618.4179688 20.5820313,622 25,622 L278,622 C282.4179688,622 286,618.4179688 286,614 L286,546 C286,541.5820313 282.4179688,538 278,538 Z M25,538 Z M25,538" /></clipPath>
+<path d="M296,580 L296,294.8476563 C296,286.015625 303.1679688,278.8476563 312,278.8476563 L321,278.8476563" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip1)" />
+<clipPath id="clip2"><path d="M15,15 L1344,15 L1344,975 L15,975 Z M25,538 C20.5820313,538 17,541.5820313 17,546 L17,614 C17,618.4179688 20.5820313,622 25,622 L278,622 C282.4179688,622 286,618.4179688 286,614 L286,546 C286,541.5820313 282.4179688,538 278,538 Z M25,538 Z M25,538" /></clipPath>
+<path d="M296,580 L296,676.9960938 C296,685.828125 303.1679688,692.9960938 312,692.9960938 L321,692.9960938" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip2)" />
+<clipPath id="clip3"><path d="M15,15 L1344,15 L1344,975 L15,975 Z M25,538 C20.5820313,538 17,541.5820313 17,546 L17,614 C17,618.4179688 20.5820313,622 25,622 L278,622 C282.4179688,622 286,618.4179688 286,614 L286,546 C286,541.5820313 282.4179688,538 278,538 Z M25,538 Z M25,538" /></clipPath>
+<path d="M296,580 L296,866.9335938 C296,875.765625 303.1679688,882.9335938 312,882.9335938 L321,882.9335938" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip3)" />
+<clipPath id="clip4"><path d="M14,14 L1345,14 L1345,976 L14,976 L14,14 Z" /></clipPath>
+<path d="M286,580 L296,580" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip4)" />
+<clipPath id="clip5"><path d="M14,535 L290,535 L290,626 L14,626 L14,535 Z" /></clipPath>
+<path d="M25,538 C20.5820313,538 17,541.5820313 17,546 L17,614 C17,618.4179688 20.5820313,622 25,622 L278,622 C282.4179688,622 286,618.4179688 286,614 L286,546 C286,541.5820313 282.4179688,538 278,538 Z M25,538" style="fill:rgb(151,203,255);stroke:none" clip-path="url(#clip5)" />
+<clipPath id="clip6"><path d="M14,535 L290,535 L290,626 L14,626 L14,535 Z" /></clipPath>
+<path d="M25,538 C20.5820313,538 17,541.5820313 17,546 L17,614 C17,618.4179688 20.5820313,622 25,622 L278,622 C282.4179688,622 286,618.4179688 286,614 L286,546 C286,541.5820313 282.4179688,538 278,538 Z M25,538" style="fill:none;stroke:rgb(128,128,128);stroke-width:3" clip-path="url(#clip6)" />
+<text x="54" y="585" style="font:24px Dialog">THREECRAFT</text>
+<clipPath id="clip7"><path d="M320,15 L1136,15 L1136,502 L320,502 Z M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257 Z M326,257" /></clipPath>
+<path d="M473,278.9101563 L473,58 L482,58" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip7)" />
+<clipPath id="clip8"><path d="M320,15 L1136,15 L1136,502 L320,502 Z M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257 Z M326,257" /></clipPath>
+<path d="M473,278.9101563 L473,118 L482,118" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip8)" />
+<clipPath id="clip9"><path d="M320,15 L1136,15 L1136,502 L320,502 Z M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257 Z M326,257" /></clipPath>
+<path d="M473,278.9101563 L473,240 L482,240" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip9)" />
+<clipPath id="clip10"><path d="M320,15 L1136,15 L1136,502 L320,502 Z M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257 Z M326,257" /></clipPath>
+<path d="M473,278.9101563 L473,394 L482,394" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip10)" />
+<clipPath id="clip11"><path d="M320,15 L1136,15 L1136,502 L320,502 Z M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257 Z M326,257" /></clipPath>
+<path d="M473,278.9101563 L473,501 L482,501" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip11)" />
+<clipPath id="clip12"><path d="M319,14 L1137,14 L1137,503 L319,503 L319,14 Z" /></clipPath>
+<path d="M460,278.8476563 L473,278.9101563" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip12)" />
+<clipPath id="clip13"><path d="M319,255 L463,255 L463,303 L319,303 L319,255 Z" /></clipPath>
+<path d="M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257" style="fill:rgb(255,255,255);stroke:none" clip-path="url(#clip13)" />
+<clipPath id="clip14"><path d="M319,255 L463,255 L463,303 L319,303 L319,255 Z" /></clipPath>
+<path d="M326,257 C323.2382813,257 321,259.2382813 321,262 L321,295 C321,297.7617188 323.2382813,300 326,300 L455,300 C457.7617188,300 460,297.7617188 460,295 L460,262 C460,259.2382813 457.7617188,257 455,257 Z M326,257" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip14)" />
+<text x="334" y="280" style="font:13px Noto Sans">UI-UI交互模块</text>
+<clipPath id="clip15"><path d="M461,273 L474,273 L474,286 L461,286 L461,273 Z" /></clipPath>
+<path d="M471.5,279 C471.5,276.515625 469.484375,274.5 467,274.5 C464.515625,274.5 462.5,276.515625 462.5,279 C462.5,281.484375 464.515625,283.5 467,283.5 C469.484375,283.5 471.5,281.484375 471.5,279 Z M471.5,279" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip15)" />
+<clipPath id="clip16"><path d="M461,273 L474,273 L474,286 L461,286 L461,273 Z" /></clipPath>
+<path d="M471.5,279 C471.5,276.515625 469.484375,274.5 467,274.5 C464.515625,274.5 462.5,276.515625 462.5,279 C462.5,281.484375 464.515625,283.5 467,283.5 C469.484375,283.5 471.5,281.484375 471.5,279 Z M471.5,279" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip16)" />
+<clipPath id="clip17"><path d="M461,273 L474,273 L474,286 L461,286 L461,273 Z" /></clipPath>
+<path d="M465,279 L469,279" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip17)" />
+<clipPath id="clip18"><path d="M481,15 L739,15 L739,74 L481,74 Z M482,31 L482,57 L642,57 L642,31 Z M482,31 Z M482,31" /></clipPath>
+<path d="M655,58 L655,47 C655,44.7929688 656.7929688,43 659,43 L664,43" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip18)" />
+<clipPath id="clip19"><path d="M481,15 L739,15 L739,74 L481,74 Z M482,31 L482,57 L642,57 L642,31 Z M482,31 Z M482,31" /></clipPath>
+<path d="M655,58 L655,69 C655,71.2070313 656.7929688,73 659,73 L664,73" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip19)" />
+<clipPath id="clip20"><path d="M480,14 L740,14 L740,75 L480,75 L480,14 Z" /></clipPath>
+<path d="M642,58 L655,58" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip20)" />
+<clipPath id="clip21"><path d="M480,29 L645,29 L645,60 L480,60 L480,29 Z" /></clipPath>
+<path d="M482,58 L642,58 Z M482,58" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip21)" />
+<text x="492" y="46" style="font:10px Noto Sans">Crosshair-十字准星模块</text>
+<clipPath id="clip22"><path d="M643,38 L656,38 L656,51 L643,51 L643,38 Z" /></clipPath>
+<path d="M653.5,44 C653.5,41.515625 651.484375,39.5 649,39.5 C646.515625,39.5 644.5,41.515625 644.5,44 C644.5,46.484375 646.515625,48.5 649,48.5 C651.484375,48.5 653.5,46.484375 653.5,44 Z M653.5,44" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip22)" />
+<clipPath id="clip23"><path d="M643,38 L656,38 L656,51 L643,51 L643,38 Z" /></clipPath>
+<path d="M653.5,44 C653.5,41.515625 651.484375,39.5 649,39.5 C646.515625,39.5 644.5,41.515625 644.5,44 C644.5,46.484375 646.515625,48.5 649,48.5 C651.484375,48.5 653.5,46.484375 653.5,44 Z M653.5,44" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip23)" />
+<clipPath id="clip24"><path d="M643,38 L656,38 L656,51 L643,51 L643,38 Z" /></clipPath>
+<path d="M647,44 L651,44" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip24)" />
+<clipPath id="clip25"><path d="M662,14 L714,14 L714,45 L662,45 L662,14 Z" /></clipPath>
+<path d="M664,43 L711,43 Z M664,43" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip25)" />
+<text x="674" y="31" style="font:10px Noto Sans">挂载</text>
+<clipPath id="clip26"><path d="M662,44 L740,44 L740,75 L662,75 L662,44 Z" /></clipPath>
+<path d="M664,73 L737,73 Z M664,73" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip26)" />
+<text x="674" y="61" style="font:10px Noto Sans">样式修改</text>
+<clipPath id="clip27"><path d="M481,75 L699,75 L699,134 L481,134 Z M482,91 L482,117 L602,117 L602,91 Z M482,91 Z M482,91" /></clipPath>
+<path d="M615,118 L615,107 C615,104.7929688 616.7929688,103 619,103 L624,103" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip27)" />
+<clipPath id="clip28"><path d="M481,75 L699,75 L699,134 L481,134 Z M482,91 L482,117 L602,117 L602,91 Z M482,91 Z M482,91" /></clipPath>
+<path d="M615,118 L615,129 C615,131.2070313 616.7929688,133 619,133 L624,133" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip28)" />
+<clipPath id="clip29"><path d="M480,74 L700,74 L700,135 L480,135 L480,74 Z" /></clipPath>
+<path d="M602,118 L615,118" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip29)" />
+<clipPath id="clip30"><path d="M480,89 L605,89 L605,120 L480,120 L480,89 Z" /></clipPath>
+<path d="M482,118 L602,118 Z M482,118" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip30)" />
+<text x="492" y="106" style="font:10px Noto Sans">Fps-FPS检测模块</text>
+<clipPath id="clip31"><path d="M603,98 L616,98 L616,111 L603,111 L603,98 Z" /></clipPath>
+<path d="M613.5,104 C613.5,101.515625 611.484375,99.5 609,99.5 C606.515625,99.5 604.5,101.515625 604.5,104 C604.5,106.484375 606.515625,108.5 609,108.5 C611.484375,108.5 613.5,106.484375 613.5,104 Z M613.5,104" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip31)" />
+<clipPath id="clip32"><path d="M603,98 L616,98 L616,111 L603,111 L603,98 Z" /></clipPath>
+<path d="M613.5,104 C613.5,101.515625 611.484375,99.5 609,99.5 C606.515625,99.5 604.5,101.515625 604.5,104 C604.5,106.484375 606.515625,108.5 609,108.5 C611.484375,108.5 613.5,106.484375 613.5,104 Z M613.5,104" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip32)" />
+<clipPath id="clip33"><path d="M603,98 L616,98 L616,111 L603,111 L603,98 Z" /></clipPath>
+<path d="M607,104 L611,104" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip33)" />
+<clipPath id="clip34"><path d="M622,74 L700,74 L700,105 L622,105 L622,74 Z" /></clipPath>
+<path d="M624,103 L697,103 Z M624,103" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip34)" />
+<text x="634" y="91" style="font:10px Noto Sans">开始检测</text>
+<clipPath id="clip35"><path d="M622,104 L700,104 L700,135 L622,135 L622,104 Z" /></clipPath>
+<path d="M624,133 L697,133 Z M624,133" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip35)" />
+<text x="634" y="121" style="font:10px Noto Sans">停止检测</text>
+<clipPath id="clip36"><path d="M481,135 L1136,135 L1136,288 L481,288 Z M482,213 L482,239 L693,239 L693,213 Z M482,213 Z M482,213" /></clipPath>
+<path d="M706,240 L706,199 C706,196.7929688 707.7929688,195 710,195 L715,195" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip36)" />
+<clipPath id="clip37"><path d="M481,135 L1136,135 L1136,288 L481,288 Z M482,213 L482,239 L693,239 L693,213 Z M482,213 Z M482,213" /></clipPath>
+<path d="M706,240 L706,251 C706,253.2070313 707.7929688,255 710,255 L715,255" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip37)" />
+<clipPath id="clip38"><path d="M481,135 L1136,135 L1136,288 L481,288 Z M482,213 L482,239 L693,239 L693,213 Z M482,213 Z M482,213" /></clipPath>
+<path d="M706,240 L706,281 C706,283.2070313 707.7929688,285 710,285 L715,285" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip38)" />
+<clipPath id="clip39"><path d="M480,134 L1137,134 L1137,289 L480,289 L480,134 Z" /></clipPath>
+<path d="M693,240 L706,240" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip39)" />
+<clipPath id="clip40"><path d="M480,211 L696,211 L696,242 L480,242 L480,211 Z" /></clipPath>
+<path d="M482,240 L693,240 Z M482,240" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip40)" />
+<text x="492" y="228" style="font:10px Noto Sans">actionControl-游戏指令捕获模块</text>
+<clipPath id="clip41"><path d="M694,220 L707,220 L707,233 L694,233 L694,220 Z" /></clipPath>
+<path d="M704.5,226 C704.5,223.515625 702.484375,221.5 700,221.5 C697.515625,221.5 695.5,223.515625 695.5,226 C695.5,228.484375 697.515625,230.5 700,230.5 C702.484375,230.5 704.5,228.484375 704.5,226 Z M704.5,226" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip41)" />
+<clipPath id="clip42"><path d="M694,220 L707,220 L707,233 L694,233 L694,220 Z" /></clipPath>
+<path d="M704.5,226 C704.5,223.515625 702.484375,221.5 700,221.5 C697.515625,221.5 695.5,223.515625 695.5,226 C695.5,228.484375 697.515625,230.5 700,230.5 C702.484375,230.5 704.5,228.484375 704.5,226 Z M704.5,226" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip42)" />
+<clipPath id="clip43"><path d="M694,220 L707,220 L707,233 L694,233 L694,220 Z" /></clipPath>
+<path d="M698,226 L702,226" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip43)" />
+<clipPath id="clip44"><path d="M714,137 L950,137 L950,226 L714,226 Z M715,168 L715,194 L788,194 L788,168 Z M715,168 Z M715,168" /></clipPath>
+<path d="M801,195 L801,169 C801,166.7929688 802.7929688,165 805,165 L810,165" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip44)" />
+<clipPath id="clip45"><path d="M714,137 L950,137 L950,226 L714,226 Z M715,168 L715,194 L788,194 L788,168 Z M715,168 Z M715,168" /></clipPath>
+<path d="M801,195 C801,195 802.7929688,195 805,195 L810,195" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip45)" />
+<clipPath id="clip46"><path d="M714,137 L950,137 L950,226 L714,226 Z M715,168 L715,194 L788,194 L788,168 Z M715,168 Z M715,168" /></clipPath>
+<path d="M801,195 L801,221 C801,223.2070313 802.7929688,225 805,225 L810,225" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip46)" />
+<clipPath id="clip47"><path d="M713,136 L951,136 L951,227 L713,227 L713,136 Z" /></clipPath>
+<path d="M788,195 L801,195" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip47)" />
+<clipPath id="clip48"><path d="M713,166 L791,166 L791,197 L713,197 L713,166 Z" /></clipPath>
+<path d="M715,195 L788,195 Z M715,195" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip48)" />
+<text x="725" y="183" style="font:10px Noto Sans">捕获插件</text>
+<clipPath id="clip49"><path d="M789,175 L802,175 L802,188 L789,188 L789,175 Z" /></clipPath>
+<path d="M799.5,181 C799.5,178.515625 797.484375,176.5 795,176.5 C792.515625,176.5 790.5,178.515625 790.5,181 C790.5,183.484375 792.515625,185.5 795,185.5 C797.484375,185.5 799.5,183.484375 799.5,181 Z M799.5,181" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip49)" />
+<clipPath id="clip50"><path d="M789,175 L802,175 L802,188 L789,188 L789,175 Z" /></clipPath>
+<path d="M799.5,181 C799.5,178.515625 797.484375,176.5 795,176.5 C792.515625,176.5 790.5,178.515625 790.5,181 C790.5,183.484375 792.515625,185.5 795,185.5 C797.484375,185.5 799.5,183.484375 799.5,181 Z M799.5,181" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip50)" />
+<clipPath id="clip51"><path d="M789,175 L802,175 L802,188 L789,188 L789,175 Z" /></clipPath>
+<path d="M793,181 L797,181" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip51)" />
+<clipPath id="clip52"><path d="M808,136 L941,136 L941,167 L808,167 L808,136 Z" /></clipPath>
+<path d="M810,165 L938,165 Z M810,165" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip52)" />
+<text x="820" y="153" style="font:10px Noto Sans">PC端交互捕获插件</text>
+<clipPath id="clip53"><path d="M808,166 L951,166 L951,197 L808,197 L808,166 Z" /></clipPath>
+<path d="M810,195 L948,195 Z M810,195" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip53)" />
+<text x="820" y="183" style="font:10px Noto Sans">移动端交互捕获插件</text>
+<clipPath id="clip54"><path d="M808,196 L941,196 L941,227 L808,227 L808,196 Z" /></clipPath>
+<path d="M810,225 L938,225 Z M810,225" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip54)" />
+<text x="820" y="213" style="font:10px Noto Sans">VR端交互捕获插件</text>
+<clipPath id="clip55"><path d="M713,226 L791,226 L791,257 L713,257 L713,226 Z" /></clipPath>
+<path d="M715,255 L788,255 Z M715,255" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip55)" />
+<text x="725" y="243" style="font:10px Noto Sans">开始捕获</text>
+<clipPath id="clip56"><path d="M713,256 L791,256 L791,287 L713,287 L713,256 Z" /></clipPath>
+<path d="M715,285 L788,285 Z M715,285" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip56)" />
+<text x="725" y="273" style="font:10px Noto Sans">停止捕获</text>
+<clipPath id="clip57"><path d="M952,134 L981,134 L981,289 L952,289 L952,134 Z" /></clipPath>
+<path d="M955,136.6992188 C970.3320313,136.6992188 974.8320313,149.1328125 968.5,174 C962.1679688,198.4648438 965.3320313,210.6992188 978,210.6992188 L978,211.3007813 C962.6679688,211.3007813 958.1679688,198.8671875 964.5,174 C970.8320313,149.5351563 967.6679688,137.3007813 955,137.3007813 L955,136.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip57)" />
+<clipPath id="clip58"><path d="M952,134 L981,134 L981,289 L952,289 L952,134 Z" /></clipPath>
+<path d="M978,210.6992188 C962.6679688,210.6992188 958.1679688,223.3007813 964.5,248.5 C970.8320313,273.3007813 967.6679688,285.6992188 955,285.6992188 L955,286.3007813 C970.3320313,286.3007813 974.8320313,273.6992188 968.5,248.5 C962.1679688,223.6992188 965.3320313,211.3007813 978,211.3007813 L978,210.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip58)" />
+<clipPath id="clip59"><path d="M981,195 L1137,195 L1137,228 L981,228 L981,195 Z" /></clipPath>
+<path d="M983,197 L983,225 L1134,225 L1134,197 Z M983,197" style="fill:rgb(240,240,208);stroke:none" clip-path="url(#clip59)" />
+<clipPath id="clip60"><path d="M981,195 L1137,195 L1137,228 L981,228 L981,195 Z" /></clipPath>
+<path d="M983,197 L983,225 L1134,225 L1134,197 Z M983,197" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip60)" />
+<text x="992" y="213" style="font:9px Noto Sans">捕获人物移动与视角变换</text>
+<clipPath id="clip61"><path d="M481,289 L994,289 L994,472 L481,472 Z M482,367 L482,393 L586,393 L586,367 Z M482,367 Z M482,367" /></clipPath>
+<path d="M599,394 L599,321 C599,318.7929688 600.7929688,317 603,317 L608,317" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip61)" />
+<clipPath id="clip62"><path d="M481,289 L994,289 L994,472 L481,472 Z M482,367 L482,393 L586,393 L586,367 Z M482,367 Z M482,367" /></clipPath>
+<path d="M599,394 L599,383 C599,380.7929688 600.7929688,379 603,379 L608,379" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip62)" />
+<clipPath id="clip63"><path d="M481,289 L994,289 L994,472 L481,472 Z M482,367 L482,393 L586,393 L586,367 Z M482,367 Z M482,367" /></clipPath>
+<path d="M599,394 L599,437 C599,439.2070313 600.7929688,441 603,441 L608,441" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip63)" />
+<clipPath id="clip64"><path d="M481,289 L994,289 L994,472 L481,472 Z M482,367 L482,393 L586,393 L586,367 Z M482,367 Z M482,367" /></clipPath>
+<path d="M599,394 L599,467 C599,469.2070313 600.7929688,471 603,471 L608,471" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip64)" />
+<clipPath id="clip65"><path d="M480,288 L995,288 L995,473 L480,473 L480,288 Z" /></clipPath>
+<path d="M586,394 L599,394" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip65)" />
+<clipPath id="clip66"><path d="M480,365 L589,365 L589,396 L480,396 L480,365 Z" /></clipPath>
+<path d="M482,394 L586,394 Z M482,394" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip66)" />
+<text x="492" y="382" style="font:10px Noto Sans">Bag: 背包模块</text>
+<clipPath id="clip67"><path d="M587,374 L600,374 L600,387 L587,387 L587,374 Z" /></clipPath>
+<path d="M597.5,380 C597.5,377.515625 595.484375,375.5 593,375.5 C590.515625,375.5 588.5,377.515625 588.5,380 C588.5,382.484375 590.515625,384.5 593,384.5 C595.484375,384.5 597.5,382.484375 597.5,380 Z M597.5,380" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip67)" />
+<clipPath id="clip68"><path d="M587,374 L600,374 L600,387 L587,387 L587,374 Z" /></clipPath>
+<path d="M597.5,380 C597.5,377.515625 595.484375,375.5 593,375.5 C590.515625,375.5 588.5,377.515625 588.5,380 C588.5,382.484375 590.515625,384.5 593,384.5 C595.484375,384.5 597.5,382.484375 597.5,380 Z M597.5,380" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip68)" />
+<clipPath id="clip69"><path d="M587,374 L600,374 L600,387 L587,387 L587,374 Z" /></clipPath>
+<path d="M591,380 L595,380" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip69)" />
+<clipPath id="clip70"><path d="M606,288 L697,288 L697,319 L606,319 L606,288 Z" /></clipPath>
+<path d="M608,317 L694,317 Z M608,317" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip70)" />
+<text x="618" y="305" style="font:10px Noto Sans">物品选取框</text>
+<clipPath id="clip71"><path d="M607,319 L994,319 L994,412 L607,412 Z M608,352 L608,378 L668,378 L668,352 Z M608,352 Z M608,352" /></clipPath>
+<path d="M681,379 L681,353 C681,350.7929688 682.7929688,349 685,349 L690,349" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip71)" />
+<clipPath id="clip72"><path d="M607,319 L994,319 L994,412 L607,412 Z M608,352 L608,378 L668,378 L668,352 Z M608,352 Z M608,352" /></clipPath>
+<path d="M681,379 C681,379 682.7929688,379 685,379 L690,379" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip72)" />
+<clipPath id="clip73"><path d="M607,319 L994,319 L994,412 L607,412 Z M608,352 L608,378 L668,378 L668,352 Z M608,352 Z M608,352" /></clipPath>
+<path d="M681,379 L681,405 C681,407.2070313 682.7929688,409 685,409 L690,409" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip73)" />
+<clipPath id="clip74"><path d="M606,318 L995,318 L995,413 L606,413 L606,318 Z" /></clipPath>
+<path d="M668,379 L681,379" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip74)" />
+<clipPath id="clip75"><path d="M606,350 L671,350 L671,381 L606,381 L606,350 Z" /></clipPath>
+<path d="M608,379 L668,379 Z M608,379" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip75)" />
+<text x="618" y="367" style="font:10px Noto Sans">物品框</text>
+<clipPath id="clip76"><path d="M669,359 L682,359 L682,372 L669,372 L669,359 Z" /></clipPath>
+<path d="M679.5,365 C679.5,362.515625 677.484375,360.5 675,360.5 C672.515625,360.5 670.5,362.515625 670.5,365 C670.5,367.484375 672.515625,369.5 675,369.5 C677.484375,369.5 679.5,367.484375 679.5,365 Z M679.5,365" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip76)" />
+<clipPath id="clip77"><path d="M669,359 L682,359 L682,372 L669,372 L669,359 Z" /></clipPath>
+<path d="M679.5,365 C679.5,362.515625 677.484375,360.5 675,360.5 C672.515625,360.5 670.5,362.515625 670.5,365 C670.5,367.484375 672.515625,369.5 675,369.5 C677.484375,369.5 679.5,367.484375 679.5,365 Z M679.5,365" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip77)" />
+<clipPath id="clip78"><path d="M669,359 L682,359 L682,372 L669,372 L669,359 Z" /></clipPath>
+<path d="M673,365 L677,365" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip78)" />
+<clipPath id="clip79"><path d="M688,320 L847,320 L847,351 L688,351 L688,320 Z" /></clipPath>
+<path d="M690,349 L844,349 Z M690,349" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip79)" />
+<text x="700" y="337" style="font:10px Noto Sans">PC端物品框插件与捕获</text>
+<clipPath id="clip80"><path d="M688,350 L857,350 L857,381 L688,381 L688,350 Z" /></clipPath>
+<path d="M690,379 L854,379 Z M690,379" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip80)" />
+<text x="700" y="367" style="font:10px Noto Sans">移动端物品框插件与捕获</text>
+<clipPath id="clip81"><path d="M688,380 L847,380 L847,411 L688,411 L688,380 Z" /></clipPath>
+<path d="M690,409 L844,409 Z M690,409" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip81)" />
+<text x="700" y="397" style="font:10px Noto Sans">VR端物品框插件与捕获</text>
+<clipPath id="clip82"><path d="M858,318 L887,318 L887,413 L858,413 L858,318 Z" /></clipPath>
+<path d="M861,320.6992188 C876.3320313,320.6992188 880.8320313,328.1328125 874.5,343 C868.1679688,357.4648438 871.3320313,364.6992188 884,364.6992188 L884,365.3007813 C868.6679688,365.3007813 864.1679688,357.8671875 870.5,343 C876.8320313,328.5351563 873.6679688,321.3007813 861,321.3007813 L861,320.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip82)" />
+<clipPath id="clip83"><path d="M858,318 L887,318 L887,413 L858,413 L858,318 Z" /></clipPath>
+<path d="M884,364.6992188 C868.6679688,364.6992188 864.1679688,372.3007813 870.5,387.5 C876.8320313,402.3007813 873.6679688,409.6992188 861,409.6992188 L861,410.3007813 C876.3320313,410.3007813 880.8320313,402.6992188 874.5,387.5 C868.1679688,372.6992188 871.3320313,365.3007813 884,365.3007813 L884,364.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip83)" />
+<clipPath id="clip84"><path d="M887,349 L995,349 L995,382 L887,382 L887,349 Z" /></clipPath>
+<path d="M889,351 L889,379 L992,379 L992,351 Z M889,351" style="fill:rgb(240,240,208);stroke:none" clip-path="url(#clip84)" />
+<clipPath id="clip85"><path d="M887,349 L995,349 L995,382 L887,382 L887,349 Z" /></clipPath>
+<path d="M889,351 L889,379 L992,379 L992,351 Z M889,351" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip85)" />
+<text x="898" y="367" style="font:9px Noto Sans">捕获物品框变换</text>
+<clipPath id="clip86"><path d="M606,412 L684,412 L684,443 L606,443 L606,412 Z" /></clipPath>
+<path d="M608,441 L681,441 Z M608,441" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip86)" />
+<text x="618" y="429" style="font:10px Noto Sans">开关背包</text>
+<clipPath id="clip87"><path d="M606,442 L723,442 L723,473 L606,473 L606,442 Z" /></clipPath>
+<path d="M608,471 L720,471 Z M608,471" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip87)" />
+<text x="618" y="459" style="font:10px Noto Sans">刷新物品框高亮</text>
+<clipPath id="clip88"><path d="M480,472 L601,472 L601,503 L480,503 L480,472 Z" /></clipPath>
+<path d="M482,501 L598,501 Z M482,501" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip88)" />
+<text x="492" y="489" style="font:10px Noto Sans">Menu: 菜单模块</text>
+<clipPath id="clip89"><path d="M320,512 L1344,512 L1344,755 L320,755 Z M326,671 C323.2382813,671 321,673.2382813 321,676 L321,709 C321,711.7617188 323.2382813,714 326,714 L514,714 C516.7617188,714 519,711.7617188 519,709 L519,676 C519,673.2382813 516.7617188,671 514,671 Z M326,671 Z M326,671" /></clipPath>
+<path d="M532,693.0585938 L532,632 L541,632" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip89)" />
+<clipPath id="clip90"><path d="M320,512 L1344,512 L1344,755 L320,755 Z M326,671 C323.2382813,671 321,673.2382813 321,676 L321,709 C321,711.7617188 323.2382813,714 326,714 L514,714 C516.7617188,714 519,711.7617188 519,709 L519,676 C519,673.2382813 516.7617188,671 514,671 Z M326,671 Z M326,671" /></clipPath>
+<path d="M532,693.0585938 L532,754 L541,754" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip90)" />
+<clipPath id="clip91"><path d="M319,511 L1345,511 L1345,756 L319,756 L319,511 Z" /></clipPath>
+<path d="M519,692.9960938 L532,693.0585938" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip91)" />
+<clipPath id="clip92"><path d="M319,669 L522,669 L522,717 L319,717 L319,669 Z" /></clipPath>
+<path d="M326,671 C323.2382813,671 321,673.2382813 321,676 L321,709 C321,711.7617188 323.2382813,714 326,714 L514,714 C516.7617188,714 519,711.7617188 519,709 L519,676 C519,673.2382813 516.7617188,671 514,671 Z M326,671" style="fill:rgb(255,255,255);stroke:none" clip-path="url(#clip92)" />
+<clipPath id="clip93"><path d="M319,669 L522,669 L522,717 L319,717 L319,669 Z" /></clipPath>
+<path d="M326,671 C323.2382813,671 321,673.2382813 321,676 L321,709 C321,711.7617188 323.2382813,714 326,714 L514,714 C516.7617188,714 519,711.7617188 519,709 L519,676 C519,673.2382813 516.7617188,671 514,671 Z M326,671" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip93)" />
+<text x="334" y="693" style="font:13px Noto Sans">Controller-控制器模块</text>
+<clipPath id="clip94"><path d="M520,687 L533,687 L533,700 L520,700 L520,687 Z" /></clipPath>
+<path d="M530.5,693 C530.5,690.515625 528.484375,688.5 526,688.5 C523.515625,688.5 521.5,690.515625 521.5,693 C521.5,695.484375 523.515625,697.5 526,697.5 C528.484375,697.5 530.5,695.484375 530.5,693 Z M530.5,693" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip94)" />
+<clipPath id="clip95"><path d="M520,687 L533,687 L533,700 L520,700 L520,687 Z" /></clipPath>
+<path d="M530.5,693 C530.5,690.515625 528.484375,688.5 526,688.5 C523.515625,688.5 521.5,690.515625 521.5,693 C521.5,695.484375 523.515625,697.5 526,697.5 C528.484375,697.5 530.5,695.484375 530.5,693 Z M530.5,693" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip95)" />
+<clipPath id="clip96"><path d="M520,687 L533,687 L533,700 L520,700 L520,687 Z" /></clipPath>
+<path d="M524,693 L528,693" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip96)" />
+<clipPath id="clip97"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 L772,544 C772,541.7929688 773.7929688,540 776,540 L781,540" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip97)" />
+<clipPath id="clip98"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 L772,591 C772,588.7929688 773.7929688,587 776,587 L781,587" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip98)" />
+<clipPath id="clip99"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 C772,633.1054688 773.7929688,634 776,634 L781,634" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip99)" />
+<clipPath id="clip100"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 L772,660 C772,662.2070313 773.7929688,664 776,664 L781,664" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip100)" />
+<clipPath id="clip101"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 L772,690 C772,692.2070313 773.7929688,694 776,694 L781,694" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip101)" />
+<clipPath id="clip102"><path d="M540,512 L1344,512 L1344,725 L540,725 Z M541,605 L541,631 L759,631 L759,605 Z M541,605 Z M541,605" /></clipPath>
+<path d="M772,632 L772,720 C772,722.2070313 773.7929688,724 776,724 L781,724" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip102)" />
+<clipPath id="clip103"><path d="M539,511 L1345,511 L1345,726 L539,726 L539,511 Z" /></clipPath>
+<path d="M759,632 L772,632" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip103)" />
+<clipPath id="clip104"><path d="M539,603 L762,603 L762,634 L539,634 L539,603 Z" /></clipPath>
+<path d="M541,632 L759,632 Z M541,632" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip104)" />
+<text x="551" y="619" style="font:10px Noto Sans">GameController: 游戏控制器模块</text>
+<clipPath id="clip105"><path d="M760,612 L773,612 L773,625 L760,625 L760,612 Z" /></clipPath>
+<path d="M770.5,618 C770.5,615.515625 768.484375,613.5 766,613.5 C763.515625,613.5 761.5,615.515625 761.5,618 C761.5,620.484375 763.515625,622.5 766,622.5 C768.484375,622.5 770.5,620.484375 770.5,618 Z M770.5,618" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip105)" />
+<clipPath id="clip106"><path d="M760,612 L773,612 L773,625 L760,625 L760,612 Z" /></clipPath>
+<path d="M770.5,618 C770.5,615.515625 768.484375,613.5 766,613.5 C763.515625,613.5 761.5,615.515625 761.5,618 C761.5,620.484375 763.515625,622.5 766,622.5 C768.484375,622.5 770.5,620.484375 770.5,618 Z M770.5,618" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip106)" />
+<clipPath id="clip107"><path d="M760,612 L773,612 L773,625 L760,625 L760,612 Z" /></clipPath>
+<path d="M764,618 L768,618" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip107)" />
+<clipPath id="clip108"><path d="M780,512 L1092,512 L1092,541 L780,541 Z M781,513 L781,539 L982,539 L982,513 Z M781,513 Z M781,513" /></clipPath>
+<path d="M995,540 C995,540 996.7929688,540 999,540 L1004,540" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip108)" />
+<clipPath id="clip109"><path d="M779,511 L1093,511 L1093,542 L779,542 L779,511 Z" /></clipPath>
+<path d="M982,540 L995,540" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip109)" />
+<clipPath id="clip110"><path d="M779,511 L985,511 L985,542 L779,542 L779,511 Z" /></clipPath>
+<path d="M781,540 L982,540 Z M781,540" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip110)" />
+<text x="791" y="528" style="font:10px Noto Sans">BlockController: 块操作控制器</text>
+<clipPath id="clip111"><path d="M983,520 L996,520 L996,533 L983,533 L983,520 Z" /></clipPath>
+<path d="M993.5,526 C993.5,523.515625 991.484375,521.5 989,521.5 C986.515625,521.5 984.5,523.515625 984.5,526 C984.5,528.484375 986.515625,530.5 989,530.5 C991.484375,530.5 993.5,528.484375 993.5,526 Z M993.5,526" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip111)" />
+<clipPath id="clip112"><path d="M983,520 L996,520 L996,533 L983,533 L983,520 Z" /></clipPath>
+<path d="M993.5,526 C993.5,523.515625 991.484375,521.5 989,521.5 C986.515625,521.5 984.5,523.515625 984.5,526 C984.5,528.484375 986.515625,530.5 989,530.5 C991.484375,530.5 993.5,528.484375 993.5,526 Z M993.5,526" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip112)" />
+<clipPath id="clip113"><path d="M983,520 L996,520 L996,533 L983,533 L983,520 Z" /></clipPath>
+<path d="M987,526 L991,526" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip113)" />
+<clipPath id="clip114"><path d="M1002,511 L1093,511 L1093,542 L1002,542 L1002,511 Z" /></clipPath>
+<path d="M1004,540 L1090,540 Z M1004,540" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip114)" />
+<text x="1014" y="528" style="font:10px Noto Sans">块操作模块</text>
+<clipPath id="clip115"><path d="M780,542 L1344,542 L1344,605 L780,605 Z M781,560 L781,586 L997,586 L997,560 Z M781,560 Z M781,560" /></clipPath>
+<path d="M1010,587 L1010,576 C1010,573.7929688 1011.7929688,572 1014,572 L1019,572" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip115)" />
+<clipPath id="clip116"><path d="M780,542 L1344,542 L1344,605 L780,605 Z M781,560 L781,586 L997,586 L997,560 Z M781,560 Z M781,560" /></clipPath>
+<path d="M1010,587 L1010,598 C1010,600.2070313 1011.7929688,602 1014,602 L1019,602" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip116)" />
+<clipPath id="clip117"><path d="M779,541 L1345,541 L1345,606 L779,606 L779,541 Z" /></clipPath>
+<path d="M997,587 L1010,587" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip117)" />
+<clipPath id="clip118"><path d="M779,558 L1000,558 L1000,589 L779,589 L779,558 Z" /></clipPath>
+<path d="M781,587 L997,587 Z M781,587" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip118)" />
+<text x="791" y="575" style="font:10px Noto Sans">MoveController: 相机移动控制器</text>
+<clipPath id="clip119"><path d="M998,567 L1011,567 L1011,580 L998,580 L998,567 Z" /></clipPath>
+<path d="M1008.5,573 C1008.5,570.515625 1006.484375,568.5 1004,568.5 C1001.515625,568.5 999.5,570.515625 999.5,573 C999.5,575.484375 1001.515625,577.5 1004,577.5 C1006.484375,577.5 1008.5,575.484375 1008.5,573 Z M1008.5,573" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip119)" />
+<clipPath id="clip120"><path d="M998,567 L1011,567 L1011,580 L998,580 L998,567 Z" /></clipPath>
+<path d="M1008.5,573 C1008.5,570.515625 1006.484375,568.5 1004,568.5 C1001.515625,568.5 999.5,570.515625 999.5,573 C999.5,575.484375 1001.515625,577.5 1004,577.5 C1006.484375,577.5 1008.5,575.484375 1008.5,573 Z M1008.5,573" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip120)" />
+<clipPath id="clip121"><path d="M998,567 L1011,567 L1011,580 L998,580 L998,567 Z" /></clipPath>
+<path d="M1002,573 L1006,573" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip121)" />
+<clipPath id="clip122"><path d="M1017,543 L1147,543 L1147,574 L1017,574 L1017,543 Z" /></clipPath>
+<path d="M1019,572 L1144,572 Z M1019,572" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip122)" />
+<text x="1029" y="560" style="font:10px Noto Sans">位置移动矩阵生成</text>
+<clipPath id="clip123"><path d="M1017,573 L1147,573 L1147,604 L1017,604 L1017,573 Z" /></clipPath>
+<path d="M1019,602 L1144,602 Z M1019,602" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip123)" />
+<text x="1029" y="590" style="font:10px Noto Sans">视角移动矩阵生成</text>
+<clipPath id="clip124"><path d="M1148,541 L1177,541 L1177,606 L1148,606 L1148,541 Z" /></clipPath>
+<path d="M1151,543.6992188 C1166.3320313,543.6992188 1170.8320313,548.6328125 1164.5,558.5 C1158.1679688,567.9648438 1161.3320313,572.6992188 1174,572.6992188 L1174,573.3007813 C1158.6679688,573.3007813 1154.1679688,568.3671875 1160.5,558.5 C1166.8320313,549.0351563 1163.6679688,544.3007813 1151,544.3007813 L1151,543.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip124)" />
+<clipPath id="clip125"><path d="M1148,541 L1177,541 L1177,606 L1148,606 L1148,541 Z" /></clipPath>
+<path d="M1174,572.6992188 C1158.6679688,572.6992188 1154.1679688,577.8007813 1160.5,588 C1166.8320313,597.8007813 1163.6679688,602.6992188 1151,602.6992188 L1151,603.3007813 C1166.3320313,603.3007813 1170.8320313,598.1992188 1164.5,588 C1158.1679688,578.1992188 1161.3320313,573.3007813 1174,573.3007813 L1174,572.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip125)" />
+<clipPath id="clip126"><path d="M1177,557 L1345,557 L1345,590 L1177,590 L1177,557 Z" /></clipPath>
+<path d="M1179,559 L1179,587 L1342,587 L1342,559 Z M1179,559" style="fill:rgb(240,240,208);stroke:none" clip-path="url(#clip126)" />
+<clipPath id="clip127"><path d="M1177,557 L1345,557 L1345,590 L1177,590 L1177,557 Z" /></clipPath>
+<path d="M1179,559 L1179,587 L1342,587 L1342,559 Z M1179,559" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip127)" />
+<text x="1188" y="575" style="font:9px Noto Sans">修改下一帧需要变换的矩阵</text>
+<clipPath id="clip128"><path d="M779,605 L909,605 L909,636 L779,636 L779,605 Z" /></clipPath>
+<path d="M781,634 L906,634 Z M781,634" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip128)" />
+<text x="791" y="621" style="font:10px Noto Sans">移动事件处理模块</text>
+<clipPath id="clip129"><path d="M779,635 L909,635 L909,666 L779,666 L779,635 Z" /></clipPath>
+<path d="M781,664 L906,664 Z M781,664" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip129)" />
+<text x="791" y="651" style="font:10px Noto Sans">视角事件处理模块</text>
+<clipPath id="clip130"><path d="M779,665 L896,665 L896,696 L779,696 L779,665 Z" /></clipPath>
+<path d="M781,694 L893,694 Z M781,694" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip130)" />
+<text x="791" y="681" style="font:10px Noto Sans">块事件处理模块</text>
+<clipPath id="clip131"><path d="M779,695 L857,695 L857,726 L779,726 L779,695 Z" /></clipPath>
+<path d="M781,724 L854,724 Z M781,724" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip131)" />
+<text x="791" y="711" style="font:10px Noto Sans">请求更新</text>
+<clipPath id="clip132"><path d="M910,602 L939,602 L939,698 L910,698 L910,602 Z" /></clipPath>
+<path d="M913,605.6992188 C928.3320313,605.6992188 932.8320313,613.1328125 926.5,628 C920.1679688,642.4648438 923.3320313,649.6992188 936,649.6992188 L936,650.3007813 C920.6679688,650.3007813 916.1679688,642.8671875 922.5,628 C928.8320313,613.5351563 925.6679688,606.3007813 913,606.3007813 L913,605.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip132)" />
+<clipPath id="clip133"><path d="M910,602 L939,602 L939,698 L910,698 L910,602 Z" /></clipPath>
+<path d="M936,649.6992188 C920.6679688,649.6992188 916.1679688,657.3007813 922.5,672.5 C928.8320313,687.3007813 925.6679688,694.6992188 913,694.6992188 L913,695.3007813 C928.3320313,695.3007813 932.8320313,687.6992188 926.5,672.5 C920.1679688,657.6992188 923.3320313,650.3007813 936,650.3007813 L936,649.6992188" style="fill:rgb(128,128,128);stroke:none" clip-path="url(#clip133)" />
+<clipPath id="clip134"><path d="M939,634 L1137,634 L1137,667 L939,667 L939,634 Z" /></clipPath>
+<path d="M941,636 L941,664 L1134,664 L1134,636 Z M941,636" style="fill:rgb(240,240,208);stroke:none" clip-path="url(#clip134)" />
+<clipPath id="clip135"><path d="M939,634 L1137,634 L1137,667 L939,667 L939,634 Z" /></clipPath>
+<path d="M941,636 L941,664 L1134,664 L1134,636 Z M941,636" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip135)" />
+<text x="950" y="651" style="font:9px Noto Sans">判断合法性, 注册下一帧需要动作</text>
+<clipPath id="clip136"><path d="M539,725 L755,725 L755,756 L539,756 L539,725 Z" /></clipPath>
+<path d="M541,754 L752,754 Z M541,754" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip136)" />
+<text x="551" y="741" style="font:10px Noto Sans">UIController: UI交互控制器模块</text>
+<clipPath id="clip137"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,793 L516,793" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip137)" />
+<clipPath id="clip138"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,824 L516,824" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip138)" />
+<clipPath id="clip139"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,854 L516,854" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip139)" />
+<clipPath id="clip140"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,884 L516,884" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip140)" />
+<clipPath id="clip141"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,914 L516,914" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip141)" />
+<clipPath id="clip142"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,944 L516,944" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip142)" />
+<clipPath id="clip143"><path d="M320,765 L632,765 L632,975 L320,975 Z M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861 Z M326,861" /></clipPath>
+<path d="M507,882.9960938 L507,974 L516,974" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip143)" />
+<clipPath id="clip144"><path d="M319,764 L633,764 L633,976 L319,976 L319,764 Z" /></clipPath>
+<path d="M494,882.9296875 L507,882.9960938" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip144)" />
+<clipPath id="clip145"><path d="M319,859 L497,859 L497,907 L319,907 L319,859 Z" /></clipPath>
+<path d="M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861" style="fill:rgb(255,255,255);stroke:none" clip-path="url(#clip145)" />
+<clipPath id="clip146"><path d="M319,859 L497,859 L497,907 L319,907 L319,859 Z" /></clipPath>
+<path d="M326,861 C323.2382813,861 321,863.2382813 321,866 L321,899 C321,901.7617188 323.2382813,904 326,904 L489,904 C491.7617188,904 494,901.7617188 494,899 L494,866 C494,863.2382813 491.7617188,861 489,861 Z M326,861" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip146)" />
+<text x="334" y="883" style="font:13px Noto Sans">Core-绘图核心模块</text>
+<clipPath id="clip147"><path d="M495,877 L508,877 L508,890 L495,890 L495,877 Z" /></clipPath>
+<path d="M505.5,883 C505.5,880.515625 503.484375,878.5 501,878.5 C498.515625,878.5 496.5,880.515625 496.5,883 C496.5,885.484375 498.515625,887.5 501,887.5 C503.484375,887.5 505.5,885.484375 505.5,883 Z M505.5,883" style="fill:rgb(250,250,250);stroke:none" clip-path="url(#clip147)" />
+<clipPath id="clip148"><path d="M495,877 L508,877 L508,890 L495,890 L495,877 Z" /></clipPath>
+<path d="M505.5,883 C505.5,880.515625 503.484375,878.5 501,878.5 C498.515625,878.5 496.5,880.515625 496.5,883 C496.5,885.484375 498.515625,887.5 501,887.5 C503.484375,887.5 505.5,885.484375 505.5,883 Z M505.5,883" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip148)" />
+<clipPath id="clip149"><path d="M495,877 L508,877 L508,890 L495,890 L495,877 Z" /></clipPath>
+<path d="M499,883 L503,883" style="fill:none;stroke:rgb(150,160,200)" clip-path="url(#clip149)" />
+<clipPath id="clip150"><path d="M514,764 L631,764 L631,795 L514,795 L514,764 Z" /></clipPath>
+<path d="M516,793 L628,793 Z M516,793" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip150)" />
+<text x="526" y="780" style="font:10px Noto Sans">THREE核心对象</text>
+<clipPath id="clip151"><path d="M514,794 L633,794 L633,826 L514,826 L514,794 Z" /></clipPath>
+<path d="M516,824 L630,824 Z M516,824" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip151)" />
+<text x="526" y="810" style="font:10px Noto Sans">游戏流程pipline</text>
+<clipPath id="clip152"><path d="M514,825 L618,825 L618,856 L514,856 L514,825 Z" /></clipPath>
+<path d="M516,854 L615,854 Z M516,854" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip152)" />
+<text x="526" y="841" style="font:10px Noto Sans">声音生成模块</text>
+<clipPath id="clip153"><path d="M514,855 L605,855 L605,886 L514,886 L514,855 Z" /></clipPath>
+<path d="M516,884 L602,884 Z M516,884" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip153)" />
+<text x="526" y="871" style="font:10px Noto Sans">块变换模块</text>
+<clipPath id="clip154"><path d="M514,885 L618,885 L618,916 L514,916 L514,885 Z" /></clipPath>
+<path d="M516,914 L615,914 Z M516,914" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip154)" />
+<text x="526" y="901" style="font:10px Noto Sans">资源加载模块</text>
+<clipPath id="clip155"><path d="M514,915 L618,915 L618,946 L514,946 L514,915 Z" /></clipPath>
+<path d="M516,944 L615,944 Z M516,944" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip155)" />
+<text x="526" y="931" style="font:10px Noto Sans">地图生成模块</text>
+<clipPath id="clip156"><path d="M514,945 L618,945 L618,976 L514,976 L514,945 Z" /></clipPath>
+<path d="M516,974 L615,974 Z M516,974" style="fill:none;stroke:rgb(128,128,128)" clip-path="url(#clip156)" />
+<text x="526" y="961" style="font:10px Noto Sans">天气生成模块</text>
+<clipPath id="clip157"><path d="M313,296 L387,296 L387,482 L313,482 L313,296 Z" /></clipPath>
+<path d="M383.9921875,671 C317,631 346,356 378.15625,300" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip157)" />
+<clipPath id="clip158"><path d="M313,501 L387,501 L387,675 L313,675 L313,501 Z" /></clipPath>
+<path d="M383.9921875,671 C317,631 346,356 378.15625,300" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip158)" />
+<clipPath id="clip159"><path d="M313,480 L330,480 L330,503 L313,503 L313,480 Z" /></clipPath>
+<path d="M383.9921875,671 C317,631 346,356 378.15625,300" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip159)" />
+<clipPath id="clip160"><path d="M356,480 L387,480 L387,503 L356,503 L356,480 Z" /></clipPath>
+<path d="M383.9921875,671 C317,631 346,356 378.15625,300" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip160)" />
+<clipPath id="clip161"><path d="M328,480 L358,480 L358,503 L328,503 L328,480 Z" /></clipPath>
+<path d="M383.9921875,671 C317,631 346,356 378.15625,300" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip161)" />
+<clipPath id="clip162"><path d="M313,296 L387,296 L387,675 L313,675 L313,296 Z" /></clipPath>
+<path d="M378.1796875,310 L378.15625,300 L369.5078125,305.0195313" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip162)" />
+<text x="331" y="493" style="font:9px Noto Sans">控制</text>
+<clipPath id="clip163"><path d="M353,232 L486,232 L486,451 L353,451 L353,232 Z" /></clipPath>
+<path d="M482,236.984375 C357,250 407,673 405.6679688,671" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip163)" />
+<clipPath id="clip164"><path d="M353,470 L486,470 L486,684 L353,684 L353,470 Z" /></clipPath>
+<path d="M482,236.984375 C357,250 407,673 405.6679688,671" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip164)" />
+<clipPath id="clip165"><path d="M353,449 L384,449 L384,472 L353,472 L353,449 Z" /></clipPath>
+<path d="M482,236.984375 C357,250 407,673 405.6679688,671" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip165)" />
+<clipPath id="clip166"><path d="M410,449 L486,449 L486,472 L410,472 L410,449 Z" /></clipPath>
+<path d="M482,236.984375 C357,250 407,673 405.6679688,671" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip166)" />
+<clipPath id="clip167"><path d="M382,449 L412,449 L412,472 L382,472 L382,449 Z" /></clipPath>
+<path d="M482,236.984375 C357,250 407,673 405.6679688,671" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip167)" />
+<clipPath id="clip168"><path d="M353,232 L486,232 L486,684 L353,684 L353,232 Z" /></clipPath>
+<path d="M414.6289063,675.4335938 L405.6679688,671 L406.3085938,680.9804688" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip168)" />
+<text x="385" y="462" style="font:9px Noto Sans">通信</text>
+<clipPath id="clip169"><path d="M848,583 L1564,583 L1564,789 L848,789 L848,583 Z" /></clipPath>
+<path d="M852.7539063,723 C1227,861 1560,834 1276.5664063,587" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip169)" />
+<clipPath id="clip170"><path d="M848,808 L1564,808 L1564,865 L848,865 L848,808 Z" /></clipPath>
+<path d="M852.7539063,723 C1227,861 1560,834 1276.5664063,587" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip170)" />
+<clipPath id="clip171"><path d="M848,787 L1298,787 L1298,810 L848,810 L848,787 Z" /></clipPath>
+<path d="M852.7539063,723 C1227,861 1560,834 1276.5664063,587" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip171)" />
+<clipPath id="clip172"><path d="M1324,787 L1564,787 L1564,810 L1324,810 L1324,787 Z" /></clipPath>
+<path d="M852.7539063,723 C1227,861 1560,834 1276.5664063,587" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip172)" />
+<clipPath id="clip173"><path d="M1296,787 L1326,787 L1326,810 L1296,810 L1296,787 Z" /></clipPath>
+<path d="M852.7539063,723 C1227,861 1560,834 1276.5664063,587" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip173)" />
+<clipPath id="clip174"><path d="M848,583 L1564,583 L1564,865 L848,865 L848,583 Z" /></clipPath>
+<path d="M1286.3789063,588.921875 L1276.5664063,587 L1279.8085938,596.4609375" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip174)" />
+<text x="1299" y="799" style="font:9px Noto Sans">调用</text>
+<clipPath id="clip175"><path d="M850,660 L1094,660 L1094,695 L850,695 L850,660 Z" /></clipPath>
+<path d="M1049.9570313,664 C1090,709 1051,713 854,710.46875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip175)" />
+<clipPath id="clip176"><path d="M850,714 L1094,714 L1094,719 L850,719 L850,714 Z" /></clipPath>
+<path d="M1049.9570313,664 C1090,709 1051,713 854,710.46875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip176)" />
+<clipPath id="clip177"><path d="M850,693 L1015,693 L1015,716 L850,716 L850,693 Z" /></clipPath>
+<path d="M1049.9570313,664 C1090,709 1051,713 854,710.46875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip177)" />
+<clipPath id="clip178"><path d="M1065,693 L1094,693 L1094,716 L1065,716 L1065,693 Z" /></clipPath>
+<path d="M1049.9570313,664 C1090,709 1051,713 854,710.46875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip178)" />
+<clipPath id="clip179"><path d="M1013,693 L1067,693 L1067,716 L1013,716 L1013,693 Z" /></clipPath>
+<path d="M1049.9570313,664 C1090,709 1051,713 854,710.46875" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip179)" />
+<clipPath id="clip180"><path d="M850,660 L1094,660 L1094,719 L850,719 L850,660 Z" /></clipPath>
+<path d="M862.7226563,705.5820313 L854,710.46875 L862.59375,715.578125" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip180)" />
+<text x="1016" y="705" style="font:9px Noto Sans">获取动作</text>
+<clipPath id="clip181"><path d="M1073,221 L1280,221 L1280,483 L1073,483 L1073,221 Z" /></clipPath>
+<path d="M1077.53125,225 C1276,371 1187,649 1134,649.3554688" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip181)" />
+<clipPath id="clip182"><path d="M1073,502 L1280,502 L1280,658 L1073,658 L1073,502 Z" /></clipPath>
+<path d="M1077.53125,225 C1276,371 1187,649 1134,649.3554688" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip182)" />
+<clipPath id="clip183"><path d="M1073,481 L1175,481 L1175,504 L1073,504 L1073,481 Z" /></clipPath>
+<path d="M1077.53125,225 C1276,371 1187,649 1134,649.3554688" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip183)" />
+<clipPath id="clip184"><path d="M1225,481 L1280,481 L1280,504 L1225,504 L1225,481 Z" /></clipPath>
+<path d="M1077.53125,225 C1276,371 1187,649 1134,649.3554688" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip184)" />
+<clipPath id="clip185"><path d="M1173,481 L1227,481 L1227,504 L1173,504 L1173,481 Z" /></clipPath>
+<path d="M1077.53125,225 C1276,371 1187,649 1134,649.3554688" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip185)" />
+<clipPath id="clip186"><path d="M1073,221 L1280,221 L1280,658 L1073,658 L1073,221 Z" /></clipPath>
+<path d="M1142.625,644.296875 L1134,649.3554688 L1142.6953125,654.296875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip186)" />
+<text x="1176" y="494" style="font:9px Noto Sans">请求处理</text>
+<clipPath id="clip187"><path d="M624,583 L1670,583 L1670,784 L624,784 L624,583 Z" /></clipPath>
+<path d="M1291.1875,587 C1666,758 1388,900 628,787.3046875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip187)" />
+<clipPath id="clip188"><path d="M624,803 L1670,803 L1670,904 L624,904 L624,803 Z" /></clipPath>
+<path d="M1291.1875,587 C1666,758 1388,900 628,787.3046875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip188)" />
+<clipPath id="clip189"><path d="M624,782 L1348,782 L1348,805 L624,805 L624,782 Z" /></clipPath>
+<path d="M1291.1875,587 C1666,758 1388,900 628,787.3046875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip189)" />
+<clipPath id="clip190"><path d="M1422,782 L1670,782 L1670,805 L1422,805 L1422,782 Z" /></clipPath>
+<path d="M1291.1875,587 C1666,758 1388,900 628,787.3046875" style="fill:none;stroke:rgb(0,104,207);stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip190)" />
+<clipPath id="clip191"><path d="M1346,782 L1424,782 L1424,805 L1346,805 L1346,782 Z" /></clipPath>
+<path d="M1291.1875,587 C1666,758 1388,900 628,787.3046875" style="fill:none;stroke:rgb(0,104,207);opacity:0.09803921568627451;stroke-width:3;stroke-dasharray:3,3;stroke-dashoffset:0" clip-path="url(#clip191)" />
+<clipPath id="clip192"><path d="M624,583 L1670,583 L1670,904 L624,904 L624,583 Z" /></clipPath>
+<path d="M637.3007813,783.6289063 L628,787.3046875 L635.8320313,793.5195313" style="fill:none;stroke:rgb(0,104,207);stroke-width:3" clip-path="url(#clip192)" />
+<text x="1349" y="794" style="font:9px Noto Sans">更新变换矩阵</text>
+</svg>

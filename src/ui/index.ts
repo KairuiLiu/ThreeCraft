@@ -28,6 +28,18 @@ class UI {
 		this.menu = new Menu(document.getElementById('app'), this.controller);
 		document.oncontextmenu = () => false;
 	}
+
+	listenAll() {
+		this.fps.begin();
+		this.actionControl.listen();
+		this.bag.listen();
+	}
+
+	pauseAll() {
+		// this.fps.stop();
+		this.actionControl.pause();
+		this.bag.pause();
+	}
 }
 
 export default UI;

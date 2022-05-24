@@ -88,7 +88,6 @@ class ActionPluginMobile {
 	}
 
 	listen() {
-		// TODO Touch Move
 		this.joyStick.enable = true;
 		this.elem.addEventListener('touchmove', this.touchMoveListener);
 		this.elem.addEventListener('touchstart', this.touchMoveInitListener);

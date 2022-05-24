@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-// import * as THREE from '../../node_modules/three/build/three.module';
 import * as THREE from 'three';
 import { config, symConfig } from '../controller/config';
 
@@ -14,7 +12,13 @@ class Core {
 		this.camera = new THREE.PerspectiveCamera();
 		this.scene = new THREE.Scene();
 		this.renderer = new THREE.WebGLRenderer();
-		this.init();
+		window.addEventListener('resize', () => {
+			this.camera.aspect = window.innerWidth / window.innerHeight;
+			this.camera.updateProjectionMatrix();
+		});
+		window.addEventListener('resize', () => {
+			this.renderer.setSize(window.innerWidth, window.innerHeight);
+		});
 	}
 
 	init() {
@@ -22,7 +26,6 @@ class Core {
 		this.initScene();
 		this.initRenderer();
 		this.addTestScene();
-		this.work();
 	}
 
 	initCamera() {
@@ -31,19 +34,15 @@ class Core {
 		this.camera.near = 0.01;
 		this.camera.far = config.renderer.renderDistance;
 		this.camera.updateProjectionMatrix();
-		this.camera.position.set(
-			symConfig.camera.initPosition.x * config.camera.camHeight,
-			symConfig.camera.initPosition.y * config.camera.camHeight,
-			symConfig.camera.initPosition.z * config.camera.camHeight
-		);
+		// this.camera.position.set(
+		// 	symConfig.camera.initPosition.x * config.camera.camHeight,
+		// 	symConfig.camera.initPosition.y * config.camera.camHeight,
+		// 	symConfig.camera.initPosition.z * config.camera.camHeight
+		// );
+		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
 
-		// TODO
+		// TODO 修正相机配置 采用crosshair | default sym config
 		this.camera.lookAt(symConfig.camera.lookAt.x, symConfig.camera.lookAt.y, symConfig.camera.lookAt.z);
-
-		window.addEventListener('resize', () => {
-			this.camera.aspect = window.innerWidth / window.innerHeight;
-			this.camera.updateProjectionMatrix();
-		});
 	}
 
 	initScene() {
@@ -68,13 +67,11 @@ class Core {
 	initRenderer() {
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		document.getElementById('game-stage').appendChild(this.renderer.domElement);
-
-		window.addEventListener('resize', () => {
-			this.renderer.setSize(window.innerWidth, window.innerHeight);
-		});
 	}
 
 	addTestScene() {
+		const axesHelper = new THREE.AxesHelper(10000);
+		this.scene.add(axesHelper);
 		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
 		this.scene.add(cube);
 		const plane = new THREE.Mesh(new THREE.PlaneGeometry(1000, 1000), new THREE.MeshBasicMaterial({ color: 0xbbffaa }));
@@ -82,7 +79,7 @@ class Core {
 		this.scene.add(plane);
 	}
 
-	work() {
+	tryRender() {
 		this.renderer.render(this.scene, this.camera);
 	}
 }

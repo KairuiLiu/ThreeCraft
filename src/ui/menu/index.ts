@@ -145,7 +145,6 @@ class Menu {
 		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
 		loadArchiveStorage.addEventListener('click', e => {
 			e.stopPropagation();
-			// TODO 实现从浏览器读取存档
 			const configLocalStorage = localStorage.getItem('config');
 			if (configLocalStorage) {
 				deepCopy(JSON.parse(configLocalStorage), config);
@@ -331,6 +330,7 @@ class Menu {
 		langSelect.addEventListener('change', () => {
 			config.controller.language = langSelect.value as 'cn' | 'en';
 		});
+		// TODO 同步背包模式与语言
 	}
 
 	toInnerGameSettingMenu() {
@@ -339,8 +339,6 @@ class Menu {
 		this.setGrayBkg();
 	}
 
-	// TODO 存档相关, 退出游戏
-	// ! 游戏状态管理
 	toInnerGameMenu() {
 		this.showMenu();
 		this.setGrayBkg();
@@ -364,7 +362,7 @@ class Menu {
 		const backGameButton = document.getElementById('back-game');
 		backGameButton.addEventListener('click', e => {
 			e.stopPropagation();
-			this.controller.backGame();
+			this.controller.runGame();
 		});
 
 		const settingGameButton = document.getElementById('game-setting');
@@ -422,6 +420,7 @@ class Menu {
 		const exitGameButton = document.getElementById('exit-game');
 		exitGameButton.addEventListener('click', e => {
 			e.stopPropagation();
+			this.controller.endGame();
 			this.toStartMenu();
 		});
 	}

@@ -3,10 +3,10 @@ export function deepCopy(source, target) {
 	copyedObjs.push({ fromTarget: source, toTarget: target });
 	function deepCopyFunction(sourceItem, targetItem) {
 		Object.keys(sourceItem).forEach(key => {
-			if (typeof sourceItem[key] !== 'object') {
+			if (typeof sourceItem[key] !== 'object' || sourceItem[key] === null || sourceItem[key] === undefined) {
 				targetItem[key] = sourceItem[key];
 			} else {
-				if (targetItem[key]) return;
+				// if (targetItem[key]) return;
 				for (let i = 0; i < copyedObjs.length; i += 1) {
 					if (copyedObjs[i].fromTarget === sourceItem[key]) {
 						targetItem[key] = copyedObjs[i].toTarget;

@@ -61,7 +61,6 @@ class Bag {
 		this.itemsElem = [...this.plugin.bagInnerElem.children] as HTMLElement[]; // 每个框
 		this.plugin.place(); // 调整背包框位置
 		this.update(); // 载入图片
-		this.listen(); // 开启背包框监听
 		this.highlight(); // 刷新高亮
 	}
 

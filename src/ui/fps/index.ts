@@ -17,7 +17,6 @@ class Fps {
 		this.fpsElem.setAttribute('id', 'fps');
 		this.fpsElem.innerText = ' FPS: ---';
 		el.appendChild(this.fpsElem);
-		this.begin();
 	}
 
 	begin() {

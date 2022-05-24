@@ -89,4 +89,3 @@ TODO
 - control
 - base ui interface
 - language
-- import THREE

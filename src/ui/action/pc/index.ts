@@ -28,7 +28,6 @@ class ActionPluginPc {
 	}
 
 	listen() {
-		// TODO Mouse Move
 		// eslint-disable-next-line
 		(this.elem.requestPointerLock() as unknown as Promise<null>).then(
 			() => {
@@ -44,7 +43,6 @@ class ActionPluginPc {
 	}
 
 	pause() {
-		// TODO
 		document.exitPointerLock();
 		document.removeEventListener('keydown', this.keyListener);
 		this.elem.removeEventListener('contextmenu', this.clickListener);
@@ -62,7 +60,7 @@ class ActionPluginPc {
 			else if (e.key === 'Shift') self.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
 			else if (['q', 'Q'].includes(e.key)) self.controller.toggleCheatMode();
 			else if (e.key === 'Escape') {
-				self.pause();
+				self.controller.pauseGame();
 				self.controller.uiController.ui.menu.toInnerGameMenu();
 			}
 		};
