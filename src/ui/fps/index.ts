@@ -1,3 +1,4 @@
+import { config } from '../../controller/config';
 import './css/style.less';
 
 class Fps {
@@ -17,20 +18,30 @@ class Fps {
 		this.fpsElem.setAttribute('id', 'fps');
 		this.fpsElem.innerText = ' FPS: ---';
 		el.appendChild(this.fpsElem);
+		if (config.controller.fps) this.begin();
+		else this.stop();
 	}
 
 	begin() {
 		this.fpsElem.classList.remove('hidden');
 		this.available = true;
-		this.work();
 	}
 
 	stop() {
 		this.fpsElem.classList.add('hidden');
+	}
+
+	listen() {
+		this.available = true;
+	}
+
+	pause() {
 		this.available = false;
+		this.fpsElem.innerHTML = ' FPS: ---';
 	}
 
 	work() {
+		if (!this.available) return;
 		const cur = performance.now();
 		if (cur - this.lastTime >= 1000) {
 			// eslint-disable-next-line
@@ -39,11 +50,6 @@ class Fps {
 			this.lastTime = cur;
 		}
 		this.cnt += 1;
-		if (this.available) {
-			requestAnimationFrame(() => {
-				this.work();
-			});
-		}
 	}
 }
 

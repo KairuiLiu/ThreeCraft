@@ -8,12 +8,12 @@ class MoveController {
 	}
 
 	positionMove(arg) {
-		console.log('Controller>gameController>moveController>posmove', arg);
+		// console.log('Controller>gameController>moveController>posmove', arg);
 		this;
 	}
 
 	viewDirectionMove(arg) {
-		console.log('Controller>gameController>moveController>viewmove', arg);
+		// console.log('Controller>gameController>moveController>viewmove', arg);
 		this;
 	}
 }

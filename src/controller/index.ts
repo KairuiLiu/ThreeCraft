@@ -8,7 +8,7 @@ import { deepCopy } from '../utils/deep-copy';
 class Controller {
 	ui: UI;
 
-	core: Core;
+	core: Core | null;
 
 	gameController: GameController;
 
@@ -18,9 +18,9 @@ class Controller {
 
 	running: boolean;
 
-	constructor(ui: UI, core: Core) {
-		this.ui = ui;
-		this.core = core;
+	constructor() {
+		this.ui = new UI();
+		this.core = new Core();
 		this.running = false;
 		deepCopy(defaultConfig, config);
 
@@ -32,19 +32,21 @@ class Controller {
 
 	// 第一次进入游戏
 	startGame(single: boolean) {
+		this.single = single;
 		if (config.berlinSeed === null) {
 			// TODO 随机数种子
 		}
-		this.single = single;
+		// TODO scene 维护
 		this.runGame();
 	}
 
 	// 开启游戏
+	// ? 销毁不彻底, 但是好像又解决了?
 	runGame() {
 		this.running = true;
+		// TODO 开启相机全局信息
 		this.uiController.ui.listenAll();
 		this.uiController.ui.menu.hideMenu();
-		this.core.init();
 		this.tryRender();
 	}
 
@@ -63,15 +65,15 @@ class Controller {
 	// 游戏配置即时事件
 	toggleCheatMode() {
 		config.controller.cheat = !config.controller.cheat;
+		// TODO THREE核心清理
 		this;
 	}
 
 	// 渲染
-
 	tryRender() {
-		console.log(this.running);
 		if (!this.running) return;
 		requestAnimationFrame(this.tryRender.bind(this));
+		this.uiController.ui.fps.work();
 		this.gameController.update();
 		this.core.tryRender();
 	}

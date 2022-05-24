@@ -9,7 +9,7 @@ class BlockController {
 	}
 
 	update(blocks: Block[]) {
-		console.log('Controller>gameController>blockController>update', blocks);
+		// console.log('Controller>gameController>blockController>update', blocks);
 		this;
 	}
 }

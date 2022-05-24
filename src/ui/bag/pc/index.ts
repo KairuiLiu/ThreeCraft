@@ -83,8 +83,17 @@ class BagPcPlugin {
 
 	// 滚轮激活不同背包框
 	static getWheelItemEventListener(host) {
+		let lenCnt = 0;
 		return e => {
-			config.bag.activeIndex = (config.bag.activeIndex + (e.wheelDeltaY > 0 ? -1 : 1) + 10) % 10;
+			if (lenCnt * e.deltaY < 0) {
+				lenCnt = e.deltaY;
+			} else {
+				lenCnt += e.deltaY;
+			}
+			if (lenCnt >= 30 || lenCnt <= -30) {
+				config.bag.activeIndex = (config.bag.activeIndex + (e.wheelDeltaY > 0 ? -1 : 1) + 10) % 10;
+				lenCnt = 0;
+			}
 			host.highlight();
 		};
 	}

@@ -8,7 +8,10 @@ class Core {
 
 	renderer: THREE.WebGLRenderer;
 
+	loaded: boolean;
+
 	constructor() {
+		this.loaded = false;
 		this.camera = new THREE.PerspectiveCamera();
 		this.scene = new THREE.Scene();
 		this.renderer = new THREE.WebGLRenderer();
@@ -22,6 +25,7 @@ class Core {
 	}
 
 	init() {
+		this.loaded = true;
 		this.initCamera();
 		this.initScene();
 		this.initRenderer();
@@ -81,6 +85,16 @@ class Core {
 
 	tryRender() {
 		this.renderer.render(this.scene, this.camera);
+	}
+
+	updateGL() {
+		this.scene.fog = new THREE.FogExp2(symConfig.stage.skyBackground, config.renderer.fog);
+		this.camera.fov = config.camera.fov;
+		this.camera.far = config.renderer.renderDistance;
+		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
+		this.camera.updateProjectionMatrix();
+		console.log(this.scene);
+		console.log(this.camera);
 	}
 }
 

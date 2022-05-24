@@ -30,13 +30,13 @@ class UI {
 	}
 
 	listenAll() {
-		this.fps.begin();
+		this.fps.listen();
 		this.actionControl.listen();
 		this.bag.listen();
 	}
 
 	pauseAll() {
-		// this.fps.stop();
+		this.fps.pause();
 		this.actionControl.pause();
 		this.bag.pause();
 	}
