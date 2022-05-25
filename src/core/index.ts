@@ -45,7 +45,7 @@ class Core {
 		this.camera.updateProjectionMatrix();
 		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
 		// TODO 修正相机配置 采用crosshair | default sym config
-		this.camera.lookAt(symConfig.camera.lookAt.x, symConfig.camera.lookAt.y, symConfig.camera.lookAt.z);
+		this.camera.lookAt(0, 0, 0);
 
 		this.scene = new THREE.Scene();
 		const backgroundColor = symConfig.stage.skyBackground;

@@ -132,26 +132,15 @@ class GameController {
 	}
 
 	update() {
-		if (config.controller.operation === 'mobile' && !this.lastMove.haveChange) {
-			this.nextTrickMoveTask = { ...this.lastMove };
-		}
-		// TODO camear.lookat + config.position + this.nextTrackMove => nextPosition
-		const nextPosition = {
-			posX: config.state.posX,
-			posY: config.state.posY,
-			posZ: config.state.posZ,
-		};
-		if (!collisionCheck({ ...nextPosition, core: this.core })) {
-			this.moveController.positionMove(this.nextTrickMoveTask);
-		}
+		if (config.controller.operation === 'mobile' && !this.lastMove.haveChange) this.nextTrickMoveTask = { ...this.lastMove };
 		this.moveController.viewDirectionMove(this.nextTrickViewTask);
-		this.blockController.update(this.nextTrickBlockTask);
-		this.nextTrickBlockTask.length = 0;
+		this.moveController.positionMove(this.nextTrickMoveTask);
 		this.nextTrickMoveTask = { font: 0, left: 0, up: 0 };
 		this.nextTrickViewTask = { viewHorizontal: 0, viewVertical: 0 };
-		// TODO record block action
-		config.state = { ...config.state, ...nextPosition };
 		this.lastMove.haveChange = false;
+
+		this.blockController.update(this.nextTrickBlockTask);
+		this.nextTrickBlockTask.length = 0;
 	}
 }
 

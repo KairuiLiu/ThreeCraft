@@ -55,6 +55,7 @@ class BagPcPlugin {
 		this.bagInnerElem.removeEventListener('click', this.clickItemEventListener);
 		document.removeEventListener('keyup', this.keyupItemEventListener);
 		document.removeEventListener('keyup', this.keyupBagOpenEventListener);
+		document.removeEventListener('wheel', this.wheelItemEventListener);
 	}
 
 	// 点击背包框激活对应元素??

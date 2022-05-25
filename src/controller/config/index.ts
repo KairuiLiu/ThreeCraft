@@ -32,9 +32,9 @@ const config = {
 		fps: true,
 	},
 	state: {
-		posX: 6,
-		posY: 37,
-		posZ: 6,
+		posX: 0,
+		posY: 20,
+		posZ: -20,
 		jumping: false,
 	},
 };
@@ -80,18 +80,20 @@ const symConfig = {
 		},
 	},
 	camera: {
-		initPosition: { x: 6, y: 37, z: 6 },
+		initPosition: { x: 0, y: 30, z: -10 },
 		lookAt: { x: 6, y: 37, z: 6 },
 	},
 	stage: {
 		// skyBackground: 0x87ceeb,
 		skyBackground: 0x222222,
 	},
-	speed: {
+	actionsScale: {
 		walking: 5,
 		jump: 7,
 		fall: 7,
 		cheatFactor: 2,
+		moveScale: 0.05,
+		viewScale: 0.005,
 	},
 	body: {
 		length: 0.7,
@@ -132,9 +134,9 @@ const defaultConfig = {
 		fps: true,
 	},
 	state: {
-		posX: 6,
-		posY: 37,
-		posZ: 6,
+		posX: 0,
+		posY: 20,
+		posZ: -20,
 		jumping: false,
 	},
 };

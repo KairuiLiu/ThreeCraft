@@ -10,6 +10,8 @@ class BlockController {
 
 	update(blocks: Block[]) {
 		// console.log('Controller>gameController>blockController>update', blocks);
+
+		// TODO 记录位置
 		this;
 	}
 }
