@@ -42,7 +42,7 @@ jobs:
 
       # 拷贝一个奇怪的依赖
       - name: copy asset
-        run: cp -r ./src/assets ./dist
+        run: mkdir ./dist/src && cp -r ./src/assets ./dist/src
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.5
