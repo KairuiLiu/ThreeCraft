@@ -49,4 +49,3 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: root
           TARGET: /home/liukairui/wwwroot/mc
-
