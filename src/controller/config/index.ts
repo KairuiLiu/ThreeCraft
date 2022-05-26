@@ -83,8 +83,8 @@ const symConfig = {
 		lookAt: { x: 6, y: 37, z: 6 },
 	},
 	stage: {
-		// skyBackground: 0x87ceeb,
-		skyBackground: 0x222222,
+		skyBackground: 0x87ceeb,
+		// skyBackground: 0x222222,
 	},
 	actionsScale: {
 		walking: 5,
