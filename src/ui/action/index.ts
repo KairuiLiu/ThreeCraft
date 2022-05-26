@@ -21,6 +21,7 @@ class ActonControl {
 	}
 
 	load() {
+		if (this.plugin) this.plugin.destroy();
 		if (config.controller.operation === 'pc') {
 			this.plugin = new ActionPluginPc(this.elem, this.controller);
 		} else if (config.controller.operation === 'mobile') {

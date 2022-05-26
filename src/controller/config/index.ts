@@ -1,4 +1,7 @@
 import deviceTest from '../../utils/device-test';
+import langCN from '../../assets/lang/zh_cn';
+import langEN from '../../assets/lang/en_us';
+import { deepClone } from '../../utils/deep-clone';
 
 const config = {
 	berlinSeed: null,
@@ -26,7 +29,7 @@ const config = {
 	controller: {
 		volume: 80,
 		operation: deviceTest(),
-		language: 'cn',
+		language: '0',
 		cheat: true,
 		dev: true,
 		fps: true,
@@ -123,7 +126,7 @@ const defaultConfig = {
 	controller: {
 		volume: 80,
 		operation: deviceTest(),
-		language: 'cn',
+		language: '0',
 		cheat: true,
 		dev: true,
 		fps: true,
@@ -135,4 +138,12 @@ const defaultConfig = {
 	},
 };
 
-export { config, symConfig, defaultConfig };
+const languages = [langCN, langEN];
+
+const langIdx = /^\/en/.test(document.location.pathname) ? 1 : 0;
+
+const language = deepClone(languages[langIdx]);
+defaultConfig.controller.language = `${langIdx}`;
+config.controller.language = `${langIdx}`;
+
+export { config, symConfig, defaultConfig, language, languages };

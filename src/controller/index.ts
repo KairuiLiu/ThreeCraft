@@ -2,7 +2,7 @@ import UI from '../ui';
 import Core from '../core';
 import UiController from './ui-controller';
 import { GameController } from './game-controller';
-import { config, defaultConfig } from './config';
+import { config, defaultConfig, language } from './config';
 import { deepCopy } from '../utils/deep-copy';
 
 class Controller {
@@ -33,7 +33,7 @@ class Controller {
 	// 开始游戏, 载入世界模型
 	startGame(single: boolean) {
 		if (config.controller.operation === 'mobile' && !config.controller.dev && window.innerHeight > window.innerWidth) {
-			this.uiController.ui.menu.setNotify('请先将您的设备设为横屏再开始游戏');
+			this.uiController.ui.menu.setNotify(language.tryRotate);
 			return;
 		}
 		this.single = single;
@@ -49,7 +49,7 @@ class Controller {
 	// 开启游戏, update相机信息, 不得修改场景
 	runGame() {
 		if (config.controller.operation === 'mobile' && !config.controller.dev && window.innerHeight > window.innerWidth) {
-			this.uiController.ui.menu.setNotify('请先将您的设备设为横屏再开始游戏');
+			this.uiController.ui.menu.setNotify(language.tryRotate);
 			return;
 		}
 		this.running = true;

@@ -58,6 +58,11 @@ class BagPcPlugin {
 		document.removeEventListener('wheel', this.wheelItemEventListener);
 	}
 
+	destroy() {
+		this.pause();
+		this.bagInnerElem.remove();
+	}
+
 	// 点击背包框激活对应元素??
 	static getClickItemEventListener(host) {
 		return e => {

@@ -37,7 +37,7 @@ class Bag {
 	}
 
 	place() {
-		// 加载背包框插件
+		if (this.plugin) this.plugin.destroy();
 		if (this.type === 'pc') {
 			this.plugin = new BagPcPlugin(this.bagElem, this);
 		} else if (this.type === 'mobile') {
@@ -81,6 +81,7 @@ class Bag {
 	// 开关背包
 	toggleBag() {
 		this.bagBox.toggleUseable();
+		document.exitPointerLock();
 	}
 
 	// 开关背包后刷新背包框

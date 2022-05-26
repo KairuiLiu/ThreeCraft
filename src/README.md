@@ -1,7 +1,3 @@
-TODO
-
-- language
-- 删除相机角度, 这他妈是个第一人称视角游戏啊!!!
 
 file structure
 

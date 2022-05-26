@@ -1,5 +1,5 @@
 import { Controller } from '../../../controller';
-import { config } from '../../../controller/config';
+import { config, language } from '../../../controller/config';
 import { actionBlockEvent } from '../../../controller/game-controller';
 
 class ActionPluginPc {
@@ -34,7 +34,7 @@ class ActionPluginPc {
 	listen() {
 		// eslint-disable-next-line
 		(this.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
-			this.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, this.elem);
+			this.controller.ui.menu.setNotify(language.tryLock, 1000, this.elem);
 		});
 		document.addEventListener('keydown', this.keyListener);
 		document.addEventListener('keyup', this.keyUpListener);
@@ -50,6 +50,14 @@ class ActionPluginPc {
 		this.elem.removeEventListener('contextmenu', this.clickListener);
 		this.elem.addEventListener('mousemove', this.mouseMoveListener);
 		this.elem.removeEventListener('click', this.clickListener);
+	}
+
+	destroy() {
+		this.pause();
+	}
+
+	updateLang() {
+		this;
 	}
 
 	static getKeyListener(self) {
@@ -86,7 +94,7 @@ class ActionPluginPc {
 			e.stopPropagation();
 			if (!document.pointerLockElement) {
 				(self.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
-					self.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, self.elem);
+					self.controller.ui.menu.setNotify(language.tryLock, 1000, self.elem);
 				});
 				return false;
 			}

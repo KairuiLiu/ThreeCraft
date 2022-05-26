@@ -1,5 +1,5 @@
 import './css/style.less';
-import { config, symConfig } from '../../../controller/config';
+import { config, language, symConfig } from '../../../controller/config';
 
 class BagBoxPlugin {
 	host: { onToggleBag: () => void };
@@ -75,7 +75,7 @@ class BagBoxPlugin {
 		return `<div class="bag-box hidden" id="bag-box">
 			<div class="bag-box-content">
 				<div class="title mc-menu">
-					<div>全部方块</div>
+					<div>${language.allBlock}</div>
 					<button id="closeBag" class="button close">X</button>
 				</div>
 				<div class="select">

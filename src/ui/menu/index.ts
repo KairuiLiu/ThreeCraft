@@ -1,6 +1,6 @@
 import { Controller } from '../../controller';
 import { deepCopy } from '../../utils/deep-copy';
-import { config, defaultConfig } from '../../controller/config';
+import { config, defaultConfig, language, languages } from '../../controller/config';
 import { downloadJson } from '../../utils/download';
 
 class Menu {
@@ -89,7 +89,6 @@ class Menu {
 		this;
 	}
 
-	// TODO * 3
 	toStartMenu() {
 		this.showMenu();
 		this.showTitle();
@@ -98,19 +97,19 @@ class Menu {
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
 			<div class="box-line">
-				<button id="single-player-game" class="button">单人游戏</button>
-				<button id="multi-player-game" class="button">多人游戏</button>
+				<button id="single-player-game" class="button">${language.singlePlayerGame}</button>
+				<button id="multi-player-game" class="button">${language.multiPlayerGame}</button>
 			</div>
 			<div class="box-line" id="load-archive">
 				<input id="load-archive-file" type="file" id="load-archive-file" class="file-loader" />
-				<button id="load-archive-file-button" class="button">上载存档</button>
-				<button id="load-archive-storage" class="button">缓存读档</button>
+				<button id="load-archive-file-button" class="button">${language.uploadArchive}</button>
+				<button id="load-archive-storage" class="button">${language.browserArchive}</button>
 			</div>
-			<button id="load-archive-cancel" class="button hidden">已加载, 点击取消</button>
-			<button id="game-setting" class="button">游戏设置</button>
+			<button id="load-archive-cancel" class="button hidden">${language.cancelArchive}</button>
+			<button id="game-setting" class="button">${language.setting}</button>
 			<div class="box-line">
-				<button id="help" class="button">帮助</button>
-				<button id="about" class="button">关于项目</button>
+				<button id="help" class="button">${language.help}</button>
+				<button id="about" class="button">${language.about}</button>
 			</div>`;
 		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
 		singlePlayerGame.addEventListener('click', e => {
@@ -131,7 +130,7 @@ class Menu {
 			const reader = new FileReader();
 			reader.onload = () => {
 				deepCopy(JSON.parse(reader.result as string), config);
-				this.setNotify('读档成功');
+				this.setNotify(language.loadArchiveSuccess);
 				this.onLoadArchiveSuccess();
 			};
 			reader.readAsText(file);
@@ -148,10 +147,10 @@ class Menu {
 			const configLocalStorage = localStorage.getItem('config');
 			if (configLocalStorage) {
 				deepCopy(JSON.parse(configLocalStorage), config);
-				this.setNotify('读档成功');
+				this.setNotify(language.loadArchiveSuccess);
 				this.onLoadArchiveSuccess();
 			} else {
-				this.setNotify('浏览器无存档');
+				this.setNotify(language.browserNoArchive);
 			}
 		});
 		const loadArchiveCancel = this.boxElem.querySelector('#load-archive-cancel');
@@ -159,7 +158,7 @@ class Menu {
 			e.stopPropagation();
 			deepCopy(defaultConfig, config);
 			this.onLoadArchiveCancel();
-			this.setNotify('取消成功');
+			this.setNotify(language.cancelSuccess);
 		});
 		const gameSetting = this.boxElem.querySelector('#game-setting');
 		gameSetting.addEventListener('click', e => {
@@ -185,24 +184,24 @@ class Menu {
 		this.removeTitle();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
-			<div class="box-line title color-white">多人游戏</div>
-			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">创建房间</label></div>
-			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">加入房间</label></div>
+			<div class="box-line title color-white">${language.multiPlayerGame}</div>
+			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">${language.creatRoom}</label></div>
+			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">${language.joinRoom}</label></div>
 			<br/>
 			<div class="box-line">
-				<label  for="ip" class="fix-width color-white">IP: </label><input type="text" class="text-input" id="ip" />
+				<label  for="ip" class="fix-width color-white">${language.roomName}: </label><input type="text" class="text-input" id="ip" />
 			</div>
 			<div class="box-line">
-				<label  for="password" class="fix-width color-white">口令: </label><input type="text" class="text-input" id="password" />
+				<label  for="password" class="fix-width color-white">${language.token}: </label><input type="text" class="text-input" id="password" />
 				</div>
 			<div class="box-line">
-				<label  for="payer-number" class="fix-width color-white">人数: </label><input type="text" class="text-input" id="payer-number" disabled />
+				<label  for="payer-number" class="fix-width color-white">${language.gameNumber}: </label><input type="text" class="text-input" id="payer-number" disabled />
 			</div>
 			<br/>
-			<button id="socket-start-game" class="button">开始游戏</button>
-			<button id="socket-join-room" class="button hidden">加入房间</button>
-			<button id="socket-exit-room" class="button hidden">退出房间</button>
-			<button class="button" id="backMenu">返回</button>`;
+			<button id="socket-start-game" class="button">${language.startGame}</button>
+			<button id="socket-join-room" class="button hidden">${language.joinRoom}</button>
+			<button id="socket-exit-room" class="button hidden">${language.exitRoom}</button>
+			<button class="button" id="backMenu">${language.backMenu}</button>`;
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
@@ -215,53 +214,53 @@ class Menu {
 		this.showBorder();
 		this.removeTitle();
 		this.clearMenuItem();
-		this.boxElem.innerHTML = `<div class="box-line title ">游戏设置</div>
+		this.boxElem.innerHTML = `<div class="box-line title ">${language.setting}</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="fov-range" class="fix-width">FOV</label>
+				<label for="fov-range" class="fix-width">${language.fov}</label>
 				<input type="range" class="range" id="fov-range" name="fov-range" min="30" max="120" step="10" />
 				<label for="fov-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="fog-range" class="fix-width">雾气因子</label>
+				<label for="fog-range" class="fix-width">${language.fogFactor}</label>
 				<input type="range" class="range" id="fog-range" name="fog-range" min="0" max="10" step="1" />
 				<label for="fog-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="sim-range" class="fix-width">模拟距离</label>
+				<label for="sim-range" class="fix-width">${language.simulateDistance}</label>
 				<input type="range" class="range" id="sim-range" name="sim-range" min="0" max="999" step="1" />
 				<label for="sim-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="rend-range" class="fix-width">渲染距离</label>
+				<label for="rend-range" class="fix-width">${language.rendDistance}</label>
 				<input type="range" class="range" id="rend-range" name="rend-range" min="0" max="999" step="1" />
 				<label for="rend-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="volume-range" class="fix-width">音量</label>
+				<label for="volume-range" class="fix-width">${language.volume}</label>
 				<input type="range" class="range" id="volume-range" name="volume-range" min="0" max="100" step="5" />
 				<label for="volume-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
 		<div class="box-line">
-			<label for="lang-select" class="fix-width">语言</label>
+			<label for="lang-select" class="fix-width">${language.language}</label>
 			<select class="select" name="lang-select" id="lang-select">
-				<option value="cn">中文</option>
-				<option value="en">En&nbsp;&nbsp;</option>
+				<option value="0">中文</option>
+				<option value="1">En&nbsp;&nbsp;</option>
 			</select>
-			<label for="operate-select" class="fix-width">操纵模式</label>
+			<label for="operate-select" class="fix-width">${language.operation}</label>
 			<select class="select" name="operate-select" id="operate-select">
-				<option value="pc">PC端</option>
-				<option value="mobile">移动端</option>
-				<option value="vr">VR</option>
+				<option value="pc">${language.pcMode}</option>
+				<option value="mobile">${language.mobileMode}</option>
+				<option value="vr">${language.vrMode}</option>
 			</select>
 		</div>
 		<div class="box-line">
@@ -271,15 +270,15 @@ class Menu {
 				<option value="2">中</option>
 				<option value="1">低</option>
 			</select>
-			<label for="bag-type-select" class="fix-width">背包模式</label>
+			<label for="bag-type-select" class="fix-width">${language.bagMode}</label>
 			<select class="select" name="bag-type-select" id="bag-type-select">
-				<option value="pc">PC端</option>
-				<option value="mobile">移动端</option>
-				<option value="vr">VR</option>
+				<option value="pc">${language.pcMode}</option>
+				<option value="mobile">${language.mobileMode}</option>
+				<option value="vr">${language.vrMode}</option>
 			</select>
 		</div>
 		<br />
-		<button class="button" id="backMenu">返回</button>`;
+		<button class="button" id="backMenu">${language.backMenu}</button>`;
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
@@ -328,9 +327,25 @@ class Menu {
 		const langSelect = document.getElementById('lang-select') as HTMLInputElement;
 		langSelect.value = `${config.controller.language}`;
 		langSelect.addEventListener('change', () => {
-			config.controller.language = langSelect.value as 'cn' | 'en';
+			config.controller.language = langSelect.value;
+			deepCopy(languages[Number.parseInt(langSelect.value, 10)], language);
+			this.toSettingMenu({ back });
+			this.controller.uiController.ui.actionControl.plugin.updateLang();
 		});
-		// TODO 同步背包模式与语言
+		// TODO 同步背包模式
+		const bagSelect = document.getElementById('bag-type-select') as HTMLInputElement;
+		bagSelect.value = `${config.bag.type}`;
+		bagSelect.addEventListener('change', () => {
+			config.bag.type = bagSelect.value;
+			this.controller.uiController.ui.bag.type = bagSelect.value as 'pc' | 'mobile' | 'vr';
+			this.controller.uiController.ui.bag.place();
+		});
+		const operateSelect = document.getElementById('operate-select') as HTMLInputElement;
+		operateSelect.value = `${config.controller.operation}`;
+		operateSelect.addEventListener('change', () => {
+			config.controller.operation = operateSelect.value as 'pc' | 'mobile' | 'vr';
+			this.controller.uiController.ui.actionControl.load();
+		});
 	}
 
 	toInnerGameSettingMenu() {
@@ -346,18 +361,18 @@ class Menu {
 		this.showBorder();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
-		<button id="back-game" class="button">返回游戏</button>
-		<button id="game-setting" class="button">游戏设置</button>
-		<button id="game-full-screen" class="button">全屏/取消全屏</button>
+		<button id="back-game" class="button">${language.backGame}</button>
+		<button id="game-setting" class="button">${language.setting}</button>
+		<button id="game-full-screen" class="button">${language.setFullScreen}</button>
 		<div class="box-line color-white">
 			<button id="game-fps-mode" class="button"></button>
 			<button id="game-cheat-mode" class="button"></button>
 		</div>
-		<button id="help" class="button">帮助</button>
-		<button id="about" class="button">关于项目</button>
+		<button id="help" class="button">${language.help}</button>
+		<button id="about" class="button">${language.about}</button>
 		<br>
-		<button id="save-game" class="button">存档</button>
-		<button id="exit-game" class="button">退出</button>`;
+		<button id="save-game" class="button">${language.saveGame}</button>
+		<button id="exit-game" class="button">${language.exitGame}</button>`;
 
 		const backGameButton = document.getElementById('back-game');
 		backGameButton.addEventListener('click', e => {
@@ -396,25 +411,25 @@ class Menu {
 			e.stopPropagation();
 			localStorage.setItem('config', JSON.stringify(config));
 			downloadJson(JSON.stringify(config));
-			this.setNotify('保存成功');
+			this.setNotify(language.saveSuccess);
 		});
 
 		const cheatModeButton = document.getElementById('game-cheat-mode');
-		cheatModeButton.innerText = `作弊模式: ${config.controller.cheat ? '开' : '关'}`;
+		cheatModeButton.innerText = `${language.cheatMode}: ${config.controller.cheat ? language.on : language.off}`;
 		cheatModeButton.addEventListener('click', e => {
 			e.stopPropagation();
 			this.controller.toggleCheatMode();
-			cheatModeButton.innerText = `作弊模式: ${config.controller.cheat ? '开' : '关'}`;
+			cheatModeButton.innerText = `${language.cheatMode}: ${config.controller.cheat ? language.on : language.off}`;
 		});
 
 		const fpsModeButton = document.getElementById('game-fps-mode');
-		fpsModeButton.innerText = `FPS: ${config.controller.fps ? '开' : '关'}`;
+		fpsModeButton.innerText = `${language.fps}: ${config.controller.fps ? language.on : language.off}`;
 		fpsModeButton.addEventListener('click', e => {
 			e.stopPropagation();
 			config.controller.fps = !config.controller.fps;
 			if (config.controller.fps) this.controller.uiController.ui.fps.begin();
 			else this.controller.uiController.ui.fps.stop();
-			fpsModeButton.innerText = `FPS: ${config.controller.fps ? '开' : '关'}`;
+			fpsModeButton.innerText = `${language.fps}: ${config.controller.fps ? language.on : language.off}`;
 		});
 
 		const exitGameButton = document.getElementById('exit-game');
@@ -431,45 +446,45 @@ class Menu {
 		this.removeTitle();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
-			<div class="box-line title color-white">帮助</div>
+			<div class="box-line title color-white">${language.help}</div>
 			<div class="box-line color-white">
 				<ul id="help">
 					<li>
-						<b>PC端</b>
+						<b>${language.mobileMode}</b>
 						<ul class="help-item">
-							<li><b>F键</b>: 全屏</li>
-							<li><b>E键</b>: 开关背包</li>
-							<li><b>C键</b>: 作弊模式</li>
-							<li><b>ESC键</b>: 显示菜单</li>
-							<li><b>数字键</b>: 切换手持方块</li>
-							<li><b>空格键</b>: 跳跃</li>
-							<li><b>WSAD键</b>: 前后左右移动</li>
-							<li><b>Shift键</b>: 作弊模式时下降</li>
-							<li><b>鼠标移动</b>: 变换朝向</li>
-							<li><b>滚轮滚动</b>: 切换手持方块</li>
-							<li><b>鼠标左/右击</b>: 摧毁/创建方块</li>
-							<li><b>点击物品框</b>: 切换手持方块</li>
+							<li><b>${language.helps[0].k}</b>:${language.helps[0].v} </li>
+							<li><b>${language.helps[1].k}</b>:${language.helps[1].v} </li>
+							<li><b>${language.helps[2].k}</b>:${language.helps[2].v} </li>
+							<li><b>${language.helps[3].k}</b>:${language.helps[3].v} </li>
+							<li><b>${language.helps[4].k}</b>:${language.helps[4].v} </li>
+							<li><b>${language.helps[5].k}</b>:${language.helps[5].v} </li>
+							<li><b>${language.helps[6].k}</b>:${language.helps[6].v} </li>
+							<li><b>${language.helps[7].k}</b>:${language.helps[7].v} </li>
+							<li><b>${language.helps[8].k}</b>:${language.helps[8].v} </li>
+							<li><b>${language.helps[9].k}</b>:${language.helps[9].v} </li>
+							<li><b>${language.helps[10].k}</b>:${language.helps[10].v} </li>
+							<li><b>${language.helps[11].k}</b>:${language.helps[11].v} </li>
 						</ul>
 					</li>
 					<li>
-						<b>移动端</b>
+						<b>${language.vrMode}</b>
 						<ul class="help-item">
-							<li><b>拖动屏幕</b>: 变换朝向</li>
-							<li><b>点击物品框</b>: 切换手持方块</li>
-							<li><b>点击激活的物品框</b>: 打开背包</li>
+							<li><b>${language.helps[12].k}</b>: ${language.helps[12].v}</li>
+							<li><b>${language.helps[13].k}</b>: ${language.helps[13].v}</li>
+							<li><b>${language.helps[14].k}</b>: ${language.helps[14].v}</li>
 						</ul>
 					</li>
 					<li>
-						<b>VR</b>
+						<b>${language.pcMode}</b>
 						<ul class="help-item">
-							<li><b>转动头显</b>: 变换朝向</li>
-							<li><b>使用遥控器</b>: 摧毁方块</li>
+							<li><b>${language.helps[15].k}</b>: ${language.helps[15].v}</li>
+							<li><b>${language.helps[16].k}</b>: ${language.helps[16].v}</li>
 						</ul>
 					</li>
 				</ul>
 			</div>
 			<br/>
-			<button class="button" id="backMenu">返回</button>`;
+			<button class="button" id="backMenu">${language.backMenu}</button>`;
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
@@ -483,18 +498,18 @@ class Menu {
 		this.removeTitle();
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
-			<div class="box-line title color-white">关于</div>
+			<div class="box-line title color-white">${language.about}</div>
 			<div class="box-line color-white">
-				基于Three.js的Minecraft实现.
+				${language.aboutItems[0]}
 			</div>
 			<div class="box-line color-white">
-				去<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>了解更多:)
+			${language.aboutItems[1]}<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>${language.aboutItems[2]}
 			</div>
 			<div class="box-line color-white">
-				未完成版: 202205261435
+			${language.aboutItems[3]}
 			</div>
 			<br/>
-			<button class="button" id="backMenu">返回</button>`;
+			<button class="button" id="backMenu">${language.backMenu}</button>`;
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();

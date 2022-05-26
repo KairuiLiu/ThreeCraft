@@ -45,6 +45,11 @@ class BagMobilePlugin {
 		this.bagInnerElem.removeEventListener('touchstart', this.clickItemEventListener);
 	}
 
+	destroy() {
+		this.pause();
+		this.bagInnerElem.remove();
+	}
+
 	// 单击选中框， 单击已选框打开背包
 	static getClickItemEventListener(host) {
 		return e => {

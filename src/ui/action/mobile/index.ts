@@ -2,7 +2,7 @@ import { Controller } from '../../../controller';
 import { actionBlockEvent } from '../../../controller/game-controller';
 import JoyStick from './joy-stick';
 import './css/style.less';
-import { config } from '../../../controller/config';
+import { config, language } from '../../../controller/config';
 
 class ActionPluginMobile {
 	elem: HTMLElement;
@@ -39,7 +39,6 @@ class ActionPluginMobile {
 
 		this.jumpButton = document.createElement('button');
 		this.jumpButton.setAttribute('id', 'mobile-jump-button');
-		this.jumpButton.innerText = '跳';
 		this.elem.appendChild(this.jumpButton);
 		this.jumpButton.addEventListener('touchstart', () => {
 			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
@@ -47,7 +46,6 @@ class ActionPluginMobile {
 
 		this.removeBlockButton = document.createElement('button');
 		this.removeBlockButton.setAttribute('id', 'remove-block-button');
-		this.removeBlockButton.innerText = '拆';
 		this.elem.appendChild(this.removeBlockButton);
 		this.removeBlockButton.addEventListener('touchstart', () => {
 			this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
@@ -55,7 +53,6 @@ class ActionPluginMobile {
 
 		this.createBlockButton = document.createElement('button');
 		this.createBlockButton.setAttribute('id', 'create-block-button');
-		this.createBlockButton.innerText = '建';
 		this.elem.appendChild(this.createBlockButton);
 		this.createBlockButton.addEventListener('touchstart', () => {
 			this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
@@ -63,7 +60,6 @@ class ActionPluginMobile {
 
 		this.jumpDownButton = document.createElement('button');
 		this.jumpDownButton.setAttribute('id', 'jump-down-button');
-		this.jumpDownButton.innerText = '落';
 		this.elem.appendChild(this.jumpDownButton);
 		this.jumpDownButton.addEventListener('touchstart', () => {
 			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
@@ -71,7 +67,6 @@ class ActionPluginMobile {
 
 		this.openBagButton = document.createElement('button');
 		this.openBagButton.setAttribute('id', 'open-bag-button');
-		this.openBagButton.innerText = '菜单';
 		this.elem.appendChild(this.openBagButton);
 		this.openBagButton.addEventListener('touchstart', () => {
 			this.controller.pauseGame();
@@ -86,6 +81,8 @@ class ActionPluginMobile {
 				d.classList.remove('active');
 			});
 		});
+
+		this.updateLang();
 	}
 
 	listen() {
@@ -108,6 +105,19 @@ class ActionPluginMobile {
 		if (config.controller.dev) {
 			this.elem.removeEventListener('mousemove', this.touchMoveListener);
 		}
+	}
+
+	destroy() {
+		this.pause;
+		[...this.elem.children].forEach(d => d.remove());
+	}
+
+	updateLang() {
+		this.jumpButton.innerText = language.up;
+		this.removeBlockButton.innerText = language.remove;
+		this.createBlockButton.innerText = language.build;
+		this.jumpDownButton.innerText = language.down;
+		this.openBagButton.innerText = language.menu;
 	}
 
 	static getJoyStickChange(self) {
