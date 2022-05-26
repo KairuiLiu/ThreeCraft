@@ -490,6 +490,9 @@ class Menu {
 			<div class="box-line color-white">
 				去<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>了解更多:)
 			</div>
+			<div class="box-line color-white">
+				未完成版: 202205261435
+			</div>
 			<br/>
 			<button class="button" id="backMenu">返回</button>`;
 		const backMenu = document.getElementById('backMenu');

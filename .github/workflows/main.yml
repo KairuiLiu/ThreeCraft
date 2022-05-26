@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  docs:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +39,10 @@ jobs:
       # 运行构建脚本
       - name: Build site
         run: pnpm build
+
+      # 拷贝一个奇怪的依赖
+      - name: copy asset
+        run: cp -r ./src/assets ./dist
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.5
