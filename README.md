@@ -9,6 +9,8 @@
 
 ### ✨RoadMap
 
+live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
+
 - [ ] STAGE 1
   - [ ] Placement / Destruction of Blocks
   - [ ] Movement and collision detection
