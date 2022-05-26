@@ -43,8 +43,7 @@ class Core {
 		this.camera.near = 0.01;
 		this.camera.far = config.renderer.renderDistance;
 		this.camera.updateProjectionMatrix();
-		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
-		// TODO 修正相机配置 采用crosshair | default sym config
+		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
 		this.camera.lookAt(0, 0, 0);
 		this.camera.rotation.order = 'YXZ';
 
@@ -65,7 +64,7 @@ class Core {
 		(this.scene.fog as THREE.FogExp2).density = config.renderer.fog;
 		this.camera.fov = config.camera.fov;
 		this.camera.far = config.renderer.renderDistance;
-		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
+		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
 		this.camera.updateProjectionMatrix();
 	}
 }

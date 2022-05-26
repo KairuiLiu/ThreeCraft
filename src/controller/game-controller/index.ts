@@ -1,7 +1,6 @@
 import Core from '../../core';
 import BlockController from './block-controller';
 import MoveController from './move-controller';
-import { collisionCheck } from '../../utils/collision';
 import { hasBlockCheck } from '../../utils/hasBlock';
 import { config } from '../config';
 

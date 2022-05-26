@@ -74,6 +74,9 @@ class Controller {
 	// 游戏配置即时事件
 	toggleCheatMode() {
 		config.controller.cheat = !config.controller.cheat;
+
+		// TODO 人物位置与碰撞检测
+
 		this;
 	}
 

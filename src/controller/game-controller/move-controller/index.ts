@@ -8,16 +8,38 @@ class MoveController {
 
 	jumping: boolean;
 
-	jumpRest: number;
+	jumpingSpeed: number;
 
 	constructor(core: Core) {
 		this.core = core;
-		this.jumping = false;
-		this.jumpRest = 0;
+		this.jumping = true;
+		this.jumpingSpeed = 0;
+	}
+
+	getVerticalMove() {
+		this.jumpingSpeed -= 9.8;
+
+		// ! 这里有一个bug, 如果这次跳的过程是先上后下, 但到顶前撞顶, 就检测不了了. 但是我不想改:(
+		const collision = collisionCheck({
+			...config.state,
+			dirX: 0,
+			dirY: 0,
+			dirZ: this.jumpingSpeed + 4.8,
+			core: this.core,
+		});
+		if (collision.check) {
+			if (this.jumpingSpeed < 0) {
+				this.jumping = false;
+			}
+			this.jumpingSpeed = 0;
+			return collision.side.posZ;
+		}
+
+		return this.jumpingSpeed + 4.8;
 	}
 
 	positionMove({ font, left, up }) {
-		// TODO 作弊模式没有碰撞检测
+		if (left === 0 && font === 0 && up === 0 && !this.jumping && this.jumpingSpeed === 0) return;
 
 		// 先不处理跳跃事件
 		const speed = Math.sqrt(font ** 2 + left ** 2);
@@ -27,10 +49,17 @@ class MoveController {
 		absoluteMove.applyMatrix3(revMat);
 		absoluteMove.y = 0;
 		absoluteMove.normalize(); // 获得方向向量
-		absoluteMove.multiplyScalar(speed * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1)); // * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale);
+		absoluteMove.multiplyScalar(speed * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale);
 
 		// 处理跳跃事件 增加跳跃控制
-		absoluteMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1);
+		if (config.controller.cheat) absoluteMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * symConfig.actionsScale.cheatFactor;
+		else {
+			if (!this.jumping && up > 0) {
+				this.jumping = true;
+				this.jumpingSpeed = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale;
+			}
+			absoluteMove.y = this.getVerticalMove();
+		}
 
 		const nextPosition = {
 			posX: config.state.posX + absoluteMove.x,
@@ -38,10 +67,11 @@ class MoveController {
 			posZ: config.state.posZ + absoluteMove.z,
 		};
 		this.core.camera.position.set(nextPosition.posX, nextPosition.posY, nextPosition.posZ);
-		config.state = { ...config.state, ...nextPosition };
+		config.state = { ...nextPosition };
 	}
 
 	viewDirectionMove({ viewHorizontal, viewVertical }) {
+		if (viewHorizontal === 0 && viewVertical === 0) return;
 		this.core.camera.rotation.y += -viewHorizontal * symConfig.actionsScale.viewScale;
 		while (this.core.camera.rotation.y > Math.PI) this.core.camera.rotation.y -= Math.PI * 2;
 		while (this.core.camera.rotation.y < -Math.PI) this.core.camera.rotation.y += Math.PI * 2;
