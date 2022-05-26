@@ -46,6 +46,7 @@ class Core {
 		this.camera.position.set(config.state.posX * config.camera.camHeight, config.state.posY * config.camera.camHeight, config.state.posZ * config.camera.camHeight);
 		// TODO 修正相机配置 采用crosshair | default sym config
 		this.camera.lookAt(0, 0, 0);
+		this.camera.rotation.order = 'YXZ';
 
 		this.scene = new THREE.Scene();
 		const backgroundColor = symConfig.stage.skyBackground;

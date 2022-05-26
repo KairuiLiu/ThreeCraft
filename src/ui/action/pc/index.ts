@@ -1,4 +1,5 @@
 import { Controller } from '../../../controller';
+import { config } from '../../../controller/config';
 import { actionBlockEvent } from '../../../controller/game-controller';
 
 class ActionPluginPc {
@@ -7,6 +8,8 @@ class ActionPluginPc {
 	controller: Controller;
 
 	keyListener: (e: KeyboardEvent) => void;
+
+	keyUpListener: (e: KeyboardEvent) => void;
 
 	clickListener: (e: MouseEvent) => void;
 
@@ -21,6 +24,7 @@ class ActionPluginPc {
 		this.clickListener = ActionPluginPc.getClickListener(this);
 		this.pointerLockListener = ActionPluginPc.getPointerLockListener();
 		this.mouseMoveListener = ActionPluginPc.getMouseMoveListener(this);
+		this.keyUpListener = ActionPluginPc.getKeyUpListener(this);
 	}
 
 	load() {
@@ -33,6 +37,7 @@ class ActionPluginPc {
 			this.controller.ui.menu.setNotify('鼠标锁定失败, 请尝试再次点击', 1000, this.elem);
 		});
 		document.addEventListener('keydown', this.keyListener);
+		document.addEventListener('keyup', this.keyUpListener);
 		this.elem.addEventListener('contextmenu', this.clickListener);
 		this.elem.addEventListener('click', this.clickListener);
 		this.elem.addEventListener('mousemove', this.mouseMoveListener);
@@ -41,6 +46,7 @@ class ActionPluginPc {
 	pause() {
 		document.exitPointerLock();
 		document.removeEventListener('keydown', this.keyListener);
+		document.removeEventListener('keyup', this.keyUpListener);
 		this.elem.removeEventListener('contextmenu', this.clickListener);
 		this.elem.addEventListener('mousemove', this.mouseMoveListener);
 		this.elem.removeEventListener('click', this.clickListener);
@@ -54,12 +60,22 @@ class ActionPluginPc {
 				return;
 			}
 			if (self.controller.uiController.ui.bag.bagBox.working) return;
-			if (['w', 'W'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 1, left: 0, up: 0 });
-			else if (['a', 'A'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 0, left: 1, up: 0 });
-			else if (['s', 'S'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: -1, left: 0, up: 0 });
-			else if (['d', 'D'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 0, left: -1, up: 0 });
-			else if (e.key === ' ') self.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
-			else if (e.key === 'Shift') self.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
+			if (['w', 'W'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 1 });
+			else if (['a', 'A'].includes(e.key)) self.controller.gameController.handleMoveAction({ left: 1 });
+			else if (['s', 'S'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: -1 });
+			else if (['d', 'D'].includes(e.key)) self.controller.gameController.handleMoveAction({ left: -1 });
+			else if (e.key === ' ') self.controller.gameController.handleMoveAction({ up: 1 });
+			else if (e.key === 'Shift' && config.controller.cheat) self.controller.gameController.handleMoveAction({ up: -1 });
+		};
+	}
+
+	static getKeyUpListener(self) {
+		return e => {
+			if (self.controller.uiController.ui.bag.bagBox.working) return;
+			if (['w', 'W', 's', 'S'].includes(e.key)) self.controller.gameController.handleMoveAction({ font: 0 });
+			else if (['a', 'A', 'd', 'D'].includes(e.key)) self.controller.gameController.handleMoveAction({ left: 0 });
+			else if (e.key === ' ') self.controller.gameController.handleMoveAction({ up: 0 });
+			else if (e.key === 'Shift' && config.controller.cheat) self.controller.gameController.handleMoveAction({ up: 0 });
 			else if (['q', 'Q'].includes(e.key)) self.controller.toggleCheatMode();
 		};
 	}

@@ -39,13 +39,6 @@ class GameController {
 
 	nextTrickBlockTask: Block[];
 
-	lastMove: {
-		haveChange: boolean;
-		font: number;
-		left: number;
-		up: number;
-	};
-
 	constructor(core: Core) {
 		this.core = core;
 		this.blockController = new BlockController(this.core);
@@ -60,30 +53,13 @@ class GameController {
 			viewHorizontal: 0,
 			viewVertical: 0,
 		};
-		this.lastMove = {
-			haveChange: false,
-			font: 0,
-			left: 0,
-			up: 0,
-		};
 	}
 
-	handleMoveAction({ font, left, up }) {
-		if (!config.controller.cheat && up !== 0 && config.state.jumping) {
-			up = 0;
-		}
-		if (!config.controller.cheat && up < 0) {
-			up = 0;
-		}
-		this.nextTrickMoveTask.font += font;
-		this.nextTrickMoveTask.left += left;
-		this.nextTrickMoveTask.up += up;
-		this.lastMove.haveChange = true;
-		this.lastMove = {
-			haveChange: true,
-			font,
-			left,
-			up,
+	// 请求将状态设置为X
+	handleMoveAction(args) {
+		this.nextTrickMoveTask = {
+			...this.nextTrickMoveTask,
+			...args,
 		};
 	}
 
@@ -132,12 +108,9 @@ class GameController {
 	}
 
 	update() {
-		if (config.controller.operation === 'mobile' && !this.lastMove.haveChange) this.nextTrickMoveTask = { ...this.lastMove };
 		this.moveController.viewDirectionMove(this.nextTrickViewTask);
 		this.moveController.positionMove(this.nextTrickMoveTask);
-		this.nextTrickMoveTask = { font: 0, left: 0, up: 0 };
 		this.nextTrickViewTask = { viewHorizontal: 0, viewVertical: 0 };
-		this.lastMove.haveChange = false;
 
 		this.blockController.update(this.nextTrickBlockTask);
 		this.nextTrickBlockTask.length = 0;

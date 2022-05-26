@@ -27,15 +27,14 @@ const config = {
 		volume: 80,
 		operation: deviceTest(),
 		language: 'cn',
-		cheat: false,
-		dev: false,
+		cheat: true,
+		dev: true,
 		fps: true,
 	},
 	state: {
 		posX: 0,
-		posY: 20,
-		posZ: -20,
-		jumping: false,
+		posY: 0,
+		posZ: 20,
 	},
 };
 
@@ -129,15 +128,14 @@ const defaultConfig = {
 		volume: 80,
 		operation: deviceTest(),
 		language: 'cn',
-		cheat: false,
-		dev: false,
+		cheat: true,
+		dev: true,
 		fps: true,
 	},
 	state: {
 		posX: 0,
-		posY: 20,
-		posZ: -20,
-		jumping: false,
+		posY: 0,
+		posZ: 20,
 	},
 };
 
