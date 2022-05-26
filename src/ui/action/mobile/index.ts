@@ -74,6 +74,7 @@ class ActionPluginMobile {
 		this.openBagButton.innerText = '菜单';
 		this.elem.appendChild(this.openBagButton);
 		this.openBagButton.addEventListener('touchstart', () => {
+			this.controller.pauseGame();
 			this.controller.uiController.ui.menu.toInnerGameMenu();
 		});
 
