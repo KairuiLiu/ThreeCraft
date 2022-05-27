@@ -13,15 +13,24 @@ class ActionPluginPc {
 
 	clickListener: (e: MouseEvent) => void;
 
+	clickUpListener: (e: MouseEvent) => void;
+
 	pointerLockListener: (e: Event) => void;
 
 	mouseMoveListener: (e: MouseEvent) => void;
 
+	clickLeftInterval: NodeJS.Timer;
+
+	clickRightInterval: NodeJS.Timer;
+
 	constructor(el: HTMLElement, controller: Controller) {
 		this.elem = el;
 		this.controller = controller;
+		this.clickLeftInterval = null;
+		this.clickRightInterval = null;
 		this.keyListener = ActionPluginPc.getKeyListener(this);
 		this.clickListener = ActionPluginPc.getClickListener(this);
+		this.clickUpListener = ActionPluginPc.getClickUpListener(this);
 		this.pointerLockListener = ActionPluginPc.getPointerLockListener();
 		this.mouseMoveListener = ActionPluginPc.getMouseMoveListener(this);
 		this.keyUpListener = ActionPluginPc.getKeyUpListener(this);
@@ -39,7 +48,8 @@ class ActionPluginPc {
 		document.addEventListener('keydown', this.keyListener);
 		document.addEventListener('keyup', this.keyUpListener);
 		this.elem.addEventListener('contextmenu', this.clickListener);
-		this.elem.addEventListener('click', this.clickListener);
+		this.elem.addEventListener('mousedown', this.clickListener);
+		this.elem.addEventListener('mouseup', this.clickUpListener);
 		this.elem.addEventListener('mousemove', this.mouseMoveListener);
 	}
 
@@ -48,8 +58,9 @@ class ActionPluginPc {
 		document.removeEventListener('keydown', this.keyListener);
 		document.removeEventListener('keyup', this.keyUpListener);
 		this.elem.removeEventListener('contextmenu', this.clickListener);
-		this.elem.addEventListener('mousemove', this.mouseMoveListener);
-		this.elem.removeEventListener('click', this.clickListener);
+		this.elem.removeEventListener('mousemove', this.mouseMoveListener);
+		this.elem.removeEventListener('mousedown', this.clickListener);
+		this.elem.removeEventListener('mouseup', this.clickUpListener);
 	}
 
 	destroy() {
@@ -98,9 +109,31 @@ class ActionPluginPc {
 				});
 				return false;
 			}
-			if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
-			if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+			if (e.button === 0) {
+				self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+				self.clickLeftInterval = setInterval(() => {
+					if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+				}, 331);
+			} else if (e.button === 2) {
+				if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+				self.clickRightInterval = setInterval(() => {
+					if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+				}, 331);
+			}
+
 			return false;
+		};
+	}
+
+	static getClickUpListener(self) {
+		return e => {
+			if (e.button === 0) {
+				if (self.clickLeftInterval) clearInterval(self.clickLeftInterval);
+				self.clickLeftInterval = null;
+			} else if (e.button === 2) {
+				if (self.clickRightInterval) clearInterval(self.clickRightInterval);
+				self.clickRightInterval = null;
+			}
 		};
 	}
 

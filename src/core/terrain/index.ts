@@ -28,8 +28,8 @@ class Terrain {
 		this.core.scene.add(reflectionLight);
 
 		// TODO 加载初始世界
-		const axesHelper = new THREE.AxesHelper(1000);
-		this.core.scene.add(axesHelper);
+		// const axesHelper = new THREE.AxesHelper(1000);
+		// this.core.scene.add(axesHelper);
 
 		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
 		this.core.scene.add(cube);

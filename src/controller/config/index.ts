@@ -95,6 +95,7 @@ const symConfig = {
 		cheatFactor: 2,
 		moveScale: 0.05,
 		viewScale: 0.005,
+		g: 0.01,
 	},
 	body: {
 		length: 0.7,
