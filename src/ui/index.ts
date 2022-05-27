@@ -24,7 +24,7 @@ class UI {
 		this.controller = controller;
 		this.crosshair = new Crosshair(document.getElementById('HUD-stage'), config.controller.crosshair === 'dark');
 		this.fps = new Fps(document.getElementById('HUD-stage'));
-		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), this.controller); // todo
+		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), this.controller);
 		this.bag = new Bag(document.getElementById('HUD-stage'));
 		this.menu = new Menu(document.getElementById('app'), this.controller);
 		document.oncontextmenu = () => false;

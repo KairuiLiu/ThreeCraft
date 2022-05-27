@@ -3,6 +3,7 @@ import { config, symConfig } from '../controller/config';
 import Audio from './audio';
 import Terrain from './terrain';
 import Loader from './loader';
+import BlockAction from './block-action';
 
 class Core {
 	camera: THREE.PerspectiveCamera;
@@ -17,6 +18,8 @@ class Core {
 
 	audio: Audio;
 
+	blockAction: BlockAction;
+
 	constructor() {
 		this.camera = new THREE.PerspectiveCamera();
 		this.scene = new THREE.Scene();
@@ -25,6 +28,7 @@ class Core {
 		this.loader = new Loader();
 		this.terrain = new Terrain(this);
 		this.audio = new Audio(this);
+		this.blockAction = new BlockAction(this);
 
 		this.init();
 	}

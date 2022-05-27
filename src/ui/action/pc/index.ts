@@ -110,14 +110,14 @@ class ActionPluginPc {
 				return false;
 			}
 			if (e.button === 0) {
-				self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+				self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
 				self.clickLeftInterval = setInterval(() => {
-					if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+					if (e.button === 0) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
 				}, 331);
 			} else if (e.button === 2) {
-				if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+				if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
 				self.clickRightInterval = setInterval(() => {
-					if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+					if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
 				}, 331);
 			}
 

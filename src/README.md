@@ -78,7 +78,7 @@ file structure
 │   ├── index.ts
 │   └── menu                        // 所有菜单
 │       ├── index.ts
-│       └── remplate.html
+│       └── template.html
 └── utils                           // 工具函数
     └── collision
 ```

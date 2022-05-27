@@ -305,11 +305,12 @@ class Menu {
 			fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
 		});
 		const fogRange = document.getElementById('fog-range') as HTMLInputElement;
-		fogRange.value = `${config.renderer.fog * 10}`;
-		fogRange.nextElementSibling.innerHTML = `${config.renderer.fog}`;
+		fogRange.value = `${config.renderer.fog * 100}`;
+		fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		fogRange.addEventListener('input', () => {
-			config.renderer.fog = Number.parseInt(fogRange.value, 10) / 10;
-			fogRange.nextElementSibling.innerHTML = `${config.renderer.fog}`;
+			config.renderer.fog = Number.parseInt(fogRange.value, 10) / 100;
+			// ! 这不是一个bug, fog指数应该在0.0-0.1, 但是设计UI的时候没考虑三位小数放不下的问题..., 所以这里就*10了
+			fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		});
 		const simRange = document.getElementById('sim-range') as HTMLInputElement;
 		simRange.value = `${config.renderer.simulateDistance}`;

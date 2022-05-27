@@ -22,7 +22,7 @@ const config = {
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.2,
+		fog: 0.02,
 		simulateDistance: 100,
 		renderDistance: 500,
 	},
@@ -123,7 +123,7 @@ const defaultConfig = {
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.2,
+		fog: 0.02,
 		simulateDistance: 100,
 		renderDistance: 500,
 	},

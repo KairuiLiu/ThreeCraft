@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import Core from '../../core';
 import { getDir } from '../get-dir';
 
-// TODO: 实现碰撞检测 - 绝对方向
 export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, core }) {
 	const originPosition = new THREE.Vector3(posX, posY, posZ);
 	const direction = new THREE.Vector3(dirX, dirY, dirZ).normalize();
@@ -24,16 +23,18 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, core }) {
 	return null;
 }
 
-// TODO: 实现碰撞检测 - 相对方向
 export function relativeCollisionCheck({ posX, posY, posZ, font, left, up, core }) {
-	const [dirX, dirY, dirZ] = [font, left, up];
+	const absoluteMove = new THREE.Vector3(-left, up, -font);
+	const revMat = new THREE.Matrix3();
+	revMat.setFromMatrix4(core.camera.matrixWorld);
+	absoluteMove.applyMatrix3(revMat);
 	return collisionCheck({
 		posX,
 		posY,
 		posZ,
-		dirX,
-		dirY,
-		dirZ,
+		dirX: absoluteMove.x,
+		dirY: absoluteMove.y,
+		dirZ: absoluteMove.z,
 		core,
 	});
 }

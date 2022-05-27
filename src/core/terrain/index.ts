@@ -31,7 +31,7 @@ class Terrain {
 		// const axesHelper = new THREE.AxesHelper(1000);
 		// this.core.scene.add(axesHelper);
 
-		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
+		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0xbbffaa, transparent: true }));
 		this.core.scene.add(cube);
 		const cube2 = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
 		cube2.position.x = 20;
