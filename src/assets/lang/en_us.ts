@@ -66,4 +66,9 @@ export default {
 	build: '◉',
 	remove: '×',
 	menu: 'Menu',
+	opSens: 'Op Sens',
+	opRange: 'Op Range',
+	crossHair: 'crosshair',
+	dark: 'dark',
+	light: 'light',
 };

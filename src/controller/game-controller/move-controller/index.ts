@@ -49,14 +49,16 @@ class MoveController {
 		absoluteMove.applyMatrix3(revMat);
 		absoluteMove.y = 0;
 		absoluteMove.normalize(); // 获得方向向量
-		absoluteMove.multiplyScalar(speed * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale);
+		absoluteMove.multiplyScalar(
+			speed * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens
+		);
 
 		// 处理跳跃事件 增加跳跃控制
-		if (config.controller.cheat) absoluteMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * symConfig.actionsScale.cheatFactor;
+		if (config.controller.cheat) absoluteMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * symConfig.actionsScale.cheatFactor * config.controller.opSens;
 		else {
 			if (!this.jumping && up > 0) {
 				this.jumping = true;
-				this.jumpingSpeed = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale;
+				this.jumpingSpeed = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
 			}
 			absoluteMove.y = this.getVerticalMove();
 		}
@@ -72,7 +74,7 @@ class MoveController {
 
 	viewDirectionMove({ viewHorizontal, viewVertical }) {
 		if (viewHorizontal === 0 && viewVertical === 0) return;
-		this.core.camera.rotation.y += -viewHorizontal * symConfig.actionsScale.viewScale;
+		this.core.camera.rotation.y += -viewHorizontal * symConfig.actionsScale.viewScale * config.controller.opSens;
 		while (this.core.camera.rotation.y > Math.PI) this.core.camera.rotation.y -= Math.PI * 2;
 		while (this.core.camera.rotation.y < -Math.PI) this.core.camera.rotation.y += Math.PI * 2;
 		this.core.camera.rotation.x += viewVertical * symConfig.actionsScale.viewScale;

@@ -5,6 +5,7 @@ import Bag from './bag';
 import Menu from './menu';
 import ActonControl from './action';
 import { Controller } from '../controller';
+import { config } from '../controller/config';
 
 class UI {
 	crosshair: Crosshair;
@@ -21,7 +22,7 @@ class UI {
 
 	loadController(controller: Controller) {
 		this.controller = controller;
-		this.crosshair = new Crosshair(document.getElementById('HUD-stage'));
+		this.crosshair = new Crosshair(document.getElementById('HUD-stage'), config.controller.crosshair === 'dark');
 		this.fps = new Fps(document.getElementById('HUD-stage'));
 		this.actionControl = new ActonControl(document.getElementById('HUD-stage'), this.controller); // todo
 		this.bag = new Bag(document.getElementById('HUD-stage'));

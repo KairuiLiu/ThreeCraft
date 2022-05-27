@@ -33,6 +33,9 @@ const config = {
 		cheat: true,
 		dev: true,
 		fps: true,
+		crosshair: 'dark',
+		opSens: 1,
+		opRange: 8,
 	},
 	state: {
 		posX: 0,
@@ -130,6 +133,9 @@ const defaultConfig = {
 		cheat: true,
 		dev: true,
 		fps: true,
+		crosshair: 'dark',
+		opSens: 1,
+		opRange: 8,
 	},
 	state: {
 		posX: 0,

@@ -66,4 +66,9 @@ export default {
 	build: '建',
 	remove: '拆',
 	menu: '菜单',
+	opSens: '操纵灵敏',
+	opRange: '操纵范围',
+	crossHair: '十字准星',
+	dark: '暗',
+	light: '明',
 };

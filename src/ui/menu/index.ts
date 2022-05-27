@@ -245,6 +245,20 @@ class Menu {
 		</div>
 		<div class="box-line">
 			<div class="range-item">
+				<label for="op-sens-range" class="fix-width">${language.opSens}</label>
+				<input type="range" class="range" id="op-sens-range" name="op-sens-range" min="1" max="50" step="1" />
+				<label for="op-sens-range" class="fix-width-mini text-right">---</label>
+			</div>
+		</div>
+		<div class="box-line">
+			<div class="range-item">
+				<label for="op-range" class="fix-width">${language.opRange}</label>
+				<input type="range" class="range" id="op-range" name="op-range" min="1" max="20" step="1" />
+				<label for="op-range" class="fix-width-mini text-right">---</label>
+			</div>
+		</div>
+		<div class="box-line">
+			<div class="range-item">
 				<label for="volume-range" class="fix-width">${language.volume}</label>
 				<input type="range" class="range" id="volume-range" name="volume-range" min="0" max="100" step="5" />
 				<label for="volume-range" class="fix-width-mini text-right">---</label>
@@ -264,11 +278,10 @@ class Menu {
 			</select>
 		</div>
 		<div class="box-line">
-			<label for="camera-select" class="fix-width">相机角度</label>
-			<select class="select" name="camera-select" id="camera-select">
-				<option value="3">高</option>
-				<option value="2">中</option>
-				<option value="1">低</option>
+			<label for="crosshair-select" class="fix-width">${language.crossHair}</label>
+			<select class="select" name="crosshair-select" id="crosshair-select">
+			<option value="light">${language.light}</option>
+			<option value="dark">${language.dark}</option>
 			</select>
 			<label for="bag-type-select" class="fix-width">${language.bagMode}</label>
 			<select class="select" name="bag-type-select" id="bag-type-select">
@@ -312,17 +325,26 @@ class Menu {
 			config.renderer.renderDistance = Number.parseInt(renderRange.value, 10);
 			renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
 		});
+		const opSensRange = document.getElementById('op-sens-range') as HTMLInputElement;
+		opSensRange.value = `${config.controller.opSens * 10}`;
+		opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
+		opSensRange.addEventListener('input', () => {
+			config.controller.opSens = Number.parseInt(opSensRange.value, 10) / 10;
+			opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
+		});
+		const opRange = document.getElementById('op-range') as HTMLInputElement;
+		opRange.value = `${config.controller.opRange}`;
+		opRange.nextElementSibling.innerHTML = `${config.controller.opRange}`;
+		opRange.addEventListener('input', () => {
+			config.controller.opRange = Number.parseInt(opRange.value, 10);
+			opRange.nextElementSibling.innerHTML = `${config.controller.opRange}`;
+		});
 		const volumeRange = document.getElementById('volume-range') as HTMLInputElement;
 		volumeRange.value = `${config.controller.volume}`;
 		volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
 		volumeRange.addEventListener('input', () => {
 			config.controller.volume = Number.parseInt(volumeRange.value, 10);
 			volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
-		});
-		const cameraSelect = document.getElementById('camera-select') as HTMLInputElement;
-		cameraSelect.value = `${config.camera.camHeight}`;
-		cameraSelect.addEventListener('change', () => {
-			config.camera.camHeight = Number.parseInt(cameraSelect.value, 10);
 		});
 		const langSelect = document.getElementById('lang-select') as HTMLInputElement;
 		langSelect.value = `${config.controller.language}`;
@@ -332,7 +354,6 @@ class Menu {
 			this.toSettingMenu({ back });
 			this.controller.uiController.ui.actionControl.plugin.updateLang();
 		});
-		// TODO 同步背包模式
 		const bagSelect = document.getElementById('bag-type-select') as HTMLInputElement;
 		bagSelect.value = `${config.bag.type}`;
 		bagSelect.addEventListener('change', () => {
@@ -345,6 +366,13 @@ class Menu {
 		operateSelect.addEventListener('change', () => {
 			config.controller.operation = operateSelect.value as 'pc' | 'mobile' | 'vr';
 			this.controller.uiController.ui.actionControl.load();
+		});
+		const crosshairSelect = document.getElementById('crosshair-select') as HTMLInputElement;
+		crosshairSelect.value = `${config.controller.crosshair}`;
+		crosshairSelect.addEventListener('change', () => {
+			config.controller.crosshair = crosshairSelect.value;
+			this.controller.uiController.ui.crosshair.dark = config.controller.crosshair === 'dark';
+			this.controller.uiController.ui.crosshair.updataColor();
 		});
 	}
 
