@@ -42,9 +42,10 @@ class ActionPluginPc {
 
 	listen() {
 		// eslint-disable-next-line
-		(this.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
-			this.controller.ui.menu.setNotify(language.tryLock, 1000, this.elem);
-		});
+		this.elem.requestPointerLock &&
+			(this.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
+				this.controller.ui.menu.setNotify(language.tryLock, 1000, this.elem);
+			});
 		document.addEventListener('keydown', this.keyListener);
 		document.addEventListener('keyup', this.keyUpListener);
 		this.elem.addEventListener('contextmenu', this.clickListener);
@@ -104,9 +105,10 @@ class ActionPluginPc {
 			e.preventDefault();
 			e.stopPropagation();
 			if (!document.pointerLockElement) {
-				(self.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
-					self.controller.ui.menu.setNotify(language.tryLock, 1000, self.elem);
-				});
+				self.elem.requestPointerLock &&
+					(self.elem.requestPointerLock() as unknown as Promise<null>)?.catch(() => {
+						self.controller.ui.menu.setNotify(language.tryLock, 1000, self.elem);
+					});
 				return false;
 			}
 			if (e.button === 0) {
@@ -142,7 +144,7 @@ class ActionPluginPc {
 			if (document.pointerLockElement) {
 				document.exitPointerLock();
 			} else {
-				document.body.requestPointerLock();
+				document.body.requestPointerLock && document.body.requestPointerLock();
 			}
 		};
 	}

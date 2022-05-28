@@ -429,9 +429,9 @@ class Menu {
 		fullScreen.addEventListener('click', e => {
 			e.stopPropagation();
 			if (document.fullscreenElement) {
-				document.exitFullscreen();
+				document.exitFullscreen && document.exitFullscreen();
 			} else {
-				document.body.requestFullscreen();
+				document.body.requestFullscreen && document.body.requestFullscreen();
 			}
 		});
 
