@@ -81,7 +81,7 @@ class Bag {
 	// 开关背包
 	toggleBag() {
 		this.bagBox.toggleUseable();
-		document.exitPointerLock();
+		document.exitPointerLock && document.exitPointerLock();
 	}
 
 	// 开关背包后刷新背包框

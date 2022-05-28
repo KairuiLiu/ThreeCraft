@@ -55,7 +55,7 @@ class ActionPluginPc {
 	}
 
 	pause() {
-		document.exitPointerLock();
+		document.exitPointerLock && document.exitPointerLock();
 		document.removeEventListener('keydown', this.keyListener);
 		document.removeEventListener('keyup', this.keyUpListener);
 		this.elem.removeEventListener('contextmenu', this.clickListener);
@@ -142,7 +142,7 @@ class ActionPluginPc {
 	static getPointerLockListener() {
 		return () => {
 			if (document.pointerLockElement) {
-				document.exitPointerLock();
+				document.exitPointerLock && document.exitPointerLock();
 			} else {
 				document.body.requestPointerLock && document.body.requestPointerLock();
 			}

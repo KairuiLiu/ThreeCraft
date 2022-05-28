@@ -76,7 +76,7 @@ class BagBoxPlugin {
 			<div class="bag-box-content">
 				<div class="title mc-menu">
 					<div>${language.allBlock}</div>
-					<button id="closeBag" class="button close">X</button>
+					<button id="closeBag" class="button close">×</button>
 				</div>
 				<div class="select">
 					<div class="bag-item-all">
