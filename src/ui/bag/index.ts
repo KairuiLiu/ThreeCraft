@@ -1,3 +1,4 @@
+import { blockLoader, blockTypes } from '../../core/loader';
 import BagPcPlugin from './pc';
 import BagMobilePlugin from './mobile/index';
 import BagBoxPlugin from './bagbox';
@@ -7,7 +8,7 @@ import { config } from '../../controller/config';
 class Bag {
 	type: 'pc' | 'mobile' | 'vr';
 
-	items: (string | null)[];
+	items: (number | null)[];
 
 	plugin: BagMobilePlugin | BagPcPlugin;
 
@@ -19,12 +20,11 @@ class Bag {
 
 	available: boolean;
 
-	constructor(el) {
+	constructor(el: HTMLElement) {
 		// 将背包挂载到el上, 清除el上其他背包
 		[...el.children].forEach((d: HTMLElement) => d.getAttribute('id') === 'bag' && d.remove());
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
-		// this.bagElem.classList.add('covered');
 		el.appendChild(this.bagElem);
 		this.type = config.bag.type; // 背包样式
 		this.items = config.bag.bagItem; // 背包中元素String[]
@@ -68,7 +68,7 @@ class Bag {
 	update() {
 		this.items.forEach((d, i) => {
 			if (d === null) (this.itemsElem[i].children[0] as HTMLElement).removeAttribute('src');
-			else (this.itemsElem[i].children[0] as HTMLElement).setAttribute('src', `./src/assets/pictures/blocks-3d/${d}.png`);
+			else (this.itemsElem[i].children[0] as HTMLElement).setAttribute('src', blockLoader[blockTypes[this.items[i]]].block3d);
 		});
 	}
 

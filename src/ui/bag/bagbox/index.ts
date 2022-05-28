@@ -1,5 +1,6 @@
+import { blockTypes, blockLoader } from '../../../core/loader';
 import './css/style.less';
-import { config, language, symConfig } from '../../../controller/config';
+import { config, language } from '../../../controller/config';
 
 class BagBoxPlugin {
 	host: { onToggleBag: () => void };
@@ -38,18 +39,16 @@ class BagBoxPlugin {
 	}
 
 	update() {
-		symConfig.bag.bagBox.allItems.push(...Array(50).fill(null));
-		symConfig.bag.bagBox.allItems.length = 50;
 		[...this.allBlockElem.children].forEach((d, i) => {
 			d.setAttribute('idx', `${i}`);
 			d.children[0].setAttribute('idx', `${i}`);
-			if (symConfig.bag.bagBox.allItems[i] !== null) d.children[0].setAttribute('src', `/src/assets/pictures/blocks-3d/${symConfig.bag.bagBox.allItems[i]}.png`);
+			if (blockTypes.length > i) d.children[0].setAttribute('src', blockLoader[blockTypes[i]].block3d);
 		});
 		[...this.activeBlockElem.children].forEach((d, i) => {
 			d.setAttribute('idx', `${i}`);
 			d.children[0].setAttribute('idx', `${i}`);
 			if (config.bag.bagItem[i] === null) d.children[0].removeAttribute('src');
-			else d.children[0].setAttribute('src', `/src/assets/pictures/blocks-3d/${config.bag.bagItem[i]}.png`);
+			else d.children[0].setAttribute('src', blockLoader[blockTypes[config.bag.bagItem[i]]].block3d);
 		});
 		this.highlight();
 	}
@@ -96,7 +95,7 @@ class BagBoxPlugin {
 			e.stopPropagation();
 			const idx = Number.parseInt((e.target as HTMLElement)?.getAttribute('idx'), 10);
 			if (idx >= 0 && idx < 50) {
-				config.bag.bagItem[config.bag.bagBox.activeIdx] = symConfig.bag.bagBox.allItems[idx];
+				config.bag.bagItem[config.bag.bagBox.activeIdx] = idx;
 				const nullIdx = config.bag.bagItem.findIndex(d => d === null);
 				if (nullIdx === -1) config.bag.bagBox.activeIdx = (config.bag.bagBox.activeIdx + 1) % 10;
 				else config.bag.bagBox.activeIdx = nullIdx;

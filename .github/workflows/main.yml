@@ -41,8 +41,8 @@ jobs:
         run: pnpm build
 
       # 拷贝一个奇怪的依赖
-      - name: copy asset
-        run: mkdir ./dist/src && cp -r ./src/assets ./dist/src
+      # - name: copy asset
+      #   run: mkdir ./dist/src && cp -r ./src/assets ./dist/src
 
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@v2.1.5

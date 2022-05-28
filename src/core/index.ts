@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import { config, symConfig } from '../controller/config';
 import Audio from './audio';
 import Terrain from './terrain';
-import Loader from './loader';
 import BlockAction from './block-action';
 
 class Core {
@@ -14,8 +13,6 @@ class Core {
 
 	terrain: Terrain;
 
-	loader: Loader;
-
 	audio: Audio;
 
 	blockAction: BlockAction;
@@ -25,7 +22,6 @@ class Core {
 		this.scene = new THREE.Scene();
 		this.renderer = new THREE.WebGLRenderer();
 
-		this.loader = new Loader();
 		this.terrain = new Terrain(this);
 		this.audio = new Audio(this);
 		this.blockAction = new BlockAction(this);
