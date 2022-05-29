@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import './image.d.ts';
+import '../../utils/types/image.d.ts';
 import * as THREE from 'three';
 
 // 手动引入, 防止Vite忽略...

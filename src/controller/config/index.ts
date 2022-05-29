@@ -5,6 +5,7 @@ import { deepClone } from '../../utils/deep-clone';
 
 const config = {
 	berlinSeed: null,
+	weather: 0,
 	bag: {
 		type: deviceTest(),
 		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -23,7 +24,7 @@ const config = {
 	},
 	renderer: {
 		fog: 0.02,
-		simulateDistance: 100,
+		simulateDistance: 50,
 		renderDistance: 500,
 	},
 	controller: {
@@ -66,6 +67,7 @@ const symConfig = {
 
 const defaultConfig = {
 	berlinSeed: null,
+	weather: 0,
 	bag: {
 		type: deviceTest(),
 		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -84,7 +86,7 @@ const defaultConfig = {
 	},
 	renderer: {
 		fog: 0.02,
-		simulateDistance: 100,
+		simulateDistance: 50,
 		renderDistance: 500,
 	},
 	controller: {

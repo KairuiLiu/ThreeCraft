@@ -33,7 +33,7 @@ class Core {
 		this.audio = new Audio(this);
 		this.block = new Block(this);
 
-		this.maxCount = 1000;
+		this.maxCount = 1000; // this.terrain.size ** 2 * 10;
 		this.blockInstances = new Array(blockTypes.length);
 
 		this.init();

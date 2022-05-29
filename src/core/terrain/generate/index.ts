@@ -1,17 +1,54 @@
-import { blockTypes } from '../../loader';
+import { blockTypes } from '../../loader/index';
+import { config } from '../../../controller/config';
+import '../../../utils/types/worker.d.ts';
+import weatherConfig from '../../weather';
+import Worker from './worker?worker';
+import Terrain from '..';
 
-export function generate({ stx, sty, edx, edy }) {
-	const res = new Array(blockTypes.length);
-	blockTypes.forEach((d, i) => {
-		const cnt = Math.floor(Math.random() * 100);
-		res[i] = new Array(cnt);
-		for (let j = 0; j < cnt; j += 1) {
-			res[i][j] = {
-				x: Math.floor(Math.random() * 300),
-				y: Math.random(),
-				z: Math.floor(Math.random() * 300),
-			};
+class Generate {
+	terrain: Terrain;
+
+	constructor(terrain) {
+		this.terrain = terrain;
+	}
+
+	static getOnGeneratedAll(self) {
+		return e => {
+			const { blocksPos, blockCnt } = e.data;
+			self.terrain.onUpdateScene({ blocksPos, blockCnt });
+		};
+	}
+
+	generateArea(stx, stz, edx, edz) {
+		if (stx > edx) {
+			const t = edx;
+			edx = stx;
+			stx = t;
 		}
-	});
-	return res;
+		if (stz > edz) {
+			const t = edz;
+			edz = stz;
+			stz = t;
+		}
+		this;
+		// worker.pos;
+	}
+
+	generateAll(stx, stz, edx, edz) {
+		const worker = new Worker();
+
+		worker.onmessage = Generate.getOnGeneratedAll(this);
+
+		worker.postMessage({
+			genType: 'all',
+			blockTypes,
+			usedTypes: weatherConfig[config.weather],
+			stx,
+			stz,
+			edx,
+			edz,
+		});
+	}
 }
+
+export default Generate;
