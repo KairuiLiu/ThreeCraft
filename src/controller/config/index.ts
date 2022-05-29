@@ -4,8 +4,10 @@ import langEN from '../../assets/lang/en_us';
 import { deepClone } from '../../utils/deep-clone';
 
 const config = {
-	berlinSeed: null,
-	weather: 0,
+	seed: null,
+	cloudSeed: null,
+	treeSeed: null,
+	weather: null,
 	bag: {
 		type: deviceTest(),
 		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -24,10 +26,11 @@ const config = {
 	},
 	renderer: {
 		fog: 0.02,
-		simulateDistance: 50,
+		stageSize: 36, // stage的边长 196
 		renderDistance: 500,
 	},
 	controller: {
+		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
 		language: '0',
@@ -48,6 +51,8 @@ const config = {
 const symConfig = {
 	stage: {
 		skyBackground: 0x87ceeb,
+		maxHeight: 30,
+		horizonHeight: 7,
 	},
 	actionsScale: {
 		walking: 5,
@@ -66,8 +71,10 @@ const symConfig = {
 };
 
 const defaultConfig = {
-	berlinSeed: null,
-	weather: 0,
+	seed: null,
+	cloudSeed: null,
+	treeSeed: null,
+	weather: null,
 	bag: {
 		type: deviceTest(),
 		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
@@ -86,10 +93,11 @@ const defaultConfig = {
 	},
 	renderer: {
 		fog: 0.02,
-		simulateDistance: 50,
+		stageSize: 36,
 		renderDistance: 500,
 	},
 	controller: {
+		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
 		language: '0',

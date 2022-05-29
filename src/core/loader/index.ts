@@ -545,3 +545,9 @@ export const blockLoader = {
 		textureImg: [snowblockTextureTop, snowblockTextureSide, snowblockTextureSide, snowblockTextureSide, snowblockTextureSide, snowblockTextureTop],
 	},
 };
+
+blockTypes.forEach(
+	(d, i) =>
+		(blockLoader[d].material =
+			blockLoader[d].textureImg instanceof Array ? blockLoader[d].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d })) : new THREE.MeshStandardMaterial({ map: blockLoader[d].textureImg }))
+);

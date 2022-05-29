@@ -4,6 +4,7 @@ import UiController from './ui-controller';
 import { GameController } from './game-controller';
 import { config, defaultConfig, language } from './config';
 import { deepCopy } from '../utils/deep-copy';
+import weatherConfig from '../core/weather';
 
 class Controller {
 	ui: UI;
@@ -37,21 +38,21 @@ class Controller {
 			return;
 		}
 		this.single = single;
-		if (config.berlinSeed === null) {
-			// TODO 随机数种子
-		}
-		this.core.terrain.setSeed(config.berlinSeed);
-		// TODO scene 维护
-		this.core.terrain.buildWorld();
+		if (config.seed === null) config.seed = Math.random();
+		if (config.cloudSeed === null) config.cloudSeed = Math.random();
+		if (config.treeSeed === null) config.treeSeed = Math.random();
+		if (config.weather === null) config.weather = Math.floor(Math.random() * weatherConfig.length);
 		this.runGame();
 	}
 
-	// 开启游戏, update相机信息, 不得修改场景
+	// 开启游戏, update相机信息
 	runGame() {
 		if (config.controller.operation === 'mobile' && !config.controller.dev && window.innerHeight > window.innerWidth) {
 			this.uiController.ui.menu.setNotify(language.tryRotate);
 			return;
 		}
+		// TODO 一定要重新scene 维护 about promise
+		this.core.terrain.updateState();
 		this.running = true;
 		this.core.updateCore();
 		this.uiController.ui.listenAll();
@@ -69,6 +70,7 @@ class Controller {
 	endGame() {
 		deepCopy(defaultConfig, config);
 		this.core.terrain.clear();
+		// TODO 清空所有的多线程
 	}
 
 	// 游戏配置即时事件

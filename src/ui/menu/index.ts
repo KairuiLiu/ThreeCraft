@@ -231,25 +231,25 @@ class Menu {
 		</div>
 		<div class="box-line">
 			<div class="range-item">
-				<label for="sim-range" class="fix-width">${language.simulateDistance}</label>
-				<input type="range" class="range" id="sim-range" name="sim-range" min="0" max="999" step="1" />
-				<label for="sim-range" class="fix-width-mini text-right">---</label>
+				<label for="stage-range" class="fix-width">${language.stageSize}</label>
+				<input type="range" class="range" id="stage-range" name="stage-range" min="2" max="20" step="2" />
+				<label for="stage-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
-		<div class="box-line">
+		<!--<div class="box-line">
 			<div class="range-item">
 				<label for="rend-range" class="fix-width">${language.rendDistance}</label>
 				<input type="range" class="range" id="rend-range" name="rend-range" min="0" max="999" step="1" />
 				<label for="rend-range" class="fix-width-mini text-right">---</label>
 			</div>
-		</div>
-		<div class="box-line">
+		</div>-->
+		<!--<div class="box-line">
 			<div class="range-item">
 				<label for="op-sens-range" class="fix-width">${language.opSens}</label>
 				<input type="range" class="range" id="op-sens-range" name="op-sens-range" min="1" max="50" step="1" />
 				<label for="op-sens-range" class="fix-width-mini text-right">---</label>
 			</div>
-		</div>
+		</div>-->
 		<div class="box-line">
 			<div class="range-item">
 				<label for="op-range" class="fix-width">${language.opRange}</label>
@@ -263,6 +263,22 @@ class Menu {
 				<input type="range" class="range" id="volume-range" name="volume-range" min="0" max="100" step="5" />
 				<label for="volume-range" class="fix-width-mini text-right">---</label>
 			</div>
+		</div>
+		<div class="box-line">
+			<label for="thread-select" class="fix-width">${language.threadNumber}</label>
+			<select class="select" name="thread-select" id="thread-select">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="4">4</option>
+				<option value="8">8</option>
+				<option value="16">16</option>
+			</select>
+			<label for="op-sens-select" class="fix-width">${language.opSens}</label>
+			<select class="select" name="op-sens-select" id="op-sens-select">
+				<option value="4">${language.high}</option>
+				<option value="2">${language.norm}</option>
+				<option value="1">${language.low}</option>
+			</select>
 		</div>
 		<div class="box-line">
 			<label for="lang-select" class="fix-width">${language.language}</label>
@@ -290,6 +306,7 @@ class Menu {
 				<option value="vr">${language.vrMode}</option>
 			</select>
 		</div>
+
 		<br />
 		<button class="button" id="backMenu">${language.backMenu}</button>`;
 		const backMenu = document.getElementById('backMenu');
@@ -312,27 +329,28 @@ class Menu {
 			// ! 这不是一个bug, fog指数应该在0.0-0.1, 但是设计UI的时候没考虑三位小数放不下的问题..., 所以这里就*10了
 			fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		});
-		const simRange = document.getElementById('sim-range') as HTMLInputElement;
-		simRange.value = `${config.renderer.simulateDistance}`;
-		simRange.nextElementSibling.innerHTML = `${config.renderer.simulateDistance}`;
-		simRange.addEventListener('input', () => {
-			config.renderer.simulateDistance = Number.parseInt(simRange.value, 10);
-			simRange.nextElementSibling.innerHTML = `${config.renderer.simulateDistance}`;
+		const stageRange = document.getElementById('stage-range') as HTMLInputElement;
+		stageRange.value = `${Math.sqrt(config.renderer.stageSize)}`;
+		stageRange.nextElementSibling.innerHTML = `${config.renderer.stageSize}`;
+		stageRange.addEventListener('input', () => {
+			config.renderer.stageSize = Number.parseInt(stageRange.value, 10) ** 2;
+			stageRange.nextElementSibling.innerHTML = `${config.renderer.stageSize}`;
+			// TODO 注意, 这里要防止线程炸掉
 		});
-		const renderRange = document.getElementById('rend-range') as HTMLInputElement;
-		renderRange.value = `${config.renderer.renderDistance}`;
-		renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
-		renderRange.addEventListener('input', () => {
-			config.renderer.renderDistance = Number.parseInt(renderRange.value, 10);
-			renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
-		});
-		const opSensRange = document.getElementById('op-sens-range') as HTMLInputElement;
-		opSensRange.value = `${config.controller.opSens * 10}`;
-		opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
-		opSensRange.addEventListener('input', () => {
-			config.controller.opSens = Number.parseInt(opSensRange.value, 10) / 10;
-			opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
-		});
+		// const renderRange = document.getElementById('rend-range') as HTMLInputElement;
+		// renderRange.value = `${config.renderer.renderDistance}`;
+		// renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
+		// renderRange.addEventListener('input', () => {
+		// 	config.renderer.renderDistance = Number.parseInt(renderRange.value, 10);
+		// 	renderRange.nextElementSibling.innerHTML = `${config.renderer.renderDistance}`;
+		// });
+		// const opSensRange = document.getElementById('op-sens-range') as HTMLInputElement;
+		// opSensRange.value = `${config.controller.opSens * 10}`;
+		// opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
+		// opSensRange.addEventListener('input', () => {
+		// 	config.controller.opSens = Number.parseInt(opSensRange.value, 10) / 10;
+		// 	opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
+		// });
 		const opRange = document.getElementById('op-range') as HTMLInputElement;
 		opRange.value = `${config.controller.opRange}`;
 		opRange.nextElementSibling.innerHTML = `${config.controller.opRange}`;
@@ -374,6 +392,17 @@ class Menu {
 			config.controller.crosshair = crosshairSelect.value;
 			this.controller.uiController.ui.crosshair.dark = config.controller.crosshair === 'dark';
 			this.controller.uiController.ui.crosshair.updataColor();
+		});
+		const opSensSelect = document.getElementById('op-sens-select') as HTMLInputElement;
+		opSensSelect.value = `${config.controller.opSens * 2}`;
+		crosshairSelect.addEventListener('change', () => {
+			config.controller.opSens = Number.parseInt('crosshairSelect.value', 10) / 2;
+		});
+		const threadSelect = document.getElementById('thread-select') as HTMLInputElement;
+		threadSelect.value = `${config.controller.thread}`;
+		threadSelect.addEventListener('change', () => {
+			config.controller.thread = Number.parseInt(threadSelect.value, 10);
+			// TODO 注意, 这里要防止线程炸掉
 		});
 	}
 

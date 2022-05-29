@@ -16,13 +16,7 @@ class Core {
 
 	audio: Audio;
 
-	maxCount: number;
-
 	block: Block;
-
-	blockTypeCounts: number[];
-
-	blockInstances: THREE.InstancedMesh[];
 
 	constructor() {
 		this.camera = new THREE.PerspectiveCamera();
@@ -33,14 +27,10 @@ class Core {
 		this.audio = new Audio(this);
 		this.block = new Block(this);
 
-		this.maxCount = 1000; // this.terrain.size ** 2 * 10;
-		this.blockInstances = new Array(blockTypes.length);
-
 		this.init();
 	}
 
 	init() {
-		this.blockTypeCounts = new Array(blockTypes.length).fill(0);
 		window.addEventListener('resize', () => {
 			this.camera.aspect = window.innerWidth / window.innerHeight;
 			this.camera.updateProjectionMatrix();
@@ -79,10 +69,9 @@ class Core {
 		this.camera.updateProjectionMatrix();
 	}
 
-	getMaterial(idx) {
+	static getMaterial(idx) {
 		if (blockLoader[blockTypes[idx]].textureImg instanceof Array) return blockLoader[blockTypes[idx]].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d }));
 		return new THREE.MeshStandardMaterial({ map: blockLoader[blockTypes[idx]].textureImg });
-		this;
 	}
 }
 
