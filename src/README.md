@@ -86,6 +86,5 @@ file structure
 TODO
 
 无限世界的动态刷新算法
-Log的树套树算法
-Terrain生成逻辑, 什么时候remake一个新的MeshInstance
-
+Log 的树套树算法
+Terrain 生成逻辑, 什么时候 remake 一个新的 MeshInstance
