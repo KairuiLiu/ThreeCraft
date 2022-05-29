@@ -46,8 +46,7 @@ const config = {
 
 const symConfig = {
 	stage: {
-		// skyBackground: 0x87ceeb,
-		skyBackground: 0x222222,
+		skyBackground: 0x87ceeb,
 	},
 	actionsScale: {
 		walking: 5,

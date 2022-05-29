@@ -1,5 +1,8 @@
 /* eslint-disable */
 
+import './image.d.ts';
+import * as THREE from 'three';
+
 // 手动引入, 防止Vite忽略...
 
 // Blocks3D
@@ -56,72 +59,135 @@ import snowblock3d from '../../assets/pictures/blocks-3d-clipped/snowblock.png';
 
 // texture
 
-import acaciaLeavesTexture from '../../assets/textures/blocks-clipped/acaciaLeaves.png';
-import andesiteTexture from '../../assets/textures/blocks-clipped/andesite.png';
-import bedrockTexture from '../../assets/textures/blocks-clipped/bedrock.png';
-import birchLeavesTexture from '../../assets/textures/blocks-clipped/birchLeaves.png';
-import brickBlockTexture from '../../assets/textures/blocks-clipped/brickBlock.png';
-import clayBlockTexture from '../../assets/textures/blocks-clipped/clayBlock.png';
-import coalOreTexture from '../../assets/textures/blocks-clipped/coalOre.png';
-import cobblestoneTexture from '../../assets/textures/blocks-clipped/cobblestone.png';
-import blockDiamondTexture from '../../assets/textures/blocks-clipped/blockDiamond.png';
-import diamondOreTexture from '../../assets/textures/blocks-clipped/diamondOre.png';
-import dioriteTexture from '../../assets/textures/blocks-clipped/diorite.png';
-import dirtTexture from '../../assets/textures/blocks-clipped/dirt.png';
-import endStoneTexture from '../../assets/textures/blocks-clipped/endStone.png';
-import glassTexture from '../../assets/textures/blocks-clipped/glass.png';
-import glowstoneTexture from '../../assets/textures/blocks-clipped/glowstone.png';
-import blockGoldTexture from '../../assets/textures/blocks-clipped/blockGold.png';
-import graniteTexture from '../../assets/textures/blocks-clipped/granite.png';
-import gravelTexture from '../../assets/textures/blocks-clipped/gravel.png';
-import iceTexture from '../../assets/textures/blocks-clipped/ice.png';
-import blockIronTexture from '../../assets/textures/blocks-clipped/blockIron.png';
-import ironOreTexture from '../../assets/textures/blocks-clipped/ironOre.png';
-import blockLapisLazuliTexture from '../../assets/textures/blocks-clipped/blockLapisLazuli.png';
-import lapisLazuliOreTexture from '../../assets/textures/blocks-clipped/lapisLazuliOre.png';
-import netherBrickBlockTexture from '../../assets/textures/blocks-clipped/netherBrickBlock.png';
-import netherQuartzOreTexture from '../../assets/textures/blocks-clipped/netherQuartzOre.png';
-import netherrackTexture from '../../assets/textures/blocks-clipped/netherrack.png';
-import noteBlockTexture from '../../assets/textures/blocks-clipped/noteBlock.png';
-import polishedDioriteTexture from '../../assets/textures/blocks-clipped/polishedDiorite.png';
-import polishedGraniteTexture from '../../assets/textures/blocks-clipped/polishedGranite.png';
-import blockQuartzTexture from '../../assets/textures/blocks-clipped/blockQuartz.png';
-import redSandTexture from '../../assets/textures/blocks-clipped/redSand.png';
-import blockRedstoneTexture from '../../assets/textures/blocks-clipped/blockRedstone.png';
-import redstoneOreTexture from '../../assets/textures/blocks-clipped/redstoneOre.png';
-import sandTexture from '../../assets/textures/blocks-clipped/sand.png';
-import soulsandTexture from '../../assets/textures/blocks-clipped/soulsand.png';
-import stoneTexture from '../../assets/textures/blocks-clipped/stone.png';
-import terracottaTexture from '../../assets/textures/blocks-clipped/terracotta.png';
-import waterTexture from '../../assets/textures/blocks-clipped/water.png';
-import emeraldOreTexture from '../../assets/textures/blocks-clipped/emeraldOre.png';
+import acaciaLeavesTextureImg from '../../assets/textures/blocks-clipped/acaciaLeaves.png';
+import andesiteTextureImg from '../../assets/textures/blocks-clipped/andesite.png';
+import bedrockTextureImg from '../../assets/textures/blocks-clipped/bedrock.png';
+import birchLeavesTextureImg from '../../assets/textures/blocks-clipped/birchLeaves.png';
+import brickBlockTextureImg from '../../assets/textures/blocks-clipped/brickBlock.png';
+import clayBlockTextureImg from '../../assets/textures/blocks-clipped/clayBlock.png';
+import coalOreTextureImg from '../../assets/textures/blocks-clipped/coalOre.png';
+import cobblestoneTextureImg from '../../assets/textures/blocks-clipped/cobblestone.png';
+import blockDiamondTextureImg from '../../assets/textures/blocks-clipped/blockDiamond.png';
+import diamondOreTextureImg from '../../assets/textures/blocks-clipped/diamondOre.png';
+import dioriteTextureImg from '../../assets/textures/blocks-clipped/diorite.png';
+import dirtTextureImg from '../../assets/textures/blocks-clipped/dirt.png';
+import endStoneTextureImg from '../../assets/textures/blocks-clipped/endStone.png';
+import glassTextureImg from '../../assets/textures/blocks-clipped/glass.png';
+import glowstoneTextureImg from '../../assets/textures/blocks-clipped/glowstone.png';
+import blockGoldTextureImg from '../../assets/textures/blocks-clipped/blockGold.png';
+import graniteTextureImg from '../../assets/textures/blocks-clipped/granite.png';
+import gravelTextureImg from '../../assets/textures/blocks-clipped/gravel.png';
+import iceTextureImg from '../../assets/textures/blocks-clipped/ice.png';
+import blockIronTextureImg from '../../assets/textures/blocks-clipped/blockIron.png';
+import ironOreTextureImg from '../../assets/textures/blocks-clipped/ironOre.png';
+import blockLapisLazuliTextureImg from '../../assets/textures/blocks-clipped/blockLapisLazuli.png';
+import lapisLazuliOreTextureImg from '../../assets/textures/blocks-clipped/lapisLazuliOre.png';
+import netherBrickBlockTextureImg from '../../assets/textures/blocks-clipped/netherBrickBlock.png';
+import netherQuartzOreTextureImg from '../../assets/textures/blocks-clipped/netherQuartzOre.png';
+import netherrackTextureImg from '../../assets/textures/blocks-clipped/netherrack.png';
+import noteBlockTextureImg from '../../assets/textures/blocks-clipped/noteBlock.png';
+import polishedDioriteTextureImg from '../../assets/textures/blocks-clipped/polishedDiorite.png';
+import polishedGraniteTextureImg from '../../assets/textures/blocks-clipped/polishedGranite.png';
+import blockQuartzTextureImg from '../../assets/textures/blocks-clipped/blockQuartz.png';
+import redSandTextureImg from '../../assets/textures/blocks-clipped/redSand.png';
+import blockRedstoneTextureImg from '../../assets/textures/blocks-clipped/blockRedstone.png';
+import redstoneOreTextureImg from '../../assets/textures/blocks-clipped/redstoneOre.png';
+import sandTextureImg from '../../assets/textures/blocks-clipped/sand.png';
+import soulsandTextureImg from '../../assets/textures/blocks-clipped/soulsand.png';
+import stoneTextureImg from '../../assets/textures/blocks-clipped/stone.png';
+import terracottaTextureImg from '../../assets/textures/blocks-clipped/terracotta.png';
+import waterTextureImg from '../../assets/textures/blocks-clipped/water.png';
+import emeraldOreTextureImg from '../../assets/textures/blocks-clipped/emeraldOre.png';
+import acaciaWoodTextureSideImg from '../../assets/textures/blocks-clipped/acaciaWood.png';
+import acaciaWoodTextureTopImg from '../../assets/textures/blocks-clipped/acaciaWoodTop.png';
+import birchWoodTextureSideImg from '../../assets/textures/blocks-clipped/birchWood.png';
+import birchWoodTextureTopImg from '../../assets/textures/blocks-clipped/birchWoodTop.png';
+import cactusTextureSideImg from '../../assets/textures/blocks-clipped/cactus.png';
+import cactusTextureTopImg from '../../assets/textures/blocks-clipped/cactusTop.png';
+import cactusTextureBottomImg from '../../assets/textures/blocks-clipped/cactusBottom.png';
+import chiseledSandstoneTextureSideImg from '../../assets/textures/blocks-clipped/chiseledSandstone.png';
+import chiseledSandstoneTextureTopImg from '../../assets/textures/blocks-clipped/chiseledSandstoneTop.png';
+import dispenserTextureSideImg from '../../assets/textures/blocks-clipped/dispenserSide.png';
+import dispenserTextureTopImg from '../../assets/textures/blocks-clipped/dispenserTop.png';
+import grassBlockTextureSideImg from '../../assets/textures/blocks-clipped/grassBlockSide.png';
+import grassBlockTextureTopImg from '../../assets/textures/blocks-clipped/grassBlockTop.png';
+import myceliumTextureSideImg from '../../assets/textures/blocks-clipped/myceliumSide.png';
+import myceliumTextureTopImg from '../../assets/textures/blocks-clipped/myceliumTop.png';
+import podzolTextureSideImg from '../../assets/textures/blocks-clipped/podzolSide.png';
+import podzolTextureTopImg from '../../assets/textures/blocks-clipped/podzolTop.png';
+import pumpkinTextureFontImg from '../../assets/textures/blocks-clipped/pumpkinFont.png';
+import pumpkinTextureSideImg from '../../assets/textures/blocks-clipped/pumpkinSide.png';
+import pumpkinTextureTopImg from '../../assets/textures/blocks-clipped/pumpkinTop.png';
+import redSandstoneTextureSideImg from '../../assets/textures/blocks-clipped/redSandstoneSide.png';
+import redSandstoneTextureTopImg from '../../assets/textures/blocks-clipped/redSandstoneTop.png';
+import snowblockTextureSideImg from '../../assets/textures/blocks-clipped/snowblockSide.png';
+import snowblockTextureTopImg from '../../assets/textures/blocks-clipped/snowblockTop.png';
 
-// texture many side
+let loader = new THREE.TextureLoader();
 
-import acaciaWoodTextureSide from '../../assets/textures/blocks-clipped/acaciaWood.png';
-import acaciaWoodTextureTop from '../../assets/textures/blocks-clipped/acaciaWoodTop.png';
-import birchWoodTextureSide from '../../assets/textures/blocks-clipped/birchWood.png';
-import birchWoodTextureTop from '../../assets/textures/blocks-clipped/birchWoodTop.png';
-import cactusTextureSide from '../../assets/textures/blocks-clipped/cactus.png';
-import cactusTextureTop from '../../assets/textures/blocks-clipped/cactusTop.png';
-import cactusTextureBottom from '../../assets/textures/blocks-clipped/cactusBottom.png';
-import chiseledSandstoneTextureSide from '../../assets/textures/blocks-clipped/chiseledSandstone.png';
-import chiseledSandstoneTextureTop from '../../assets/textures/blocks-clipped/chiseledSandstoneTop.png';
-import dispenserTextureSide from '../../assets/textures/blocks-clipped/dispenserSide.png';
-import dispenserTextureTop from '../../assets/textures/blocks-clipped/dispenserTop.png';
-import grassBlockTextureSide from '../../assets/textures/blocks-clipped/grassBlockSide.png';
-import grassBlockTextureTop from '../../assets/textures/blocks-clipped/grassBlockTop.png';
-import myceliumTextureSide from '../../assets/textures/blocks-clipped/myceliumSide.png';
-import myceliumTextureTop from '../../assets/textures/blocks-clipped/myceliumTop.png';
-import podzolTextureSide from '../../assets/textures/blocks-clipped/podzolSide.png';
-import podzolTextureTop from '../../assets/textures/blocks-clipped/podzolTop.png';
-import pumpkinTextureFont from '../../assets/textures/blocks-clipped/pumpkinFont.png';
-import pumpkinTextureSide from '../../assets/textures/blocks-clipped/pumpkinSide.png';
-import pumpkinTextureTop from '../../assets/textures/blocks-clipped/pumpkinTop.png';
-import redSandstoneTextureSide from '../../assets/textures/blocks-clipped/redSandstoneSide.png';
-import redSandstoneTextureTop from '../../assets/textures/blocks-clipped/redSandstoneTop.png';
-import snowblockTextureSide from '../../assets/textures/blocks-clipped/snowblockSide.png';
-import snowblockTextureTop from '../../assets/textures/blocks-clipped/snowblockTop.png';
+const acaciaLeavesTexture = loader.load(acaciaLeavesTextureImg);
+const andesiteTexture = loader.load(andesiteTextureImg);
+const bedrockTexture = loader.load(bedrockTextureImg);
+const birchLeavesTexture = loader.load(birchLeavesTextureImg);
+const brickBlockTexture = loader.load(brickBlockTextureImg);
+const clayBlockTexture = loader.load(clayBlockTextureImg);
+const coalOreTexture = loader.load(coalOreTextureImg);
+const cobblestoneTexture = loader.load(cobblestoneTextureImg);
+const blockDiamondTexture = loader.load(blockDiamondTextureImg);
+const diamondOreTexture = loader.load(diamondOreTextureImg);
+const dioriteTexture = loader.load(dioriteTextureImg);
+const dirtTexture = loader.load(dirtTextureImg);
+const endStoneTexture = loader.load(endStoneTextureImg);
+const glassTexture = loader.load(glassTextureImg);
+const glowstoneTexture = loader.load(glowstoneTextureImg);
+const blockGoldTexture = loader.load(blockGoldTextureImg);
+const graniteTexture = loader.load(graniteTextureImg);
+const gravelTexture = loader.load(gravelTextureImg);
+const iceTexture = loader.load(iceTextureImg);
+const blockIronTexture = loader.load(blockIronTextureImg);
+const ironOreTexture = loader.load(ironOreTextureImg);
+const blockLapisLazuliTexture = loader.load(blockLapisLazuliTextureImg);
+const lapisLazuliOreTexture = loader.load(lapisLazuliOreTextureImg);
+const netherBrickBlockTexture = loader.load(netherBrickBlockTextureImg);
+const netherQuartzOreTexture = loader.load(netherQuartzOreTextureImg);
+const netherrackTexture = loader.load(netherrackTextureImg);
+const noteBlockTexture = loader.load(noteBlockTextureImg);
+const polishedDioriteTexture = loader.load(polishedDioriteTextureImg);
+const polishedGraniteTexture = loader.load(polishedGraniteTextureImg);
+const blockQuartzTexture = loader.load(blockQuartzTextureImg);
+const redSandTexture = loader.load(redSandTextureImg);
+const blockRedstoneTexture = loader.load(blockRedstoneTextureImg);
+const redstoneOreTexture = loader.load(redstoneOreTextureImg);
+const sandTexture = loader.load(sandTextureImg);
+const soulsandTexture = loader.load(soulsandTextureImg);
+const stoneTexture = loader.load(stoneTextureImg);
+const terracottaTexture = loader.load(terracottaTextureImg);
+const waterTexture = loader.load(waterTextureImg);
+const emeraldOreTexture = loader.load(emeraldOreTextureImg);
+const acaciaWoodTextureSide = loader.load(acaciaWoodTextureSideImg);
+const acaciaWoodTextureTop = loader.load(acaciaWoodTextureTopImg);
+const birchWoodTextureSide = loader.load(birchWoodTextureSideImg);
+const birchWoodTextureTop = loader.load(birchWoodTextureTopImg);
+const cactusTextureSide = loader.load(cactusTextureSideImg);
+const cactusTextureTop = loader.load(cactusTextureTopImg);
+const cactusTextureBottom = loader.load(cactusTextureBottomImg);
+const chiseledSandstoneTextureSide = loader.load(chiseledSandstoneTextureSideImg);
+const chiseledSandstoneTextureTop = loader.load(chiseledSandstoneTextureTopImg);
+const dispenserTextureSide = loader.load(dispenserTextureSideImg);
+const dispenserTextureTop = loader.load(dispenserTextureTopImg);
+const grassBlockTextureSide = loader.load(grassBlockTextureSideImg);
+const grassBlockTextureTop = loader.load(grassBlockTextureTopImg);
+const myceliumTextureSide = loader.load(myceliumTextureSideImg);
+const myceliumTextureTop = loader.load(myceliumTextureTopImg);
+const podzolTextureSide = loader.load(podzolTextureSideImg);
+const podzolTextureTop = loader.load(podzolTextureTopImg);
+const pumpkinTextureFont = loader.load(pumpkinTextureFontImg);
+const pumpkinTextureSide = loader.load(pumpkinTextureSideImg);
+const pumpkinTextureTop = loader.load(pumpkinTextureTopImg);
+const redSandstoneTextureSide = loader.load(redSandstoneTextureSideImg);
+const redSandstoneTextureTop = loader.load(redSandstoneTextureTopImg);
+const snowblockTextureSide = loader.load(snowblockTextureSideImg);
+const snowblockTextureTop = loader.load(snowblockTextureTopImg);
 
 export const blockTypes = [
 	'acaciaLeaves',
@@ -404,6 +470,7 @@ export const blockLoader = {
 		block3d: water3d,
 		textureTypes: ['background'],
 		textureImg: waterTexture,
+		accessible: true,
 	},
 	acaciaWood: {
 		name: 'acaciaWood',

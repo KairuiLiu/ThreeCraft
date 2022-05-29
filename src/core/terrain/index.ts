@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import Core from '..';
+import { blockTypes } from '../loader';
+import { generate } from './generate';
 
 class Terrain {
 	core: Core;
@@ -27,30 +29,33 @@ class Terrain {
 		const reflectionLight = new THREE.AmbientLight(0x404040);
 		this.core.scene.add(reflectionLight);
 
-		// TODO 加载初始世界
-		// const axesHelper = new THREE.AxesHelper(1000);
-		// this.core.scene.add(axesHelper);
+		const geometry = new THREE.BoxGeometry();
+		blockTypes.forEach((d, i) => {
+			const blockInstance = new THREE.InstancedMesh(geometry, this.core.getMaterial(i), this.core.maxCount);
+			blockInstance.name = d;
+			this.core.blockInstances[i] = blockInstance;
+			this.core.scene.add(blockInstance);
+		});
 
-		const cube = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0xbbffaa, transparent: true }));
-		this.core.scene.add(cube);
-		const cube2 = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
-		cube2.position.x = 20;
-		cube2.position.z = 20;
-		this.core.scene.add(cube2);
-		const cube3 = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
-		cube3.position.x = 40;
-		cube3.position.z = 40;
-		this.core.scene.add(cube3);
+		// 地形生成
 
-		const sphTop = new THREE.Mesh(new THREE.SphereBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
-		sphTop.position.y = -200;
-		sphTop.position.z = -40;
-		this.core.scene.add(sphTop);
+		const gBlocks = generate({
+			stx: -500,
+			sty: -500,
+			edx: 500,
+			edy: 500,
+		});
 
-		const sphBtn = new THREE.Mesh(new THREE.BoxBufferGeometry(10, 10, 10), new THREE.MeshNormalMaterial());
-		sphBtn.position.y = 200;
-		sphBtn.position.z = -40;
-		this.core.scene.add(sphBtn);
+		console.log('stGen');
+		gBlocks.forEach((d, i) => {
+			d.forEach(dd => {
+				const matrix = new THREE.Matrix4();
+				matrix.setPosition(dd.x, Math.floor(dd.y * 30), dd.z);
+				this.core.blockInstances[i].setMatrixAt(this.core.blockTypeCounts[i], matrix);
+				this.core.blockTypeCounts[i] += 1;
+			});
+		});
+		console.log('edGen');
 	}
 
 	updateScene() {

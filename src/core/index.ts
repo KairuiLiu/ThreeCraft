@@ -1,8 +1,9 @@
 import * as THREE from 'three';
+import { blockLoader, blockTypes } from './loader';
 import { config, symConfig } from '../controller/config';
 import Audio from './audio';
 import Terrain from './terrain';
-import BlockAction from './block-action';
+import Block from './block';
 
 class Core {
 	camera: THREE.PerspectiveCamera;
@@ -15,7 +16,13 @@ class Core {
 
 	audio: Audio;
 
-	blockAction: BlockAction;
+	maxCount: number;
+
+	block: Block;
+
+	blockTypeCounts: number[];
+
+	blockInstances: THREE.InstancedMesh[];
 
 	constructor() {
 		this.camera = new THREE.PerspectiveCamera();
@@ -24,12 +31,16 @@ class Core {
 
 		this.terrain = new Terrain(this);
 		this.audio = new Audio(this);
-		this.blockAction = new BlockAction(this);
+		this.block = new Block(this);
+
+		this.maxCount = 1000;
+		this.blockInstances = new Array(blockTypes.length);
 
 		this.init();
 	}
 
 	init() {
+		this.blockTypeCounts = new Array(blockTypes.length).fill(0);
 		window.addEventListener('resize', () => {
 			this.camera.aspect = window.innerWidth / window.innerHeight;
 			this.camera.updateProjectionMatrix();
@@ -66,6 +77,12 @@ class Core {
 		this.camera.far = config.renderer.renderDistance;
 		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
 		this.camera.updateProjectionMatrix();
+	}
+
+	getMaterial(idx) {
+		if (blockLoader[blockTypes[idx]].textureImg instanceof Array) return blockLoader[blockTypes[idx]].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d }));
+		return new THREE.MeshStandardMaterial({ map: blockLoader[blockTypes[idx]].textureImg });
+		this;
 	}
 }
 
