@@ -58,6 +58,7 @@ class Core {
 	}
 
 	tryRender() {
+		this.terrain.tryUpdateScene();
 		this.renderer.render(this.scene, this.camera);
 	}
 

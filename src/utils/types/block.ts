@@ -5,7 +5,7 @@ export interface iBlockFragmentSingleType {
 	blocks: {
 		type: string;
 		count: number;
-		position: THREE.Matrix4[];
+		position: number[];
 	};
 }
 

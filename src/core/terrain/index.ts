@@ -3,6 +3,7 @@ import { iBlockFragment } from '../../utils/types/block';
 import Core from '..';
 import Generate from './generate';
 import { config } from '../../controller/config';
+import { blockLoader, blockGeom } from '../loader';
 
 class Terrain {
 	core: Core;
@@ -36,7 +37,6 @@ class Terrain {
 
 	// 更新世界
 	updateState() {
-		// TODO 注意, 防止线程爆炸
 		this.clear();
 		this.seed = config.seed;
 		this.cloudSeed = config.cloudSeed;
@@ -46,6 +46,9 @@ class Terrain {
 		this.originX = Math.floor(config.state.posX / this.fragmentSize) * this.fragmentSize;
 		this.originZ = Math.floor(config.state.posZ / this.fragmentSize) * this.fragmentSize;
 		this.thread = config.controller.thread;
+		if (this.generator.treaders.length !== this.thread) {
+			this.generator.setTreader(this.thread);
+		}
 		this.blockFragments = new Array(this.fragmentSize);
 		this.generator.setSeed(this.seed, this.cloudSeed, this.treeSeed);
 		for (let i = 0; i < this.fragmentSize; i += 1) {
@@ -78,16 +81,6 @@ class Terrain {
 		const reflectionLight = new THREE.AmbientLight(0x404040);
 		this.core.scene.add(reflectionLight);
 
-		this.generator.setSeed(config.seed, config.cloudSeed, config.treeSeed);
-
-		// const geometry = new THREE.BoxGeometry();
-		// blockTypes.forEach((d, i) => {
-		// 	const blockInstance = new THREE.InstancedMesh(geometry, this.core.getMaterial(i), this.core.maxCount);
-		// 	blockInstance.name = d;
-		// 	this.core.blockInstances[i] = blockInstance;
-		// 	this.core.scene.add(blockInstance);
-		// });
-
 		this.tryUpdateAll();
 	}
 
@@ -98,7 +91,7 @@ class Terrain {
 			stz: this.originZ - (this.fragmentSize * this.fragmentSize) / 2,
 			edz: this.originZ + (this.fragmentSize * this.fragmentSize) / 2,
 			thread: this.thread,
-			onMessage: this.onUpdateLine,
+			onMessage: this.onUpdateLine.bind(this),
 			fragmentSize: this.fragmentSize,
 		});
 	}
@@ -118,20 +111,21 @@ class Terrain {
 				edz += this.fragmentSize * (this.fragmentSize / 2 + 1);
 				nextZ += this.fragmentSize;
 			}
+			this.originZ = nextZ;
 			this.generator.generateLine({
 				stx: this.originX - (this.fragmentSize * this.fragmentSize) / 2,
 				edx: this.originX + (this.fragmentSize * this.fragmentSize) / 2,
 				stz,
 				edz,
 				thread: this.thread,
-				onMessage: this.onUpdateLine,
+				onMessage: this.onUpdateLine.bind(this),
 				fragmentSize: this.fragmentSize,
 			});
 		}
 		if (Math.abs(config.state.posX - this.originX) > this.fragmentSize) {
 			let stx = this.originX;
 			let edx = this.originX;
-			if (config.state.posZ < this.originZ) {
+			if (config.state.posX < this.originX) {
 				stx -= this.fragmentSize * (this.fragmentSize / 2 + 1);
 				edx -= (this.fragmentSize * this.fragmentSize) / 2;
 				nextX -= this.fragmentSize;
@@ -140,34 +134,70 @@ class Terrain {
 				edx += this.fragmentSize * (this.fragmentSize / 2 + 1);
 				nextX += this.fragmentSize;
 			}
+			this.originX = nextX;
 			this.generator.generateLine({
 				stz: this.originZ - (this.fragmentSize * this.fragmentSize) / 2,
 				edz: this.originZ + (this.fragmentSize * this.fragmentSize) / 2,
 				stx,
 				edx,
 				thread: this.thread,
-				onMessage: this.onUpdateLine,
+				onMessage: this.onUpdateLine.bind(this),
 				fragmentSize: this.fragmentSize,
 			});
 		}
-		this.originX = nextX;
-		this.originZ = nextZ;
 	}
 
 	// 部分刷新回调
 	onUpdateLine(ev) {
+		const matrix = new THREE.Matrix4();
+		const { fragmentSize, frags } = ev.data;
 		// 忽略出问题的多线程
-		const { fragmentSize } = ev.data;
-		const fragments = ev.data.res as iBlockFragment[];
 		if (this.fragmentSize !== fragmentSize) return;
-		fragments.forEach(d => {
+		frags.forEach((d: iBlockFragment) => {
 			// 忽略越界的部分
-			const blkX = Math.abs(d.posX - this.originX) / fragmentSize;
-			const blkZ = Math.abs(d.posZ - this.originZ) / fragmentSize;
-			if (blkX > fragmentSize || blkZ > fragmentSize) return;
+			if (
+				d.posX < this.originX - (fragmentSize * fragmentSize) / 2 ||
+				d.posX >= this.originX + (fragmentSize * fragmentSize) / 2 ||
+				d.posZ < this.originZ - (fragmentSize * fragmentSize) / 2 ||
+				d.posZ >= this.originZ + (fragmentSize * fragmentSize) / 2
+			)
+				return;
+
+			// 计算在数组中的index
+
+			let blkX = d.posX + (fragmentSize * fragmentSize) / 2;
+			while (blkX < 0) blkX += fragmentSize * fragmentSize;
+			blkX = (blkX / fragmentSize) % fragmentSize;
+			let blkZ = d.posZ + (fragmentSize * fragmentSize) / 2;
+			while (blkZ < 0) blkZ += fragmentSize * fragmentSize;
+			blkZ = (blkZ / fragmentSize) % fragmentSize;
+
 			const oldFrag = this.blockFragments[blkZ][blkX];
-			this.core.scene.remove(oldFrag.group);
+
+			// 忽略较早生成的部分
+			if (d.timestamp < oldFrag.timestamp) return;
+
+			// 回收空间
+			if (oldFrag.group !== null) {
+				// 回收空间
+				oldFrag.types.forEach(dd => {
+					dd.instancedMesh.dispose();
+				});
+				this.core.scene.remove(oldFrag.group);
+			}
 			this.blockFragments[blkZ][blkX] = d;
+
+			d.group = new THREE.Group();
+			d.types.forEach(dd => {
+				dd.instancedMesh = new THREE.InstancedMesh(blockGeom, blockLoader[dd.blocks.type].material, dd.blocks.count);
+				for (let i = 0; i < dd.blocks.count; i += 1) {
+					matrix.setPosition(dd.blocks.position[3 * i], dd.blocks.position[3 * i + 1], dd.blocks.position[3 * i + 2]);
+					dd.instancedMesh.setMatrixAt(i, matrix);
+				}
+				dd.instancedMesh.instanceMatrix.needsUpdate = true;
+				d.group.add(dd.instancedMesh);
+			});
+
 			this.core.scene.add(d.group);
 		});
 	}

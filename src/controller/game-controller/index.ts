@@ -123,7 +123,7 @@ class GameController {
 		this.nextTrickViewTask = { viewHorizontal: 0, viewVertical: 0 };
 		this.blockController.update(this.nextTrickBlockTask);
 		this.nextTrickBlockTask.length = 0;
-		this.blockController.highlightCurrentBlock();
+		// this.blockController.highlightCurrentBlock();
 	}
 }
 

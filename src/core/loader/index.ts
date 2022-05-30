@@ -470,37 +470,38 @@ export const blockLoader = {
 		block3d: water3d,
 		textureTypes: ['background'],
 		textureImg: waterTexture,
+		material: new THREE.MeshStandardMaterial({ color: 0x00799e, transparent: true, opacity: 0.5 }),
 		accessible: true,
 	},
 	acaciaWood: {
 		name: 'acaciaWood',
 		block3d: acaciaWood3d,
 		textureTypes: ['background'],
-		textureImg: [acaciaWoodTextureTop, acaciaWoodTextureSide, acaciaWoodTextureSide, acaciaWoodTextureSide, acaciaWoodTextureSide, acaciaWoodTextureTop],
+		textureImg: [acaciaWoodTextureSide, acaciaWoodTextureSide, acaciaWoodTextureTop, acaciaWoodTextureTop, acaciaWoodTextureSide, acaciaWoodTextureSide],
 	},
 	birchWood: {
 		name: 'birchWood',
 		block3d: birchWood3d,
 		textureTypes: ['background'],
-		textureImg: [birchWoodTextureTop, birchWoodTextureSide, birchWoodTextureSide, birchWoodTextureSide, birchWoodTextureSide, birchWoodTextureTop],
+		textureImg: [birchWoodTextureSide, birchWoodTextureSide, birchWoodTextureTop, birchWoodTextureTop, birchWoodTextureSide, birchWoodTextureSide],
 	},
 	cactus: {
 		name: 'cactus',
 		block3d: cactus3d,
 		textureTypes: ['background'],
-		textureImg: [cactusTextureTop, cactusTextureSide, cactusTextureSide, cactusTextureSide, cactusTextureSide, cactusTextureBottom],
+		textureImg: [cactusTextureSide, cactusTextureSide, cactusTextureTop, cactusTextureBottom, cactusTextureSide, cactusTextureSide],
 	},
 	chiseledSandstone: {
 		name: 'chiseledSandstone',
 		block3d: chiseledSandstone3d,
 		textureTypes: ['background'],
-		textureImg: [chiseledSandstoneTextureTop, chiseledSandstoneTextureSide, chiseledSandstoneTextureSide, chiseledSandstoneTextureSide, chiseledSandstoneTextureSide, chiseledSandstoneTextureTop],
+		textureImg: [chiseledSandstoneTextureSide, chiseledSandstoneTextureSide, chiseledSandstoneTextureTop, chiseledSandstoneTextureTop, chiseledSandstoneTextureSide, chiseledSandstoneTextureSide],
 	},
 	dispenser: {
 		name: 'dispenser',
 		block3d: dispenser3d,
 		textureTypes: ['background'],
-		textureImg: [dispenserTextureTop, dispenserTextureSide, dispenserTextureSide, dispenserTextureSide, dispenserTextureSide, dispenserTextureTop],
+		textureImg: [dispenserTextureSide, dispenserTextureSide, dispenserTextureTop, dispenserTextureTop, dispenserTextureSide, dispenserTextureSide],
 	},
 	emeraldOre: {
 		name: 'emeraldOre',
@@ -512,42 +513,45 @@ export const blockLoader = {
 		name: 'grassBlock',
 		block3d: grassBlock3d,
 		textureTypes: ['background'],
-		textureImg: [grassBlockTextureTop, grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureTop],
+		textureImg: [grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureTop, grassBlockTextureTop, grassBlockTextureSide, grassBlockTextureSide],
 	},
 	mycelium: {
 		name: 'mycelium',
 		block3d: mycelium3d,
 		textureTypes: ['background'],
-		textureImg: [myceliumTextureTop, myceliumTextureSide, myceliumTextureSide, myceliumTextureSide, myceliumTextureSide, myceliumTextureTop],
+		textureImg: [myceliumTextureSide, myceliumTextureSide, myceliumTextureTop, myceliumTextureTop, myceliumTextureSide, myceliumTextureSide],
 	},
 	podzol: {
 		name: 'podzol',
 		block3d: podzol3d,
 		textureTypes: ['background'],
-		textureImg: [podzolTextureTop, podzolTextureSide, podzolTextureSide, podzolTextureSide, podzolTextureSide, podzolTextureTop],
+		textureImg: [podzolTextureSide, podzolTextureSide, podzolTextureTop, podzolTextureTop, podzolTextureSide, podzolTextureSide],
 	},
 	pumpkin: {
 		name: 'pumpkin',
 		block3d: pumpkin3d,
 		textureTypes: ['background'],
-		textureImg: [pumpkinTextureTop, pumpkinTextureFont, pumpkinTextureSide, pumpkinTextureSide, pumpkinTextureSide, pumpkinTextureTop],
+		textureImg: [pumpkinTextureSide, pumpkinTextureSide, pumpkinTextureTop, pumpkinTextureTop, pumpkinTextureFont, pumpkinTextureSide],
 	},
 	redSandstone: {
 		name: 'redSandstone',
 		block3d: redSandstone3d,
 		textureTypes: ['background'],
-		textureImg: [redSandstoneTextureTop, redSandstoneTextureSide, redSandstoneTextureSide, redSandstoneTextureSide, redSandstoneTextureSide, redSandstoneTextureTop],
+		textureImg: [redSandstoneTextureSide, redSandstoneTextureSide, redSandstoneTextureTop, redSandstoneTextureTop, redSandstoneTextureSide, redSandstoneTextureSide],
 	},
 	snowblock: {
 		name: 'snowblock',
 		block3d: snowblock3d,
 		textureTypes: ['background'],
-		textureImg: [snowblockTextureTop, snowblockTextureSide, snowblockTextureSide, snowblockTextureSide, snowblockTextureSide, snowblockTextureTop],
+		textureImg: [snowblockTextureSide, snowblockTextureSide, snowblockTextureTop, snowblockTextureTop, snowblockTextureSide, snowblockTextureSide],
 	},
 };
 
 blockTypes.forEach(
 	(d, i) =>
+		blockLoader[d].material ||
 		(blockLoader[d].material =
 			blockLoader[d].textureImg instanceof Array ? blockLoader[d].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d })) : new THREE.MeshStandardMaterial({ map: blockLoader[d].textureImg }))
 );
+
+export const blockGeom = new THREE.BoxBufferGeometry(1, 1, 1);

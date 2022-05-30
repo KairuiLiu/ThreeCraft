@@ -16,62 +16,103 @@ class Generate {
 		treeSeed: number;
 	};
 
+	treaders: Worker[];
+
 	constructor(terrain) {
 		this.terrain = terrain;
 		this.noiseSeed = null;
+		this.treaders = [];
 	}
 
 	setSeed(seed, cloudSeed, treeSeed) {
 		this.noiseSeed = { seed, cloudSeed, treeSeed };
 	}
 
+	setTreader(num) {
+		if (this.treaders.length > num) {
+			for (let i = num; i < this.treaders.length; i += 1) {
+				this.treaders[i].terminate();
+			}
+			this.treaders.length = num;
+		} else {
+			for (let i = this.treaders.length; i < num; i += 1) {
+				const worker = new Worker();
+				worker.onmessage = this.terrain.onUpdateLine.bind(this.terrain);
+				this.treaders.push(worker);
+			}
+		}
+	}
+
 	// ! 生成一条, 注意顺序
 	generateLine({ stx, edx, stz, edz, fragmentSize, thread, onMessage }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];
-		const deltaX = (edx - stx) / thread;
-		const deltaZ = (edz - stz) / thread;
-		const timeStep = performance.now();
-		for (let i = 0; i < thread; i += 1) {
-			const worker = new Worker();
-			worker.onmessage = onMessage;
-			worker.postMessage({
-				timeStep,
-				stx: stx + deltaX * i,
-				edx: i === thread - 1 ? edx : stx + deltaX * (i + 1),
-				stz: stz + deltaZ * i,
-				edz: i === thread - 1 ? edz : stz + deltaZ * (i + 1),
-				fragmentSize,
-				noiseSeed: this.noiseSeed,
-				weather: config.weather,
-				blockTypes,
-				symConfig,
-				weatherTypes,
-			});
+		const timestamp = performance.now();
+		const fragCountZ = (edz - stz) / fragmentSize;
+		const fragCountX = (edx - stx) / fragmentSize;
+		if (fragCountZ === 1) {
+			let curFragX = 0;
+			for (let i = 0; i < thread; i += 1) {
+				this.treaders[i].postMessage({
+					timestamp,
+					stx: stx + curFragX * fragmentSize,
+					edx: i === thread - 1 ? edx : stx + Math.floor(((i + 1) / thread) * fragCountX) * fragmentSize,
+					stz,
+					edz,
+					fragmentSize,
+					noiseSeed: this.noiseSeed,
+					weather: config.weather,
+					blockTypes,
+					weatherTypes,
+					horizonHeight: symConfig.stage.horizonHeight,
+					maxHeight: symConfig.stage.maxHeight,
+				});
+				curFragX = Math.floor(((i + 1) / thread) * fragCountX);
+			}
+		} else {
+			let curFragZ = 0;
+			for (let i = 0; i < thread; i += 1) {
+				this.treaders[i].postMessage({
+					timestamp,
+					stz: stz + curFragZ * fragmentSize,
+					edz: i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCountZ) * fragmentSize,
+					stx,
+					edx,
+					fragmentSize,
+					noiseSeed: this.noiseSeed,
+					weather: config.weather,
+					blockTypes,
+					weatherTypes,
+					horizonHeight: symConfig.stage.horizonHeight,
+					maxHeight: symConfig.stage.maxHeight,
+				});
+				curFragZ = Math.floor(((i + 1) / thread) * fragCountZ);
+			}
 		}
 	}
 
 	generateAll({ stx, edx, stz, edz, fragmentSize, thread, onMessage }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];
-		const deltaZ = (edz - stz) / thread;
-		const timeStep = performance.now();
+		const fragCount = (edz - stz) / fragmentSize;
+		let curFrag = 0;
+		const timestamp = performance.now();
 		for (let i = 0; i < thread; i += 1) {
-			const worker = new Worker();
-			worker.onmessage = onMessage;
-			worker.postMessage({
-				timeStep,
+			this.treaders[i].postMessage({
+				timestamp,
 				stx,
 				edx,
-				stz: stz + deltaZ * i,
-				edz: i === thread - 1 ? edz : stz + deltaZ * (i + 1),
+				stz: stz + curFrag * fragmentSize,
+				edz: i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCount) * fragmentSize,
 				fragmentSize,
 				noiseSeed: this.noiseSeed,
 				weather: config.weather,
 				blockTypes,
-				symConfig,
 				weatherTypes,
+				horizonHeight: symConfig.stage.horizonHeight,
+				maxHeight: symConfig.stage.maxHeight,
 			});
+			curFrag = Math.floor(((i + 1) / thread) * fragCount);
 		}
 	}
 }
