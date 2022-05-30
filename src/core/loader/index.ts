@@ -400,6 +400,10 @@ export const blockLoader = {
 		block3d: glass3d,
 		textureTypes: ['background'],
 		textureImg: glassTexture,
+		material: new THREE.MeshStandardMaterial({
+			map: acaciaLeavesTexture,
+			transparent: true,
+		}),
 	},
 	glowstone: {
 		name: 'glowstone',

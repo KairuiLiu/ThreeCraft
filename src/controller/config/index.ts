@@ -27,15 +27,15 @@ const config = {
 	renderer: {
 		fog: 0.03,
 		stageSize: 64, // stage的边长 196
-		renderDistance: 500,
+		// renderDistance: 500,
 	},
 	controller: {
 		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
 		language: '0',
-		cheat: true,
-		dev: true,
+		cheat: false,
+		dev: false,
 		fps: true,
 		crosshair: 'dark',
 		opSens: 1,
@@ -43,8 +43,8 @@ const config = {
 	},
 	state: {
 		posX: 0,
-		posY: 0,
-		posZ: 20,
+		posY: 30,
+		posZ: 0,
 	},
 };
 
@@ -100,16 +100,16 @@ const defaultConfig = {
 	},
 	renderer: {
 		fog: 0.03,
-		stageSize: 64,
-		renderDistance: 500,
+		stageSize: 64, // stage的边长 196
+		// renderDistance: 500,
 	},
 	controller: {
 		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
 		language: '0',
-		cheat: true,
-		dev: true,
+		cheat: false,
+		dev: false,
 		fps: true,
 		crosshair: 'dark',
 		opSens: 1,
@@ -117,8 +117,8 @@ const defaultConfig = {
 	},
 	state: {
 		posX: 0,
-		posY: 0,
-		posZ: 20,
+		posY: 30,
+		posZ: 0,
 	},
 };
 

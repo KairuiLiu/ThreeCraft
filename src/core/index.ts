@@ -42,10 +42,10 @@ class Core {
 		this.camera.fov = config.camera.fov;
 		this.camera.aspect = window.innerWidth / window.innerHeight;
 		this.camera.near = 0.01;
-		this.camera.far = config.renderer.renderDistance;
+		this.camera.far = Math.max(233, config.renderer.stageSize * Math.sqrt(3));
 		this.camera.updateProjectionMatrix();
 		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
-		this.camera.lookAt(0, 0, 0);
+		// this.camera.lookAt(0, 0, 0);
 		this.camera.rotation.order = 'YXZ';
 
 		this.scene = new THREE.Scene();
@@ -65,7 +65,7 @@ class Core {
 	updateCore() {
 		(this.scene.fog as THREE.FogExp2).density = config.renderer.fog;
 		this.camera.fov = config.camera.fov;
-		this.camera.far = config.renderer.renderDistance;
+		this.camera.far = Math.max(233, config.renderer.stageSize * Math.sqrt(3));
 		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
 		this.camera.updateProjectionMatrix();
 	}
