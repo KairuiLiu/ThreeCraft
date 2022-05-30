@@ -14,5 +14,9 @@ export interface iBlockFragment {
 	group: THREE.Group;
 	posX: number;
 	posZ: number;
+	cloudPos?: number[];
+	cloudMesh?: THREE.InstancedMesh;
+	treePos?: number[];
+	treeMesh?: THREE.InstancedMesh;
 	types: iBlockFragmentSingleType[];
 }

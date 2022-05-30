@@ -61,11 +61,14 @@ class Generate {
 					edz,
 					fragmentSize,
 					noiseSeed: this.noiseSeed,
+					noiseGap: symConfig.noiseGap,
 					weather: config.weather,
 					blockTypes,
 					weatherTypes,
 					horizonHeight: symConfig.stage.horizonHeight,
+					treeBaseHeight: symConfig.stage.treeBaseHeight,
 					maxHeight: symConfig.stage.maxHeight,
+					skyHeight: symConfig.stage.skyHeight,
 				});
 				curFragX = Math.floor(((i + 1) / thread) * fragCountX);
 			}
@@ -80,11 +83,14 @@ class Generate {
 					edx,
 					fragmentSize,
 					noiseSeed: this.noiseSeed,
+					noiseGap: symConfig.noiseGap,
 					weather: config.weather,
 					blockTypes,
 					weatherTypes,
 					horizonHeight: symConfig.stage.horizonHeight,
+					treeBaseHeight: symConfig.stage.treeBaseHeight,
 					maxHeight: symConfig.stage.maxHeight,
+					skyHeight: symConfig.stage.skyHeight,
 				});
 				curFragZ = Math.floor(((i + 1) / thread) * fragCountZ);
 			}
@@ -106,11 +112,14 @@ class Generate {
 				edz: i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCount) * fragmentSize,
 				fragmentSize,
 				noiseSeed: this.noiseSeed,
+				noiseGap: symConfig.noiseGap,
 				weather: config.weather,
 				blockTypes,
 				weatherTypes,
 				horizonHeight: symConfig.stage.horizonHeight,
+				treeBaseHeight: symConfig.stage.treeBaseHeight,
 				maxHeight: symConfig.stage.maxHeight,
+				skyHeight: symConfig.stage.skyHeight,
 			});
 			curFrag = Math.floor(((i + 1) / thread) * fragCount);
 		}

@@ -312,6 +312,11 @@ export const blockLoader = {
 		block3d: acaciaLeaves3d,
 		textureTypes: ['background'],
 		textureImg: acaciaLeavesTexture,
+		material: new THREE.MeshStandardMaterial({
+			map: acaciaLeavesTexture,
+			color: 0x00bb00,
+			transparent: true,
+		}),
 	},
 	andesite: {
 		name: 'andesite',
@@ -330,6 +335,11 @@ export const blockLoader = {
 		block3d: birchLeaves3d,
 		textureTypes: ['background'],
 		textureImg: birchLeavesTexture,
+		material: new THREE.MeshStandardMaterial({
+			map: birchLeavesTexture,
+			color: 0xffbb00,
+			transparent: true,
+		}),
 	},
 	brickBlock: {
 		name: 'brickBlock',
@@ -534,7 +544,14 @@ export const blockLoader = {
 		block3d: water3d,
 		textureTypes: ['background'],
 		textureImg: waterTexture,
-		material: new THREE.MeshStandardMaterial({ color: 0x00799e, transparent: true, opacity: 0.5 }),
+		material: [
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.8 }),
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.0 }),
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.3 }),
+		],
 		accessible: true,
 	},
 	acaciaWood: {
@@ -577,7 +594,7 @@ export const blockLoader = {
 		name: 'grassBlock',
 		block3d: grassBlock3d,
 		textureTypes: ['background'],
-		textureImg: [grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureTop, grassBlockTextureTop, grassBlockTextureSide, grassBlockTextureSide],
+		textureImg: [grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureTop, dirtTexture, grassBlockTextureSide, grassBlockTextureSide],
 	},
 	mycelium: {
 		name: 'mycelium',
@@ -619,3 +636,7 @@ blockTypes.forEach(
 );
 
 export const blockGeom = new THREE.BoxBufferGeometry(1, 1, 1);
+export const cloudGeom = new THREE.BoxBufferGeometry(4, 3, 6);
+export const cloudMaterial = new THREE.MeshBasicMaterial({ color: 0x959595, opacity: 0.8, transparent: true });
+
+export const treeType = [];

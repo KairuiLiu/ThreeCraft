@@ -21,12 +21,12 @@ const config = {
 		},
 	},
 	camera: {
-		fov: 100,
+		fov: 80,
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.02,
-		stageSize: 36, // stage的边长 196
+		fog: 0.03,
+		stageSize: 64, // stage的边长 196
 		renderDistance: 500,
 	},
 	controller: {
@@ -51,8 +51,10 @@ const config = {
 const symConfig = {
 	stage: {
 		skyBackground: 0x87ceeb,
-		maxHeight: 30,
-		horizonHeight: 7,
+		maxHeight: 11,
+		horizonHeight: -3,
+		treeBaseHeight: 5,
+		skyHeight: 40,
 	},
 	actionsScale: {
 		walking: 5,
@@ -67,6 +69,11 @@ const symConfig = {
 		length: 0.7,
 		width: 0.5,
 		height: 1.8,
+	},
+	noiseGap: {
+		seedGap: 35,
+		cloudSeedGap: 2,
+		treeSeedGap: 10,
 	},
 };
 
@@ -88,12 +95,12 @@ const defaultConfig = {
 		},
 	},
 	camera: {
-		fov: 100,
+		fov: 80,
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.02,
-		stageSize: 36,
+		fog: 0.03,
+		stageSize: 64,
 		renderDistance: 500,
 	},
 	controller: {

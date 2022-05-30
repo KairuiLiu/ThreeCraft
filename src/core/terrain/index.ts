@@ -1,9 +1,10 @@
 import * as THREE from 'three';
+import { treeGeom } from '../loader/index';
 import { iBlockFragment } from '../../utils/types/block';
 import Core from '..';
 import Generate from './generate';
 import { config } from '../../controller/config';
-import { blockLoader, blockGeom } from '../loader';
+import { blockLoader, blockGeom, cloudGeom, cloudMaterial } from '../loader';
 
 class Terrain {
 	core: Core;
@@ -139,7 +140,6 @@ class Terrain {
 				stx,
 				edx,
 				thread: this.thread,
-				onMessage: this.onUpdateLine.bind(this),
 				fragmentSize: this.fragmentSize,
 			});
 		}
@@ -181,6 +181,8 @@ class Terrain {
 				oldFrag.types.forEach(dd => {
 					dd.instancedMesh.dispose();
 				});
+				oldFrag.cloudMesh && oldFrag.cloudMesh.dispose();
+				oldFrag.treeMesh && oldFrag.treeMesh.dispose();
 				this.core.scene.remove(oldFrag.group);
 			}
 			this.blockFragments[blkZ][blkX] = d;
@@ -195,6 +197,26 @@ class Terrain {
 				dd.instancedMesh.instanceMatrix.needsUpdate = true;
 				d.group.add(dd.instancedMesh);
 			});
+
+			d.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, d.cloudPos.length / 3);
+			for (let i = 0; i < d.cloudPos.length / 3; i += 1) {
+				matrix.setPosition(d.cloudPos[i * 3], d.cloudPos[i * 3 + 1], d.cloudPos[i * 3 + 2]);
+				d.cloudMesh.setMatrixAt(i, matrix);
+			}
+			d.cloudMesh.instanceMatrix.needsUpdate = true;
+			d.group.add(d.cloudMesh);
+
+			// d.treeMesh = new THREE.InstancedMesh(treeGeom, blockLoader.acaciaWood, d.treePos.length / 3);
+			// for (let i = 0; i < d.cloudPos.length / 3; i += 1) {
+			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1], d.treePos[i * 3 + 2]);
+			// 	d.treeMesh.setMatrixAt(i * 3 + 0, matrix);
+			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1] + 1, d.treePos[i * 3 + 2]);
+			// 	d.treeMesh.setMatrixAt(i * 3 + 1, matrix);
+			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1] + 2, d.treePos[i * 3 + 2]);
+			// 	d.treeMesh.setMatrixAt(i * 3 + 2, matrix);
+			// }
+			// d.treeMesh.instanceMatrix.needsUpdate = true;
+			// d.group.add(d.treeMesh);
 
 			this.core.scene.add(d.group);
 		});
