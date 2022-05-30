@@ -402,7 +402,7 @@ class Menu {
 		threadSelect.value = `${config.controller.thread}`;
 		threadSelect.addEventListener('change', () => {
 			config.controller.thread = Number.parseInt(threadSelect.value, 10);
-			// TODO 注意, 这里要防止线程炸掉
+			this.controller.core.terrain.generator.setTreader(config.controller.thread);
 		});
 	}
 

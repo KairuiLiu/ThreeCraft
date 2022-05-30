@@ -95,7 +95,7 @@ class MoveController {
 		while (this.core.camera.rotation.y > Math.PI) this.core.camera.rotation.y -= Math.PI * 2;
 		while (this.core.camera.rotation.y < -Math.PI) this.core.camera.rotation.y += Math.PI * 2;
 		this.core.camera.rotation.x += viewVertical * symConfig.actionsScale.viewScale;
-		this.core.camera.rotation.x = Math.max(Math.min(this.core.camera.rotation.x, Math.PI * 0.5), -Math.PI * 0.5);
+		this.core.camera.rotation.x = Math.max(Math.min(this.core.camera.rotation.x, Math.PI * 0.495), -Math.PI * 0.495);
 		this.core.camera.updateMatrix();
 	}
 }

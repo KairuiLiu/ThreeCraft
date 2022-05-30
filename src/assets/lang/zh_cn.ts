@@ -70,7 +70,7 @@ export default {
 	opRange: '操纵范围',
 	crossHair: '十字准星',
 	dark: '暗',
-	light: '明',
+	light: '亮',
 	high: '高&nbsp;&nbsp;',
 	low: '低&nbsp;&nbsp',
 	norm: '一般&nbsp;&nbsp',

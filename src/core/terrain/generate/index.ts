@@ -44,7 +44,7 @@ class Generate {
 	}
 
 	// ! 生成一条, 注意顺序
-	generateLine({ stx, edx, stz, edz, fragmentSize, thread, onMessage }) {
+	generateLine({ stx, edx, stz, edz, fragmentSize, thread }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];
 		const timestamp = performance.now();
@@ -91,7 +91,7 @@ class Generate {
 		}
 	}
 
-	generateAll({ stx, edx, stz, edz, fragmentSize, thread, onMessage }) {
+	generateAll({ stx, edx, stz, edz, fragmentSize, thread }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];
 		const fragCount = (edz - stz) / fragmentSize;

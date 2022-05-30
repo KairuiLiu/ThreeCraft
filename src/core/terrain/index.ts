@@ -91,7 +91,6 @@ class Terrain {
 			stz: this.originZ - (this.fragmentSize * this.fragmentSize) / 2,
 			edz: this.originZ + (this.fragmentSize * this.fragmentSize) / 2,
 			thread: this.thread,
-			onMessage: this.onUpdateLine.bind(this),
 			fragmentSize: this.fragmentSize,
 		});
 	}
@@ -118,7 +117,6 @@ class Terrain {
 				stz,
 				edz,
 				thread: this.thread,
-				onMessage: this.onUpdateLine.bind(this),
 				fragmentSize: this.fragmentSize,
 			});
 		}
