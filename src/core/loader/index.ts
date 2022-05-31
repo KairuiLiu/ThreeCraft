@@ -97,6 +97,7 @@ import soulsandTextureImg from '../../assets/textures/blocks-clipped/soulsand.pn
 import stoneTextureImg from '../../assets/textures/blocks-clipped/stone.png';
 import terracottaTextureImg from '../../assets/textures/blocks-clipped/terracotta.png';
 import waterTextureImg from '../../assets/textures/blocks-clipped/water.png';
+// import waterTextureAlphaImg from '../../assets/textures/blocks-clipped/water_alpha.png';
 import emeraldOreTextureImg from '../../assets/textures/blocks-clipped/emeraldOre.png';
 import acaciaWoodTextureSideImg from '../../assets/textures/blocks-clipped/acaciaWood.png';
 import acaciaWoodTextureTopImg from '../../assets/textures/blocks-clipped/acaciaWoodTop.png';
@@ -163,6 +164,7 @@ const soulsandTexture = loader.load(soulsandTextureImg);
 const stoneTexture = loader.load(stoneTextureImg);
 const terracottaTexture = loader.load(terracottaTextureImg);
 const waterTexture = loader.load(waterTextureImg);
+// const waterTextureAlpha = loader.load(waterTextureAlphaImg);
 const emeraldOreTexture = loader.load(emeraldOreTextureImg);
 const acaciaWoodTextureSide = loader.load(acaciaWoodTextureSideImg);
 const acaciaWoodTextureTop = loader.load(acaciaWoodTextureTopImg);
@@ -549,12 +551,12 @@ export const blockLoader = {
 		textureTypes: ['background'],
 		textureImg: waterTexture,
 		material: [
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
-			new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 1 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
+			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
 		],
 		accessible: true,
 	},

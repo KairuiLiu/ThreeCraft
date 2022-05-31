@@ -225,7 +225,7 @@ class Menu {
 		<div class="box-line">
 			<div class="range-item">
 				<label for="fog-range" class="fix-width">${language.fogFactor}</label>
-				<input type="range" class="range" id="fog-range" name="fog-range" min="0" max="10" step="1" />
+				<input type="range" class="range" id="fog-range" name="fog-range" min="0" max="5" step="1" />
 				<label for="fog-range" class="fix-width-mini text-right">---</label>
 			</div>
 		</div>
@@ -322,6 +322,7 @@ class Menu {
 			fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
 		});
 		const fogRange = document.getElementById('fog-range') as HTMLInputElement;
+		// fog: 0.01-0.05
 		fogRange.value = `${config.renderer.fog * 100}`;
 		fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		fogRange.addEventListener('input', () => {

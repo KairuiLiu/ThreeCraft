@@ -25,7 +25,7 @@ const config = {
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.03,
+		fog: 0.02,
 		stageSize: 64, // stage的边长 196
 		// renderDistance: 500,
 	},
@@ -99,7 +99,7 @@ const defaultConfig = {
 		camHeight: 2,
 	},
 	renderer: {
-		fog: 0.03,
+		fog: 0.02,
 		stageSize: 64, // stage的边长 196
 		// renderDistance: 500,
 	},

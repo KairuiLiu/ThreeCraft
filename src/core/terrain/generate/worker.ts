@@ -73,13 +73,12 @@ onmessage = (
 						blockFragment.types[base].blocks.count += 1;
 						// water 生成
 						// const mat4 = new THREE.Matrix4();
-						// for (let yy = y + 1; yy <= horizonHeight; yy += 1) {
-						// mat4.setPosition(i, yy, j);
-						// blockFragment.types[water].blocks.position.push(mat4.clone());
-						blockFragment.types[water].blocks.position.push(i, y, j);
-						blockFragment.types[water].blocks.position.push(i, horizonHeight, j);
-						blockFragment.types[water].blocks.count += 2;
-						// }
+						for (let yy = y + 1; yy <= horizonHeight; yy += 1) {
+							// mat4.setPosition(i, yy, j);
+							// blockFragment.types[water].blocks.position.push(mat4.clone());
+							blockFragment.types[water].blocks.position.push(i, yy, j);
+							blockFragment.types[water].blocks.count += 1;
+						}
 					} else {
 						// blockFragment.types[surface].blocks.position.push(matrix.clone());
 						blockFragment.types[surface].blocks.position.push(i, y, j);
