@@ -2,3 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 npx --no-install lint-staged
+echo is the config file fixed?
+echo is the weather file fixed?
