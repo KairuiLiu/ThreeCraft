@@ -7,42 +7,65 @@
 
 ![Threejs](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white) ![Socketio](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)
 
-### ✨RoadMap
+live demo: [mc.liukairui.me/en](https://mc.liukairui.me)
 
-live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
+### ✨ Feature
 
-- [ ] STAGE 1
-  - [ ] Placement / Destruction of Blocks
-  - [ ] Movement and collision detection
-  - [x] Basic UI
-  - [ ] Run and Fly
-  - [ ] Highlight crosshair square
-- [ ] STAGE 2
-  - [ ] save/load game
-  - [ ] Infinite World
-  - [ ] Random terrain and tree generation
-  - [ ] Mouse wheel (number keys) to select different block types
-  - [ ] Adjustable rendering distance and field of view
-- [ ] STAGE 3
-  - [ ] Simple multiplayer support
-  - [ ] Sound effects and background music
-  - [ ] Generate water
-  - [ ] Hold down the mouse to place/break blocks
-  - [ ] more save fields
-  - [ ] More efficient algorithm
-  - [ ] Mobile device support
 
-### 🎮️Operation
+- [ ] Support multiplayer game in LAN
+- [x] Efficient collision detection method
+- [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
+- [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
+- [x] Multi-terminal and multi-control mode support (PC side, mobile side, ~~VR side, PS4/5 controller support, Xbox controller support~~)
+- [x] Multiple parameters can be adjusted(Viewing angle / Fog / Scene size / Maneuver range / Volume / Number of threads / Operational sensitivity / Language / Operating mode / Crosshair color / Backpack mode / Cheat mode)
+- [x] Multiple ways to save and load archive
+- [x] Dual language support (Chinese / English)
+- [ ] Original sound
 
-- emm...
+### 🎮️ Operation
 
-### 🛠️Deploy
+- **PC**
+  - **Space Bar**:Jump
+  - **E Key**: Switch Bag
+  - **Q Key**: Cheat Mode
+  - **Mouse Move**: Change Orientation
+  - **WSAD Key**: Move
+  - **Number Key**: Toggle Block
+  - **Wheel Scroll**: Toggle Block
+  - **Click Item Box**: Toggle Block
+  - **Shift Key**: Drop in Cheat Mode
+  - **Mouse left/right click**: Destroy/Create Blocks
+  - **ESC Key**: Show Menu
+- **Mobile**
+  - **Drag Screen**: Change Orientation
+  - **Click Item Box**: Toggle Block
+  - **Click Active Item**: Open Backpack
+- **VR**
+  - **Turn Headset**: Change Orientation
+  - **Using Remote**: Destroy Blocks
 
-- emm...
+### 🛠️ Install
 
-### 📃Documents
+```shell
+// Install pnpm
+npm install -g pnpm
 
-Only Chinese version, [中文文档](./README-CN.md)
+// Install all dependance
+pnpm install
+
+// Install a dependency
+pnpm install xxx  -D/-S
+
+// Run
+pnpm dev
+
+// Build
+pnpm build
+```
+
+### 📃 Documents
+
+Only Chinese version, See [中文文档](./README-CN.md)
 
 ### 🥰Reference
 

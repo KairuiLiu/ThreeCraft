@@ -13,6 +13,9 @@ class BagMobilePlugin {
 	// eslint-disable-next-line
 	clickItemEventListener: (e: TouchEvent | MouseEvent) => void;
 
+	// eslint-disable-next-line
+	preventDefault: (e: TouchEvent | MouseEvent) => void;
+
 	constructor(bagOuterElem: HTMLElement, host) {
 		// 清除其他插件
 		this.host = host;
@@ -24,13 +27,14 @@ class BagMobilePlugin {
 		this.bagOuterElem.appendChild(this.bagInnerElem);
 		// 点击框事件
 		this.clickItemEventListener = BagMobilePlugin.getClickItemEventListener(this.host);
+		this.preventDefault = BagMobilePlugin.getPreventDefaultListener();
 	}
 
 	// 调整位置
 	place() {
 		this.bagItemsElem = [...this.bagInnerElem.children] as HTMLElement[];
 		this.bagItemsElem.forEach((d, i) => {
-			d.style.transform = `rotateZ(${i * config.bag.mobile.rotateDegree}deg) translateX(-${config.bag.mobile.radius}px)`;
+			d.style.transform = `rotateZ(${i * config.bag.mobile.rotateDegree}deg) translateX(-${config.bag.mobile.radius}px) `;
 		});
 	}
 
@@ -38,11 +42,17 @@ class BagMobilePlugin {
 	listen() {
 		if (config.controller.dev) this.bagInnerElem.addEventListener('click', this.clickItemEventListener);
 		this.bagInnerElem.addEventListener('touchstart', this.clickItemEventListener);
+		this.bagInnerElem.addEventListener('touchmove', this.preventDefault);
+		this.bagInnerElem.addEventListener('touchend', this.preventDefault);
+		this.bagInnerElem.addEventListener('touchcancel', this.preventDefault);
 	}
 
 	// 取消监听
 	pause() {
 		this.bagInnerElem.removeEventListener('touchstart', this.clickItemEventListener);
+		this.bagInnerElem.removeEventListener('touchmove', this.preventDefault);
+		this.bagInnerElem.removeEventListener('touchend', this.preventDefault);
+		this.bagInnerElem.removeEventListener('touchcancel', this.preventDefault);
 	}
 
 	destroy() {
@@ -63,6 +73,14 @@ class BagMobilePlugin {
 					host.highlight();
 				}
 			}
+			return false;
+		};
+	}
+
+	static getPreventDefaultListener() {
+		return e => {
+			e.preventDefault();
+			e.stopPropagation();
 		};
 	}
 }

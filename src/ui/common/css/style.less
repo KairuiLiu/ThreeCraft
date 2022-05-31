@@ -286,3 +286,30 @@ body {
 		z-index: 99999999;
 	}
 }
+
+@keyframes icon-animate {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	10%,
+	30% {
+		transform: scale(0.9);
+	}
+	20%,
+	40%,
+	60%,
+	80% {
+		transform: scale(1.1);
+	}
+	50%,
+	70% {
+		transform: scale(1.1);
+	}
+}
+
+.with-love {
+	animation: icon-animate 1.33s ease-in-out infinite;
+	display: inline-block;
+	color: #e25555;
+}

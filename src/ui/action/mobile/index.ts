@@ -11,19 +11,23 @@ class ActionPluginMobile {
 
 	joyStick: JoyStick;
 
-	jumpButton: HTMLButtonElement;
+	jumpButton: HTMLElement;
 
-	removeBlockButton: HTMLButtonElement;
+	removeBlockButton: HTMLElement;
 
-	createBlockButton: HTMLButtonElement;
+	createBlockButton: HTMLElement;
 
-	openBagButton: HTMLButtonElement;
+	openMenuButton: HTMLButtonElement;
 
-	jumpDownButton: HTMLButtonElement;
+	jumpDownButton: HTMLElement;
+
+	actionWallpaper: HTMLElement;
 
 	touchMoveListener: (Event) => boolean;
 
 	touchMoveInitListener: (Event) => boolean;
+
+	stopInterferenceJoystick: (Event) => boolean;
 
 	lastTouchMovePosition: unknown;
 
@@ -32,52 +36,61 @@ class ActionPluginMobile {
 		this.controller = controller;
 		this.touchMoveListener = ActionPluginMobile.getTouchMoveListener(this);
 		this.touchMoveInitListener = ActionPluginMobile.getTouchInitListener(this);
+		this.stopInterferenceJoystick = ActionPluginMobile.getStopInterferenceJoystick();
 	}
 
 	load() {
 		this.joyStick = new JoyStick(this.elem, { width: 200, height: 200 }, ActionPluginMobile.getJoyStickChange(this));
 
-		this.jumpButton = document.createElement('button');
+		this.actionWallpaper = document.createElement('div');
+		this.actionWallpaper.setAttribute('id', 'mobile-button-wallpaper');
+		this.elem.appendChild(this.actionWallpaper);
+
+		this.jumpButton = document.createElement('div');
 		this.jumpButton.setAttribute('id', 'mobile-jump-button');
-		this.elem.appendChild(this.jumpButton);
-		this.jumpButton.addEventListener('touchstart', () => {
-			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: 1 });
-		});
+		this.actionWallpaper.appendChild(this.jumpButton);
+		this.jumpButton.addEventListener('touchstart', ActionPluginMobile.getButtonMoveListener({ up: 1 }, this));
+		this.jumpButton.addEventListener('touchmove', ActionPluginMobile.getButtonMoveListener({ up: 1 }, this));
+		this.jumpButton.addEventListener('touchend', ActionPluginMobile.getButtonMoveListener({ up: 0 }, this));
+		this.jumpButton.addEventListener('touchcancel', ActionPluginMobile.getButtonMoveListener({ up: 0 }, this));
 
-		this.removeBlockButton = document.createElement('button');
+		this.removeBlockButton = document.createElement('div');
 		this.removeBlockButton.setAttribute('id', 'remove-block-button');
-		this.elem.appendChild(this.removeBlockButton);
-		this.removeBlockButton.addEventListener('touchstart', () => {
-			this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
-		});
+		this.actionWallpaper.appendChild(this.removeBlockButton);
+		this.removeBlockButton.addEventListener('touchstart', ActionPluginMobile.getButtonActionListener(actionBlockEvent.REMOVE, this));
+		this.removeBlockButton.addEventListener('touchmove', ActionPluginMobile.getButtonActionListener(actionBlockEvent.REMOVE, this));
 
-		this.createBlockButton = document.createElement('button');
+		this.createBlockButton = document.createElement('div');
 		this.createBlockButton.setAttribute('id', 'create-block-button');
-		this.elem.appendChild(this.createBlockButton);
-		this.createBlockButton.addEventListener('touchstart', () => {
-			this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
-		});
+		this.actionWallpaper.appendChild(this.createBlockButton);
+		this.createBlockButton.addEventListener('touchstart', ActionPluginMobile.getButtonActionListener(actionBlockEvent.ADD, this));
+		this.createBlockButton.addEventListener('touchmove', ActionPluginMobile.getButtonActionListener(actionBlockEvent.ADD, this));
 
-		this.jumpDownButton = document.createElement('button');
+		this.jumpDownButton = document.createElement('div');
 		this.jumpDownButton.setAttribute('id', 'jump-down-button');
-		this.elem.appendChild(this.jumpDownButton);
-		this.jumpDownButton.addEventListener('touchstart', () => {
-			this.controller.gameController.handleMoveAction({ font: 0, left: 0, up: -1 });
-		});
+		this.actionWallpaper.appendChild(this.jumpDownButton);
+		this.jumpDownButton.addEventListener('touchstart', ActionPluginMobile.getButtonMoveListener({ up: -1 }, this));
+		this.jumpDownButton.addEventListener('touchmove', ActionPluginMobile.getButtonMoveListener({ up: -1 }, this));
+		this.jumpDownButton.addEventListener('touchend', ActionPluginMobile.getButtonMoveListener({ up: 0 }, this));
+		this.jumpDownButton.addEventListener('touchcancel', ActionPluginMobile.getButtonMoveListener({ up: 0 }, this));
 
-		this.openBagButton = document.createElement('button');
-		this.openBagButton.setAttribute('id', 'open-bag-button');
-		this.elem.appendChild(this.openBagButton);
-		this.openBagButton.addEventListener('touchstart', () => {
+		this.openMenuButton = document.createElement('button');
+		this.openMenuButton.setAttribute('id', 'open-menu-button');
+		this.elem.appendChild(this.openMenuButton);
+		this.openMenuButton.addEventListener('touchstart', () => {
 			this.controller.pauseGame();
 			this.controller.uiController.ui.menu.toInnerGameMenu();
 		});
 
-		[this.jumpButton, this.removeBlockButton, this.createBlockButton, this.jumpDownButton, this.openBagButton].forEach(d => {
-			d.addEventListener('touchstart', () => {
+		[this.jumpButton, this.removeBlockButton, this.createBlockButton, this.jumpDownButton, this.openMenuButton].forEach(d => {
+			d.addEventListener('touchstart', e => {
+				e.preventDefault();
+				e.stopPropagation();
 				d.classList.add('active');
 			});
-			d.addEventListener('touchend', () => {
+			d.addEventListener('touchend', e => {
+				e.preventDefault();
+				e.stopPropagation();
 				d.classList.remove('active');
 			});
 		});
@@ -87,6 +100,9 @@ class ActionPluginMobile {
 
 	listen() {
 		this.joyStick.enable = true;
+		this.actionWallpaper.addEventListener('touchmove', this.stopInterferenceJoystick);
+		this.actionWallpaper.addEventListener('touchstart', this.stopInterferenceJoystick);
+		this.actionWallpaper.addEventListener('touchend', this.stopInterferenceJoystick);
 		this.elem.addEventListener('touchmove', this.touchMoveListener);
 		this.elem.addEventListener('touchstart', this.touchMoveInitListener);
 		this.elem.addEventListener('touchend', this.touchMoveInitListener);
@@ -98,6 +114,9 @@ class ActionPluginMobile {
 
 	pause() {
 		this.joyStick.enable = false;
+		this.actionWallpaper.removeEventListener('touchmove', this.stopInterferenceJoystick);
+		this.actionWallpaper.removeEventListener('touchstart', this.stopInterferenceJoystick);
+		this.actionWallpaper.removeEventListener('touchend', this.stopInterferenceJoystick);
 		this.elem.removeEventListener('touchmove', this.touchMoveListener);
 		this.elem.removeEventListener('touchstart', this.touchMoveInitListener);
 		this.elem.removeEventListener('touchend', this.touchMoveInitListener);
@@ -117,7 +136,7 @@ class ActionPluginMobile {
 		this.removeBlockButton.innerText = language.remove;
 		this.createBlockButton.innerText = language.build;
 		this.jumpDownButton.innerText = language.down;
-		this.openBagButton.innerText = language.menu;
+		this.openMenuButton.innerText = language.menu;
 	}
 
 	static getJoyStickChange(self) {
@@ -150,6 +169,30 @@ class ActionPluginMobile {
 			if (targetTouches && targetTouches.target !== self.elem) return false;
 			self.lastTouchMovePosition = null;
 			return false;
+		};
+	}
+
+	static getStopInterferenceJoystick() {
+		return e => {
+			e.preventDefault();
+			e.stopPropagation();
+			return false;
+		};
+	}
+
+	static getButtonMoveListener(dir, self) {
+		return e => {
+			e.preventDefault();
+			e.stopPropagation();
+			self.controller.gameController.handleMoveAction(dir);
+		};
+	}
+
+	static getButtonActionListener(act, self) {
+		return e => {
+			e.preventDefault();
+			e.stopPropagation();
+			self.controller.gameController.handleBlockAction(act);
 		};
 	}
 }

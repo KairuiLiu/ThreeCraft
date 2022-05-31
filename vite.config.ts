@@ -24,16 +24,17 @@ export default defineConfig({
 		entries: './index.html',
 	},
 	build: {
-		terserOptions: {
-			compress: {
-				//生产环境时移除console
-				drop_console: true,
-				drop_debugger: true,
-			},
-		},
+		// terserOptions: {
+		// 	compress: {
+		// 		//生产环境时移除console
+		// 		drop_console: true,
+		// 		drop_debugger: true,
+		// 	},
+		// },
+		minify: true,
 		// 取消计算文件大小，加快打包速度
 		brotliSize: false,
-		sourcemap: true,
+		sourcemap: false,
 		// assetsDir: 'static/img',
 		rollupOptions: {
 			output: {

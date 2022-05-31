@@ -509,35 +509,21 @@ class Menu {
 			<div class="box-line color-white">
 				<ul id="help">
 					<li>
+						<b>${language.pcMode}</b>
+						<ul class="help-item">
+							${language.helps.slice(0, 11).reduce((pre, d) => `${pre}<li><b>${d.k}</b>:${d.v}</li>`, '')}
+						</ul>
+					</li>
+					<li>
 						<b>${language.mobileMode}</b>
 						<ul class="help-item">
-							<li><b>${language.helps[0].k}</b>:${language.helps[0].v} </li>
-							<li><b>${language.helps[1].k}</b>:${language.helps[1].v} </li>
-							<li><b>${language.helps[2].k}</b>:${language.helps[2].v} </li>
-							<li><b>${language.helps[3].k}</b>:${language.helps[3].v} </li>
-							<li><b>${language.helps[4].k}</b>:${language.helps[4].v} </li>
-							<li><b>${language.helps[5].k}</b>:${language.helps[5].v} </li>
-							<li><b>${language.helps[6].k}</b>:${language.helps[6].v} </li>
-							<li><b>${language.helps[7].k}</b>:${language.helps[7].v} </li>
-							<li><b>${language.helps[8].k}</b>:${language.helps[8].v} </li>
-							<li><b>${language.helps[9].k}</b>:${language.helps[9].v} </li>
-							<li><b>${language.helps[10].k}</b>:${language.helps[10].v} </li>
-							<li><b>${language.helps[11].k}</b>:${language.helps[11].v} </li>
+							${language.helps.slice(11, 14).reduce((pre, d) => `${pre}<li><b>${d.k}</b>:${d.v}</li>`, '')}
 						</ul>
 					</li>
 					<li>
 						<b>${language.vrMode}</b>
 						<ul class="help-item">
-							<li><b>${language.helps[12].k}</b>: ${language.helps[12].v}</li>
-							<li><b>${language.helps[13].k}</b>: ${language.helps[13].v}</li>
-							<li><b>${language.helps[14].k}</b>: ${language.helps[14].v}</li>
-						</ul>
-					</li>
-					<li>
-						<b>${language.pcMode}</b>
-						<ul class="help-item">
-							<li><b>${language.helps[15].k}</b>: ${language.helps[15].v}</li>
-							<li><b>${language.helps[16].k}</b>: ${language.helps[16].v}</li>
+							${language.helps.slice(14, 16).reduce((pre, d) => `${pre}<li><b>${d.k}</b>:${d.v}</li>`, '')}
 						</ul>
 					</li>
 				</ul>
@@ -558,14 +544,16 @@ class Menu {
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
 			<div class="box-line title color-white">${language.about}</div>
-			<div class="box-line color-white">
-				${language.aboutItems[0]}
-			</div>
+			<div class="box-line color-white">${language.aboutItems[0]}</div>
 			<div class="box-line color-white">
 			${language.aboutItems[1]}<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>${language.aboutItems[2]}
 			</div>
 			<div class="box-line color-white">
 			${language.aboutItems[3]}
+			</div>
+			<br/>
+			<div class="color-white">
+				&copy; 2022${new Date().getFullYear() === 2022 ? '' : -new Date().getFullYear()} <span class="with-love">❤</span>&nbspLiu Kairui
 			</div>
 			<br/>
 			<button class="button" id="backMenu">${language.backMenu}</button>`;
