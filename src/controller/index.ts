@@ -19,14 +19,28 @@ class Controller {
 
 	running: boolean;
 
-	constructor() {
+	gameStage: HTMLElement;
+
+	hudStage: HTMLElement;
+
+	constructor(el: HTMLElement) {
+		[...el.children].forEach(d => d.remove());
+		this.gameStage = document.createElement('div');
+		this.gameStage.setAttribute('id', 'game-stage');
+		this.gameStage.classList.add('hidden');
+		el.appendChild(this.gameStage);
+		this.hudStage = document.createElement('div');
+		this.hudStage.setAttribute('id', 'HUD-stage');
+		this.hudStage.classList.add('hidden');
+		el.appendChild(this.hudStage);
+
 		this.ui = new UI();
 		this.core = new Core();
 		this.running = false;
 		deepCopy(defaultConfig, config);
 
-		this.gameController = new GameController(this.core);
 		this.uiController = new UiController(this.ui);
+		this.gameController = new GameController(this.core);
 
 		this.ui.loadController(this);
 	}
@@ -37,6 +51,8 @@ class Controller {
 			this.uiController.ui.menu.setNotify(language.tryRotate);
 			return;
 		}
+		this.gameStage.classList.remove('hidden');
+		this.hudStage.classList.remove('hidden');
 		this.single = single;
 		if (config.seed === null) config.seed = Math.random();
 		if (config.cloudSeed === null) config.cloudSeed = Math.random();

@@ -15,8 +15,8 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me)
 - [x] Efficient collision detection method
 - [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
 - [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
-- [x] Multi-terminal and multi-control mode support (PC side, mobile side, ~~VR side, PS4/5 controller support, Xbox controller support~~)
-- [x] Multiple parameters can be adjusted(Viewing angle / Fog / Scene size / Maneuver range / Volume / Number of threads / Operational sensitivity / Language / Operating mode / Crosshair color / Backpack mode / Cheat mode)
+- [x] Multi-terminal and multi-control mode support (PC, mobile, ~~VR, PS4/5 controller support, Xbox controller support~~)
+- [x] Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
 - [x] Multiple ways to save and load archive
 - [x] Dual language support (Chinese / English)
 - [ ] Original sound
@@ -52,7 +52,7 @@ npm install -g pnpm
 // Install all dependance
 pnpm install
 
-// Install a dependency
+// Install a dependance
 pnpm install xxx  -D/-S
 
 // Run
@@ -64,7 +64,7 @@ pnpm build
 
 ### 📃 Documents
 
-Only Chinese version, See [中文文档](./README-CN.md)
+Only Chinese version, see [中文文档](./README-CN.md)
 
 ### 🥰Reference
 

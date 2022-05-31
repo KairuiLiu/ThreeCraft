@@ -82,9 +82,3 @@ file structure
 └── utils                           // 工具函数
     └── collision
 ```
-
-TODO
-
-无限世界的动态刷新算法
-Log 的树套树算法
-Terrain 生成逻辑, 什么时候 remake 一个新的 MeshInstance
