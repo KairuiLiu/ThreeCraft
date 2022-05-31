@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js';
 import { treeGeom } from '../loader/index';
 import { iBlockFragment } from '../../utils/types/block';
 import Core from '..';
@@ -148,6 +149,8 @@ class Terrain {
 	// 部分刷新回调
 	onUpdateLine(ev) {
 		const matrix = new THREE.Matrix4();
+		const vertex = new THREE.Vector3();
+
 		const { fragmentSize, frags } = ev.data;
 		// 忽略出问题的多线程
 		if (this.fragmentSize !== fragmentSize) return;
@@ -189,13 +192,32 @@ class Terrain {
 
 			d.group = new THREE.Group();
 			d.types.forEach(dd => {
-				dd.instancedMesh = new THREE.InstancedMesh(blockGeom, blockLoader[dd.blocks.type].material, dd.blocks.count);
-				for (let i = 0; i < dd.blocks.count; i += 1) {
-					matrix.setPosition(dd.blocks.position[3 * i], dd.blocks.position[3 * i + 1], dd.blocks.position[3 * i + 2]);
-					dd.instancedMesh.setMatrixAt(i, matrix);
+				if (dd.blocks.type === 'water') {
+					const vertices = [];
+					let cx = 0x3f3f3f3f;
+					let cy = 0x3f3f3f3f;
+					let cz = 0x3f3f3f3f;
+					for (let i = 0; i < dd.blocks.count; i += 1) {
+						vertex.set(dd.blocks.position[i * 3], dd.blocks.position[i * 3 + 1], dd.blocks.position[i * 3 + 2]);
+						vertices.push(vertex.clone());
+						cx = Math.min(dd.blocks.position[i * 3], cx);
+						cy = Math.min(dd.blocks.position[i * 3 + 1], cy);
+						cz = Math.min(dd.blocks.position[i * 3 + 2], cz);
+					}
+					dd.instancedMesh = new THREE.InstancedMesh(new ConvexGeometry(vertices), new THREE.MeshBasicMaterial({ color: 0x00799e, transparent: true, opacity: 0.3 }), 1);
+					matrix.setPosition(cx, 0.5, cz);
+					dd.instancedMesh.setMatrixAt(0, matrix);
+					dd.instancedMesh.instanceMatrix.needsUpdate = true;
+					d.group.add(dd.instancedMesh);
+				} else {
+					dd.instancedMesh = new THREE.InstancedMesh(blockGeom, blockLoader[dd.blocks.type].material, dd.blocks.count);
+					for (let i = 0; i < dd.blocks.count; i += 1) {
+						matrix.setPosition(dd.blocks.position[3 * i], dd.blocks.position[3 * i + 1], dd.blocks.position[3 * i + 2]);
+						dd.instancedMesh.setMatrixAt(i, matrix);
+					}
+					dd.instancedMesh.instanceMatrix.needsUpdate = true;
+					d.group.add(dd.instancedMesh);
 				}
-				dd.instancedMesh.instanceMatrix.needsUpdate = true;
-				d.group.add(dd.instancedMesh);
 			});
 
 			d.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, d.cloudPos.length / 3);
