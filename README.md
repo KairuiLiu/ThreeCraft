@@ -11,7 +11,6 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me)
 
 ### ✨ Feature
 
-
 - [ ] Support multiplayer game in LAN
 - [x] Efficient collision detection method
 - [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
