@@ -76,4 +76,5 @@ export default {
 	threadNumber: '线程数',
 	weatherName: ['经典', '冰雪', '月下沙滩瓜田', '万圣节', '奇异'],
 	weather: '场景',
+	chromeSupport: '推荐使用Chrome浏览器 →',
 };

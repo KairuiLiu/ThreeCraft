@@ -110,7 +110,8 @@ class Menu {
 			<div class="box-line">
 				<button id="help" class="button">${language.help}</button>
 				<button id="about" class="button">${language.about}</button>
-			</div>`;
+			</div>
+			<button id="chrome-recommend" class="button hidden">${language.chromeSupport}</button>`;
 		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
 		singlePlayerGame.addEventListener('click', e => {
 			e.stopPropagation();
@@ -175,6 +176,13 @@ class Menu {
 			e.stopPropagation();
 			this.toAboutMenu({ back: 'toStartMenu' });
 		});
+		if (!navigator.userAgent.toLowerCase().match(/chrome/)) {
+			const chromeRecommend = this.boxElem.querySelector('#chrome-recommend');
+			chromeRecommend.classList.remove('hidden');
+			chromeRecommend.addEventListener('click', () => {
+				window.open('https://chrome.google.com/', 'target');
+			});
+		}
 	}
 
 	// TODO 实现Socket

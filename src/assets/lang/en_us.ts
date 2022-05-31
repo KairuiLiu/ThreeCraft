@@ -76,4 +76,5 @@ export default {
 	threadNumber: 'Thread',
 	weatherName: ['Classic', 'Ice', 'Beach Melon Field', 'Halloween', 'Bizarre?'],
 	weather: 'Scenes',
+	chromeSupport: 'Chrome browser is recommended →',
 };
