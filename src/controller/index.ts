@@ -43,6 +43,7 @@ class Controller {
 		if (config.treeSeed === null) config.treeSeed = Math.random();
 		if (config.weather === null) config.weather = Math.floor(Math.random() * weatherConfig.length);
 		this.runGame();
+		this.uiController.ui.menu.setNotify(`${language.weather}: ${language.weatherName[weatherConfig[config.weather][3]]}`, 1500, this.uiController.ui.actionControl.elem);
 	}
 
 	// 开启游戏, update相机信息
@@ -57,6 +58,7 @@ class Controller {
 		this.core.updateCore();
 		this.uiController.ui.listenAll();
 		this.uiController.ui.menu.hideMenu();
+		this.gameController.moveController.jumping = true;
 		this.tryRender();
 	}
 
@@ -78,6 +80,7 @@ class Controller {
 		config.controller.cheat = !config.controller.cheat;
 
 		// TODO 人物位置与碰撞检测
+		this.gameController.moveController.jumping = true;
 
 		this;
 	}

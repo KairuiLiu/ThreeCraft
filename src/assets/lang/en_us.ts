@@ -75,4 +75,6 @@ export default {
 	low: 'Low',
 	norm: 'Normal',
 	threadNumber: 'Thread',
+	weatherName: ['Classic', 'Ice', 'Beach Melon Field', 'Halloween', 'Bizarre?'],
+	weather: 'Scenes',
 };

@@ -436,6 +436,7 @@ export const blockLoader = {
 		block3d: ice3d,
 		textureTypes: ['background'],
 		textureImg: iceTexture,
+		material: new THREE.MeshStandardMaterial({ map: iceTexture, color: 0x00698e, transparent: true, opacity: 0.3 }),
 	},
 	blockIron: {
 		name: 'blockIron',
@@ -550,14 +551,7 @@ export const blockLoader = {
 		block3d: water3d,
 		textureTypes: ['background'],
 		textureImg: waterTexture,
-		material: [
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-			new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
-		],
+		material: new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
 		accessible: true,
 	},
 	acaciaWood: {
