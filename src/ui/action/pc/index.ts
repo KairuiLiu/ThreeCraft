@@ -42,8 +42,8 @@ class ActionPluginPc {
 
 	listen() {
 		// eslint-disable-next-line
-		this.elem.requestPointerLock &&
-			(this.elem.requestPointerLock() as unknown as Promise<null>).catch(() => {
+		this.elem?.requestPointerLock &&
+			(this.elem?.requestPointerLock() as unknown as Promise<null>).catch(() => {
 				this.controller.ui.menu.setNotify(language.tryLock, 1000, this.elem);
 			});
 		document.addEventListener('keydown', this.keyListener);
@@ -105,8 +105,8 @@ class ActionPluginPc {
 			e.preventDefault();
 			e.stopPropagation();
 			if (!document.pointerLockElement) {
-				self.elem.requestPointerLock &&
-					(self.elem.requestPointerLock() as unknown as Promise<null>)?.catch(() => {
+				self.elem?.requestPointerLock &&
+					(self.elem?.requestPointerLock() as unknown as Promise<null>)?.catch(() => {
 						self.controller.ui.menu.setNotify(language.tryLock, 1000, self.elem);
 					});
 				return false;
@@ -144,7 +144,7 @@ class ActionPluginPc {
 			if (document.pointerLockElement) {
 				document.exitPointerLock && document.exitPointerLock();
 			} else {
-				document.body.requestPointerLock && document.body.requestPointerLock();
+				document.body?.requestPointerLock && document.body.requestPointerLock();
 			}
 		};
 	}

@@ -459,10 +459,12 @@ class Menu {
 		fullScreen.addEventListener('click', e => {
 			e.stopPropagation();
 			if (document.fullscreenElement) {
-				document.exitFullscreen && document.exitFullscreen();
-			} else {
-				document.body.requestFullscreen && document.body.requestFullscreen();
-			}
+				if (document.exitFullscreen) document.exitFullscreen();
+				else if (document.mozExitFullscreen) document.mozExitFullscreen();
+				else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+			} else if (document.body.requestFullScreen) document.body.requestFullScreen();
+			else if (document.body.mozRequestFullScreen) document.body.mozRequestFullScreen();
+			else if (document.body.webkitRequestFullScreen) document.body.webkitRequestFullScreen();
 		});
 
 		const saveGameButton = document.getElementById('save-game');

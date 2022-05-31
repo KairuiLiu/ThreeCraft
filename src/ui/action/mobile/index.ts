@@ -148,6 +148,10 @@ class ActionPluginMobile {
 	static getTouchMoveListener(self) {
 		return e => {
 			const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+			if (targetTouches?.target !== self.joyStick.canvas) {
+				e?.preventDefault && e.preventDefault();
+				e?.stopPropagation && e.stopPropagation();
+			}
 			if (targetTouches.target !== self.elem) return false;
 			if (self.lastTouchMovePosition) {
 				self.controller.gameController.handleViewAction({
@@ -166,6 +170,10 @@ class ActionPluginMobile {
 	static getTouchInitListener(self) {
 		return e => {
 			const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+			if (targetTouches?.target === self.joyStick.canvas) {
+				e?.preventDefault && e.preventDefault();
+				e?.stopPropagation && e.stopPropagation();
+			}
 			if (targetTouches && targetTouches.target !== self.elem) return false;
 			self.lastTouchMovePosition = null;
 			return false;

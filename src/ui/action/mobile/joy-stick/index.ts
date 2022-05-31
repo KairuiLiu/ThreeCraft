@@ -46,11 +46,11 @@ class JoyStick {
 	}
 
 	listen() {
-		this.canvas.addEventListener('touchstart', () => this.onTouchStart(), false);
+		this.canvas.addEventListener('touchstart', e => this.onTouchStart(e), false);
 		document.addEventListener('touchmove', e => this.onTouchMove(e), false);
 		document.addEventListener('touchend', e => this.onTouchEnd(e), false);
 		if (config.controller.dev) {
-			this.canvas.addEventListener('mousedown', () => this.onTouchStart(), false);
+			this.canvas.addEventListener('mousedown', e => this.onTouchStart(e), false);
 			document.addEventListener('mousemove', e => this.onTouchMove(e), false);
 			document.addEventListener('mouseup', e => this.onTouchEnd(e), false);
 		}
@@ -81,7 +81,12 @@ class JoyStick {
 		this.context.stroke();
 	}
 
-	onTouchStart() {
+	onTouchStart(e) {
+		const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+		if (targetTouches?.target === this.canvas) {
+			e?.preventDefault && e.preventDefault();
+			e?.stopPropagation && e.stopPropagation();
+		}
 		if (!this.enable) return;
 		this.pressed = true;
 	}
@@ -89,6 +94,10 @@ class JoyStick {
 	onTouchMove(e: TouchEvent | MouseEvent) {
 		if (!this.enable || !this.pressed) return;
 		const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+		if (targetTouches?.target === this.canvas) {
+			e?.preventDefault && e.preventDefault();
+			e?.stopPropagation && e.stopPropagation();
+		}
 		if (this.pressed && targetTouches.target === this.canvas) {
 			this.movedX = (targetTouches as MouseEvent).pageX;
 			this.movedY = (targetTouches as MouseEvent).pageY;
@@ -104,6 +113,11 @@ class JoyStick {
 	}
 
 	onTouchEnd(e: TouchEvent | MouseEvent) {
+		const targetTouches = (e as TouchEvent)?.targetTouches ? (e as TouchEvent).targetTouches[0] : e;
+		if (targetTouches?.target === this.canvas) {
+			e?.preventDefault && e.preventDefault();
+			e?.stopPropagation && e.stopPropagation();
+		}
 		if (!config.controller.dev && (!this.enable || !this.pressed || e.target !== this.canvas)) return;
 		this.pressed = false;
 		this.movedX = this.canvas.width / 2;
