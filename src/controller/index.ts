@@ -103,7 +103,8 @@ class Controller {
 	// 渲染
 	tryRender() {
 		if (!this.running) return;
-		requestAnimationFrame(this.tryRender.bind(this));
+		if (this.core.vr) this.core.renderer.setAnimationLoop(this.tryRender.bind(this));
+		else requestAnimationFrame(this.tryRender.bind(this));
 		this.uiController.ui.fps.work();
 		this.gameController.update();
 		this.core.tryRender();

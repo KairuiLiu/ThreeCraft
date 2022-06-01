@@ -1,8 +1,9 @@
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import { Controller } from '../../controller';
 import { deepCopy } from '../../utils/deep-copy';
 import { config, defaultConfig, language, languages } from '../../controller/config';
 import { downloadJson } from '../../utils/download';
-import { chromeTest } from '../../utils/chome-test';
+import { chromeTest } from '../../utils/chrome-test';
 
 class Menu {
 	elem: HTMLElement;
@@ -22,6 +23,10 @@ class Menu {
 		this.elem.classList.add('background-image');
 		this.titleElem = this.elem.querySelector('#title');
 		this.boxElem = this.elem.querySelector('.box');
+
+		document.body.appendChild(VRButton.createButton(this.controller.core.renderer));
+		this.controller.core.renderer.xr.enabled = true;
+
 		el.appendChild(this.elem);
 		// this.hideMenu();
 		this.toStartMenu();
@@ -429,6 +434,10 @@ class Menu {
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
 		<button id="back-game" class="button">${language.backGame}</button>
+		<div class="box-line color-white hidden" id="vr-line">
+			<button id="back-game-l" class="button">${language.backGame}</button>
+			<button id="back-game-r" class="button">${language.backGame}</button>
+		</div>
 		<button id="game-setting" class="button">${language.setting}</button>
 		<button id="game-full-screen" class="button">${language.setFullScreen}</button>
 		<div class="box-line color-white">
