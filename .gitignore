@@ -100,7 +100,6 @@ typings/
 .tern-port
 
 
-src/assets/sounds
 dist
 .vscode
 /src/.vscode
