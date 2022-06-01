@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 
 export interface iBlockFragmentSingleType {
-	instancedMesh: THREE.InstancedMesh;
+	instancedMesh?: THREE.InstancedMesh;
+	// meshGroup?: THREE.Group;
 	blocks: {
 		type: string;
 		count: number;

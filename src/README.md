@@ -85,4 +85,5 @@ file structure
 
 TODO
 
-move collision
+优化移动生成算法
+

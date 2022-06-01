@@ -92,7 +92,7 @@ const dirs = [
 export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox }) {
 	const originPosition = new THREE.Vector3(posX, posY, posZ);
 	const direction = new THREE.Vector3(dirX, dirY, dirZ);
-	const len = direction.length();
+	const len = direction.length() + 0.4;
 	direction.normalize();
 	// 需不需要修改len?
 	const ray = new THREE.Raycaster(originPosition, direction.clone(), 0, len);
@@ -147,11 +147,12 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 	absoluteMove.y = up;
 	// 绝对运动距离
 	const maxMove = Math.ceil(absoluteMove.length());
-	const boundingBox = generateFragSync(posX - 3 - maxMove, posX + 3 + maxMove, posZ - 3 - maxMove, posZ + 3 + maxMove, true);
+	const boundingBox = generateFragSync(posX - 3 - maxMove, posX + 3 + maxMove, posZ - 3 - maxMove, posZ + 3 + maxMove, posY - 5 - maxMove, posY + 5 + maxMove, true);
 	const origin = new THREE.Vector3(posX, posY, posZ);
 	let fstCol = null;
-	[0, 1, 2, 3, 4, 5, 6, 7].forEach(d => {
-		const innerDir = dirs[d].clone().applyMatrix3(revMat);
+	needCheck[dirU.z + 1][dirU.x + 1][dirU.y + 1].forEach(d => {
+		const innerDir = dirs[d].clone();
+		// inner dir
 		const from = origin.clone().add(innerDir);
 		const collision = collisionCheck({
 			posX: from.x,
@@ -164,10 +165,12 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 		});
 		if (collision && (fstCol === null || collision.obj.distance < fstCol.obj.distance)) {
 			fstCol = collision;
+			const delta = new THREE.Vector3(collision.pos.posX - from.x, collision.pos.posY - from.y, collision.pos.posZ - from.z);
+			const deltaU = getDir(delta.clone());
 			fstCol.pos = {
-				posX: collision.pos.posX - from.x + posX,
-				posY: collision.pos.posY - from.y + posY,
-				posZ: collision.pos.posZ - from.z + posZ,
+				posX: delta.x + posX - deltaU.x * 0.2,
+				posY: delta.y + posY - deltaU.y * 0.2,
+				posZ: delta.z + posZ - deltaU.z * 0.2,
 			};
 		}
 	});

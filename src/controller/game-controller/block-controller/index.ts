@@ -12,6 +12,7 @@ class BlockController {
 	constructor(core: Core) {
 		this.core = core;
 		this.curHighlight = highLightBlockMesh;
+		this.core.scene.add(this.curHighlight);
 	}
 
 	update(blocks: Block[]) {
@@ -22,6 +23,7 @@ class BlockController {
 	}
 
 	highlightCurrentBlock() {
+		return;
 		const collision = relativeCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
@@ -35,13 +37,6 @@ class BlockController {
 		if (collision) {
 			this.curHighlight.visible = true;
 			this.curHighlight.position.copy(collision.obj.object.position);
-			this.core.scene.add(this.curHighlight);
-			console.log(collision.obj.object.position);
-			console.log({
-				posX: this.core.camera.position.x,
-				posY: this.core.camera.position.y,
-				posZ: this.core.camera.position.z,
-			});
 		} else {
 			this.curHighlight.visible = false;
 		}
