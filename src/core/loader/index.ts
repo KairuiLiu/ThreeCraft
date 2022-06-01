@@ -644,6 +644,6 @@ export const treeTypes = [
 	[38, 0],
 	[39, 3],
 ];
-export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 1, transparent: true }));
+export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.05, 1.05, 1.05), new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.6, transparent: true }));
 
 export const treeType = [];

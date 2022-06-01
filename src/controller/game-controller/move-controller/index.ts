@@ -98,9 +98,9 @@ class MoveController {
 			const targetPos = getTargetPosition({ ...config.state, font, left, up, core: this.core });
 			this.core.camera.position.set(targetPos.posX, targetPos.posY, targetPos.posZ);
 			config.state = { ...targetPos };
-			this.core.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
 			return;
 		}
+
 		if (!this.jumping && up > 0) {
 			this.jumping = true;
 			this.jumpingSpeed = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;

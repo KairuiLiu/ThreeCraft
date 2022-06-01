@@ -2,6 +2,7 @@ import { Controller } from '../../controller';
 import { deepCopy } from '../../utils/deep-copy';
 import { config, defaultConfig, language, languages } from '../../controller/config';
 import { downloadJson } from '../../utils/download';
+import { chromeTest } from '../../utils/chome-test';
 
 class Menu {
 	elem: HTMLElement;
@@ -176,11 +177,11 @@ class Menu {
 			e.stopPropagation();
 			this.toAboutMenu({ back: 'toStartMenu' });
 		});
-		if (!navigator.userAgent.toLowerCase().match(/chrome/)) {
+		if (!chromeTest()) {
 			const chromeRecommend = this.boxElem.querySelector('#chrome-recommend');
 			chromeRecommend.classList.remove('hidden');
 			chromeRecommend.addEventListener('click', () => {
-				window.open('https://chrome.google.com/', 'target');
+				window.open(language.chromeAddress, 'target');
 			});
 		}
 	}

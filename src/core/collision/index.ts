@@ -89,15 +89,24 @@ const dirs = [
  * @returns null: 没有碰撞
  * @returns {obj: 碰撞物体, pos: 碰撞点}
  */
-export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox }) {
+export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox, access }) {
 	const originPosition = new THREE.Vector3(posX, posY, posZ);
 	const direction = new THREE.Vector3(dirX, dirY, dirZ);
-	const len = direction.length() + 0.4;
+	const len = direction.length() + 0.3;
 	direction.normalize();
 	// 需不需要修改len?
 	const ray = new THREE.Raycaster(originPosition, direction.clone(), 0, len);
-	if (!boundingBox) boundingBox = generateFragSync(posX - 3 - Math.ceil(len), posX + 3 + Math.ceil(len), posZ - 3 - Math.ceil(len), posZ + 3 + Math.ceil(len), true);
-	const collisionResults = ray.intersectObjects(boundingBox.group.children, true);
+	if (!boundingBox)
+		boundingBox = generateFragSync(
+			posX - 3 - Math.ceil(len),
+			posX + 3 + Math.ceil(len),
+			posZ - 3 - Math.ceil(len),
+			posZ + 3 + Math.ceil(len),
+			posY - 3 - Math.ceil(len),
+			posY + 3 + Math.ceil(len),
+			true
+		);
+	const collisionResults = ray.intersectObjects(boundingBox.group.children, access);
 	if (collisionResults.length > 0) {
 		direction.multiplyScalar(collisionResults[0].distance);
 		return {
@@ -125,6 +134,7 @@ export function relativeCollisionCheck({ posX, posY, posZ, font, left, up, core 
 		dirY: absoluteMove.y,
 		dirZ: absoluteMove.z,
 		boundingBox: null,
+		access: false,
 	});
 }
 
@@ -162,6 +172,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			dirY: absoluteMove.y,
 			dirZ: absoluteMove.z,
 			boundingBox,
+			access: true,
 		});
 		if (collision && (fstCol === null || collision.obj.distance < fstCol.obj.distance)) {
 			fstCol = collision;

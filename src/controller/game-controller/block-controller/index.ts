@@ -1,3 +1,4 @@
+import * as THREE from 'three';
 import { highLightBlockMesh } from '../../../core/loader/index';
 import { config } from '../../config';
 import Core from '../../../core';
@@ -23,7 +24,6 @@ class BlockController {
 	}
 
 	highlightCurrentBlock() {
-		return;
 		const collision = relativeCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
@@ -35,10 +35,15 @@ class BlockController {
 		});
 
 		if (collision) {
-			this.curHighlight.visible = true;
-			this.curHighlight.position.copy(collision.obj.object.position);
+			// let { x, y, z } = collision.obj.point;
+			// x = Math.floor(x + 0.5);
+			// y = Math.floor(y - 0.5);
+			// z = Math.floor(z + 0.5);
+			// this.curHighlight.position.set(x, y, z);
+			// this.core.scene.add(this.curHighlight);
+			console.log(collision);
 		} else {
-			this.curHighlight.visible = false;
+			// this.core.scene.remove(this.curHighlight);
 		}
 	}
 }

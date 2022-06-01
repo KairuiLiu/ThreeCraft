@@ -5,7 +5,7 @@ import { iBlockFragment } from '../../../utils/types/block';
 import weatherTypes from '../../weather';
 import { symConfig, config } from '../../../controller/config';
 
-export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty, edy, access: boolean) {
+export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty: number, edy: number, access: boolean) {
 	const { weather } = config;
 	const noiseGen = new ImprovedNoise();
 	const { seed, cloudSeed, treeSeed } = config;
@@ -14,6 +14,9 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 	const { horizonHeight, treeBaseHeight, maxHeight, skyHeight } = symConfig.stage;
 
 	let hasTree = false;
+
+	sty = Math.floor(sty);
+	edy = Math.ceil(edy);
 
 	const blockFragment: iBlockFragment = {
 		timestamp: performance.now(),
@@ -38,23 +41,21 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 	for (let i = stx; i < edx; i += 1) {
 		for (let j = stz; j < edz; j += 1) {
 			const y = Math.floor(noiseGen.noise(i / seedGap, j / seedGap, seed) * maxHeight);
-			if (y < horizonHeight) {
-				for (let yy = y; yy >= sty; yy -= 1) {
+			const adjY = Math.min(Math.max(y, sty), edy);
+			if (adjY < horizonHeight) {
+				for (let yy = adjY; yy >= sty; yy -= 1) {
 					blockFragment.types[base].blocks.position.push(i, yy, j);
 					blockFragment.types[base].blocks.count += 1;
 				}
-				blockFragment.types[base].blocks.position.push(i, y, j);
-				blockFragment.types[base].blocks.position.push(i, y - 1, j);
-				blockFragment.types[base].blocks.count += 2;
 				// water 生成
 				if (!access || !blockLoader[blockFragment.types[water].blocks.type]?.accessible) {
-					for (let yy = y + 1; yy <= horizonHeight && yy <= edy; yy += 1) {
+					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) {
 						blockFragment.types[water].blocks.position.push(i, yy, j);
 						blockFragment.types[water].blocks.count += 1;
 					}
 				}
 			} else {
-				for (let yy = y; yy >= sty; yy -= 1) {
+				for (let yy = adjY; yy >= sty; yy -= 1) {
 					blockFragment.types[surface].blocks.position.push(i, yy, j);
 					blockFragment.types[surface].blocks.count += 1;
 				}
@@ -63,7 +64,7 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 					const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 2);
 					if (y > treeBaseHeight && treeHeight >= 7) {
 						hasTree = true;
-						for (let wl = 0; wl <= treeHeight; wl += 1) {
+						for (let wl = 0; wl <= treeHeight && y + 1 + wl < edy; wl += 1) {
 							blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.position.push(i, y + 1 + wl, j);
 							blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.count += 1;
 						}
@@ -115,13 +116,15 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 		blockFragment.group.add(dd.instancedMesh);
 	});
 
-	blockFragment.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, blockFragment.cloudPos.length / 3);
-	for (let i = 0; i < blockFragment.cloudPos.length / 3; i += 1) {
-		matrix.setPosition(blockFragment.cloudPos[i * 3], blockFragment.cloudPos[i * 3 + 1], blockFragment.cloudPos[i * 3 + 2]);
-		blockFragment.cloudMesh.setMatrixAt(i, matrix);
+	if (!access) {
+		blockFragment.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, blockFragment.cloudPos.length / 3);
+		for (let i = 0; i < blockFragment.cloudPos.length / 3; i += 1) {
+			matrix.setPosition(blockFragment.cloudPos[i * 3], blockFragment.cloudPos[i * 3 + 1], blockFragment.cloudPos[i * 3 + 2]);
+			blockFragment.cloudMesh.setMatrixAt(i, matrix);
+		}
+		blockFragment.cloudMesh.instanceMatrix.needsUpdate = true;
+		blockFragment.group.add(blockFragment.cloudMesh);
 	}
-	blockFragment.cloudMesh.instanceMatrix.needsUpdate = true;
-	blockFragment.group.add(blockFragment.cloudMesh);
 
 	blockFragment.types = blockFragment.types.filter(d => d.blocks.count > 0);
 
