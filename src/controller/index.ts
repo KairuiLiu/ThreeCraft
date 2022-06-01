@@ -88,7 +88,6 @@ class Controller {
 	endGame() {
 		deepCopy(defaultConfig, config);
 		this.core.terrain.clear();
-		// TODO 清空所有的多线程
 	}
 
 	// 游戏配置即时事件

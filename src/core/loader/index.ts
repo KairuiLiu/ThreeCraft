@@ -319,6 +319,7 @@ export const blockLoader = {
 			color: 0x00bb00,
 			transparent: true,
 		}),
+		accessible: true,
 	},
 	andesite: {
 		name: 'andesite',
@@ -342,6 +343,7 @@ export const blockLoader = {
 			color: 0xffbb00,
 			transparent: true,
 		}),
+		accessible: true,
 	},
 	brickBlock: {
 		name: 'brickBlock',
@@ -638,5 +640,10 @@ blockTypes.forEach(
 export const blockGeom = new THREE.BoxBufferGeometry(1, 1, 1);
 export const cloudGeom = new THREE.BoxBufferGeometry(4, 3, 6);
 export const cloudMaterial = new THREE.MeshBasicMaterial({ color: 0x959595, opacity: 0.8, transparent: true });
+export const treeTypes = [
+	[38, 0],
+	[39, 3],
+];
+export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 1, transparent: true }));
 
 export const treeType = [];

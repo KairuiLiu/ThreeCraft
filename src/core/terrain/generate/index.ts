@@ -1,4 +1,4 @@
-import { blockTypes } from '../../loader/index';
+import { blockTypes, treeTypes } from '../../loader/index';
 import { config, symConfig } from '../../../controller/config';
 import '../../../utils/types/worker.d.ts';
 import Worker from './worker?worker';
@@ -69,6 +69,7 @@ class Generate {
 					treeBaseHeight: symConfig.stage.treeBaseHeight,
 					maxHeight: symConfig.stage.maxHeight,
 					skyHeight: symConfig.stage.skyHeight,
+					treeTypes,
 				});
 				curFragX = Math.floor(((i + 1) / thread) * fragCountX);
 			}
@@ -91,6 +92,7 @@ class Generate {
 					treeBaseHeight: symConfig.stage.treeBaseHeight,
 					maxHeight: symConfig.stage.maxHeight,
 					skyHeight: symConfig.stage.skyHeight,
+					treeTypes,
 				});
 				curFragZ = Math.floor(((i + 1) / thread) * fragCountZ);
 			}
@@ -120,6 +122,7 @@ class Generate {
 				treeBaseHeight: symConfig.stage.treeBaseHeight,
 				maxHeight: symConfig.stage.maxHeight,
 				skyHeight: symConfig.stage.skyHeight,
+				treeTypes,
 			});
 			curFrag = Math.floor(((i + 1) / thread) * fragCount);
 		}

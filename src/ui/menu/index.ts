@@ -344,7 +344,6 @@ class Menu {
 		stageRange.addEventListener('input', () => {
 			config.renderer.stageSize = Number.parseInt(stageRange.value, 10) ** 2;
 			stageRange.nextElementSibling.innerHTML = `${config.renderer.stageSize}`;
-			// TODO 注意, 这里要防止线程炸掉
 		});
 		// const renderRange = document.getElementById('rend-range') as HTMLInputElement;
 		// renderRange.value = `${config.renderer.renderDistance}`;

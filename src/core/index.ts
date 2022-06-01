@@ -3,7 +3,7 @@ import { blockLoader, blockTypes } from './loader';
 import { config, symConfig } from '../controller/config';
 import Audio from './audio';
 import Terrain from './terrain';
-import Block from './block';
+import BlockAction from './block-action';
 
 class Core {
 	camera: THREE.PerspectiveCamera;
@@ -16,7 +16,7 @@ class Core {
 
 	audio: Audio;
 
-	block: Block;
+	blockAction: BlockAction;
 
 	constructor() {
 		this.camera = new THREE.PerspectiveCamera();
@@ -25,7 +25,7 @@ class Core {
 
 		this.terrain = new Terrain(this);
 		this.audio = new Audio(this);
-		this.block = new Block(this);
+		this.blockAction = new BlockAction(this);
 
 		this.init();
 	}

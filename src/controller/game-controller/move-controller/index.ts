@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import Core from '../../../core';
 import { config, symConfig } from '../../config/index';
-import { collisionCheck } from '../../../utils/collision';
+import { getTargetPosition, relativeCollisionCheckAll } from '../../../core/collision';
 
 class MoveController {
 	core: Core;
@@ -18,75 +18,79 @@ class MoveController {
 
 	getVerticalMove() {
 		this.jumpingSpeed -= symConfig.actionsScale.g;
-
-		// ! 这里有一个bug, 如果这次跳的过程是先上后下, 但到顶前撞顶, 就检测不了了. 但是我不想改:(
-		const collision = collisionCheck({
-			...config.state,
-			dirX: 0,
-			dirY: this.jumpingSpeed + symConfig.actionsScale.g / 2,
-			dirZ: 0,
-			core: this.core,
-		});
-		if (collision !== null) {
-			if (this.jumpingSpeed < 0) {
-				this.jumping = false;
-			}
-			this.jumpingSpeed = 0;
-			return collision.pos.posY - config.state.posY;
-		}
-
 		return this.jumpingSpeed + symConfig.actionsScale.g / 2;
 	}
 
 	positionMove({ font, left, up }) {
 		if (left === 0 && font === 0 && up === 0 && !this.jumping && this.jumpingSpeed === 0) return;
+		const relativeMove = new THREE.Vector3(-left, 0, -font);
 
-		const absoluteMove = new THREE.Vector3(-left, 0, -font);
-		// 先不处理跳跃事件
+		// 计算水平面移动长度
 		if (left !== 0 || font !== 0) {
 			const speed = Math.sqrt(font ** 2 + left ** 2);
-			const revMat = new THREE.Matrix3();
-			revMat.setFromMatrix4(this.core.camera.matrixWorld);
-			absoluteMove.applyMatrix3(revMat);
-			absoluteMove.y = 0;
-			absoluteMove.normalize(); // 获得方向向量
-			absoluteMove.multiplyScalar(
+			relativeMove.normalize(); // 获得方向向量
+			relativeMove.multiplyScalar(
 				speed * (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens
 			);
 		}
 
 		// 处理跳跃事件 增加跳跃控制
-		if (config.controller.cheat) absoluteMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * symConfig.actionsScale.cheatFactor * config.controller.opSens;
+		if (config.controller.cheat) relativeMove.y = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * symConfig.actionsScale.cheatFactor * config.controller.opSens;
 		else {
 			if (!this.jumping && up > 0) {
 				this.jumping = true;
 				this.jumpingSpeed = up * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
 			}
-			absoluteMove.y = this.getVerticalMove();
+			relativeMove.y = this.getVerticalMove();
 		}
 
-		let nextPosition = {
-			posX: config.state.posX + absoluteMove.x,
-			posY: config.state.posY + absoluteMove.y,
-			posZ: config.state.posZ + absoluteMove.z,
-		};
+		// 如果完全没有撞击, 那么目标位置
+		let targetPosition = getTargetPosition({
+			...config.state,
+			font: -relativeMove.z,
+			left: -relativeMove.x,
+			up: relativeMove.y,
+			core: this.core,
+		});
 
+		// 若不再作弊模式则开启碰撞检测
 		if (!config.controller.cheat) {
-			const collision = collisionCheck({
-				...config.state,
-				dirX: absoluteMove.x,
-				dirY: absoluteMove.y,
-				dirZ: absoluteMove.z,
+			const tmpPosition = { ...config.state };
+			// Y轴不能变换的XZ
+			const collisionOY = relativeCollisionCheckAll({
+				...tmpPosition,
+				font: 0,
+				left: 0,
+				up: relativeMove.y,
 				core: this.core,
 			});
-
-			if (collision !== null) {
-				nextPosition = { ...collision.pos };
+			if (collisionOY) {
+				if (this.jumpingSpeed < 0) this.jumping = false;
+				this.jumpingSpeed = 0;
+				tmpPosition.posY = collisionOY.pos.posY;
+			} else {
+				tmpPosition.posY = targetPosition.posY;
 			}
+
+			const collisionOXZ = relativeCollisionCheckAll({
+				...tmpPosition,
+				font: -relativeMove.z,
+				left: -relativeMove.x,
+				up: 0,
+				core: this.core,
+			});
+			if (collisionOXZ) {
+				tmpPosition.posX = collisionOXZ.pos.posX;
+				tmpPosition.posZ = collisionOXZ.pos.posZ;
+			} else {
+				tmpPosition.posX = targetPosition.posX;
+				tmpPosition.posZ = targetPosition.posZ;
+			}
+			targetPosition = tmpPosition;
 		}
 
-		this.core.camera.position.set(nextPosition.posX, nextPosition.posY, nextPosition.posZ);
-		config.state = { ...nextPosition };
+		this.core.camera.position.set(targetPosition.posX, targetPosition.posY, targetPosition.posZ);
+		config.state = { ...targetPosition };
 	}
 
 	viewDirectionMove({ viewHorizontal, viewVertical }) {

@@ -29,9 +29,10 @@ onmessage = (
 		treeBaseHeight: number;
 		maxHeight: number;
 		skyHeight: number;
+		treeTypes: number[][];
 	}>
 ) => {
-	const { skyHeight, weatherTypes, noiseGap, blockTypes, horizonHeight, maxHeight, timestamp, stx, edx, stz, edz, fragmentSize, noiseSeed, weather, treeBaseHeight } = msg.data;
+	const { treeTypes, skyHeight, weatherTypes, noiseGap, blockTypes, horizonHeight, maxHeight, timestamp, stx, edx, stz, edz, fragmentSize, noiseSeed, weather, treeBaseHeight } = msg.data;
 	const { seed, cloudSeed, treeSeed } = noiseSeed;
 	const { seedGap, cloudSeedGap, treeSeedGap } = noiseGap;
 	const [water, surface, base] = weatherTypes[weather];
@@ -41,6 +42,7 @@ onmessage = (
 
 	for (let curX = stx; curX < edx; curX += fragmentSize) {
 		for (let curZ = stz; curZ < edz; curZ += fragmentSize) {
+			let hasTree = false;
 			const blockFragment: iBlockFragment = {
 				timestamp,
 				posX: curX,
@@ -49,7 +51,6 @@ onmessage = (
 				group: null,
 				// types: new Array(blockTypes.length),
 				types: new Array(blockTypes.length),
-				treePos: [],
 				cloudPos: [],
 			};
 			for (let i = 0; i < blockFragment.types.length; i += 1) {
@@ -83,9 +84,38 @@ onmessage = (
 						// blockFragment.types[surface].blocks.position.push(matrix.clone());
 						blockFragment.types[surface].blocks.position.push(i, y, j);
 						blockFragment.types[surface].blocks.count += 1;
+
 						// tree 生成
-						if (y < treeBaseHeight && noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight > y) {
-							blockFragment.treePos.push(i, y + 1, j);
+						if (!hasTree) {
+							const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 2);
+							if (y > treeBaseHeight && treeHeight >= 7) {
+								hasTree = true;
+								for (let wl = 0; wl <= treeHeight; wl += 1) {
+									blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.position.push(i, y + 1 + wl, j);
+									blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.count += 1;
+								}
+								for (let leaveX = i - Math.floor(treeHeight / 3.5); leaveX <= i + Math.floor(treeHeight / 3.5); leaveX += 1) {
+									for (let leaveZ = j - Math.floor(treeHeight / 3.5); leaveZ <= j + Math.floor(treeHeight / 3.5); leaveZ += 1) {
+										let deltaY = Math.abs(Math.floor(Math.floor(noiseGen.noise(leaveX / treeSeedGap, leaveZ / treeSeedGap, treeSeed) * maxHeight) / 2));
+										if (deltaY < 2) deltaY = 2;
+										const fromY = y + 1 + treeHeight - deltaY;
+										const endY = y + 1 + treeHeight + deltaY;
+										if (
+											leaveX === i - Math.floor(treeHeight / 3.5) ||
+											leaveX === i + Math.floor(treeHeight / 3.5) ||
+											leaveZ === j - Math.floor(treeHeight / 3.5) ||
+											leaveZ === j + Math.floor(treeHeight / 3.5)
+										)
+											for (let leaveY = fromY + 1; leaveY < endY; leaveY += 1) {
+												blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, leaveY, leaveZ);
+												blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 1;
+											}
+										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, fromY, leaveZ);
+										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, endY, leaveZ);
+										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 2;
+									}
+								}
+							}
 						}
 					}
 

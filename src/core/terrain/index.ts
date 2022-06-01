@@ -149,7 +149,6 @@ class Terrain {
 	// 部分刷新回调
 	onUpdateLine(ev) {
 		const matrix = new THREE.Matrix4();
-		const vertex = new THREE.Vector3();
 
 		const { fragmentSize, frags } = ev.data;
 		// 忽略出问题的多线程
@@ -208,18 +207,6 @@ class Terrain {
 			}
 			d.cloudMesh.instanceMatrix.needsUpdate = true;
 			d.group.add(d.cloudMesh);
-
-			// d.treeMesh = new THREE.InstancedMesh(treeGeom, blockLoader.acaciaWood, d.treePos.length / 3);
-			// for (let i = 0; i < d.cloudPos.length / 3; i += 1) {
-			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1], d.treePos[i * 3 + 2]);
-			// 	d.treeMesh.setMatrixAt(i * 3 + 0, matrix);
-			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1] + 1, d.treePos[i * 3 + 2]);
-			// 	d.treeMesh.setMatrixAt(i * 3 + 1, matrix);
-			// 	matrix.setPosition(d.treePos[i * 3], d.treePos[i * 3 + 1] + 2, d.treePos[i * 3 + 2]);
-			// 	d.treeMesh.setMatrixAt(i * 3 + 2, matrix);
-			// }
-			// d.treeMesh.instanceMatrix.needsUpdate = true;
-			// d.group.add(d.treeMesh);
 
 			this.core.scene.add(d.group);
 		});

@@ -7,7 +7,7 @@
 
 ![Threejs](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white) ![Socketio](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)
 
-live demo: [mc.liukairui.me/en](https://mc.liukairui.me)
+live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
 
 ### ✨ Feature
 

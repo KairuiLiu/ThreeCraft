@@ -1,6 +1,7 @@
+import { highLightBlockMesh } from '../../../core/loader/index';
 import { config } from '../../config';
 import Core from '../../../core';
-import { relativeCollisionCheck } from '../../../utils/collision';
+import { relativeCollisionCheck } from '../../../core/collision';
 import { Block } from '../index';
 
 class BlockController {
@@ -10,7 +11,7 @@ class BlockController {
 
 	constructor(core: Core) {
 		this.core = core;
-		this.curHighlight = null;
+		this.curHighlight = highLightBlockMesh;
 	}
 
 	update(blocks: Block[]) {
@@ -30,10 +31,20 @@ class BlockController {
 			up: 0,
 			core: this.core,
 		});
-		if (this.curHighlight === collision?.obj?.object) return;
-		if (this.curHighlight !== null) this.core.blockAction.cancelHighLightOne(this.curHighlight);
-		if (collision) this.core.blockAction.highLightOne(collision.obj.object as THREE.Mesh);
-		this.curHighlight = collision ? (collision.obj.object as THREE.Mesh) : null;
+
+		if (collision) {
+			this.curHighlight.visible = true;
+			this.curHighlight.position.copy(collision.obj.object.position);
+			this.core.scene.add(this.curHighlight);
+			console.log(collision.obj.object.position);
+			console.log({
+				posX: this.core.camera.position.x,
+				posY: this.core.camera.position.y,
+				posZ: this.core.camera.position.z,
+			});
+		} else {
+			this.curHighlight.visible = false;
+		}
 	}
 }
 

@@ -53,7 +53,7 @@ const symConfig = {
 		skyBackground: 0x87ceeb,
 		maxHeight: 11,
 		horizonHeight: -3,
-		treeBaseHeight: 5,
+		treeBaseHeight: 1,
 		skyHeight: 40,
 	},
 	actionsScale: {
@@ -66,9 +66,26 @@ const symConfig = {
 		g: 0.007,
 	},
 	body: {
-		length: 0.7,
-		width: 0.5,
-		height: 1.8,
+		//   7_____________6
+		//   /| width=0.8 /|
+		//  /_|__________/ |height=2
+		// 3| |         2| |
+		//  | | *    *   | |
+		//  | |   /  |   | |
+		//  | |      |   | |
+		//  | |  1.75|   | |
+		//  |4|______|___|_|5
+		//  |/_______|___|/length=0.5
+		//  0            1
+		length: 0.6,
+		width: 0.8,
+		height: 2,
+		eyeButton: 1.75,
+		eyeUp: 0.25,
+		eyeLeft: 0.4,
+		eyeRight: 0.4,
+		eyeFront: 0.1,
+		eyeBack: 0.4,
 	},
 	noiseGap: {
 		seedGap: 35,
