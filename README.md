@@ -24,6 +24,7 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
 ### 🎮️ Operation
 
 - **PC**
+
   - **Space Bar**:Jump
   - **E Key**: Switch Bag
   - **Q Key**: Cheat Mode
@@ -37,6 +38,7 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
   - **ESC Key**: Show Menu
 
 - **Mobile**
+
   - **Drag Screen**: Change Orientation
   - **Click Item Box**: Toggle Block
   - **Click Active Item**: Open Backpack
