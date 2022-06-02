@@ -57,13 +57,13 @@ const symConfig = {
 		skyHeight: 40,
 	},
 	actionsScale: {
-		walking: 5,
+		walking: 8,
 		jump: 7,
 		fall: 7,
 		cheatFactor: 2,
 		moveScale: 0.02,
 		viewScale: 0.005,
-		g: 0.007,
+		g: 0.04,
 	},
 	body: {
 		//   7_____________6

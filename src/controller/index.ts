@@ -55,7 +55,7 @@ class Controller {
 		this.VRButtonElem.setAttribute('id', 'VRButton');
 		document.body.appendChild(this.VRButtonElem);
 		navigator?.xr &&
-			navigator.xr.isSessionSupported('immersive-vr').then(d => {
+			navigator.xr.isSessionSupported('immersive-vr').then(() => {
 				this.core.renderer.xr.enabled = true;
 				this.vrSupport = true;
 			});

@@ -6,6 +6,13 @@ import weatherTypes from '../../weather';
 import { symConfig, config } from '../../../controller/config';
 
 export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty: number, edy: number, access: boolean) {
+	stx = Math.floor(stx);
+	sty = Math.floor(sty);
+	stz = Math.floor(stz);
+	edx = Math.ceil(edx);
+	edy = Math.ceil(edy);
+	edz = Math.ceil(edz);
+
 	const { weather } = config;
 	const noiseGen = new ImprovedNoise();
 	const { seed, cloudSeed, treeSeed } = config;

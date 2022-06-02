@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry.js';
-import { treeGeom } from '../loader/index';
 import { iBlockFragment } from '../../utils/types/block';
 import Core from '..';
 import Generate from './generate';
