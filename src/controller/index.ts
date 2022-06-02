@@ -51,12 +51,14 @@ class Controller {
 
 		this.vr = false;
 		this.vrSupport = false;
-		navigator.xr.isSessionSupported('immersive-vr').then(d => {
-			this.VRButtonElem = VRButton.createButton(this.core.renderer);
-			document.body.appendChild(this.VRButtonElem);
-			this.core.renderer.xr.enabled = true;
-			this.vrSupport = true;
-		});
+		this.VRButtonElem = VRButton.createButton(this.core.renderer);
+		this.VRButtonElem.setAttribute('id', 'VRButton');
+		document.body.appendChild(this.VRButtonElem);
+		navigator?.xr &&
+			navigator.xr.isSessionSupported('immersive-vr').then(d => {
+				this.core.renderer.xr.enabled = true;
+				this.vrSupport = true;
+			});
 
 		this.ui.loadController(this);
 	}
