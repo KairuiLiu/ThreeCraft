@@ -1,3 +1,4 @@
+// 深拷贝
 export function deepCopy(source, target) {
 	const copyedObjs = []; // 此数组解决了循环引用和相同引用的问题，它存放已经递归到的目标对象
 	copyedObjs.push({ fromTarget: source, toTarget: target });

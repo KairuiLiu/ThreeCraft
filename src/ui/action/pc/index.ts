@@ -36,10 +36,12 @@ class ActionPluginPc {
 		this.keyUpListener = ActionPluginPc.getKeyUpListener(this);
 	}
 
+	// PC端无需加载HTML元素
 	load() {
 		this;
 	}
 
+	// 开始监听并尝试锁定鼠标
 	listen() {
 		// eslint-disable-next-line
 		this.elem?.requestPointerLock &&
@@ -72,6 +74,7 @@ class ActionPluginPc {
 		this;
 	}
 
+	// 前后左右上下按键按下时注册动作
 	static getKeyListener(self) {
 		return e => {
 			if (e.key === 'Escape') {
@@ -89,6 +92,7 @@ class ActionPluginPc {
 		};
 	}
 
+	// 前后左右上下按键弹起时取消动作
 	static getKeyUpListener(self) {
 		return e => {
 			if (self.controller.uiController.ui.bag.bagBox.working) return;
@@ -100,6 +104,7 @@ class ActionPluginPc {
 		};
 	}
 
+	// 鼠标按下时注册动作
 	static getClickListener(self) {
 		return e => {
 			e.preventDefault();
@@ -122,11 +127,11 @@ class ActionPluginPc {
 					if (e.button === 2) self.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
 				}, 331);
 			}
-
 			return false;
 		};
 	}
 
+	// 鼠标弹起时取消动作
 	static getClickUpListener(self) {
 		return e => {
 			if (e.button === 0) {
@@ -139,6 +144,7 @@ class ActionPluginPc {
 		};
 	}
 
+	// 鼠标锁定监听
 	static getPointerLockListener() {
 		return () => {
 			if (document.pointerLockElement) {
@@ -149,6 +155,7 @@ class ActionPluginPc {
 		};
 	}
 
+	// 鼠标移动改变视角
 	static getMouseMoveListener(self) {
 		return e => {
 			if (!document.pointerLockElement) return false;

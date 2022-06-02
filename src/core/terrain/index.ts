@@ -35,7 +35,7 @@ class Terrain {
 		this.generator = new Generate(this);
 	}
 
-	// 更新世界
+	// 更新世界, 重设场景信息, 用于更新场景大小时候
 	updateState() {
 		this.clear();
 		this.seed = config.seed;
@@ -84,6 +84,7 @@ class Terrain {
 		this.tryUpdateAll();
 	}
 
+	// 生成刷新整个世界
 	tryUpdateAll() {
 		this.generator.generateAll({
 			stx: this.originX - (this.fragmentSize * this.fragmentSize) / 2,
@@ -95,6 +96,7 @@ class Terrain {
 		});
 	}
 
+	// 尝试部分刷新世界
 	tryUpdateScene() {
 		let nextX = this.originX;
 		let nextZ = this.originZ;
@@ -144,12 +146,11 @@ class Terrain {
 		}
 	}
 
-	// 部分刷新回调
+	// 刷新成功后回调
 	onUpdateLine(ev) {
 		const matrix = new THREE.Matrix4();
-
 		const { fragmentSize, frags } = ev.data;
-		// 忽略出问题的多线程
+		// 忽略场景重刷前的线程
 		if (this.fragmentSize !== fragmentSize) return;
 		frags.forEach((d: iBlockFragment) => {
 			// 忽略越界的部分
@@ -162,31 +163,25 @@ class Terrain {
 				return;
 
 			// 计算在数组中的index
-
 			let blkX = d.posX + (fragmentSize * fragmentSize) / 2;
 			while (blkX < 0) blkX += fragmentSize * fragmentSize;
 			blkX = (blkX / fragmentSize) % fragmentSize;
 			let blkZ = d.posZ + (fragmentSize * fragmentSize) / 2;
 			while (blkZ < 0) blkZ += fragmentSize * fragmentSize;
 			blkZ = (blkZ / fragmentSize) % fragmentSize;
-
 			const oldFrag = this.blockFragments[blkZ][blkX];
-
-			// 忽略较早生成的部分
+			// 忽略生成太晚的线程
 			if (d.timestamp < oldFrag.timestamp) return;
-
 			// 回收空间
 			if (oldFrag.group !== null) {
-				// 回收空间
 				oldFrag.types.forEach(dd => {
 					dd.instancedMesh.dispose();
 				});
 				oldFrag.cloudMesh && oldFrag.cloudMesh.dispose();
-				oldFrag.treeMesh && oldFrag.treeMesh.dispose();
 				this.core.scene.remove(oldFrag.group);
 			}
 			this.blockFragments[blkZ][blkX] = d;
-
+			// 生成Mesh, 写入Group
 			d.group = new THREE.Group();
 			d.types.forEach(dd => {
 				dd.instancedMesh = new THREE.InstancedMesh(blockGeom, blockLoader[dd.blocks.type].material, dd.blocks.count);
@@ -197,7 +192,6 @@ class Terrain {
 				dd.instancedMesh.instanceMatrix.needsUpdate = true;
 				d.group.add(dd.instancedMesh);
 			});
-
 			d.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, d.cloudPos.length / 3);
 			for (let i = 0; i < d.cloudPos.length / 3; i += 1) {
 				matrix.setPosition(d.cloudPos[i * 3], d.cloudPos[i * 3 + 1], d.cloudPos[i * 3 + 2]);
@@ -205,7 +199,6 @@ class Terrain {
 			}
 			d.cloudMesh.instanceMatrix.needsUpdate = true;
 			d.group.add(d.cloudMesh);
-
 			this.core.scene.add(d.group);
 		});
 	}

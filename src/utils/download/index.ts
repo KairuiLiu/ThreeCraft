@@ -1,3 +1,4 @@
+// 下载JSON文件
 export function downloadJson(jsonString) {
 	const tmpLink = document.createElement('a');
 	const file = new File([jsonString], `mc-archive-${Date.now()}.json`, {

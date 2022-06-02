@@ -30,7 +30,9 @@ class Core {
 		this.init();
 	}
 
+	// 初始化场景
 	init() {
+		// 窗口大小改变监听
 		window.addEventListener('resize', () => {
 			this.camera.aspect = window.innerWidth / window.innerHeight;
 			this.camera.updateProjectionMatrix();
@@ -39,13 +41,14 @@ class Core {
 			this.renderer.setSize(window.innerWidth, window.innerHeight);
 		});
 
+		// 设置相机参数
 		this.camera.fov = config.camera.fov;
 		this.camera.aspect = window.innerWidth / window.innerHeight;
 		this.camera.near = 0.01;
 		this.camera.far = Math.max(233, config.renderer.stageSize * Math.sqrt(3));
 		this.camera.updateProjectionMatrix();
 		this.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);
-		// this.camera.lookAt(0, 0, 0);
+		// 注意, 必须要改欧拉角顺序
 		this.camera.rotation.order = 'YXZ';
 
 		this.scene = new THREE.Scene();
@@ -62,6 +65,7 @@ class Core {
 		this.renderer.render(this.scene, this.camera);
 	}
 
+	// 更新控制信息
 	updateCore() {
 		(this.scene.fog as THREE.FogExp2).density = config.renderer.fog;
 		this.camera.fov = config.camera.fov;
@@ -70,6 +74,7 @@ class Core {
 		this.camera.updateProjectionMatrix();
 	}
 
+	// 获取某个块的材质对象
 	static getMaterial(idx) {
 		if (blockLoader[blockTypes[idx]].textureImg instanceof Array) return blockLoader[blockTypes[idx]].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d }));
 		return new THREE.MeshStandardMaterial({ map: blockLoader[blockTypes[idx]].textureImg });

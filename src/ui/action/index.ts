@@ -20,6 +20,7 @@ class ActonControl {
 		this.load();
 	}
 
+	// 载入动作捕获插件
 	load() {
 		if (this.plugin) this.plugin.destroy();
 		if (config.controller.operation === 'pc') {
@@ -32,10 +33,12 @@ class ActonControl {
 		this.plugin.load();
 	}
 
+	// 监听动作
 	listen() {
 		this.plugin.listen();
 	}
 
+	// 停止监听动作
 	pause() {
 		this.plugin.pause();
 	}

@@ -15,6 +15,7 @@ class Menu {
 
 	constructor(el: HTMLElement, controller) {
 		this.controller = controller;
+		// 清空挂载点下的元素
 		[...el.children].forEach(d => d.getAttribute('id') === 'menu' && d.remove());
 		this.elem = document.createElement('div');
 		this.elem.setAttribute('id', 'menu');
@@ -22,50 +23,59 @@ class Menu {
 		this.elem.classList.add('background-image');
 		this.titleElem = this.elem.querySelector('#title');
 		this.boxElem = this.elem.querySelector('.box');
-
 		el.appendChild(this.elem);
-		// this.hideMenu();
+		// 打开初始菜单
 		this.toStartMenu();
 	}
 
+	// 删除菜单栏中选项
 	clearMenuItem() {
 		[...this.boxElem.children].forEach(d => d.remove());
 	}
 
+	// 显示背景图
 	setImgBkg() {
 		this.elem.classList.remove('background-pain-color');
 		this.elem.classList.add('background-image');
 	}
 
+	// 显示灰色背景
 	setGrayBkg() {
 		this.elem.classList.add('background-pain-color');
 		this.elem.classList.remove('background-image');
 	}
 
+	// 显示MC logo
 	showTitle() {
 		this.titleElem.classList.remove('hidden');
 	}
 
+	// 移除MC logo
 	removeTitle() {
 		this.titleElem.classList.add('hidden');
 	}
 
+	// 显示菜单外边框
 	showBorder() {
 		this.boxElem.classList.add('border-box');
 	}
 
+	// 移除菜单外边框
 	removeBorder() {
 		this.boxElem.classList.remove('border-box');
 	}
 
+	// 显示菜单
 	showMenu() {
 		this.elem.classList.remove('hidden');
 	}
 
+	// 移除菜单
 	hideMenu() {
 		this.elem.classList.add('hidden');
 	}
 
+	// 发出一个通知, 通知信息, 显示时长, 挂载位置
 	setNotify(info, timeout = 1000, el = this.elem) {
 		const existNotifyElem = el.querySelectorAll('#notify');
 		[...existNotifyElem].forEach(d => d.remove());
@@ -79,18 +89,21 @@ class Menu {
 		el.appendChild(elem);
 	}
 
+	// 上传存档成功回调
 	onLoadArchiveSuccess() {
 		document.getElementById('load-archive').classList.add('hidden');
 		document.getElementById('load-archive-cancel').classList.remove('hidden');
 		this;
 	}
 
+	// 上传存档取消回调
 	onLoadArchiveCancel() {
 		document.getElementById('load-archive').classList.remove('hidden');
 		document.getElementById('load-archive-cancel').classList.add('hidden');
 		this;
 	}
 
+	// 进入开始菜单
 	toStartMenu() {
 		this.showMenu();
 		this.showTitle();
@@ -114,16 +127,19 @@ class Menu {
 				<button id="about" class="button">${language.about}</button>
 			</div>
 			<button id="chrome-recommend" class="button hidden">${language.chromeSupport}</button>`;
+		// 单人游戏
 		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
 		singlePlayerGame.addEventListener('click', e => {
 			e.stopPropagation();
 			this.controller.startGame(true);
 		});
+		// 多人游戏
 		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');
 		multiPlayerGame.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toSocketConfigMenu({ back: 'toStartMenu' });
 		});
+		// 上传存档文件的上传文件按钮(已经被隐藏了)
 		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file') as HTMLInputElement;
 		loadArchiveFile.addEventListener('change', e => {
 			e.stopPropagation();
@@ -139,11 +155,13 @@ class Menu {
 			reader.readAsText(file);
 			return false;
 		});
+		// 上传存档文件的上传文件按钮(已经被隐藏了)
 		const loadArchiveFileButton = this.boxElem.querySelector('#load-archive-file-button') as HTMLInputElement;
 		loadArchiveFileButton.addEventListener('click', e => {
 			e.stopPropagation();
 			loadArchiveFile.click();
 		});
+		// 缓存读档
 		const loadArchiveStorage = this.boxElem.querySelector('#load-archive-storage');
 		loadArchiveStorage.addEventListener('click', e => {
 			e.stopPropagation();
@@ -156,6 +174,7 @@ class Menu {
 				this.setNotify(language.browserNoArchive);
 			}
 		});
+		// 取消使用存档
 		const loadArchiveCancel = this.boxElem.querySelector('#load-archive-cancel');
 		loadArchiveCancel.addEventListener('click', e => {
 			e.stopPropagation();
@@ -163,21 +182,25 @@ class Menu {
 			this.onLoadArchiveCancel();
 			this.setNotify(language.cancelSuccess);
 		});
+		// 游戏设置
 		const gameSetting = this.boxElem.querySelector('#game-setting');
 		gameSetting.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toSettingMenu({ back: 'toStartMenu' });
 		});
+		// 游戏帮助
 		const help = this.boxElem.querySelector('#help');
 		help.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toHelpMenu({ back: 'toStartMenu' });
 		});
+		// 关于项目
 		const about = this.boxElem.querySelector('#about');
 		about.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toAboutMenu({ back: 'toStartMenu' });
 		});
+		// 如果不是Chrome则提供下载链接
 		if (!chromeTest()) {
 			const chromeRecommend = this.boxElem.querySelector('#chrome-recommend');
 			chromeRecommend.classList.remove('hidden');
@@ -219,6 +242,7 @@ class Menu {
 		});
 	}
 
+	// 设置菜单
 	toSettingMenu({ back }) {
 		this.showMenu();
 		this.showBorder();
@@ -319,11 +343,13 @@ class Menu {
 
 		<br />
 		<button class="button" id="backMenu">${language.backMenu}</button>`;
+		// 返回上一级
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
 			this[back]();
 		});
+		// FOV修改
 		const fovRange = document.getElementById('fov-range') as HTMLInputElement;
 		fovRange.value = `${config.camera.fov}`;
 		fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
@@ -331,15 +357,17 @@ class Menu {
 			config.camera.fov = Number.parseInt(fovRange.value, 10);
 			fovRange.nextElementSibling.innerHTML = `${config.camera.fov}`;
 		});
+		// 雾气因子
 		const fogRange = document.getElementById('fog-range') as HTMLInputElement;
 		// fog: 0.01-0.05
 		fogRange.value = `${config.renderer.fog * 100}`;
 		fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		fogRange.addEventListener('input', () => {
 			config.renderer.fog = Number.parseInt(fogRange.value, 10) / 100;
-			// ! 这不是一个bug, fog指数应该在0.0-0.1, 但是设计UI的时候没考虑三位小数放不下的问题..., 所以这里就*10了
+			// ! 这不是bug, fog指数应该在0.0-0.1, 但是设计UI的时候没考虑三位小数放不下的问题..., 所以这里就*10了
 			fogRange.nextElementSibling.innerHTML = `${(config.renderer.fog * 10).toFixed(1)}`;
 		});
+		// 场景大小
 		const stageRange = document.getElementById('stage-range') as HTMLInputElement;
 		stageRange.value = `${Math.sqrt(config.renderer.stageSize)}`;
 		stageRange.nextElementSibling.innerHTML = `${config.renderer.stageSize}`;
@@ -361,6 +389,7 @@ class Menu {
 		// 	config.controller.opSens = Number.parseInt(opSensRange.value, 10) / 10;
 		// 	opSensRange.nextElementSibling.innerHTML = `${config.controller.opSens}`;
 		// });
+		// 操作范围
 		const opRange = document.getElementById('op-range') as HTMLInputElement;
 		opRange.value = `${config.controller.opRange}`;
 		opRange.nextElementSibling.innerHTML = `${config.controller.opRange}`;
@@ -368,6 +397,7 @@ class Menu {
 			config.controller.opRange = Number.parseInt(opRange.value, 10);
 			opRange.nextElementSibling.innerHTML = `${config.controller.opRange}`;
 		});
+		// 音量
 		const volumeRange = document.getElementById('volume-range') as HTMLInputElement;
 		volumeRange.value = `${config.controller.volume}`;
 		volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
@@ -375,6 +405,7 @@ class Menu {
 			config.controller.volume = Number.parseInt(volumeRange.value, 10);
 			volumeRange.nextElementSibling.innerHTML = `${config.controller.volume}`;
 		});
+		// 语言
 		const langSelect = document.getElementById('lang-select') as HTMLInputElement;
 		langSelect.value = `${config.controller.language}`;
 		langSelect.addEventListener('change', () => {
@@ -383,6 +414,7 @@ class Menu {
 			this.toSettingMenu({ back });
 			this.controller.uiController.ui.actionControl.plugin.updateLang();
 		});
+		// 背包模式
 		const bagSelect = document.getElementById('bag-type-select') as HTMLInputElement;
 		bagSelect.value = `${config.bag.type}`;
 		bagSelect.addEventListener('change', () => {
@@ -390,12 +422,14 @@ class Menu {
 			this.controller.uiController.ui.bag.type = bagSelect.value as 'pc' | 'mobile' | 'vr';
 			this.controller.uiController.ui.bag.place();
 		});
+		// 操作模式
 		const operateSelect = document.getElementById('operate-select') as HTMLInputElement;
 		operateSelect.value = `${config.controller.operation}`;
 		operateSelect.addEventListener('change', () => {
 			config.controller.operation = operateSelect.value as 'pc' | 'mobile' | 'vr';
 			this.controller.uiController.ui.actionControl.load();
 		});
+		// 准星样式
 		const crosshairSelect = document.getElementById('crosshair-select') as HTMLInputElement;
 		crosshairSelect.value = `${config.controller.crosshair}`;
 		crosshairSelect.addEventListener('change', () => {
@@ -403,11 +437,13 @@ class Menu {
 			this.controller.uiController.ui.crosshair.dark = config.controller.crosshair === 'dark';
 			this.controller.uiController.ui.crosshair.updataColor();
 		});
+		// 操纵灵敏度
 		const opSensSelect = document.getElementById('op-sens-select') as HTMLInputElement;
 		opSensSelect.value = `${config.controller.opSens * 2}`;
 		crosshairSelect.addEventListener('change', () => {
 			config.controller.opSens = Number.parseInt('crosshairSelect.value', 10) / 2;
 		});
+		// 线程数
 		const threadSelect = document.getElementById('thread-select') as HTMLInputElement;
 		threadSelect.value = `${config.controller.thread}`;
 		threadSelect.addEventListener('change', () => {
@@ -416,12 +452,14 @@ class Menu {
 		});
 	}
 
+	// 在游戏菜单中选择设置
 	toInnerGameSettingMenu() {
 		this.toSettingMenu({ back: 'toInnerGameMenu' });
 		this.removeTitle();
 		this.setGrayBkg();
 	}
 
+	// 调起游戏内菜单
 	toInnerGameMenu() {
 		this.showMenu();
 		this.setGrayBkg();
@@ -444,13 +482,13 @@ class Menu {
 		<br>
 		<button id="save-game" class="button">${language.saveGame}</button>
 		<button id="exit-game" class="button">${language.exitGame}</button>`;
-
+		// 返回游戏
 		const backGameButton = document.getElementById('back-game');
 		backGameButton.addEventListener('click', e => {
 			e.stopPropagation();
 			this.controller.runGame();
 		});
-
+		// 进入/退出VR
 		if (this.controller.vrSupport) {
 			const backGameVRButton = document.getElementById('back-game-vr');
 			backGameVRButton.classList.remove('hidden');
@@ -462,23 +500,25 @@ class Menu {
 				this.controller.runGame();
 			});
 		}
-
+		// 游戏设置
 		const settingGameButton = document.getElementById('game-setting');
 		settingGameButton.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toInnerGameSettingMenu();
 		});
-
+		// 帮助
 		const help = this.boxElem.querySelector('#help');
 		help.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toHelpMenu({ back: 'toInnerGameMenu' });
 		});
+		// 关于
 		const about = this.boxElem.querySelector('#about');
 		about.addEventListener('click', e => {
 			e.stopPropagation();
 			this.toAboutMenu({ back: 'toInnerGameMenu' });
 		});
+		// 全屏/取消全屏
 		const fullScreen = this.boxElem.querySelector('#game-full-screen');
 		fullScreen.addEventListener('click', e => {
 			e.stopPropagation();
@@ -490,7 +530,7 @@ class Menu {
 			else if (document.body.mozRequestFullScreen) document.body.mozRequestFullScreen();
 			else if (document.body.webkitRequestFullScreen) document.body.webkitRequestFullScreen();
 		});
-
+		// 存档
 		const saveGameButton = document.getElementById('save-game');
 		saveGameButton.addEventListener('click', e => {
 			e.stopPropagation();
@@ -498,7 +538,7 @@ class Menu {
 			downloadJson(JSON.stringify(config));
 			this.setNotify(language.saveSuccess);
 		});
-
+		// 开关作弊模式
 		const cheatModeButton = document.getElementById('game-cheat-mode');
 		cheatModeButton.innerText = `${language.cheatMode}: ${config.controller.cheat ? language.on : language.off}`;
 		cheatModeButton.addEventListener('click', e => {
@@ -506,7 +546,7 @@ class Menu {
 			this.controller.toggleCheatMode();
 			cheatModeButton.innerText = `${language.cheatMode}: ${config.controller.cheat ? language.on : language.off}`;
 		});
-
+		// 开关FPS显示
 		const fpsModeButton = document.getElementById('game-fps-mode');
 		fpsModeButton.innerText = `${language.fps}: ${config.controller.fps ? language.on : language.off}`;
 		fpsModeButton.addEventListener('click', e => {
@@ -516,7 +556,7 @@ class Menu {
 			else this.controller.uiController.ui.fps.stop();
 			fpsModeButton.innerText = `${language.fps}: ${config.controller.fps ? language.on : language.off}`;
 		});
-
+		// 推出游戏
 		const exitGameButton = document.getElementById('exit-game');
 		exitGameButton.addEventListener('click', e => {
 			e.stopPropagation();
@@ -525,6 +565,7 @@ class Menu {
 		});
 	}
 
+	// 帮助菜单
 	toHelpMenu({ back }) {
 		this.showMenu();
 		this.showBorder();
@@ -563,6 +604,7 @@ class Menu {
 		});
 	}
 
+	// 关于菜单
 	toAboutMenu({ back }) {
 		this.showMenu();
 		this.showBorder();

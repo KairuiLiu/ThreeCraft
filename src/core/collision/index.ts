@@ -3,6 +3,18 @@ import { generateFragSync } from '../terrain/generate/generateFragSync';
 import { symConfig, config } from '../../controller/config';
 import { getDir } from '../../utils/get-dir';
 
+// 指定当向某个方向运动时需要检查那几个块是否会碰撞, 点定义如下
+//   7_____________6
+//   /| width=0.8 /|
+//  /_|__________/ |height=2
+// 3| |         2| |
+//  | | *    *   | |
+//  | |   /  |   | |
+//  | |      |   | |
+//  | |  1.75|   | |
+//  |4|______|___|_|5
+//  |/_______|___|/length=0.5
+//  0            1
 const needCheck = [
 	[
 		// 前
@@ -70,6 +82,7 @@ const needCheck = [
 	],
 ];
 
+// 指定这几个检测点距离相机的位置
 const dirs = [
 	new THREE.Vector3(+symConfig.body.eyeRight, -symConfig.body.eyeButton, -symConfig.body.eyeFront),
 	new THREE.Vector3(-symConfig.body.eyeLeft, -symConfig.body.eyeButton, -symConfig.body.eyeFront),
@@ -83,10 +96,10 @@ const dirs = [
 ];
 
 /**
- *
+ * 给定原点和方向, 判断是否会碰撞
  * @param posX/Y/Z: 发射点x/y/z
  * @param dirX/Y/Z: 绝对方向x/y/z
- * @param boundingBox: 附近地形
+ * @param boundingBox: 附近地形(包围盒)
  * @returns null: 没有碰撞
  * @returns {obj: 碰撞物体, pos: 碰撞点}
  */
@@ -96,6 +109,7 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 	const len = direction.length();
 	const ray = new THREE.Raycaster(originPosition, direction.clone().normalize(), 0, len + 0.1);
 
+	// 如果没有包围盒就现生成一个
 	if (!boundingBox)
 		boundingBox = generateFragSync(
 			posX - 3 - Math.ceil(len),
@@ -122,6 +136,7 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 	return null;
 }
 
+// 给出位置和相对位移, 判断碰撞
 export function relativeCollisionCheck({ posX, posY, posZ, font, left, up, core }) {
 	const absoluteMove = new THREE.Vector3(-left, up, -font);
 	const revMat = new THREE.Matrix3();
@@ -140,42 +155,40 @@ export function relativeCollisionCheck({ posX, posY, posZ, font, left, up, core 
 }
 
 /**
- *
+ * 给出相机位置, 与相对位移, 检查每一个检查点的碰撞情况
  * @param posX/Y/Z: 相机位置
  * @param font/left/up: 相对方向x/y/z
  * @param Core: 场景
  * @returns null: 没有碰撞
- * @returns {obj: 碰撞物体, pos: 请纠正相机坐标到}
+ * @returns {obj: 碰撞物体, pos: 发生碰撞时相机位置}
  */
 export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, core }) {
-	// relative direction camera will move
+	// 将相对运动方向三值化? (x/y/z = -1/0/1)
 	const dirU = getDir(new THREE.Vector3(-left, up, -font));
-
+	// 相机位置与需要转过的欧拉角
 	const origin = new THREE.Vector3(posX, posY, posZ);
 	const eulerRotate = new THREE.Euler(0, core.camera.rotation.y, 0, 'YXZ');
-
-	// absolute direction it will move
+	// 计算在水平与垂直方向速度
 	const scaleXOZ = symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens;
 	const scaleOY = symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
+	// 计算绝对移动方向与速度
 	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(eulerRotate);
 	absolute.x *= scaleXOZ;
 	absolute.z *= scaleXOZ;
 	absolute.y *= scaleOY;
-
-	// generate bounding-box
+	// 计算最大移动距离, 生成包围盒
 	const maxMove = Math.ceil(absolute.length());
 	const boundingBox = generateFragSync(posX - 3 - maxMove, posX + 3 + maxMove, posZ - 3 - maxMove, posZ + 3 + maxMove, posY - 5 - maxMove, posY + 5 + maxMove, true);
-
-	// nearest position it will collision
+	// 记录在不同方向上运动时最先碰到的物体
 	let fstColX = null;
 	let fstColY = null;
 	let fstColZ = null;
-
+	// 检测每一个检查点
 	needCheck[dirU.z + 1][dirU.x + 1][dirU.y + 1].forEach(d => {
+		// 起始点 = 相机位置 + 相机到检查点向量
 		const innerDir = dirs[d].clone().applyEuler(eulerRotate);
 		const from = origin.clone().add(innerDir);
 
-		// collision X
 		const collisionX = collisionCheck({
 			posX: from.x,
 			posY: from.y,
@@ -193,7 +206,6 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			};
 		}
 
-		// collision Y
 		const collisionY = collisionCheck({
 			posX: from.x,
 			posY: from.y,
@@ -211,7 +223,6 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			};
 		}
 
-		// collision Z
 		const collisionZ = collisionCheck({
 			posX: from.x,
 			posY: from.y,
@@ -233,15 +244,16 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 	return [fstColX, fstColY, fstColZ];
 }
 
+// 获取理想的运动位置
 export function getTargetPosition({ posX, posY, posZ, font, left, up, core }) {
+	// 水平与垂直的速度
 	const scaleXOZ = (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens;
 	const scaleOY = (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
-
+	// 绝对移动方向
 	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(new THREE.Euler(0, core.camera.rotation.y, 0, 'YXZ'));
 	absolute.x *= scaleXOZ;
 	absolute.z *= scaleXOZ;
 	absolute.y *= scaleOY;
-
 	return {
 		posX: posX + absolute.x,
 		posY: posY + absolute.y,

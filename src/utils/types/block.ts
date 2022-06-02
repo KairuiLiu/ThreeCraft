@@ -1,3 +1,4 @@
+// 块类型声明
 import * as THREE from 'three';
 
 export interface iBlockFragmentSingleType {

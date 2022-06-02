@@ -8,8 +8,6 @@ import weatherTypes from '../../weather';
 class Generate {
 	terrain: Terrain;
 
-	workChain: (() => boolean)[][]; // 多线程chain
-
 	noiseSeed: {
 		seed: number;
 		cloudSeed: number;
@@ -20,14 +18,16 @@ class Generate {
 
 	constructor(terrain) {
 		this.terrain = terrain;
-		this.noiseSeed = null;
-		this.treaders = [];
+		this.noiseSeed = null; // 额外保存一份随机数种子, 防止线程出现问题
+		this.treaders = []; // 当前所有线程
 	}
 
+	// 设置种子
 	setSeed(seed, cloudSeed, treeSeed) {
 		this.noiseSeed = { seed, cloudSeed, treeSeed };
 	}
 
+	// 动态调节线程数
 	setTreader(num) {
 		if (this.treaders.length > num) {
 			for (let i = num; i < this.treaders.length; i += 1) {
@@ -43,7 +43,7 @@ class Generate {
 		}
 	}
 
-	// ! 生成一条, 注意顺序
+	// 生成一条地形
 	generateLine({ stx, edx, stz, edz, fragmentSize, thread }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];
@@ -99,6 +99,7 @@ class Generate {
 		}
 	}
 
+	// 生成全部地形
 	generateAll({ stx, edx, stz, edz, fragmentSize, thread }) {
 		if (stx > edx) [stx, edx] = [edx, stx];
 		if (stz > edz) [stz, edz] = [edz, stz];

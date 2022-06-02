@@ -16,6 +16,7 @@ class BlockController {
 		this.core.scene.add(this.curHighlight);
 	}
 
+	// 处理注册的块事件
 	update(blocks: Block[]) {
 		// console.log('Controller>gameController>blockController>update', blocks);
 
@@ -23,6 +24,7 @@ class BlockController {
 		this;
 	}
 
+	// 高亮当前块
 	highlightCurrentBlock() {
 		return;
 		const collision = relativeCollisionCheck({

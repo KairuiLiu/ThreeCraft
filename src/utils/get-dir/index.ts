@@ -1,3 +1,4 @@
+// 三值化？ -1, 0, 1
 export function getDir(o) {
 	const v = o.clone();
 	if (v.x > 0) v.x = 1;

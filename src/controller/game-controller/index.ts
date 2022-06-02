@@ -10,6 +10,7 @@ enum actionBlockEvent {
 	REMOVE,
 }
 
+// 块修改事件
 interface Block {
 	type: string | null;
 	posX: number;
@@ -21,21 +22,26 @@ interface Block {
 class GameController {
 	core: Core;
 
-	blockController: BlockController; // ! 这个对象是直接和WebGL打交道的
+	// 块操作控制器, 直接操作Scene中块的CRUD
+	blockController: BlockController;
 
+	// 运动控制器, 直接修改Camera的状态
 	moveController: MoveController; // ! 这个对象是直接和WebGL打交道的
 
+	// 下一帧需要运动的相对方向记录
 	nextTrickMoveTask: {
 		font: number;
 		left: number;
 		up: number;
 	};
 
+	// 下一帧相机需要运动方向记录
 	nextTrickViewTask: {
 		viewHorizontal: number;
 		viewVertical: number;
 	};
 
+	// 下一帧有哪些块要修改
 	nextTrickBlockTask: Block[];
 
 	constructor(core: Core) {
@@ -54,7 +60,7 @@ class GameController {
 		};
 	}
 
-	// 请求将状态设置为X
+	// 请求将相对运动状态设置为{...args}
 	handleMoveAction(args) {
 		this.nextTrickMoveTask = {
 			...this.nextTrickMoveTask,
@@ -62,11 +68,13 @@ class GameController {
 		};
 	}
 
+	// 请求移动相机角度
 	handleViewAction({ vertical, horizontal }) {
 		this.nextTrickViewTask.viewHorizontal += horizontal;
 		this.nextTrickViewTask.viewVertical += vertical;
 	}
 
+	// 请求块操作
 	handleBlockAction(key: actionBlockEvent) {
 		// TODO FIX
 		return;
@@ -119,6 +127,7 @@ class GameController {
 		}
 	}
 
+	// 当下一帧渲染时执行请求, 并重设状态
 	update() {
 		this.moveController.viewDirectionMove(this.nextTrickViewTask);
 		this.moveController.positionMove(this.nextTrickMoveTask);

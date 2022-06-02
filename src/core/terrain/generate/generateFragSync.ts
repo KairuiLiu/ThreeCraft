@@ -5,6 +5,7 @@ import { iBlockFragment } from '../../../utils/types/block';
 import weatherTypes from '../../weather';
 import { symConfig, config } from '../../../controller/config';
 
+// 同步生成指定位置的包围盒
 export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty: number, edy: number, access: boolean) {
 	stx = Math.floor(stx);
 	sty = Math.floor(sty);
@@ -50,10 +51,15 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 			const y = Math.floor(noiseGen.noise(i / seedGap, j / seedGap, seed) * maxHeight);
 			const adjY = Math.min(Math.max(y, sty), edy);
 			if (adjY < horizonHeight) {
-				for (let yy = adjY; yy >= sty; yy -= 1) {
-					blockFragment.types[base].blocks.position.push(i, yy, j);
+				// for (let yy = adjY; yy >= sty; yy -= 1) {
+				// 	blockFragment.types[base].blocks.position.push(i, yy, j);
+				// 	blockFragment.types[base].blocks.count += 1;
+				// }
+				if (y >= sty || y <= edy) {
+					blockFragment.types[base].blocks.position.push(i, y, j);
 					blockFragment.types[base].blocks.count += 1;
 				}
+
 				// water 生成
 				if (!access || !blockLoader[blockFragment.types[water].blocks.type]?.accessible) {
 					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) {
@@ -62,8 +68,12 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 					}
 				}
 			} else {
-				for (let yy = adjY; yy >= sty; yy -= 1) {
-					blockFragment.types[surface].blocks.position.push(i, yy, j);
+				// for (let yy = adjY; yy >= sty; yy -= 1) {
+				// 	blockFragment.types[surface].blocks.position.push(i, yy, j);
+				// 	blockFragment.types[surface].blocks.count += 1;
+				// }
+				if (y >= sty || y <= edy) {
+					blockFragment.types[surface].blocks.position.push(i, y, j);
 					blockFragment.types[surface].blocks.count += 1;
 				}
 				// tree 生成

@@ -1,11 +1,10 @@
 /* eslint-disable */
 
+// 引入image说明文件
 import '../../utils/types/image.d.ts';
 import * as THREE from 'three';
 
-// 手动引入, 防止Vite忽略...
-
-// Blocks3D
+// 引入块的图标, 必须手动引入, 防止Vite忽略依赖
 import acaciaLeaves3d from '../../assets/pictures/blocks-3d-clipped/acaciaLeaves.png';
 import andesite3d from '../../assets/pictures/blocks-3d-clipped/andesite.png';
 import bedrock3d from '../../assets/pictures/blocks-3d-clipped/bedrock.png';
@@ -57,8 +56,7 @@ import pumpkin3d from '../../assets/pictures/blocks-3d-clipped/pumpkin.png';
 import redSandstone3d from '../../assets/pictures/blocks-3d-clipped/redSandstone.png';
 import snowblock3d from '../../assets/pictures/blocks-3d-clipped/snowblock.png';
 
-// texture
-
+// 引入贴图
 import acaciaLeavesTextureImg from '../../assets/textures/blocks-clipped/acaciaLeaves.png';
 import andesiteTextureImg from '../../assets/textures/blocks-clipped/andesite.png';
 import bedrockTextureImg from '../../assets/textures/blocks-clipped/bedrock.png';
@@ -124,8 +122,10 @@ import redSandstoneTextureTopImg from '../../assets/textures/blocks-clipped/redS
 import snowblockTextureSideImg from '../../assets/textures/blocks-clipped/snowblockSide.png';
 import snowblockTextureTopImg from '../../assets/textures/blocks-clipped/snowblockTop.png';
 
+// 创建一个THREE加载器
 let loader = new THREE.TextureLoader();
 
+// 加载材质
 const acaciaLeavesTexture = loader.load(acaciaLeavesTextureImg);
 const andesiteTexture = loader.load(andesiteTextureImg);
 const bedrockTexture = loader.load(bedrockTextureImg);
@@ -191,6 +191,7 @@ const redSandstoneTextureTop = loader.load(redSandstoneTextureTopImg);
 const snowblockTextureSide = loader.load(snowblockTextureSideImg);
 const snowblockTextureTop = loader.load(snowblockTextureTopImg);
 
+// 指定材质不做模糊
 acaciaLeavesTexture.magFilter = THREE.NearestFilter;
 andesiteTexture.magFilter = THREE.NearestFilter;
 bedrockTexture.magFilter = THREE.NearestFilter;
@@ -255,6 +256,7 @@ redSandstoneTextureTop.magFilter = THREE.NearestFilter;
 snowblockTextureSide.magFilter = THREE.NearestFilter;
 snowblockTextureTop.magFilter = THREE.NearestFilter;
 
+// 块类型
 export const blockTypes = [
 	'acaciaLeaves',
 	'andesite',
@@ -308,6 +310,7 @@ export const blockTypes = [
 	'snowblock',
 ];
 
+// 指定块的名称, 对应的图标, 材质
 export const blockLoader = {
 	acaciaLeaves: {
 		name: 'acaciaLeaves',
@@ -630,6 +633,7 @@ export const blockLoader = {
 	},
 };
 
+// 为块生成材质
 blockTypes.forEach(
 	(d, i) =>
 		blockLoader[d].material ||
@@ -637,13 +641,16 @@ blockTypes.forEach(
 			blockLoader[d].textureImg instanceof Array ? blockLoader[d].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d })) : new THREE.MeshStandardMaterial({ map: blockLoader[d].textureImg }))
 );
 
+// 块几何体
 export const blockGeom = new THREE.BoxBufferGeometry(1, 1, 1);
+// 云几何体
 export const cloudGeom = new THREE.BoxBufferGeometry(4, 3, 6);
+// 云材质
 export const cloudMaterial = new THREE.MeshBasicMaterial({ color: 0x959595, opacity: 0.8, transparent: true });
+// 两种类型树的[树干, 树叶]
 export const treeTypes = [
 	[38, 0],
 	[39, 3],
 ];
+// 高亮块
 export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.05, 1.05, 1.05), new THREE.MeshBasicMaterial({ color: 0xffffff, opacity: 0.6, transparent: true }));
-
-export const treeType = [];

@@ -1,5 +1,3 @@
-// import * as THREE from 'three';
-// const matrix = new THREE.Matrix4();
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 import { iBlockFragment } from '../../../utils/types/block';
 
@@ -47,9 +45,7 @@ onmessage = (
 				timestamp,
 				posX: curX,
 				posZ: curZ,
-				// group: new THREE.Group(),
 				group: null,
-				// types: new Array(blockTypes.length),
 				types: new Array(blockTypes.length),
 				cloudPos: [],
 			};
