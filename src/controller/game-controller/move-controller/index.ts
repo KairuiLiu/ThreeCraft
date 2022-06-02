@@ -94,6 +94,7 @@ class MoveController {
 	// }
 
 	positionMove({ font, left, up }) {
+		if (left === 0 && font === 0 && up === 0 && !this.jumping && this.jumpingSpeed === 0) return;
 		if (config.controller.cheat) {
 			const targetPos = getTargetPosition({ ...config.state, font, left, up, core: this.core });
 			this.core.camera.position.set(targetPos.posX, targetPos.posY, targetPos.posZ);

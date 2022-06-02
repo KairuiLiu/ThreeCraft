@@ -24,6 +24,7 @@ class BlockController {
 	}
 
 	highlightCurrentBlock() {
+		return;
 		const collision = relativeCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
@@ -41,7 +42,6 @@ class BlockController {
 			// z = Math.floor(z + 0.5);
 			// this.curHighlight.position.set(x, y, z);
 			// this.core.scene.add(this.curHighlight);
-			console.log(collision);
 		} else {
 			// this.core.scene.remove(this.curHighlight);
 		}
