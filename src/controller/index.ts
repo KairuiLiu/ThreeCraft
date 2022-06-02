@@ -1,3 +1,4 @@
+import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
 import UI from '../ui';
 import Core from '../core';
 import UiController from './ui-controller';
@@ -23,6 +24,12 @@ class Controller {
 
 	hudStage: HTMLElement;
 
+	VRButtonElem: HTMLElement;
+
+	vr: boolean;
+
+	vrSupport: boolean;
+
 	constructor(el: HTMLElement) {
 		[...el.children].forEach(d => d.remove());
 		this.gameStage = document.createElement('div');
@@ -41,6 +48,15 @@ class Controller {
 
 		this.uiController = new UiController(this.ui);
 		this.gameController = new GameController(this.core);
+
+		this.vr = false;
+		this.vrSupport = false;
+		navigator.xr.isSessionSupported('immersive-vr').then(d => {
+			this.VRButtonElem = VRButton.createButton(this.core.renderer);
+			document.body.appendChild(this.VRButtonElem);
+			this.core.renderer.xr.enabled = true;
+			this.vrSupport = true;
+		});
 
 		this.ui.loadController(this);
 	}
@@ -103,7 +119,7 @@ class Controller {
 	// 渲染
 	tryRender() {
 		if (!this.running) return;
-		if (this.core.vr) this.core.renderer.setAnimationLoop(this.tryRender.bind(this));
+		if (this.vr) this.core.renderer.setAnimationLoop(this.tryRender.bind(this));
 		else requestAnimationFrame(this.tryRender.bind(this));
 		this.uiController.ui.fps.work();
 		this.gameController.update();

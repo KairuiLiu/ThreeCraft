@@ -18,8 +18,6 @@ class Core {
 
 	blockAction: BlockAction;
 
-	vr: boolean;
-
 	constructor() {
 		this.camera = new THREE.PerspectiveCamera();
 		this.scene = new THREE.Scene();
@@ -28,7 +26,6 @@ class Core {
 		this.terrain = new Terrain(this);
 		this.audio = new Audio(this);
 		this.blockAction = new BlockAction(this);
-		this.vr = false;
 
 		this.init();
 	}

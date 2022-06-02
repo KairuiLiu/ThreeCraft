@@ -78,4 +78,6 @@ export default {
 	weather: 'Scenes',
 	chromeSupport: 'Newest Chrome is recommended →',
 	chromeAddress: 'https://chrome.google.com/',
+	enterVR: 'Enter VR',
+	exitVR: 'Exit VR',
 };

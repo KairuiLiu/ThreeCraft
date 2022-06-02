@@ -78,4 +78,6 @@ export default {
 	weather: '场景',
 	chromeSupport: '推荐使用新版Chrome浏览器 →',
 	chromeAddress: 'https://www.google.cn/chrome/',
+	enterVR: '进入VR模式',
+	exitVR: '退出VR模式',
 };
