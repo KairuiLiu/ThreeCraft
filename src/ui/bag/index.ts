@@ -4,13 +4,14 @@ import BagMobilePlugin from './mobile/index';
 import BagBoxPlugin from './bagbox';
 import './css/style.less';
 import { config } from '../../controller/config';
+import BagXboxPlugin from './xbox';
 
 class Bag {
-	type: 'pc' | 'mobile' | 'vr';
+	type: 'pc' | 'mobile' | 'vr' | 'xbox';
 
 	items: (number | null)[];
 
-	plugin: BagMobilePlugin | BagPcPlugin;
+	plugin: BagMobilePlugin | BagPcPlugin | BagXboxPlugin;
 
 	bagElem: HTMLElement;
 
@@ -20,19 +21,22 @@ class Bag {
 
 	available: boolean;
 
+	gamepad: boolean;
+
 	constructor(el: HTMLElement) {
 		// 将背包挂载到el上, 清除el上其他背包
 		[...el.children].forEach((d: HTMLElement) => d.getAttribute('id') === 'bag' && d.remove());
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
 		el.appendChild(this.bagElem);
-		this.type = config.bag.type; // 背包样式
+		this.type = config.bag.type as 'pc' | 'mobile' | 'vr' | 'xbox'; // 背包样式
 		this.items = config.bag.bagItem; // 背包中元素String[]
 		this.items.push(...Array(10).fill(null));
 		this.available = false;
 		this.items.length = 10;
 		this.plugin = null; // 背包框插件, 管理元素位置与背包框事件
 		this.bagBox = new BagBoxPlugin(this.bagElem, this); // 背包选项插件
+		this.gamepad = false;
 		this.place(); // 加载
 	}
 
@@ -40,8 +44,13 @@ class Bag {
 		if (this.plugin) this.plugin.destroy();
 		if (this.type === 'pc') {
 			this.plugin = new BagPcPlugin(this.bagElem, this);
+			this.gamepad = false;
 		} else if (this.type === 'mobile') {
 			this.plugin = new BagMobilePlugin(this.bagElem, this);
+			this.gamepad = false;
+		} else if (this.type === 'xbox') {
+			this.plugin = new BagXboxPlugin(this.bagElem, this);
+			this.gamepad = true;
 		} else {
 			// VR
 		}
@@ -105,6 +114,10 @@ class Bag {
 	highlight() {
 		this.itemsElem.forEach(d => d.classList.remove('active'));
 		this.itemsElem[config.bag.activeIndex].classList.add('active');
+	}
+
+	sendGamepadAction(e) {
+		(this.plugin as BagXboxPlugin).checkAction(e);
 	}
 }
 

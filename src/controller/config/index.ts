@@ -92,6 +92,9 @@ const symConfig = {
 		cloudSeedGap: 2,
 		treeSeedGap: 10,
 	},
+	xbox: {
+		viewMoveScale: 2,
+	},
 };
 
 const defaultConfig = {

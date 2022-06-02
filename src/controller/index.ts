@@ -137,6 +137,9 @@ class Controller {
 		// 对于VR使用setAnimationLoop
 		if (this.vr) this.core.renderer.setAnimationLoop(this.tryRender.bind(this));
 		else requestAnimationFrame(this.tryRender.bind(this));
+		// 发送动作到游戏手柄
+		if (this.uiController.ui.actionControl.gamepad) this.uiController.ui.actionControl.sendGamepadAction(navigator?.getGamepads());
+		if (this.uiController.ui.bag.gamepad) this.uiController.ui.bag.sendGamepadAction(navigator?.getGamepads());
 		// FPS继续计数
 		this.uiController.ui.fps.work();
 		this.gameController.update();

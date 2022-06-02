@@ -58,6 +58,11 @@ class BagBoxPlugin {
 		this.activeBlockElem.children[config.bag.bagBox.activeIdx].classList.add('active');
 	}
 
+	highlightAllBlockSelect(idx) {
+		[...this.allBlockElem.children].forEach(d => d.classList.remove('active'));
+		this.allBlockElem.children[idx].classList.add('active');
+	}
+
 	listen() {
 		this.allBlockElem.addEventListener('click', this.allItemClickListener);
 		this.activeBlockElem.addEventListener('click', this.activeItemClickListener);

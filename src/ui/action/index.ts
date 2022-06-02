@@ -2,13 +2,18 @@ import { config } from '../../controller/config';
 import { Controller } from '../../controller';
 import ActionPluginPc from './pc';
 import ActionPluginMobile from './mobile';
+import ActionPluginXbox from './xbox';
 
 class ActonControl {
 	elem: HTMLElement;
 
-	plugin: null | ActionPluginPc | ActionPluginMobile;
+	plugin: null | ActionPluginPc | ActionPluginMobile | ActionPluginXbox;
 
 	controller: Controller;
+
+	gamepad: boolean;
+
+	working: boolean;
 
 	constructor(el: HTMLElement, controller: Controller) {
 		this.elem = document.createElement('div');
@@ -17,6 +22,7 @@ class ActonControl {
 		el.appendChild(this.elem);
 		this.controller = controller;
 		this.plugin = null;
+		this.working = false;
 		this.load();
 	}
 
@@ -25,8 +31,13 @@ class ActonControl {
 		if (this.plugin) this.plugin.destroy();
 		if (config.controller.operation === 'pc') {
 			this.plugin = new ActionPluginPc(this.elem, this.controller);
+			this.gamepad = false;
 		} else if (config.controller.operation === 'mobile') {
 			this.plugin = new ActionPluginMobile(this.elem, this.controller);
+			this.gamepad = false;
+		} else if (config.controller.operation === 'xbox') {
+			this.plugin = new ActionPluginXbox(this.elem, this.controller);
+			this.gamepad = true;
 		} else {
 			// code for vr
 		}
@@ -36,11 +47,18 @@ class ActonControl {
 	// 监听动作
 	listen() {
 		this.plugin.listen();
+		this.working = true;
 	}
 
 	// 停止监听动作
 	pause() {
 		this.plugin.pause();
+		this.working = false;
+	}
+
+	sendGamepadAction(e) {
+		if (!this.working) return;
+		(this.plugin as ActionPluginXbox).checkAction(e);
 	}
 }
 

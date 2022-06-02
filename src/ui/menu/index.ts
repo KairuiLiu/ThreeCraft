@@ -324,7 +324,8 @@ class Menu {
 			<select class="select" name="operate-select" id="operate-select">
 				<option value="pc">${language.pcMode}</option>
 				<option value="mobile">${language.mobileMode}</option>
-				<option value="vr">${language.vrMode}</option>
+				<option value="xbox">${language.xbox}</option>
+				<!--<option value="vr">${language.vrMode}</option>-->
 			</select>
 		</div>
 		<div class="box-line">
@@ -337,7 +338,8 @@ class Menu {
 			<select class="select" name="bag-type-select" id="bag-type-select">
 				<option value="pc">${language.pcMode}</option>
 				<option value="mobile">${language.mobileMode}</option>
-				<option value="vr">${language.vrMode}</option>
+				<option value="xbox">${language.xbox}</option>
+				<!--<option value="vr">${language.vrMode}</option>-->
 			</select>
 		</div>
 
@@ -585,6 +587,15 @@ class Menu {
 						<b>${language.mobileMode}</b>
 						<ul class="help-item">
 							${language.helps.slice(11, 14).reduce((pre, d) => `${pre}<li><b>${d.k}</b>:${d.v}</li>`, '')}
+						</ul>
+					</li>
+					<li>
+						<b>${language.joystick}</b>
+						<ul class="help-item">
+							<details>
+							<summary><b>${language.xboxJoystick}</b></summary>
+							<img id="xbox-img" src="${language.xboxImg}"/>
+							</details>
 						</ul>
 					</li>
 					<li>

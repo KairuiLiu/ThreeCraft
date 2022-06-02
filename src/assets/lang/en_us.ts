@@ -1,3 +1,6 @@
+import '../../utils/types/image.d.ts';
+import xboxImg from '../pictures/joy-stick/xbox-en.png';
+
 export default {
 	singlePlayerGame: 'Single Game',
 	multiPlayerGame: 'Multi Game',
@@ -80,4 +83,8 @@ export default {
 	chromeAddress: 'https://chrome.google.com/',
 	enterVR: 'Enter VR',
 	exitVR: 'Exit VR',
+	xbox: 'Xbox',
+	xboxJoystick: 'Xbox Joy Stick',
+	xboxImg,
+	joystick: 'Joy Stick',
 };

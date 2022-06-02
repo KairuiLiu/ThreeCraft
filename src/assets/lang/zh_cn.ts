@@ -1,3 +1,6 @@
+import '../../utils/types/image.d.ts';
+import xboxImg from '../pictures/joy-stick/xbox-cn.png';
+
 export default {
 	singlePlayerGame: '单人游戏',
 	multiPlayerGame: '多人游戏',
@@ -80,4 +83,8 @@ export default {
 	chromeAddress: 'https://www.google.cn/chrome/',
 	enterVR: '进入VR模式',
 	exitVR: '退出VR模式',
+	xbox: 'Xbox',
+	xboxJoystick: 'Xbox 手柄',
+	xboxImg,
+	joystick: '手柄',
 };
