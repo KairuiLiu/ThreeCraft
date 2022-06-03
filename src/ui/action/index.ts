@@ -60,6 +60,11 @@ class ActonControl {
 		if (!this.working) return;
 		(this.plugin as ActionPluginXbox).checkAction(e);
 	}
+
+	tryVibration(timeout) {
+		if (!this.gamepad || !this.working) return;
+		(this.plugin as ActionPluginXbox).tryVibration(timeout);
+	}
 }
 
 export default ActonControl;

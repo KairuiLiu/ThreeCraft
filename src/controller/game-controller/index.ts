@@ -3,6 +3,7 @@ import BlockController from './block-controller';
 import MoveController from './move-controller';
 import { config } from '../config';
 import { relativeOperateCollisionCheck } from '../../core/collision';
+import { Controller } from '..';
 
 // eslint-disable-next-line
 enum actionBlockEvent {
@@ -28,6 +29,8 @@ class GameController {
 	// 运动控制器, 直接修改Camera的状态
 	moveController: MoveController; // ! 这个对象是直接和WebGL打交道的
 
+	host: Controller;
+
 	// 下一帧需要运动的相对方向记录
 	nextTrickMoveTask: {
 		font: number;
@@ -44,10 +47,11 @@ class GameController {
 	// 下一帧有哪些块要修改
 	nextTrickBlockTask: Block[];
 
-	constructor(core: Core) {
+	constructor(core: Core, host) {
 		this.core = core;
+		this.host = host;
 		this.blockController = new BlockController(this.core);
-		this.moveController = new MoveController(this.core);
+		this.moveController = new MoveController(this.core, this);
 		this.nextTrickBlockTask = [];
 		this.nextTrickMoveTask = {
 			font: 0,

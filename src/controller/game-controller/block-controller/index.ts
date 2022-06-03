@@ -13,7 +13,6 @@ class BlockController {
 	constructor(core: Core) {
 		this.core = core;
 		this.curHighlight = highLightBlockMesh;
-		this.core.scene.add(this.curHighlight);
 	}
 
 	// 处理注册的块事件

@@ -1,9 +1,12 @@
 import Core from '../../../core';
 import { config, symConfig } from '../../config/index';
 import { getTargetPosition, relativeCollisionCheckAll } from '../../../core/collision';
+import { GameController } from '..';
 
 class MoveController {
 	core: Core;
+
+	host: GameController;
 
 	// 是否正在悬空
 	jumping: boolean;
@@ -11,10 +14,11 @@ class MoveController {
 	// 向下速度
 	jumpingSpeed: number;
 
-	constructor(core: Core) {
+	constructor(core: Core, host) {
 		this.core = core;
 		this.jumping = true;
 		this.jumpingSpeed = 0;
+		this.host = host;
 	}
 
 	// 获取没有阻碍物时人物应该下落距离
@@ -65,6 +69,9 @@ class MoveController {
 			// 如果撞上了, 那么不管是撞上面还是下面了, 速度都为0, 如果撞地, 那么停止跳跃
 			if (this.jumpingSpeed < 0) this.jumping = false;
 			this.jumpingSpeed = 0;
+		}
+		if (collisions[0] || collisions[2]) {
+			this.host.host.ui.actionControl.tryVibration(700);
 		}
 
 		this.core.camera.position.set(config.state.posX, config.state.posY, config.state.posZ);

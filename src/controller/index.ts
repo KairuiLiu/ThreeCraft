@@ -52,7 +52,7 @@ class Controller {
 
 		// 创建UI控制器与游戏控制器
 		this.uiController = new UiController(this.ui);
-		this.gameController = new GameController(this.core);
+		this.gameController = new GameController(this.core, this);
 
 		// 特殊处理VR部分
 		this.vr = false;

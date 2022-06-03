@@ -7,37 +7,54 @@ class ActionPluginXbox {
 
 	controller: Controller;
 
+	gamepad: Gamepad;
+
 	constructor(el: HTMLElement, controller: Controller) {
 		this.elem = el;
 		this.controller = controller;
+		this.gamepad = null;
 	}
 
 	checkAction(e) {
-		const gamepad = e[0];
-		if (gamepad === null) return;
-		if (gamepad.axes[0] !== 0) this.controller.gameController.handleMoveAction({ left: -gamepad.axes[0] });
-		if (gamepad.axes[1] !== 0) this.controller.gameController.handleMoveAction({ font: -gamepad.axes[1] });
-		if (gamepad.axes[2] !== 0) this.controller.gameController.handleViewAction({ horizontal: gamepad.axes[2] * symConfig.xbox.viewMoveScale, vertical: 0 });
-		if (gamepad.axes[3] !== 0) this.controller.gameController.handleViewAction({ horizontal: 0, vertical: -gamepad.axes[3] * symConfig.xbox.viewMoveScale });
-		if (gamepad.buttons[3].pressed) {
+		if (e[0] === null && this.gamepad === null) return;
+		[this.gamepad] = e;
+		if (this.gamepad.axes[0] !== 0) this.controller.gameController.handleMoveAction({ left: -this.gamepad.axes[0] });
+		if (this.gamepad.axes[1] !== 0) this.controller.gameController.handleMoveAction({ font: -this.gamepad.axes[1] });
+		if (this.gamepad.axes[2] !== 0) this.controller.gameController.handleViewAction({ horizontal: this.gamepad.axes[2] * symConfig.xbox.viewMoveScale, vertical: 0 });
+		if (this.gamepad.axes[3] !== 0) this.controller.gameController.handleViewAction({ horizontal: 0, vertical: -this.gamepad.axes[3] * symConfig.xbox.viewMoveScale });
+		if (this.gamepad.buttons[3].pressed) {
 			this.controller.gameController.handleMoveAction({ up: 1 });
 			requestAnimationFrame(() => {
 				this.controller.gameController.handleMoveAction({ up: 0 });
 			});
 		}
-		if (gamepad.buttons[0].pressed && config.controller.cheat) {
+		if (this.gamepad.buttons[0].pressed && config.controller.cheat) {
 			this.controller.gameController.handleMoveAction({ up: -1 });
 			requestAnimationFrame(() => {
 				this.controller.gameController.handleMoveAction({ up: 0 });
 			});
 		}
-		if (gamepad.buttons[6].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
-		if (gamepad.buttons[7].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
-		if (gamepad.buttons[8].pressed) this.controller.toggleCheatMode();
-		if (gamepad.buttons[9].pressed) {
+		if (this.gamepad.buttons[6].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+		if (this.gamepad.buttons[7].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+		if (this.gamepad.buttons[8].pressed) this.controller.toggleCheatMode();
+		if (this.gamepad.buttons[9].pressed) {
 			this.controller.pauseGame();
 			this.controller.uiController.ui.menu.toInnerGameMenu();
 		}
+	}
+
+	tryVibration(timeout) {
+		// ! It seems to cause a bad gaming experience, temporarily block the vibration function first
+		return;
+		if (this.gamepad === null) return;
+		this.gamepad.vibrationActuator.playEffect('dual-rumble', {
+			startDelay: 0,
+			duration: timeout,
+			weakMagnitude: 1.0,
+			strongMagnitude: 1.0,
+		});
+		setTimeout(() => this.gamepad.vibrationActuator.reset(), 1000);
+		this;
 	}
 
 	load() {
