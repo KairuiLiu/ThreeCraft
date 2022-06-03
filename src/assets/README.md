@@ -33,4 +33,6 @@
 
   - `background.png` comes from [wallpapercave](https://wallpapercave.com/w/wp9172734)
 
+  - `./joy-stick` comes from [vippng](https://www.vippng.com/png/full/124-1244749_ps4-controller-png.png) and [maban](http://console.maban.co.uk/device/xboxone/diagram-xboxone-controller.png)
+  
   - others come from `~/.minecraft/versions/1.18.2/1.18.2.jar`

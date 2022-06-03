@@ -3,11 +3,12 @@ import { Controller } from '../../controller';
 import ActionPluginPc from './pc';
 import ActionPluginMobile from './mobile';
 import ActionPluginXbox from './xbox';
+import ActionPluginPs from './ps';
 
 class ActonControl {
 	elem: HTMLElement;
 
-	plugin: null | ActionPluginPc | ActionPluginMobile | ActionPluginXbox;
+	plugin: null | ActionPluginPc | ActionPluginMobile | ActionPluginXbox | ActionPluginPs;
 
 	controller: Controller;
 
@@ -38,6 +39,9 @@ class ActonControl {
 		} else if (config.controller.operation === 'xbox') {
 			this.plugin = new ActionPluginXbox(this.elem, this.controller);
 			this.gamepad = true;
+		} else if (config.controller.operation === 'ps') {
+			this.plugin = new ActionPluginPs(this.elem, this.controller);
+			this.gamepad = true;
 		} else {
 			// code for vr
 		}
@@ -58,12 +62,12 @@ class ActonControl {
 
 	sendGamepadAction(e) {
 		if (!this.working) return;
-		(this.plugin as ActionPluginXbox).checkAction(e);
+		(this.plugin as ActionPluginXbox | ActionPluginPs).checkAction(e);
 	}
 
 	tryVibration(timeout) {
 		if (!this.gamepad || !this.working) return;
-		(this.plugin as ActionPluginXbox).tryVibration(timeout);
+		(this.plugin as ActionPluginXbox | ActionPluginPs).tryVibration(timeout);
 	}
 }
 

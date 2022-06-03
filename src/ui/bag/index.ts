@@ -5,13 +5,14 @@ import BagBoxPlugin from './bagbox';
 import './css/style.less';
 import { config } from '../../controller/config';
 import BagXboxPlugin from './xbox';
+import BagPsPlugin from './ps';
 
 class Bag {
-	type: 'pc' | 'mobile' | 'vr' | 'xbox';
+	type: 'pc' | 'mobile' | 'vr' | 'xbox' | 'ps';
 
 	items: (number | null)[];
 
-	plugin: BagMobilePlugin | BagPcPlugin | BagXboxPlugin;
+	plugin: BagMobilePlugin | BagPcPlugin | BagXboxPlugin | BagPsPlugin;
 
 	bagElem: HTMLElement;
 
@@ -29,7 +30,7 @@ class Bag {
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
 		el.appendChild(this.bagElem);
-		this.type = config.bag.type as 'pc' | 'mobile' | 'vr' | 'xbox'; // 背包样式
+		this.type = config.bag.type as 'pc' | 'mobile' | 'vr' | 'xbox' | 'ps'; // 背包样式
 		this.items = config.bag.bagItem; // 背包中元素String[]
 		this.items.push(...Array(10).fill(null));
 		this.available = false;
@@ -50,6 +51,9 @@ class Bag {
 			this.gamepad = false;
 		} else if (this.type === 'xbox') {
 			this.plugin = new BagXboxPlugin(this.bagElem, this);
+			this.gamepad = true;
+		} else if (this.type === 'ps') {
+			this.plugin = new BagPsPlugin(this.bagElem, this);
 			this.gamepad = true;
 		} else {
 			// VR
@@ -117,7 +121,7 @@ class Bag {
 	}
 
 	sendGamepadAction(e) {
-		(this.plugin as BagXboxPlugin).checkAction(e);
+		(this.plugin as BagXboxPlugin | BagPsPlugin).checkAction(e);
 	}
 }
 

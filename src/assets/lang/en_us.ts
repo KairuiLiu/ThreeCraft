@@ -1,5 +1,6 @@
 import '../../utils/types/image.d.ts';
 import xboxImg from '../pictures/joy-stick/xbox-en.png';
+import psImg from '../pictures/joy-stick/ps-en.png';
 
 export default {
 	singlePlayerGame: 'Single Game',
@@ -59,7 +60,7 @@ export default {
 		{ k: 'Turn Headset', v: 'Change Orientation' },
 		{ k: 'Using Remote', v: 'Destroy Blocks' },
 	],
-	aboutItems: ['Minecraft release based on Three.js.', 'More information, see', ':)', 'unfinished version: 202205312030.'],
+	aboutItems: ['Minecraft release based on Three.js.', 'More information, see', ':)', 'unfinished version: 202206031524.'],
 	tryRotate: 'Please rotate the screen before start',
 	tryLock: 'Mouse lock failed, please try clicking again',
 	allBlock: 'All blocks',
@@ -87,4 +88,7 @@ export default {
 	xboxJoystick: 'Xbox Joy Stick',
 	xboxImg,
 	joystick: 'Joy Stick',
+	ps45: 'PS4/5',
+	psJoystick: 'PS Joy Stick',
+	psImg,
 };

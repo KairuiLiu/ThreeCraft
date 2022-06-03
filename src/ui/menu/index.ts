@@ -325,6 +325,7 @@ class Menu {
 				<option value="pc">${language.pcMode}</option>
 				<option value="mobile">${language.mobileMode}</option>
 				<option value="xbox">${language.xbox}</option>
+				<option value="ps">${language.ps45}</option>
 				<!--<option value="vr">${language.vrMode}</option>-->
 			</select>
 		</div>
@@ -339,6 +340,7 @@ class Menu {
 				<option value="pc">${language.pcMode}</option>
 				<option value="mobile">${language.mobileMode}</option>
 				<option value="xbox">${language.xbox}</option>
+				<option value="ps">${language.ps45}</option>
 				<!--<option value="vr">${language.vrMode}</option>-->
 			</select>
 		</div>
@@ -595,6 +597,10 @@ class Menu {
 							<details>
 							<summary><b>${language.xboxJoystick}</b></summary>
 							<img id="xbox-img" src="${language.xboxImg}"/>
+							</details>
+							<details>
+							<summary><b>${language.psJoystick}</b></summary>
+							<img id="ps-img" src="${language.psImg}"/>
 							</details>
 						</ul>
 					</li>

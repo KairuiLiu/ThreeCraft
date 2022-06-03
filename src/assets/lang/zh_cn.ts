@@ -1,5 +1,6 @@
 import '../../utils/types/image.d.ts';
 import xboxImg from '../pictures/joy-stick/xbox-cn.png';
+import psImg from '../pictures/joy-stick/ps-cn.png';
 
 export default {
 	singlePlayerGame: '单人游戏',
@@ -59,7 +60,7 @@ export default {
 		{ k: '转动头显', v: '变换朝向' },
 		{ k: '使用遥控器', v: '摧毁方块' },
 	],
-	aboutItems: ['基于Three.js的Minecraft实现.', '去', '了解更多:)', '未完成版: 202205312030.'],
+	aboutItems: ['基于Three.js的Minecraft实现.', '去', '了解更多:)', '未完成版: 202206031524.'],
 	tryRotate: '请先将您的设备设为横屏再开始游戏',
 	tryLock: '鼠标锁定失败, 请尝试再次点击',
 	allBlock: '全部方块',
@@ -87,4 +88,7 @@ export default {
 	xboxJoystick: 'Xbox 手柄',
 	xboxImg,
 	joystick: '手柄',
+	ps45: 'PS4/5',
+	psJoystick: 'PS 手柄',
+	psImg,
 };

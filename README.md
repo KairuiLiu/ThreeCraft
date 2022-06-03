@@ -43,9 +43,13 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
   - **Click Item Box**: Toggle Block
   - **Click Active Item**: Open Backpack
 
-- **Xbox Joy Sitck**
+- **Xbox Joy Sitck(test on Xbox one)**
 
   <img src="./doc/img/xbox-en.png" height="200px"/>
+
+- **PS Joy Sitck(not tested)**
+
+  <img src="./doc/img/ps-en.png" height="200px"/>
 
 - **VR**
   - **Turn Headset**: Change Orientation

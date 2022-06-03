@@ -95,6 +95,9 @@ const symConfig = {
 	xbox: {
 		viewMoveScale: 2,
 	},
+	ps: {
+		viewMoveScale: 2,
+	},
 };
 
 const defaultConfig = {
