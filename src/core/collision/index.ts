@@ -118,7 +118,7 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 			posZ + 3 + Math.ceil(len),
 			posY - 3 - Math.ceil(len),
 			posY + 3 + Math.ceil(len),
-			true
+			access
 		);
 
 	const collisionResults = ray.intersectObjects(boundingBox.group.children, access);
@@ -136,22 +136,39 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 	return null;
 }
 
-// 给出位置和相对位移, 判断碰撞
-export function relativeCollisionCheck({ posX, posY, posZ, font, left, up, core }) {
-	const absoluteMove = new THREE.Vector3(-left, up, -font);
-	const revMat = new THREE.Matrix3();
-	revMat.setFromMatrix4(core.camera.matrixWorld);
-	absoluteMove.applyMatrix3(revMat);
-	return collisionCheck({
+// 判断用户点击操作是否发生碰撞
+export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up, core }) {
+	const eulerRotate = new THREE.Euler(core.camera.rotation.x, core.camera.rotation.y, 0, 'YXZ');
+	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(eulerRotate);
+	const absoluteU = getDir(absolute);
+	const len = absolute.length();
+
+	const boundingBox = generateFragSync(
+		posX - (absoluteU.x < 0 ? Math.ceil(len) : 3),
+		posX + (absoluteU.x > 0 ? Math.ceil(len) : 3),
+		posZ - (absoluteU.z < 0 ? Math.ceil(len) : 3),
+		posZ + (absoluteU.z > 0 ? Math.ceil(len) : 3),
+		posY - (absoluteU.y < 0 ? Math.ceil(len) : 3),
+		posY + (absoluteU.y > 0 ? Math.ceil(len) : 3),
+		false
+	);
+
+	const collision = collisionCheck({
 		posX,
 		posY,
 		posZ,
-		dirX: absoluteMove.x,
-		dirY: absoluteMove.y,
-		dirZ: absoluteMove.z,
-		boundingBox: null,
+		dirX: absolute.x,
+		dirY: absolute.y,
+		dirZ: absolute.z,
+		boundingBox,
 		access: false,
 	});
+	if (collision) {
+		collision.pos.posX = collision.obj.point.x - collision.obj.face.normal.x * 0.5;
+		collision.pos.posY = collision.obj.point.y - collision.obj.face.normal.y * 0.5;
+		collision.pos.posZ = collision.obj.point.z - collision.obj.face.normal.z * 0.5;
+	}
+	return collision;
 }
 
 /**

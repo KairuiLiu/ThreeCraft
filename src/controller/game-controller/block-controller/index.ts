@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { highLightBlockMesh } from '../../../core/loader/index';
 import { config } from '../../config';
 import Core from '../../../core';
-import { relativeCollisionCheck } from '../../../core/collision';
+import { relativeOperateCollisionCheck } from '../../../core/collision';
 import { Block } from '../index';
 
 class BlockController {
@@ -26,8 +26,7 @@ class BlockController {
 
 	// 高亮当前块
 	highlightCurrentBlock() {
-		return;
-		const collision = relativeCollisionCheck({
+		const collision = relativeOperateCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
 			posZ: this.core.camera.position.z,
@@ -38,14 +37,12 @@ class BlockController {
 		});
 
 		if (collision) {
-			// let { x, y, z } = collision.obj.point;
-			// x = Math.floor(x + 0.5);
-			// y = Math.floor(y - 0.5);
-			// z = Math.floor(z + 0.5);
-			// this.curHighlight.position.set(x, y, z);
-			// this.core.scene.add(this.curHighlight);
+			let { posX, posY, posZ } = collision.pos;
+			[posX, posY, posZ] = [posX, posY, posZ].map(Math.round);
+			this.curHighlight.position.set(posX, posY, posZ);
+			this.core.scene.add(this.curHighlight);
 		} else {
-			// this.core.scene.remove(this.curHighlight);
+			this.core.scene.remove(this.curHighlight);
 		}
 	}
 }

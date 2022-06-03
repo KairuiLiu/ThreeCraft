@@ -2,7 +2,7 @@ import Core from '../../core';
 import BlockController from './block-controller';
 import MoveController from './move-controller';
 import { config } from '../config';
-import { relativeCollisionCheck } from '../../core/collision';
+import { relativeOperateCollisionCheck } from '../../core/collision';
 
 // eslint-disable-next-line
 enum actionBlockEvent {
@@ -78,7 +78,7 @@ class GameController {
 	handleBlockAction(key: actionBlockEvent) {
 		// TODO FIX
 		return;
-		const collision = relativeCollisionCheck({
+		const collision = relativeOperateCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
 			posZ: this.core.camera.position.z,
