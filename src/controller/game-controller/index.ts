@@ -4,21 +4,7 @@ import MoveController from './move-controller';
 import { config } from '../config';
 import { relativeOperateCollisionCheck } from '../../core/collision';
 import { Controller } from '..';
-
-// eslint-disable-next-line
-enum actionBlockEvent {
-	ADD,
-	REMOVE,
-}
-
-// 块修改事件
-interface Block {
-	type: string | null;
-	posX: number;
-	posY: number;
-	posZ: number;
-	action: actionBlockEvent;
-}
+import { actionBlockEvent, BlockLog } from '../../utils/types/block';
 
 class GameController {
 	core: Core;
@@ -45,7 +31,7 @@ class GameController {
 	};
 
 	// 下一帧有哪些块要修改
-	nextTrickBlockTask: Block[];
+	nextTrickBlockTask: BlockLog[];
 
 	constructor(core: Core, host) {
 		this.core = core;
@@ -142,4 +128,4 @@ class GameController {
 	}
 }
 
-export { GameController, actionBlockEvent, Block };
+export { GameController, actionBlockEvent };

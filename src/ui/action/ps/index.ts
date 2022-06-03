@@ -1,6 +1,6 @@
 import { Controller } from '../../../controller';
 import { config, symConfig } from '../../../controller/config';
-import { actionBlockEvent } from '../../../controller/game-controller';
+import { actionBlockEvent } from '../../../utils/types/block';
 
 class ActionPluginPs {
 	elem: HTMLElement;

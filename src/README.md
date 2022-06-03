@@ -82,7 +82,3 @@ file structure
 └── utils                           // 工具函数
     └── collision
 ```
-
-TODO
-
-碰撞检测, 移动相对位置刷新算法,

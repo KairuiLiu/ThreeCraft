@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import Core from '..';
 
-class Block {
+class BlockAction {
 	core: Core;
 
 	constructor(core) {
@@ -37,4 +37,4 @@ class Block {
 	}
 }
 
-export default Block;
+export default BlockAction;

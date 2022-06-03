@@ -146,9 +146,7 @@ const defaultConfig = {
 };
 
 const languages = [langCN, langEN];
-
 const langIdx = /^\/en/.test(document.location.pathname) ? 1 : 0;
-
 const language = deepClone(languages[langIdx]);
 defaultConfig.controller.language = `${langIdx}`;
 config.controller.language = `${langIdx}`;

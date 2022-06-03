@@ -20,3 +20,17 @@ export interface iBlockFragment {
 	cloudMesh?: THREE.InstancedMesh;
 	types: iBlockFragmentSingleType[];
 }
+
+// eslint-disable-next-line
+export enum actionBlockEvent {
+	ADD,
+	REMOVE,
+}
+
+export interface BlockLog {
+	type: string | null;
+	posX: number;
+	posY: number;
+	posZ: number;
+	action: actionBlockEvent;
+}

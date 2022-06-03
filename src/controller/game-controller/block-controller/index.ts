@@ -3,7 +3,7 @@ import { highLightBlockMesh } from '../../../core/loader/index';
 import { config } from '../../config';
 import Core from '../../../core';
 import { relativeOperateCollisionCheck } from '../../../core/collision';
-import { Block } from '../index';
+import { BlockLog } from '../../../utils/types/block';
 
 class BlockController {
 	core: Core;
@@ -16,7 +16,7 @@ class BlockController {
 	}
 
 	// 处理注册的块事件
-	update(blocks: Block[]) {
+	update(blocks: BlockLog[]) {
 		// console.log('Controller>gameController>blockController>update', blocks);
 
 		// TODO 记录位置

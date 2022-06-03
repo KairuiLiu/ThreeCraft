@@ -1,5 +1,5 @@
 import { Controller } from '../../../controller';
-import { actionBlockEvent } from '../../../controller/game-controller';
+import { actionBlockEvent } from '../../../utils/types/block';
 import JoyStick from './joy-stick';
 import './css/style.less';
 import { config, language } from '../../../controller/config';
