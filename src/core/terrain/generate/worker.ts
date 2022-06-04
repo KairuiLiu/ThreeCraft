@@ -1,6 +1,16 @@
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 import { BlockLog, iBlockFragment } from '../../../utils/types/block';
 
+function insertInstancedBlock(fragment, typeIdx, x, y, z) {
+	fragment.types[typeIdx].blocks.position.push(x, y, z);
+	fragment.idMap.set(`${x}_${y}_${z}`, {
+		temp: false,
+		idx: fragment.types[typeIdx].blocks.count,
+		typeIdx,
+	});
+	fragment.types[typeIdx].blocks.count += 1;
+}
+
 // 对于一个区间, 生成BlockFrags
 onmessage = (
 	msg: MessageEvent<{
@@ -41,7 +51,7 @@ onmessage = (
 
 	for (let curX = stx; curX < edx; curX += fragmentSize) {
 		for (let curZ = stz; curZ < edz; curZ += fragmentSize) {
-			let hasTree = false;
+			// let hasTree = false;
 			const blockFragment: iBlockFragment = {
 				timestamp,
 				posX: curX,
@@ -63,87 +73,35 @@ onmessage = (
 				};
 			}
 
-			// surface 生成
 			for (let i = curX; i < edx; i += 1) {
 				for (let j = curZ; j < edz; j += 1) {
 					const y = Math.floor(noiseGen.noise(i / seedGap, j / seedGap, seed) * maxHeight);
 					if (y < horizonHeight) {
-						blockFragment.types[base].blocks.position.push(i, y, j);
-						blockFragment.idMap.set(`${i}_${y}_${j}`, {
-							temp: false,
-							idx: blockFragment.types[base].blocks.count,
-							typeIdx: base,
-						});
-						blockFragment.types[base].blocks.count += 1;
+						// surface 生成
+						insertInstancedBlock(blockFragment, base, i, y, j);
 						// water 生成
-						for (let yy = y + 1; yy <= horizonHeight; yy += 1) {
-							blockFragment.types[water].blocks.position.push(i, yy, j);
-							blockFragment.idMap.set(`${i}_${y}_${j}`, {
-								temp: false,
-								idx: blockFragment.types[water].blocks.count,
-								typeIdx: water,
-							});
-							blockFragment.types[water].blocks.count += 1;
-						}
+						for (let yy = y + 1; yy <= horizonHeight; yy += 1) insertInstancedBlock(blockFragment, water, i, yy, j);
 					} else {
-						blockFragment.types[surface].blocks.position.push(i, y, j);
-						blockFragment.idMap.set(`${i}_${y}_${j}`, {
-							temp: false,
-							idx: blockFragment.types[surface].blocks.count,
-							typeIdx: surface,
-						});
-						blockFragment.types[surface].blocks.count += 1;
-
-						// tree 生成
-						if (!hasTree) {
-							const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 2);
-							if (y > treeBaseHeight && treeHeight >= 7) {
-								hasTree = true;
-								for (let wl = 0; wl <= treeHeight; wl += 1) {
-									blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.position.push(i, y + 1 + wl, j);
-									blockFragment.idMap.set(`${i}_${y}_${j}`, {
-										temp: false,
-										idx: blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.count,
-										typeIdx: treeTypes[y % treeTypes.length][0],
-									});
-									blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.count += 1;
-								}
-								for (let leaveX = i - Math.floor(treeHeight / 3.5); leaveX <= i + Math.floor(treeHeight / 3.5); leaveX += 1) {
-									for (let leaveZ = j - Math.floor(treeHeight / 3.5); leaveZ <= j + Math.floor(treeHeight / 3.5); leaveZ += 1) {
-										let deltaY = Math.abs(Math.floor(Math.floor(noiseGen.noise(leaveX / treeSeedGap, leaveZ / treeSeedGap, treeSeed) * maxHeight) / 2));
-										if (deltaY < 2) deltaY = 2;
+						insertInstancedBlock(blockFragment, surface, i, y, j);
+						if (y > treeBaseHeight) {
+							const treeType = y % treeTypes.length;
+							const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 1.5);
+							if (treeHeight > 4 && treeHeight % 2 === i % 3 && treeHeight % 2 === j % 3) {
+								for (let wl = 0; wl <= treeHeight; wl += 1) insertInstancedBlock(blockFragment, treeTypes[treeType][0], i, y + 1 + wl, j);
+								const stxL = i - Math.floor(treeHeight / 3.5);
+								const edxL = i + Math.floor(treeHeight / 3.5);
+								const stzL = j - Math.floor(treeHeight / 3.5);
+								const edzL = j + Math.floor(treeHeight / 3.5);
+								for (let leaveX = stxL; leaveX <= edxL; leaveX += 1) {
+									for (let leaveZ = stzL; leaveZ <= edzL; leaveZ += 1) {
+										const deltaY = Math.max(Math.abs(Math.floor((noiseGen.noise(leaveX / treeSeedGap / 10, leaveZ / treeSeedGap / 10, treeSeed) * maxHeight) / 2)), 2);
 										const fromY = y + 1 + treeHeight - deltaY;
 										const endY = y + 1 + treeHeight + deltaY;
-										if (
-											leaveX === i - Math.floor(treeHeight / 3.5) ||
-											leaveX === i + Math.floor(treeHeight / 3.5) ||
-											leaveZ === j - Math.floor(treeHeight / 3.5) ||
-											leaveZ === j + Math.floor(treeHeight / 3.5)
-										)
-											for (let leaveY = fromY + 1; leaveY < endY; leaveY += 1) {
-												// eslint-disable-next-line
-												if (blockFragment.idMap.has(`${leaveX}_${leaveY}_${leaveZ}`)) continue;
-												blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, leaveY, leaveZ);
-												blockFragment.idMap.set(`${leaveX}_${leaveY}_${leaveZ}`, {
-													temp: false,
-													idx: blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count,
-													typeIdx: treeTypes[y % treeTypes.length][1],
-												});
-												blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 1;
-											}
-										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, fromY, leaveZ);
-										blockFragment.idMap.set(`${leaveX}_${fromY}_${leaveZ}`, {
-											temp: false,
-											idx: blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count,
-											typeIdx: treeTypes[y % treeTypes.length][1],
-										});
-										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, endY, leaveZ);
-										blockFragment.idMap.set(`${leaveX}_${endY}_${leaveZ}`, {
-											temp: false,
-											idx: blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count + 1,
-											typeIdx: treeTypes[y % treeTypes.length][1],
-										});
-										blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 2;
+										if (leaveX === stxL || leaveX === edxL || leaveZ === stzL || leaveZ === edzL)
+											for (let leaveY = fromY + 1; leaveY < endY; leaveY += 1)
+												if (!blockFragment.idMap.has(`${leaveX}_${leaveY}_${leaveZ}`)) insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, leaveY, leaveZ);
+										insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, fromY, leaveZ);
+										insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, endY, leaveZ);
 									}
 								}
 							}
@@ -169,24 +127,20 @@ onmessage = (
 				}
 				if (d.type !== null) {
 					const typeIdx = blockTypes.indexOf(d.type);
-					const posIdx = blockFragment.types[typeIdx].blocks.count;
-					blockFragment.types[typeIdx].blocks.position[posIdx * 3] = d.posX;
-					blockFragment.types[typeIdx].blocks.position[posIdx * 3 + 1] = d.posY;
-					blockFragment.types[typeIdx].blocks.position[posIdx * 3 + 2] = d.posZ;
-					blockFragment.idMap.set(`${d.posX}_${d.posY}_${d.posZ}`, {
-						temp: false,
-						idx: posIdx,
-						typeIdx,
-					});
+					insertInstancedBlock(blockFragment, typeIdx, d.posX, d.posY, d.posZ);
 				}
 			});
 
-			blockFragment.types = blockFragment.types.filter(d => d.blocks.count > 0);
-			const newTypeIdx = new Map();
-			blockFragment.types.forEach((d, i) => newTypeIdx.set(blockTypes.indexOf(d.blocks.type), i));
-			blockFragment.idMap.forEach(d => {
-				d.typeIdx = newTypeIdx.get(d.typeIdx);
+			let idx = 0;
+			blockFragment.types.forEach(d => {
+				if (d.blocks.count === 0) return;
+				d.blocks.newIdx = idx;
+				idx += 1;
 			});
+			blockFragment.idMap.forEach(d => {
+				d.typeIdx = blockFragment.types[d.typeIdx].blocks.newIdx;
+			});
+			blockFragment.types = blockFragment.types.filter(d => d.blocks.count);
 
 			frags.push(blockFragment);
 		}

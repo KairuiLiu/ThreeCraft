@@ -53,7 +53,7 @@ const symConfig = {
 		skyBackground: 0x87ceeb,
 		maxHeight: 11,
 		horizonHeight: -3,
-		treeBaseHeight: 1,
+		treeBaseHeight: 0,
 		skyHeight: 40,
 	},
 	actionsScale: {
@@ -90,7 +90,7 @@ const symConfig = {
 	noiseGap: {
 		seedGap: 35,
 		cloudSeedGap: 2,
-		treeSeedGap: 10,
+		treeSeedGap: 2,
 	},
 	xbox: {
 		viewMoveScale: 2,

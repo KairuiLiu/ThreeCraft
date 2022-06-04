@@ -8,6 +8,7 @@ export interface iBlockFragmentSingleType {
 		type: string;
 		count: number;
 		position: number[];
+		newIdx?: number;
 	};
 }
 

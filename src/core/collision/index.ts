@@ -103,7 +103,7 @@ const dirs = [
  * @returns null: 没有碰撞
  * @returns {obj: 碰撞物体, pos: 碰撞点}
  */
-export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox, access }) {
+export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox, access, log }) {
 	const originPosition = new THREE.Vector3(posX, posY, posZ);
 	const direction = new THREE.Vector3(dirX, dirY, dirZ);
 	const len = direction.length();
@@ -118,7 +118,8 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 			posZ + 3 + Math.ceil(len),
 			posY - 3 - Math.ceil(len),
 			posY + 3 + Math.ceil(len),
-			access
+			access,
+			log
 		);
 
 	const collisionResults = ray.intersectObjects(boundingBox.group.children, access);
@@ -137,7 +138,7 @@ export function collisionCheck({ posX, posY, posZ, dirX, dirY, dirZ, boundingBox
 }
 
 // 判断用户点击操作是否发生碰撞
-export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up, core }) {
+export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up, core, log, access }) {
 	const eulerRotate = new THREE.Euler(core.camera.rotation.x, core.camera.rotation.y, 0, 'YXZ');
 	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(eulerRotate);
 	const absoluteU = getDir(absolute);
@@ -150,7 +151,8 @@ export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up
 		posZ + (absoluteU.z > 0 ? Math.ceil(len) : 3),
 		posY - (absoluteU.y < 0 ? Math.ceil(len) : 3),
 		posY + (absoluteU.y > 0 ? Math.ceil(len) : 3),
-		false
+		access,
+		log
 	);
 
 	const collision = collisionCheck({
@@ -161,7 +163,8 @@ export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up
 		dirY: absolute.y,
 		dirZ: absolute.z,
 		boundingBox,
-		access: false,
+		access,
+		log,
 	});
 	if (collision) {
 		collision.pos.posX = collision.obj.point.x - collision.obj.face.normal.x * 0.5;
@@ -179,7 +182,7 @@ export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up
  * @returns null: 没有碰撞
  * @returns {obj: 碰撞物体, pos: 发生碰撞时相机位置}
  */
-export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, core }) {
+export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, core, log }) {
 	// 将相对运动方向三值化? (x/y/z = -1/0/1)
 	const dirU = getDir(new THREE.Vector3(-left, up, -font));
 	// 相机位置与需要转过的欧拉角
@@ -195,7 +198,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 	absolute.y *= scaleOY;
 	// 计算最大移动距离, 生成包围盒
 	const maxMove = Math.ceil(absolute.length());
-	const boundingBox = generateFragSync(posX - 3 - maxMove, posX + 3 + maxMove, posZ - 3 - maxMove, posZ + 3 + maxMove, posY - 5 - maxMove, posY + 5 + maxMove, true);
+	const boundingBox = generateFragSync(posX - 3 - maxMove, posX + 3 + maxMove, posZ - 3 - maxMove, posZ + 3 + maxMove, posY - 5 - maxMove, posY + 5 + maxMove, true, log);
 	// 记录在不同方向上运动时最先碰到的物体
 	let fstColX = null;
 	let fstColY = null;
@@ -215,6 +218,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			dirZ: 0,
 			boundingBox,
 			access: true,
+			log,
 		});
 		if (collisionX && (fstColX === null || collisionX.obj.distance < fstColX.obj.distance)) {
 			fstColX = collisionX;
@@ -232,6 +236,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			dirZ: 0,
 			boundingBox,
 			access: true,
+			log,
 		});
 		if (collisionY && (fstColY === null || collisionY.obj.distance < fstColY.obj.distance)) {
 			fstColY = collisionY;
@@ -249,6 +254,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			dirZ: absolute.z,
 			boundingBox,
 			access: true,
+			log,
 		});
 		if (collisionZ && (fstColZ === null || collisionZ.obj.distance < fstColZ.obj.distance)) {
 			fstColZ = collisionZ;

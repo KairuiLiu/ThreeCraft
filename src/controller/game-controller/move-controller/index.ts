@@ -57,6 +57,7 @@ class MoveController {
 			left,
 			up,
 			core: this.core,
+			log: this.host.host.log,
 		});
 
 		// 如果OX方向没有撞上, 就替换为理想位置, 注意: 如果撞上去了, 就不让他运动, 而不是让他运动到碰撞点, 否则会造成因浮点误差产生了相机进入方块的问题

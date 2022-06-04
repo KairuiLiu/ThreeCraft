@@ -75,13 +75,18 @@ class GameController {
 			left: 0,
 			up: 0,
 			core: this.core,
+			log: this.blockController.host.host.log,
+			access: false,
 		});
 		if (collision === null) return;
 
+		let { posX, posY, posZ } = collision.pos;
+		[posX, posY, posZ] = [posX, posY, posZ].map(Math.round);
+
 		const target: BlockLog = {
-			posX: Math.round(collision.obj.point.x),
-			posY: Math.round(collision.obj.point.y),
-			posZ: Math.round(collision.obj.point.z),
+			posX,
+			posY,
+			posZ,
 			type: null,
 			action: actionBlockEvent.REMOVE,
 		};

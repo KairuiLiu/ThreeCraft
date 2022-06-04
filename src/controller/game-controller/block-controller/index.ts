@@ -37,6 +37,8 @@ class BlockController {
 			left: 0,
 			up: 0,
 			core: this.core,
+			log: this.host.host.log,
+			access: false,
 		});
 
 		if (collision) {

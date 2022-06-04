@@ -1,12 +1,23 @@
 import * as THREE from 'three';
 import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
-import { blockTypes, treeTypes, blockGeom, blockLoader, cloudGeom, cloudMaterial } from '../../loader';
 import { iBlockFragment } from '../../../utils/types/block';
+import { blockTypes, treeTypes, blockGeom, blockLoader, cloudGeom, cloudMaterial } from '../../loader';
 import weatherTypes from '../../weather';
 import { symConfig, config } from '../../../controller/config';
+import Log from '../../../controller/log';
 
-// 同步生成指定位置的包围盒
-export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty: number, edy: number, access: boolean) {
+function insertInstancedBlock(fragment, typeIdx, x, y, z) {
+	fragment.types[typeIdx].blocks.position.push(x, y, z);
+	fragment.idMap.set(`${x}_${y}_${z}`, {
+		temp: false,
+		idx: fragment.types[typeIdx].blocks.count,
+		typeIdx,
+	});
+	fragment.types[typeIdx].blocks.count += 1;
+}
+
+// 同步生成指定位置的包围盒(access: 穿越不穿越可穿越的)
+export function generateFragSync(stx: number, edx: number, stz: number, edz: number, sty: number, edy: number, access: boolean, logger: Log) {
 	stx = Math.floor(stx);
 	sty = Math.floor(sty);
 	stz = Math.floor(stz);
@@ -20,8 +31,7 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 	const [water, surface, base] = weatherTypes[weather];
 	const { seedGap, cloudSeedGap, treeSeedGap } = symConfig.noiseGap;
 	const { horizonHeight, treeBaseHeight, maxHeight, skyHeight } = symConfig.stage;
-
-	let hasTree = false;
+	const log = logger.queryArea(stx, edx, sty, edy);
 
 	sty = Math.floor(sty);
 	edy = Math.ceil(edy);
@@ -52,61 +62,35 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 		for (let j = stz; j < edz; j += 1) {
 			const y = Math.floor(noiseGen.noise(i / seedGap, j / seedGap, seed) * maxHeight);
 			const adjY = Math.min(Math.max(y, sty), edy);
+			// 岩石和水
 			if (adjY < horizonHeight) {
-				// for (let yy = adjY; yy >= sty; yy -= 1) {
-				// 	blockFragment.types[base].blocks.position.push(i, yy, j);
-				// 	blockFragment.types[base].blocks.count += 1;
-				// }
-				if (y >= sty || y <= edy) {
-					blockFragment.types[base].blocks.position.push(i, y, j);
-					blockFragment.types[base].blocks.count += 1;
-				}
-
-				// water 生成
-				if (!access || !blockLoader[blockFragment.types[water].blocks.type]?.accessible) {
-					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) {
-						blockFragment.types[water].blocks.position.push(i, yy, j);
-						blockFragment.types[water].blocks.count += 1;
-					}
-				}
+				if (y >= sty || y <= edy) insertInstancedBlock(blockFragment, base, i, y, j);
+				if (!access || !blockLoader[blockFragment.types[water].blocks.type]?.accessible)
+					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) insertInstancedBlock(blockFragment, water, i, y, j);
 			} else {
-				// for (let yy = adjY; yy >= sty; yy -= 1) {
-				// 	blockFragment.types[surface].blocks.position.push(i, yy, j);
-				// 	blockFragment.types[surface].blocks.count += 1;
-				// }
-				if (y >= sty || y <= edy) {
-					blockFragment.types[surface].blocks.position.push(i, y, j);
-					blockFragment.types[surface].blocks.count += 1;
-				}
+				// 表面和树
+				if (y >= sty || y <= edy) insertInstancedBlock(blockFragment, surface, i, y, j);
 				// tree 生成
-				if (!hasTree) {
-					const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 2);
-					if (y > treeBaseHeight && treeHeight >= 7) {
-						hasTree = true;
-						for (let wl = 0; wl <= treeHeight && y + 1 + wl < edy; wl += 1) {
-							blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.position.push(i, y + 1 + wl, j);
-							blockFragment.types[treeTypes[y % treeTypes.length][0]].blocks.count += 1;
-						}
-						if (!access) {
-							for (let leaveX = i - Math.floor(treeHeight / 3.5); leaveX <= i + Math.floor(treeHeight / 3.5); leaveX += 1) {
-								for (let leaveZ = j - Math.floor(treeHeight / 3.5); leaveZ <= j + Math.floor(treeHeight / 3.5); leaveZ += 1) {
-									let deltaY = Math.abs(Math.floor(Math.floor(noiseGen.noise(leaveX / treeSeedGap, leaveZ / treeSeedGap, treeSeed) * maxHeight) / 2));
-									if (deltaY < 2) deltaY = 2;
+				if (y > treeBaseHeight) {
+					const treeType = y % treeTypes.length;
+					const treeHeight = Math.floor(noiseGen.noise(i / treeSeedGap, j / treeSeedGap, treeSeed) * maxHeight * 1.5);
+					if (treeHeight > 4 && treeHeight % 2 === i % 3 && treeHeight % 2 === j % 3) {
+						for (let wl = 0; wl <= treeHeight; wl += 1) if (sty <= y + 1 + wl && y + 1 + wl <= edy) insertInstancedBlock(blockFragment, treeTypes[treeType][0], i, y + 1 + wl, j);
+						if (!access || !blockLoader[blockFragment.types[treeTypes[treeType][1]].blocks.type]?.accessible) {
+							const stxL = i - Math.floor(treeHeight / 3.5);
+							const edxL = i + Math.floor(treeHeight / 3.5);
+							const stzL = j - Math.floor(treeHeight / 3.5);
+							const edzL = j + Math.floor(treeHeight / 3.5);
+							for (let leaveX = stxL; leaveX <= edxL; leaveX += 1) {
+								for (let leaveZ = stzL; leaveZ <= edzL; leaveZ += 1) {
+									const deltaY = Math.max(Math.abs(Math.floor((noiseGen.noise(leaveX / treeSeedGap / 10, leaveZ / treeSeedGap / 10, treeSeed) * maxHeight) / 2)), 2);
 									const fromY = y + 1 + treeHeight - deltaY;
 									const endY = y + 1 + treeHeight + deltaY;
-									if (
-										leaveX === i - Math.floor(treeHeight / 3.5) ||
-										leaveX === i + Math.floor(treeHeight / 3.5) ||
-										leaveZ === j - Math.floor(treeHeight / 3.5) ||
-										leaveZ === j + Math.floor(treeHeight / 3.5)
-									)
-										for (let leaveY = fromY + 1; leaveY < endY; leaveY += 1) {
-											blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, leaveY, leaveZ);
-											blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 1;
-										}
-									blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, fromY, leaveZ);
-									blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.position.push(leaveX, endY, leaveZ);
-									blockFragment.types[treeTypes[y % treeTypes.length][1]].blocks.count += 2;
+									if (leaveX === stxL || leaveX === edxL || leaveZ === stzL || leaveZ === edzL)
+										for (let leaveY = Math.max(fromY + 1, sty); leaveY < Math.min(edy, endY); leaveY += 1)
+											if (!blockFragment.idMap.has(`${leaveX}_${leaveY}_${leaveZ}`)) insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, leaveY, leaveZ);
+									insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, fromY, leaveZ);
+									insertInstancedBlock(blockFragment, treeTypes[treeType][1], leaveX, endY, leaveZ);
 								}
 							}
 						}
@@ -121,7 +105,32 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 			}
 		}
 	}
-	// TODO Log 生成
+
+	log.forEach(d => {
+		if (d.type === null || blockFragment.idMap.has(`${d.posX}_${d.posY}_${d.posZ}`)) {
+			if (!blockFragment.idMap.has(`${d.posX}_${d.posY}_${d.posZ}`)) return;
+			const block = blockFragment.idMap.get(`${d.posX}_${d.posY}_${d.posZ}`);
+			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3] = 0;
+			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 1] = -10000;
+			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 2] = 0;
+			blockFragment.idMap.delete(`${d.posX}_${d.posY}_${d.posZ}`);
+		}
+		if (d.type !== null) {
+			const typeIdx = blockTypes.indexOf(d.type);
+			insertInstancedBlock(blockFragment, typeIdx, d.posX, d.posY, d.posZ);
+		}
+	});
+
+	let idx = 0;
+	blockFragment.types.forEach(d => {
+		if (d.blocks.count === 0) return;
+		d.blocks.newIdx = idx;
+		idx += 1;
+	});
+	blockFragment.idMap.forEach(d => {
+		d.typeIdx = blockFragment.types[d.typeIdx].blocks.newIdx;
+	});
+	blockFragment.types = blockFragment.types.filter(d => d.blocks.count);
 
 	const matrix = new THREE.Matrix4();
 
@@ -144,8 +153,6 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 		blockFragment.cloudMesh.instanceMatrix.needsUpdate = true;
 		blockFragment.group.add(blockFragment.cloudMesh);
 	}
-
-	blockFragment.types = blockFragment.types.filter(d => d.blocks.count > 0);
 
 	return blockFragment;
 }
