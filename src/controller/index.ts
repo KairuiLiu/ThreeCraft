@@ -50,7 +50,7 @@ class Controller {
 
 		// 创建UI与游戏核心
 		this.ui = new UI();
-		this.core = new Core();
+		this.core = new Core(this);
 		this.running = false;
 
 		// 创建UI控制器与游戏控制器

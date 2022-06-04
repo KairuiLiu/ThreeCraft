@@ -1,3 +1,4 @@
+import { blockTypes } from '../../core/loader/index';
 import Core from '../../core';
 import BlockController from './block-controller';
 import MoveController from './move-controller';
@@ -36,7 +37,7 @@ class GameController {
 	constructor(core: Core, host) {
 		this.core = core;
 		this.host = host;
-		this.blockController = new BlockController(this.core);
+		this.blockController = new BlockController(this.core, this);
 		this.moveController = new MoveController(this.core, this);
 		this.nextTrickBlockTask = [];
 		this.nextTrickMoveTask = {
@@ -66,8 +67,6 @@ class GameController {
 
 	// 请求块操作
 	handleBlockAction(key: actionBlockEvent) {
-		// TODO FIX
-		return;
 		const collision = relativeOperateCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,
@@ -79,42 +78,22 @@ class GameController {
 		});
 		if (collision === null) return;
 
-		// TODO IMPROVE get target block
-		// if (key === actionBlockEvent.ADD) {
-		// 	target.targetBlock.x += target.targetSideNorm.x;
-		// 	target.targetBlock.y += target.targetSideNorm.y;
-		// 	target.targetBlock.z += target.targetSideNorm.z;
-		// 	if (
-		// 		hasBlockCheck({
-		// 			posX: target.targetBlock.x,
-		// 			posY: target.targetBlock.y,
-		// 			posZ: target.targetBlock.z,
-		// 		})
-		// 	)
-		// 		return false;
-		// 	this.nextTrickBlockTask.push({
-		// 		type: config.bag.bagItem[config.bag.activeIndex],
-		// 		action: actionBlockEvent.ADD,
-		// 		posX: target.targetBlock.x,
-		// 		posY: target.targetBlock.y,
-		// 		posZ: target.targetBlock.z,
-		// 	});
-		// } else {
-		// 	// TODO 增加特判(打洞)
-		// 	this.nextTrickBlockTask.push({
-		// 		type: null,
-		// 		action: actionBlockEvent.REMOVE,
-		// 		posX: target.targetBlock.x,
-		// 		posY: target.targetBlock.y,
-		// 		posZ: target.targetBlock.z,
-		// 	});
-		// }
-
+		const target: BlockLog = {
+			posX: Math.round(collision.obj.point.x),
+			posY: Math.round(collision.obj.point.y),
+			posZ: Math.round(collision.obj.point.z),
+			type: null,
+			action: actionBlockEvent.REMOVE,
+		};
 		if (key === actionBlockEvent.ADD) {
-			this.core.blockAction.addBlock(collision.obj.object.position.add(collision.obj.face.normal.multiplyScalar(10)));
-		} else {
-			this.core.blockAction.removeBlock(collision.obj);
+			target.posX += collision.obj.face.normal.x;
+			target.posY += collision.obj.face.normal.y;
+			target.posZ += collision.obj.face.normal.z;
+			target.type = blockTypes[config.bag.activeIndex];
+			target.action = actionBlockEvent.ADD;
 		}
+		this.host.log.insert(target);
+		this.nextTrickBlockTask.push(target);
 	}
 
 	// 当下一帧渲染时执行请求, 并重设状态
@@ -123,8 +102,8 @@ class GameController {
 		this.moveController.positionMove(this.nextTrickMoveTask);
 		this.nextTrickViewTask = { viewHorizontal: 0, viewVertical: 0 };
 		this.blockController.update(this.nextTrickBlockTask);
-		this.nextTrickBlockTask.length = 0;
 		this.blockController.highlightCurrentBlock();
+		this.nextTrickBlockTask.length = 0;
 	}
 }
 

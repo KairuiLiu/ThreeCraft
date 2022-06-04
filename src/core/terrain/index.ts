@@ -60,6 +60,8 @@ class Terrain {
 					posZ: null,
 					group: null,
 					types: [],
+					templateMesh: [],
+					idMap: new Map(),
 				};
 			}
 		}
@@ -169,6 +171,7 @@ class Terrain {
 			let blkZ = d.posZ + (fragmentSize * fragmentSize) / 2;
 			while (blkZ < 0) blkZ += fragmentSize * fragmentSize;
 			blkZ = (blkZ / fragmentSize) % fragmentSize;
+
 			const oldFrag = this.blockFragments[blkZ][blkX];
 			// 忽略生成太晚的线程
 			if (d.timestamp < oldFrag.timestamp) return;
@@ -178,6 +181,10 @@ class Terrain {
 					dd.instancedMesh.dispose();
 				});
 				oldFrag.cloudMesh && oldFrag.cloudMesh.dispose();
+				oldFrag.templateMesh.forEach(dd => {
+					oldFrag.group.remove(dd);
+					dd.remove();
+				});
 				this.core.scene.remove(oldFrag.group);
 			}
 			this.blockFragments[blkZ][blkX] = d;
@@ -192,6 +199,7 @@ class Terrain {
 				dd.instancedMesh.instanceMatrix.needsUpdate = true;
 				d.group.add(dd.instancedMesh);
 			});
+
 			d.cloudMesh = new THREE.InstancedMesh(cloudGeom, cloudMaterial, d.cloudPos.length / 3);
 			for (let i = 0; i < d.cloudPos.length / 3; i += 1) {
 				matrix.setPosition(d.cloudPos[i * 3], d.cloudPos[i * 3 + 1], d.cloudPos[i * 3 + 2]);
@@ -199,6 +207,7 @@ class Terrain {
 			}
 			d.cloudMesh.instanceMatrix.needsUpdate = true;
 			d.group.add(d.cloudMesh);
+
 			this.core.scene.add(d.group);
 		});
 	}

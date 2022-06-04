@@ -4,23 +4,27 @@ import { config } from '../../config';
 import Core from '../../../core';
 import { relativeOperateCollisionCheck } from '../../../core/collision';
 import { BlockLog } from '../../../utils/types/block';
+import { GameController } from '..';
 
 class BlockController {
 	core: Core;
 
 	curHighlight: THREE.Mesh | null;
 
-	constructor(core: Core) {
+	host: GameController;
+
+	constructor(core: Core, host) {
 		this.core = core;
+		this.host = host;
 		this.curHighlight = highLightBlockMesh;
 	}
 
 	// 处理注册的块事件
 	update(blocks: BlockLog[]) {
-		// console.log('Controller>gameController>blockController>update', blocks);
-
-		// TODO 记录位置
-		this;
+		blocks.forEach(d => {
+			if (d.type === null) this.core.blockAction.removeBlock(d);
+			else this.core.blockAction.placeBlock(d);
+		});
 	}
 
 	// 高亮当前块

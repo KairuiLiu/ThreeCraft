@@ -13,12 +13,14 @@ export interface iBlockFragmentSingleType {
 
 export interface iBlockFragment {
 	timestamp: number;
-	group: THREE.Group;
 	posX: number;
 	posZ: number;
+	group: THREE.Group;
+	templateMesh: THREE.Mesh[];
+	types: iBlockFragmentSingleType[];
+	idMap: Map<string, { temp: boolean; idx: number; typeIdx?: number }>;
 	cloudPos?: number[];
 	cloudMesh?: THREE.InstancedMesh;
-	types: iBlockFragmentSingleType[];
 }
 
 // eslint-disable-next-line
@@ -32,5 +34,5 @@ export interface BlockLog {
 	posX: number;
 	posY: number;
 	posZ: number;
-	action: actionBlockEvent;
+	action?: actionBlockEvent;
 }

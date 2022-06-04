@@ -33,6 +33,8 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 		group: new THREE.Group(),
 		types: new Array(blockTypes.length),
 		cloudPos: [],
+		idMap: new Map(),
+		templateMesh: [],
 	};
 
 	for (let i = 0; i < blockFragment.types.length; i += 1) {

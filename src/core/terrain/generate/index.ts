@@ -53,10 +53,12 @@ class Generate {
 		if (fragCountZ === 1) {
 			let curFragX = 0;
 			for (let i = 0; i < thread; i += 1) {
+				const stx2 = stx + curFragX * fragmentSize;
+				const edx2 = i === thread - 1 ? edx : stx + Math.floor(((i + 1) / thread) * fragCountX) * fragmentSize;
 				this.treaders[i].postMessage({
 					timestamp,
-					stx: stx + curFragX * fragmentSize,
-					edx: i === thread - 1 ? edx : stx + Math.floor(((i + 1) / thread) * fragCountX) * fragmentSize,
+					stx: stx2,
+					edx: edx2,
 					stz,
 					edz,
 					fragmentSize,
@@ -70,16 +72,20 @@ class Generate {
 					maxHeight: symConfig.stage.maxHeight,
 					skyHeight: symConfig.stage.skyHeight,
 					treeTypes,
+					log: this.terrain.core.controller.log.queryArea(stx2, edx2, stz, edz),
 				});
 				curFragX = Math.floor(((i + 1) / thread) * fragCountX);
 			}
 		} else {
 			let curFragZ = 0;
 			for (let i = 0; i < thread; i += 1) {
+				const stz2 = stz + curFragZ * fragmentSize;
+				const edz2 = i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCountZ) * fragmentSize;
+
 				this.treaders[i].postMessage({
 					timestamp,
-					stz: stz + curFragZ * fragmentSize,
-					edz: i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCountZ) * fragmentSize,
+					stz: stz2,
+					edz: edz2,
 					stx,
 					edx,
 					fragmentSize,
@@ -93,6 +99,7 @@ class Generate {
 					maxHeight: symConfig.stage.maxHeight,
 					skyHeight: symConfig.stage.skyHeight,
 					treeTypes,
+					log: this.terrain.core.controller.log.queryArea(stx, edx, stz2, edz2),
 				});
 				curFragZ = Math.floor(((i + 1) / thread) * fragCountZ);
 			}
@@ -107,12 +114,15 @@ class Generate {
 		let curFrag = 0;
 		const timestamp = performance.now();
 		for (let i = 0; i < thread; i += 1) {
+			const stz2 = stz + curFrag * fragmentSize;
+			const edz2 = i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCount) * fragmentSize;
+
 			this.treaders[i].postMessage({
 				timestamp,
 				stx,
 				edx,
-				stz: stz + curFrag * fragmentSize,
-				edz: i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCount) * fragmentSize,
+				stz: stz2,
+				edz: edz2,
 				fragmentSize,
 				noiseSeed: this.noiseSeed,
 				noiseGap: symConfig.noiseGap,
@@ -124,6 +134,7 @@ class Generate {
 				maxHeight: symConfig.stage.maxHeight,
 				skyHeight: symConfig.stage.skyHeight,
 				treeTypes,
+				log: this.terrain.core.controller.log.queryArea(stx, edx, stz2, edz2),
 			});
 			curFrag = Math.floor(((i + 1) / thread) * fragCount);
 		}
