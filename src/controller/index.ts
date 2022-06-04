@@ -6,6 +6,7 @@ import { GameController } from './game-controller';
 import { config, defaultConfig, language } from './config';
 import { deepCopy } from '../utils/deep-copy';
 import weatherConfig from '../core/weather';
+import Log from './log';
 
 class Controller {
 	ui: UI;
@@ -30,6 +31,8 @@ class Controller {
 
 	vrSupport: boolean;
 
+	log: Log;
+
 	constructor(el: HTMLElement) {
 		// 挂载游戏层和控制器层, 默认看不到
 		[...el.children].forEach(d => d.remove());
@@ -53,6 +56,7 @@ class Controller {
 		// 创建UI控制器与游戏控制器
 		this.uiController = new UiController(this.ui);
 		this.gameController = new GameController(this.core, this);
+		this.log = new Log([]);
 
 		// 特殊处理VR部分
 		this.vr = false;

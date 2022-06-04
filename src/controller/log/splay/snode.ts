@@ -1,22 +1,26 @@
 class SNode<K, V> {
-	key: K;
+	key: K | null;
 
-	value: V;
-
-	// eslint-disable-next-line
-	left: SNode<K, V>;
+	value: V | null;
 
 	// eslint-disable-next-line
-	right: SNode<K, V>;
+	left: SNode<K, V> | null;
 
 	// eslint-disable-next-line
-	parent: SNode<K, V>;
+	right: SNode<K, V> | null;
+
+	// eslint-disable-next-line
+	parent: SNode<K, V> | null;
 
 	empty: boolean;
 
-	constructor(parent = null, k = null, v = null) {
+	constructor(parent: SNode<K, V> | null, k = null, v = null) {
 		this.empty = true;
-		if (parent !== null) this.parent = parent;
+		this.left = null;
+		this.right = null;
+		this.value = null;
+		this.key = null;
+		this.parent = parent;
 		if (k !== null) {
 			this.empty = false;
 			this.key = k;
@@ -26,7 +30,7 @@ class SNode<K, V> {
 		}
 	}
 
-	setValue(k, v) {
+	setValue(k: K, v: V) {
 		if (this.empty) {
 			this.empty = false;
 			this.key = k;

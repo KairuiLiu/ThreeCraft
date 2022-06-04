@@ -21,5 +21,6 @@ module.exports = {
 		'no-param-reassign': 'off',
 		'prettier/prettier': 'error',
 		'import/prefer-default-export': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off',
 	},
 };

@@ -1,5 +1,5 @@
 import { BlockLog } from '../../utils/types/block';
-import Splay from './Splay';
+import Splay from './splay';
 
 class Log {
 	data: Splay<number, Splay<number, Map<number, BlockLog>>>;
@@ -15,40 +15,58 @@ class Log {
 
 	insert(blocklog: BlockLog) {
 		const { posX, posY, posZ } = blocklog;
-		const treeY = this.data.queryAndInit(posX, new Splay()).value;
-		const mapZ = treeY.queryAndInit(posY, new Map()).value;
+		const treeY = this.data.queryAndInit(posX, new Splay()).value!;
+		const mapZ = treeY.queryAndInit(posY, new Map()).value!;
 		mapZ.set(posZ, blocklog);
 	}
 
 	query(x = null, y = null, z = null) {
 		if (x === null) return this;
-		const treeY = this.data.query(x).value;
-		if (y === null) return treeY;
-		const mapZ = treeY.query(y).value;
-		if (z === null) return mapZ;
+		const treeY = this.data.query(x)?.value;
+		if (y === null || !treeY) return treeY;
+		const mapZ = treeY.query(y)?.value;
+		if (z === null || !mapZ) return mapZ;
 		return mapZ.get(z);
 	}
 
-	next(x, y = null) {
+	next(x: number, y = null) {
 		if (y === null) return this.data.next(x);
 		const treeY = this.data.query(x);
-		return treeY.value.next(y);
+		return treeY?.value?.next(y);
 	}
 
-	prev(x = null, y = null) {
-		if (x === null) return this;
+	prev(x: number, y = null) {
 		if (y === null) return this.data.prev(x);
 		const treeY = this.data.query(x);
-		return treeY.value.prev(y);
+		return treeY?.value?.prev(y);
 	}
 
-	queryArea(stx, edx, sty, edy) {
-		console.log(stx, edx, sty, edy);
-		this;
+	queryArea(stx: number, edx: number, sty: number, edy: number) {
+		const res = [] as BlockLog[];
+		let treeY = this.data.lowerBound(stx);
+		while (treeY && treeY.key! <= edx) {
+			let mapZ = treeY.value!.lowerBound(sty);
+			while (mapZ && mapZ.key! <= edy) {
+				res.push(...[...mapZ.value!].map(d => d[1]));
+				mapZ = treeY.value!.nodeNext(mapZ);
+			}
+			treeY = this.data.nodeNext(treeY);
+		}
+		return res;
 	}
 
 	export() {
-		this;
+		const res = [] as BlockLog[];
+		let treeY = this.data.begin();
+		while (treeY) {
+			let mapZ = treeY.value!.begin();
+			while (mapZ) {
+				res.push(...[...mapZ.value!].map(d => d[1]));
+				mapZ = treeY.value!.nodeNext(mapZ)!;
+			}
+			treeY = this.data.nodeNext(treeY)!;
+		}
+		return res;
 	}
 }
 
