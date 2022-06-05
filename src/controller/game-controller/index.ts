@@ -6,6 +6,7 @@ import { config } from '../config';
 import { relativeOperateCollisionCheck } from '../../core/collision';
 import { Controller } from '..';
 import { actionBlockEvent, BlockLog } from '../../utils/types/block';
+import weatherType from '../../core/weather';
 
 class GameController {
 	core: Core;
@@ -96,7 +97,7 @@ class GameController {
 			target.posZ += collision.obj.face.normal.z;
 			target.type = blockTypes[config.bag.bagItem[config.bag.activeIndex]];
 			target.action = actionBlockEvent.ADD;
-		}
+		} else this.checkRemoveFloor(target);
 		this.host.log.insert(target);
 		this.nextTrickBlockTask.push(target);
 	}
@@ -109,6 +110,29 @@ class GameController {
 		this.blockController.update(this.nextTrickBlockTask);
 		this.blockController.highlightCurrentBlock();
 		this.nextTrickBlockTask.length = 0;
+	}
+
+	checkRemoveFloor(target) {
+		const floorHeight = this.core.terrain.getFloorHeight(target.posX, target.posZ);
+		if (floorHeight >= target.posY) {
+			this.testAndInsert({ ...target, posY: target.posY - 1 });
+		}
+		if (floorHeight > target.posY) {
+			this.testAndInsert({ ...target, posZ: target.posZ + 1 });
+			this.testAndInsert({ ...target, posZ: target.posZ - 1 });
+			this.testAndInsert({ ...target, posX: target.posX + 1 });
+			this.testAndInsert({ ...target, posX: target.posX - 1 });
+		}
+		if (floorHeight > target.posY + 1) {
+			this.testAndInsert({ ...target, posY: target.posY + 1 });
+		}
+	}
+
+	testAndInsert(target) {
+		// 是被用户手动挖开的/有块 / 那么什么都不做, 否则加块
+		if (this.host.log.query(target.posX, target.posZ, target.posY) || this.core.terrain.hasBlock(target.posX, target.posZ, target.posY)) return;
+		this.host.log.insert({ ...target, type: blockTypes[weatherType[config.weather][2]] });
+		this.nextTrickBlockTask.push({ ...target, type: blockTypes[weatherType[config.weather][2]] });
 	}
 }
 

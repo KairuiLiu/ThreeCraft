@@ -1,8 +1,9 @@
 import * as THREE from 'three';
+import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 import { iBlockFragment } from '../../utils/types/block';
 import Core from '..';
 import Generate from './generate';
-import { config } from '../../controller/config';
+import { config, symConfig } from '../../controller/config';
 import { blockLoader, blockGeom, cloudGeom, cloudMaterial } from '../loader';
 
 class Terrain {
@@ -219,6 +220,30 @@ class Terrain {
 		while (this.core.scene.children.length) {
 			this.core.scene.remove(this.core.scene.children[0]);
 		}
+	}
+
+	getFloorHeight(x, z) {
+		const noiseGen = new ImprovedNoise();
+		const { maxHeight } = symConfig.stage;
+		const { seed } = config;
+		const { seedGap } = symConfig.noiseGap;
+		return Math.floor(noiseGen.noise(x / seedGap, z / seedGap, seed) * maxHeight);
+		this;
+	}
+
+	hasBlock(x, z, y) {
+		const idx = this.getFragIdx(x, z);
+		return this.blockFragments[idx.z][idx.x].idMap.get(`${z}_${y}_${z}`);
+	}
+
+	getFragIdx(x, z) {
+		let blkX = x + (this.fragmentSize * this.fragmentSize) / 2;
+		while (blkX < 0) blkX += this.fragmentSize * this.fragmentSize;
+		blkX = Math.floor(blkX / this.fragmentSize) % this.fragmentSize;
+		let blkZ = z + (this.fragmentSize * this.fragmentSize) / 2;
+		while (blkZ < 0) blkZ += this.fragmentSize * this.fragmentSize;
+		blkZ = Math.floor(blkZ / this.fragmentSize) % this.fragmentSize;
+		return { x: blkX, z: blkZ };
 	}
 }
 
