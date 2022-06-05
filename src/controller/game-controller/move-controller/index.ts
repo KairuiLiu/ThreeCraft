@@ -61,10 +61,11 @@ class MoveController {
 		if (collisions[0] === null) config.state.posX = targetPos.posX;
 		// 如果OZ方向没有撞上, 就替换为理想位置
 		if (collisions[2] === null) config.state.posZ = targetPos.posZ;
-		// 如果OZ方向没有撞上, 就替换为理想位置
+		// 如果OY方向没有撞上, 就替换为理想位置
 		if (collisions[1] === null) config.state.posY = targetPos.posY;
 		else {
 			// 如果撞上了, 那么不管是撞上面还是下面了, 速度都为0, 如果撞地, 那么停止跳跃
+			if (this.jumpingSpeed < 0 && this.jumping === false && (left !== 0 || font !== 0)) this.core.audio.play('step', collisions[1].obj.object.name.split('_')[2], false);
 			if (this.jumpingSpeed < 0) this.jumping = false;
 			this.jumpingSpeed = 0;
 		}

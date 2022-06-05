@@ -97,7 +97,11 @@ class GameController {
 			target.posZ += collision.obj.face.normal.z;
 			target.type = blockTypes[config.bag.bagItem[config.bag.activeIndex]];
 			target.action = actionBlockEvent.ADD;
-		} else this.checkRemoveFloor(target);
+			this.core.audio.play('break', blockTypes[config.bag.bagItem[config.bag.activeIndex]]);
+		} else {
+			this.checkRemoveFloor(target);
+			this.core.audio.play('break', collision.obj.object.name.split('_')[2]);
+		}
 		this.host.log.insert(target);
 		this.nextTrickBlockTask.push(target);
 	}

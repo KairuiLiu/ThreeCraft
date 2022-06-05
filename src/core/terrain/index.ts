@@ -193,7 +193,7 @@ class Terrain {
 			d.group = new THREE.Group();
 			d.types.forEach(dd => {
 				dd.instancedMesh = new THREE.InstancedMesh(blockGeom, blockLoader[dd.blocks.type].material, dd.blocks.count);
-				dd.instancedMesh.name = `${blkZ}_${blkX}`;
+				dd.instancedMesh.name = `${blkZ}_${blkX}_${dd.blocks.type}`;
 				for (let i = 0; i < dd.blocks.count; i += 1) {
 					// if (dd.blocks.position[3 * i + 1] < 99999) continue;
 					matrix.setPosition(dd.blocks.position[3 * i], dd.blocks.position[3 * i + 1], dd.blocks.position[3 * i + 2]);

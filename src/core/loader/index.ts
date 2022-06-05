@@ -2,6 +2,7 @@
 
 // 引入image说明文件
 import '../../utils/types/image.d.ts';
+import '../../utils/types/sound.d.ts';
 import * as THREE from 'three';
 
 // 引入块的图标, 必须手动引入, 防止Vite忽略依赖
@@ -256,6 +257,31 @@ redSandstoneTextureTop.magFilter = THREE.NearestFilter;
 snowblockTextureSide.magFilter = THREE.NearestFilter;
 snowblockTextureTop.magFilter = THREE.NearestFilter;
 
+import brickBreak from '../../assets/sounds/break/brick.ogg';
+import grassBreak from '../../assets/sounds/break/grass.ogg';
+import gravelBreak from '../../assets/sounds/break/gravel.ogg';
+import leavesBreak from '../../assets/sounds/break/leaves.ogg';
+import netherBreak from '../../assets/sounds/break/nether.ogg';
+import netherrackBreak from '../../assets/sounds/break/netherrack.ogg';
+import pumpkinBreak from '../../assets/sounds/break/pumpkin.ogg';
+import sandBreak from '../../assets/sounds/break/sand.ogg';
+import snowBreak from '../../assets/sounds/break/snow.ogg';
+import soulsandBreak from '../../assets/sounds/break/soulsand.ogg';
+import waterBreak from '../../assets/sounds/break/water.ogg';
+import woodBreak from '../../assets/sounds/break/wood.ogg';
+
+import brickStep from '../../assets/sounds/step/brick.ogg';
+import grassStep from '../../assets/sounds/step/grass.ogg';
+import gravelStep from '../../assets/sounds/step/gravel.ogg';
+import leavesStep from '../../assets/sounds/step/leaves.ogg';
+import netherStep from '../../assets/sounds/step/nether.ogg';
+import netherrackStep from '../../assets/sounds/step/netherrack.ogg';
+import sandStep from '../../assets/sounds/step/sand.ogg';
+import snowStep from '../../assets/sounds/step/snow.ogg';
+import soulsandStep from '../../assets/sounds/step/soulsand.ogg';
+import stoneStep from '../../assets/sounds/step/stone.ogg';
+import woodStep from '../../assets/sounds/step/wood.ogg';
+
 // 块类型
 export const blockTypes = [
 	'acaciaLeaves',
@@ -323,6 +349,8 @@ export const blockLoader = {
 			transparent: true,
 		}),
 		accessible: true,
+		step: leavesStep,
+		break: leavesBreak,
 	},
 	andesite: {
 		name: 'andesite',
@@ -347,12 +375,16 @@ export const blockLoader = {
 			transparent: true,
 		}),
 		accessible: true,
+		step: leavesStep,
+		break: leavesBreak,
 	},
 	brickBlock: {
 		name: 'brickBlock',
 		block3d: brickBlock3d,
 		textureTypes: ['background'],
 		textureImg: brickBlockTexture,
+		step: brickStep,
+		break: brickBreak,
 	},
 	clayBlock: {
 		name: 'clayBlock',
@@ -435,6 +467,8 @@ export const blockLoader = {
 		block3d: gravel3d,
 		textureTypes: ['background'],
 		textureImg: gravelTexture,
+		step: gravelStep,
+		break: gravelBreak,
 	},
 	ice: {
 		name: 'ice',
@@ -472,18 +506,24 @@ export const blockLoader = {
 		block3d: netherBrickBlock3d,
 		textureTypes: ['background'],
 		textureImg: netherBrickBlockTexture,
+		step: netherStep,
+		break: netherBreak,
 	},
 	netherQuartzOre: {
 		name: 'netherQuartzOre',
 		block3d: netherQuartzOre3d,
 		textureTypes: ['background'],
 		textureImg: netherQuartzOreTexture,
+		step: netherStep,
+		break: netherBreak,
 	},
 	netherrack: {
 		name: 'netherrack',
 		block3d: netherrack3d,
 		textureTypes: ['background'],
 		textureImg: netherrackTexture,
+		step: netherrackStep,
+		break: netherrackBreak,
 	},
 	noteBlock: {
 		name: 'noteBlock',
@@ -514,6 +554,8 @@ export const blockLoader = {
 		block3d: redSand3d,
 		textureTypes: ['background'],
 		textureImg: redSandTexture,
+		step: sandStep,
+		break: sandBreak,
 	},
 	blockRedstone: {
 		name: 'blockRedstone',
@@ -532,12 +574,16 @@ export const blockLoader = {
 		block3d: sand3d,
 		textureTypes: ['background'],
 		textureImg: sandTexture,
+		step: sandStep,
+		break: sandBreak,
 	},
 	soulsand: {
 		name: 'soulsand',
 		block3d: soulsand3d,
 		textureTypes: ['background'],
 		textureImg: soulsandTexture,
+		step: soulsandStep,
+		break: soulsandBreak,
 	},
 	stone: {
 		name: 'stone',
@@ -558,18 +604,23 @@ export const blockLoader = {
 		textureImg: waterTexture,
 		material: new THREE.MeshStandardMaterial({ map: waterTexture, color: 0x00799e, transparent: true, opacity: 0.3 }),
 		accessible: true,
+		break: waterBreak,
 	},
 	acaciaWood: {
 		name: 'acaciaWood',
 		block3d: acaciaWood3d,
 		textureTypes: ['background'],
 		textureImg: [acaciaWoodTextureSide, acaciaWoodTextureSide, acaciaWoodTextureTop, acaciaWoodTextureTop, acaciaWoodTextureSide, acaciaWoodTextureSide],
+		step: woodStep,
+		break: woodBreak,
 	},
 	birchWood: {
 		name: 'birchWood',
 		block3d: birchWood3d,
 		textureTypes: ['background'],
 		textureImg: [birchWoodTextureSide, birchWoodTextureSide, birchWoodTextureTop, birchWoodTextureTop, birchWoodTextureSide, birchWoodTextureSide],
+		step: woodStep,
+		break: woodBreak,
 	},
 	cactus: {
 		name: 'cactus',
@@ -582,6 +633,8 @@ export const blockLoader = {
 		block3d: chiseledSandstone3d,
 		textureTypes: ['background'],
 		textureImg: [chiseledSandstoneTextureSide, chiseledSandstoneTextureSide, chiseledSandstoneTextureTop, chiseledSandstoneTextureTop, chiseledSandstoneTextureSide, chiseledSandstoneTextureSide],
+		step: sandStep,
+		break: sandBreak,
 	},
 	dispenser: {
 		name: 'dispenser',
@@ -600,6 +653,8 @@ export const blockLoader = {
 		block3d: grassBlock3d,
 		textureTypes: ['background'],
 		textureImg: [grassBlockTextureSide, grassBlockTextureSide, grassBlockTextureTop, dirtTexture, grassBlockTextureSide, grassBlockTextureSide],
+		step: grassStep,
+		break: grassBreak,
 	},
 	mycelium: {
 		name: 'mycelium',
@@ -618,18 +673,23 @@ export const blockLoader = {
 		block3d: pumpkin3d,
 		textureTypes: ['background'],
 		textureImg: [pumpkinTextureSide, pumpkinTextureSide, pumpkinTextureTop, pumpkinTextureTop, pumpkinTextureFont, pumpkinTextureSide],
+		break: pumpkinBreak,
 	},
 	redSandstone: {
 		name: 'redSandstone',
 		block3d: redSandstone3d,
 		textureTypes: ['background'],
 		textureImg: [redSandstoneTextureSide, redSandstoneTextureSide, redSandstoneTextureTop, redSandstoneTextureTop, redSandstoneTextureSide, redSandstoneTextureSide],
+		step: sandStep,
+		break: sandBreak,
 	},
 	snowblock: {
 		name: 'snowblock',
 		block3d: snowblock3d,
 		textureTypes: ['background'],
 		textureImg: [snowblockTextureSide, snowblockTextureSide, snowblockTextureTop, dirtTexture, snowblockTextureSide, snowblockTextureSide],
+		step: snowStep,
+		break: snowBreak,
 	},
 };
 
@@ -640,6 +700,10 @@ blockTypes.forEach(
 		(blockLoader[d].material =
 			blockLoader[d].textureImg instanceof Array ? blockLoader[d].textureImg.map(d => new THREE.MeshStandardMaterial({ map: d })) : new THREE.MeshStandardMaterial({ map: blockLoader[d].textureImg }))
 );
+
+// 为块生成音效
+blockTypes.forEach(d => blockLoader[d].step || (blockLoader[d].step = stoneStep));
+blockTypes.forEach(d => blockLoader[d].break || (blockLoader[d].break = netherBreak));
 
 // 块几何体
 export const blockGeom = new THREE.BoxBufferGeometry(1, 1, 1);

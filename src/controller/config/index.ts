@@ -10,8 +10,8 @@ const config = {
 	weather: null,
 	bag: {
 		type: deviceTest(),
-		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-		activeIndex: 2,
+		bagItem: [44, 8, 12, 15, 30, 31, 46, 45, 33, 23],
+		activeIndex: 0,
 		mobile: {
 			rotateDegree: 12.5,
 			radius: 233,
@@ -108,8 +108,8 @@ const defaultConfig = {
 	weather: null,
 	bag: {
 		type: deviceTest(),
-		bagItem: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-		activeIndex: 2,
+		bagItem: [44, 8, 12, 15, 30, 31, 46, 45, 33, 23],
+		activeIndex: 0,
 		mobile: {
 			rotateDegree: 12.5,
 			radius: 233,
