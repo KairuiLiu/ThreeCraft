@@ -81,7 +81,6 @@ class Generate {
 			for (let i = 0; i < thread; i += 1) {
 				const stz2 = stz + curFragZ * fragmentSize;
 				const edz2 = i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCountZ) * fragmentSize;
-
 				this.treaders[i].postMessage({
 					timestamp,
 					stz: stz2,
@@ -116,7 +115,6 @@ class Generate {
 		for (let i = 0; i < thread; i += 1) {
 			const stz2 = stz + curFrag * fragmentSize;
 			const edz2 = i === thread - 1 ? edz : stz + Math.floor(((i + 1) / thread) * fragCount) * fragmentSize;
-
 			this.treaders[i].postMessage({
 				timestamp,
 				stx,

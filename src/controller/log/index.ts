@@ -16,8 +16,8 @@ class Log {
 	insert(blocklog: BlockLog) {
 		const { posX, posY, posZ } = blocklog;
 		const treeY = this.data.queryAndInit(posX, new Splay()).value!;
-		const mapZ = treeY.queryAndInit(posY, new Map()).value!;
-		mapZ.set(posZ, blocklog);
+		const mapZ = treeY.queryAndInit(posZ, new Map()).value!;
+		mapZ.set(posY, blocklog);
 	}
 
 	query(x = null, y = null, z = null) {

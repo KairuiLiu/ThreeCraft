@@ -33,7 +33,7 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 	const [water, surface, base] = weatherTypes[weather];
 	const { seedGap, cloudSeedGap, treeSeedGap } = symConfig.noiseGap;
 	const { horizonHeight, treeBaseHeight, maxHeight, skyHeight } = symConfig.stage;
-	const log = logger.queryArea(stx, edx, sty, edy);
+	const log = logger.queryArea(stx, edx, stz, edz);
 
 	sty = Math.floor(sty);
 	edy = Math.ceil(edy);
