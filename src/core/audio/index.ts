@@ -7,6 +7,8 @@ import { config } from '../../controller/config';
 class Audio {
 	core: Core;
 
+	support: boolean;
+
 	constructor(core) {
 		const listener = new THREE.AudioListener();
 		const audioLoader = new THREE.AudioLoader();
@@ -29,6 +31,7 @@ class Audio {
 	play(action, type, forceStop = true) {
 		if (!blockLoader[type]) return;
 		const audio = action === 'step' ? blockLoader[type].stepAudio : blockLoader[type].breakAudio;
+		if (!audio) return;
 		if (audio.isPlaying) {
 			if (forceStop) audio.stop();
 			else return;

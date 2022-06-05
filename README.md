@@ -15,11 +15,11 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
 - [x] Efficient collision detection method
 - [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
 - [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
-- [x] Multi-terminal and multi-control mode support (PC, mobile, ~~VR, PS4/5 Joy Stick~~, Xbox Joy Stick support)
+- [x] Multi-terminal and multi-control mode support (PC, mobile, ~~VR,~~ PS4/5 Joy Stick, Xbox Joy Stick support)
 - [x] Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
 - [x] Multiple ways to save and load archive
 - [x] Dual language support (Chinese / English)
-- [ ] Original sound
+- [x] Original sound
 
 ### 🎮️ Operation
 
