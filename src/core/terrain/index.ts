@@ -233,7 +233,7 @@ class Terrain {
 
 	hasBlock(x, z, y) {
 		const idx = this.getFragIdx(x, z);
-		return this.blockFragments[idx.z][idx.x].idMap.get(`${z}_${y}_${z}`);
+		return this.blockFragments[idx.z][idx.x].idMap.get(`${x}_${y}_${z}`);
 	}
 
 	getFragIdx(x, z) {

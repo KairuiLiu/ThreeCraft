@@ -31,9 +31,6 @@ class MoveController {
 
 	// 尝试执行注册的运动
 	positionMove({ font, left, up }) {
-		// 如果没有运动就直接返回
-		if (left === 0 && font === 0 && up === 0 && !this.jumping && this.jumpingSpeed === 0) return;
-
 		// 如果在作弊模式下就不进行碰撞检测, 直接设置位置
 		if (config.controller.cheat) {
 			const targetPos = getTargetPosition({ ...config.state, font, left, up, core: this.core });
