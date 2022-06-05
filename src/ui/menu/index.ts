@@ -538,6 +538,7 @@ class Menu {
 		const saveGameButton = document.getElementById('save-game');
 		saveGameButton.addEventListener('click', e => {
 			e.stopPropagation();
+			config.log = this.controller.log.export();
 			localStorage.setItem('config', JSON.stringify(config));
 			downloadJson(JSON.stringify(config));
 			this.setNotify(language.saveSuccess);

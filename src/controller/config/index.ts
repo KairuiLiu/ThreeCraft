@@ -46,6 +46,7 @@ const config = {
 		posY: 30,
 		posZ: 0,
 	},
+	log: [],
 };
 
 const symConfig = {
@@ -143,6 +144,7 @@ const defaultConfig = {
 		posY: 30,
 		posZ: 0,
 	},
+	log: [],
 };
 
 const languages = [langCN, langEN];
