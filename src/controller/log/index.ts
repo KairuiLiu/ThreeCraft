@@ -58,9 +58,9 @@ class Log {
 	export() {
 		const res = [] as BlockLog[];
 		let treeY = this.data.begin();
-		while (treeY) {
+		while (treeY && !treeY.empty) {
 			let mapZ = treeY.value!.begin();
-			while (mapZ) {
+			while (mapZ && !mapZ.empty) {
 				res.push(...[...mapZ.value!].map(d => d[1]));
 				mapZ = treeY.value!.nodeNext(mapZ)!;
 			}

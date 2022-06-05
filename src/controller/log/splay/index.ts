@@ -164,12 +164,14 @@ class Splay<K, V> {
 
 	begin() {
 		let cur = this.root;
+		if (cur.empty) return cur;
 		while (!cur.left!.empty) cur = cur.left!;
 		return cur;
 	}
 
 	end() {
 		let cur = this.root;
+		if (cur.empty) return cur;
 		while (!cur.right!.empty) cur = cur.right!;
 		return cur;
 	}

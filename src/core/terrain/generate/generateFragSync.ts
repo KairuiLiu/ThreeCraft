@@ -7,6 +7,8 @@ import { symConfig, config } from '../../../controller/config';
 import Log from '../../../controller/log';
 
 function insertInstancedBlock(fragment, typeIdx, x, y, z) {
+	if (fragment.idMap.has(`${x}_${y}_${z}`) && y > -1000000) return;
+
 	fragment.types[typeIdx].blocks.position.push(x, y, z);
 	fragment.idMap.set(`${x}_${y}_${z}`, {
 		temp: false,
@@ -111,7 +113,7 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 			if (!blockFragment.idMap.has(`${d.posX}_${d.posY}_${d.posZ}`)) return;
 			const block = blockFragment.idMap.get(`${d.posX}_${d.posY}_${d.posZ}`);
 			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3] = 0;
-			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 1] = -10000;
+			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 1] = -1000000;
 			blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 2] = 0;
 			blockFragment.idMap.delete(`${d.posX}_${d.posY}_${d.posZ}`);
 		}

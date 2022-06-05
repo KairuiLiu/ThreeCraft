@@ -2,6 +2,7 @@ import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise';
 import { BlockLog, iBlockFragment } from '../../../utils/types/block';
 
 function insertInstancedBlock(fragment, typeIdx, x, y, z) {
+	if (fragment.idMap.has(`${x}_${y}_${z}`) && y > -1000000) return;
 	fragment.types[typeIdx].blocks.position.push(x, y, z);
 	fragment.idMap.set(`${x}_${y}_${z}`, {
 		temp: false,
@@ -51,7 +52,6 @@ onmessage = (
 
 	for (let curX = stx; curX < edx; curX += fragmentSize) {
 		for (let curZ = stz; curZ < edz; curZ += fragmentSize) {
-			// let hasTree = false;
 			const blockFragment: iBlockFragment = {
 				timestamp,
 				posX: curX,
@@ -73,8 +73,8 @@ onmessage = (
 				};
 			}
 
-			for (let i = curX; i < edx; i += 1) {
-				for (let j = curZ; j < edz; j += 1) {
+			for (let i = curX; i < curX + fragmentSize; i += 1) {
+				for (let j = curZ; j < curZ + fragmentSize; j += 1) {
 					const y = Math.floor(noiseGen.noise(i / seedGap, j / seedGap, seed) * maxHeight);
 					if (y < horizonHeight) {
 						// surface 生成
@@ -117,11 +117,12 @@ onmessage = (
 			}
 
 			log.forEach(d => {
+				if (d.posX < curX || d.posX >= curX + fragmentSize || d.posZ < curZ || d.posZ >= curZ + fragmentSize) return;
 				if (d.type === null || blockFragment.idMap.has(`${d.posX}_${d.posY}_${d.posZ}`)) {
 					if (!blockFragment.idMap.has(`${d.posX}_${d.posY}_${d.posZ}`)) return;
 					const block = blockFragment.idMap.get(`${d.posX}_${d.posY}_${d.posZ}`);
 					blockFragment.types[block.typeIdx].blocks.position[block.idx * 3] = 0;
-					blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 1] = -10000;
+					blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 1] = -1000000;
 					blockFragment.types[block.typeIdx].blocks.position[block.idx * 3 + 2] = 0;
 					blockFragment.idMap.delete(`${d.posX}_${d.posY}_${d.posZ}`);
 				}

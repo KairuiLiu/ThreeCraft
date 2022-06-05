@@ -171,6 +171,9 @@ export function relativeOperateCollisionCheck({ posX, posY, posZ, font, left, up
 		collision.pos.posY = collision.obj.point.y - collision.obj.face.normal.y * 0.5;
 		collision.pos.posZ = collision.obj.point.z - collision.obj.face.normal.z * 0.5;
 	}
+
+	boundingBox.group.children.forEach(d => d?.dispose());
+
 	return collision;
 }
 
@@ -263,6 +266,8 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 			};
 		}
 	});
+
+	boundingBox.group.children.forEach(d => d?.dispose());
 
 	return [fstColX, fstColY, fstColZ];
 }
