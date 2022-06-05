@@ -83,6 +83,7 @@ class Bag {
 			if (d === null) (this.itemsElem[i].children[0] as HTMLElement).removeAttribute('src');
 			else (this.itemsElem[i].children[0] as HTMLElement).setAttribute('src', blockLoader[blockTypes[this.items[i]]].block3d);
 		});
+		config.bag.bagItem = this.items;
 	}
 
 	// 销毁背包框

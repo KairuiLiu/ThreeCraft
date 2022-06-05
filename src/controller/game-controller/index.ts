@@ -94,7 +94,7 @@ class GameController {
 			target.posX += collision.obj.face.normal.x;
 			target.posY += collision.obj.face.normal.y;
 			target.posZ += collision.obj.face.normal.z;
-			target.type = blockTypes[config.bag.activeIndex];
+			target.type = blockTypes[config.bag.bagItem[config.bag.activeIndex]];
 			target.action = actionBlockEvent.ADD;
 		}
 		this.host.log.insert(target);

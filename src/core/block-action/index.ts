@@ -20,12 +20,9 @@ class BlockAction {
 			if (oldBlock.temp) {
 				this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].group.remove(this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].templateMesh[oldBlock.idx]);
 			} else {
-				this.matrix.setPosition(0, -100000, 0);
+				this.matrix.setPosition(0, -1000, 0);
 				this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].types[oldBlock.typeIdx].instancedMesh.setMatrixAt(oldBlock.idx, this.matrix.clone());
 				this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].types[oldBlock.typeIdx].instancedMesh.instanceMatrix.needsUpdate = true;
-				// TODO BUG FIX
-				// this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].group.add(this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].types[oldBlock.typeIdx].instancedMesh);
-				// this.core.scene.add(this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].group);
 			}
 			this.core.terrain.blockFragments[fragIdx.z][fragIdx.x].idMap.delete(`${blk.posX}_${blk.posY}_${blk.posZ}`);
 		}

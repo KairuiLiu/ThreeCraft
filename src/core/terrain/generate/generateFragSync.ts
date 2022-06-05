@@ -66,7 +66,7 @@ export function generateFragSync(stx: number, edx: number, stz: number, edz: num
 			if (adjY < horizonHeight) {
 				if (y >= sty || y <= edy) insertInstancedBlock(blockFragment, base, i, y, j);
 				if (!access || !blockLoader[blockFragment.types[water].blocks.type]?.accessible)
-					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) insertInstancedBlock(blockFragment, water, i, y, j);
+					for (let yy = adjY + 1; yy <= horizonHeight && yy <= edy; yy += 1) insertInstancedBlock(blockFragment, water, i, yy, j);
 			} else {
 				// 表面和树
 				if (y >= sty || y <= edy) insertInstancedBlock(blockFragment, surface, i, y, j);

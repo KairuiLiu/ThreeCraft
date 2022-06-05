@@ -653,4 +653,4 @@ export const treeTypes = [
 	[39, 3],
 ];
 // 高亮块
-export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.02, 1.02, 1.02), new THREE.MeshBasicMaterial({ color: 0xc5c5c5, opacity: 0.3, transparent: true }));
+export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.02, 1.02, 1.02), new THREE.MeshBasicMaterial({ opacity: 0.2, transparent: true }));
