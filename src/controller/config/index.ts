@@ -33,7 +33,7 @@ const config = {
 		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
-		language: '0',
+		language: `${/^\/en/.test(document.location.pathname) ? 1 : 0}`,
 		cheat: false,
 		dev: false,
 		fps: true,
@@ -131,7 +131,7 @@ const defaultConfig = {
 		thread: 4,
 		volume: 80,
 		operation: deviceTest(),
-		language: '0',
+		language: `${/^\/en/.test(document.location.pathname) ? 1 : 0}`,
 		cheat: false,
 		dev: false,
 		fps: true,
@@ -148,9 +148,6 @@ const defaultConfig = {
 };
 
 const languages = [langCN, langEN];
-const langIdx = /^\/en/.test(document.location.pathname) ? 1 : 0;
-const language = deepClone(languages[langIdx]);
-defaultConfig.controller.language = `${langIdx}`;
-config.controller.language = `${langIdx}`;
+const language = deepClone(languages[/^\/en/.test(document.location.pathname) ? 1 : 0]);
 
 export { config, symConfig, defaultConfig, language, languages };
