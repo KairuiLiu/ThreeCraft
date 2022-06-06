@@ -91,4 +91,5 @@ export default {
 	ps45: 'PS4/5',
 	psJoystick: 'PS Joy Stick',
 	psImg,
+	developing: 'This feature is still under development, so stay tuned :)',
 };

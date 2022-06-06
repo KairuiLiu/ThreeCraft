@@ -91,4 +91,5 @@ export default {
 	ps45: 'PS4/5',
 	psJoystick: 'PS 手柄',
 	psImg,
+	developing: '该功能还在开发中, 敬请期待 :)',
 };

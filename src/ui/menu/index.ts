@@ -116,7 +116,7 @@ class Menu {
 				<button id="multi-player-game" class="button">${language.multiPlayerGame}</button>
 			</div>
 			<div class="box-line" id="load-archive">
-				<input id="load-archive-file" type="file" id="load-archive-file" class="file-loader" />
+				<input id="load-archive-file" type="file" accept=".json" id="load-archive-file" class="file-loader" />
 				<button id="load-archive-file-button" class="button">${language.uploadArchive}</button>
 				<button id="load-archive-storage" class="button">${language.browserArchive}</button>
 			</div>
@@ -240,6 +240,7 @@ class Menu {
 			e.stopPropagation();
 			this[back]();
 		});
+		this.setNotify(language.developing, 2000, this.boxElem);
 	}
 
 	// 设置菜单
