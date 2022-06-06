@@ -11,11 +11,11 @@
 
 ### ✨ 特性
 
-- [ ] 支持局域网内多人游戏
+- [ ] 支持多人联机游戏
 - [x] 高效的碰撞检测方法
 - [x] 高效的多线程动态无限地图生成与局部刷新方法
 - [x] 五种游戏场景随机出现(经典 / 冰雪 / 月下沙滩瓜田 / 万圣节 / 奇异)
-- [x] 多端多操控模式支持(PC 端, 移动端, ~~VR 端~~, PS4/5 手柄支持, Xbox 手柄支持)
+- [x] 多端多操控模式支持(PC 端, 移动端, VR 端, PS4/5 手柄支持, Xbox 手柄支持)
 - [x] 多种参数可调(视角 / 雾气 / 场景大小 / 操纵范围 / 音量 / 线程数 / 操作灵敏度 / 语言 / 操作模式 / 十字准星颜色 / 背包模式 / 作弊模式)
 - [x] 多种存档与读档方式
 - [x] 双语言支持(中文 / 英文)
@@ -82,4 +82,5 @@ pnpm build
 
 ### 🥰 参考
 
-很多想法与代码都来自于 [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs), 这个项目很棒, 我从这个项目中学到了很多. 非常感谢这个项目 🌹.
+- 项目整体结构参考了 [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs), 这个项目很棒. 非常感谢这个项目!
+- 移动端游戏手柄的实现参考了[bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)

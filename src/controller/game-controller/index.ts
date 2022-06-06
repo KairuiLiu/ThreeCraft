@@ -15,7 +15,7 @@ class GameController {
 	blockController: BlockController;
 
 	// 运动控制器, 直接修改Camera的状态
-	moveController: MoveController; // ! 这个对象是直接和WebGL打交道的
+	moveController: MoveController;
 
 	host: Controller;
 

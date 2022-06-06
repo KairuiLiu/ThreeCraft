@@ -11,11 +11,11 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
 
 ### ✨ Feature
 
-- [ ] Support multiplayer game in LAN
+- [ ] Support multiplayer online games
 - [x] Efficient collision detection method
 - [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
 - [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
-- [x] Multi-terminal and multi-control mode support (PC, mobile, ~~VR,~~ PS4/5 Joy Stick, Xbox Joy Stick support)
+- [x] Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 Joy Stick, Xbox Joy Stick support)
 - [x] Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
 - [x] Multiple ways to save and load archive
 - [x] Dual language support (Chinese / English)
@@ -78,6 +78,8 @@ pnpm build
 
 Only Chinese version, see [中文文档](./README-CN.md)
 
-### 🥰Reference
+### 🥰 Reference
 
-Many idea and code comes from [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs). This project is great and I learned a lot from it. Thanks a lot for their work🌹.
+- The overall structure of the project refers from [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs). Thanks a lot for their work!
+- The implementation of the mobile joystick refers from [bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
+
