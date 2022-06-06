@@ -82,4 +82,3 @@ Only Chinese version, see [中文文档](./README-CN.md)
 
 - The overall structure of the project refers from [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs). Thanks a lot for their work!
 - The implementation of the mobile joystick refers from [bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
-
