@@ -9,10 +9,16 @@ class ActionPluginXbox {
 
 	gamepad: Gamepad;
 
+	removeTimeout: NodeJS.Timeout | null;
+
+	addTimeout: NodeJS.Timeout | null;
+
 	constructor(el: HTMLElement, controller: Controller) {
 		this.elem = el;
 		this.controller = controller;
 		this.gamepad = null;
+		this.removeTimeout = null;
+		this.addTimeout = null;
 	}
 
 	checkAction(e) {
@@ -34,8 +40,28 @@ class ActionPluginXbox {
 				this.controller.gameController.handleMoveAction({ up: 0 });
 			});
 		}
-		if (this.gamepad.buttons[6].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
-		if (this.gamepad.buttons[7].pressed) this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+		if (this.gamepad.buttons[6].pressed) {
+			if (!this.addTimeout) {
+				this.controller.gameController.handleBlockAction(actionBlockEvent.ADD);
+				this.addTimeout = setTimeout(() => {
+					this.addTimeout = null;
+				}, 331);
+			}
+		} else {
+			this.addTimeout && clearTimeout(this.addTimeout);
+			this.addTimeout = null;
+		}
+		if (this.gamepad.buttons[7].pressed) {
+			if (!this.removeTimeout) {
+				this.controller.gameController.handleBlockAction(actionBlockEvent.REMOVE);
+				this.removeTimeout = setTimeout(() => {
+					this.removeTimeout = null;
+				}, 331);
+			}
+		} else {
+			this.removeTimeout && clearTimeout(this.removeTimeout);
+			this.removeTimeout = null;
+		}
 		if (this.gamepad.buttons[8].pressed) this.controller.toggleCheatMode();
 		if (this.gamepad.buttons[9].pressed) {
 			this.controller.pauseGame();

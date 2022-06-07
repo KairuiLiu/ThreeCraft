@@ -47,7 +47,7 @@
 
   <img src="./doc/img/xbox-cn.png" height="200px"/>
 
-- **PS 手柄(暂未测试)**
+- **PS 手柄(使用 PS4 测试)**
 
   <img src="./doc/img/ps-cn.png" height="200px"/>
 

@@ -47,7 +47,7 @@ live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
 
   <img src="./doc/img/xbox-en.png" height="200px"/>
 
-- **PS Joy Sitck(not tested)**
+- **PS Joy Sitck(test on PS4)**
 
   <img src="./doc/img/ps-en.png" height="200px"/>
 
