@@ -22,6 +22,6 @@ module.exports = {
 		'prettier/prettier': 'error',
 		'import/prefer-default-export': 'off',
 		'@typescript-eslint/no-non-null-assertion': 'off',
-		'import/no-absolute-path': 'off',
+		// 'import/no-absolute-path': 'off',
 	},
 };

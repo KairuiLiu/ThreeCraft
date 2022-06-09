@@ -1,6 +1,6 @@
 import '../../../utils/types/image.d.ts';
-import xboxImg from '/pictures/joy-stick/xbox-en.png';
-import psImg from '/pictures/joy-stick/ps-en.png';
+import xboxImg from '../../../assets/pictures/joy-stick/xbox-en.png';
+import psImg from '../../../assets/pictures/joy-stick/ps-en.png';
 
 export default {
 	singlePlayerGame: 'Single Game',
