@@ -1,13 +1,28 @@
-<h2 align="center">
-<img src="./doc/img/logo.png" width="128" height="128"/>
-<br/>ThreeCraft
-</h2>
+<div align="center">
+  <img src="./doc/img/logo.png" width="128" height="128"/>
 
-<p align="center"><strong>⛏ 基于Three.js的MineCraft网页版实现</strong></p>
+  <h2>ThreeCraft</h2>
 
-![Threejs](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white) ![Socketio](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)
+  <p>
+    <strong>⛏ 基于Three.js的MineCraft网页版实现</strong>
+  </p>
 
-在线试玩: [mc.liukairui.me](https://mc.liukairui.me)
+  <p>
+    <img alt="Threejs" src="https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white"/>
+    <img alt="Socket.io" src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white"/>
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
+    <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white"/>
+
+  </p>
+
+  <h4>
+    <a href="https://mc.liukairui.me">在线体验</a>
+    <span> | </span>
+    <a href="https://github.com/KairuiLiu/ThreeCraft/blob/master/README.md">English</a>
+    <span> | </span>
+    <a href="https://github.com/KairuiLiu/ThreeCraft/blob/master/README-CN.md">简体中文</a>
+  </h4>
+</div>
 
 ### ✨ 特性
 

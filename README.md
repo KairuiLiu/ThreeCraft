@@ -1,17 +1,32 @@
-<h2 align="center">
-<img src="./doc/img/logo.png" width="128" height="128"/>
-<br/>ThreeCraft
-</h2>
+<div align="center">
+  <img src="./doc/img/logo.png" width="128" height="128"/>
 
-<p align="center"><strong>⛏ MineCraft Release Based on Three.js</strong></p>
+  <h2>ThreeCraft</h2>
 
-![Threejs](https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white) ![Socketio](https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white) ![TS](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white)
+  <p>
+    <strong>⛏ MineCraft Release Based on Three.js</strong>
+  </p>
 
-live demo: [mc.liukairui.me/en](https://mc.liukairui.me/en)
+  <p>
+    <img alt="Threejs" src="https://img.shields.io/badge/Three.js-000000?style=flat-square&logo=Three.js&logoColor=white"/>
+    <img alt="Socket.io" src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white"/>
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
+    <img alt="Vite" src="https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=Vite&logoColor=white"/>
+
+  </p>
+
+  <h4>
+    <a href="https://mc.liukairui.me/en">Live Demo</a>
+    <span> | </span>
+    <a href="https://github.com/KairuiLiu/ThreeCraft/blob/master/README.md">English</a>
+    <span> | </span>
+    <a href="https://github.com/KairuiLiu/ThreeCraft/blob/master/README-CN.md">简体中文</a>
+  </h4>
+</div>
 
 ### ✨ Feature
 
-- [ ] Support multiplayer online games
+- [ ] Multiplayer online games
 - [x] Efficient collision detection method
 - [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
 - [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
@@ -73,10 +88,6 @@ pnpm dev
 // Build
 pnpm build
 ```
-
-### 📃 Documents
-
-Only Chinese version, see [中文文档](./README-CN.md)
 
 ### 🥰 Reference
 

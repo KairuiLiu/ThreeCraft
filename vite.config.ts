@@ -1,10 +1,40 @@
 import { defineConfig } from 'vite';
 import path from 'path';
 import styleImport from 'vite-plugin-style-import';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [],
+	plugins: [
+		VitePWA({
+			includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
+			manifest: {
+				name: 'ThreeCraft',
+				short_name: 'ThreeCraft',
+				description: 'MineCraft Release Based on Three.js',
+				theme_color: '#87ceeb',
+				lang: 'zh-Hans',
+				icons: [
+					{
+						src: '/src/assets/pictures/icon/android-chrome-192x192.png',
+						sizes: '192x192',
+						type: 'image/png',
+					},
+					{
+						src: '/src/assets/pictures/icon/android-chrome-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+					},
+					{
+						src: '/src/assets/pictures/icon/android-chrome-512x512.png',
+						sizes: '512x512',
+						type: 'image/png',
+						purpose: 'any maskable',
+					},
+				],
+			},
+		}),
+	],
 	server: {
 		host: '0.0.0.0',
 		proxy: {},
