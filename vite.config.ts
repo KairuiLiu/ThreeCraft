@@ -7,6 +7,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig({
 	plugins: [
 		VitePWA({
+			registerType: 'autoUpdate',
 			includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
 			manifest: {
 				name: 'ThreeCraft',
@@ -16,17 +17,17 @@ export default defineConfig({
 				lang: 'zh-Hans',
 				icons: [
 					{
-						src: '/src/assets/pictures/icon/android-chrome-192x192.png',
+						src: '/pictures/icon/android-chrome-192x192.png',
 						sizes: '192x192',
 						type: 'image/png',
 					},
 					{
-						src: '/src/assets/pictures/icon/android-chrome-512x512.png',
+						src: '/pictures/icon/android-chrome-512x512.png',
 						sizes: '512x512',
 						type: 'image/png',
 					},
 					{
-						src: '/src/assets/pictures/icon/android-chrome-512x512.png',
+						src: '/pictures/icon/android-chrome-512x512.png',
 						sizes: '512x512',
 						type: 'image/png',
 						purpose: 'any maskable',
@@ -35,6 +36,7 @@ export default defineConfig({
 			},
 		}),
 	],
+	publicDir: 'src/assets',
 	server: {
 		host: '0.0.0.0',
 		proxy: {},
