@@ -1,6 +1,6 @@
 import deviceTest from '../../utils/device-test';
-import langCN from '../../assets/lang/zh_cn';
-import langEN from '../../assets/lang/en_us';
+import langCN from './lang/zh_cn';
+import langEN from './lang/en_us';
 import { deepClone } from '../../utils/deep-clone';
 
 const config = {
