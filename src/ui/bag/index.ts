@@ -30,11 +30,6 @@ class Bag {
 		this.bagElem = document.createElement('div');
 		this.bagElem.setAttribute('id', 'bag');
 		el.appendChild(this.bagElem);
-		this.type = config.bag.type as 'pc' | 'mobile' | 'vr' | 'xbox' | 'ps'; // 背包样式
-		this.items = config.bag.bagItem; // 背包中元素String[]
-		this.items.push(...Array(10).fill(null));
-		this.available = false;
-		this.items.length = 10;
 		this.plugin = null; // 背包框插件, 管理元素位置与背包框事件
 		this.bagBox = new BagBoxPlugin(this.bagElem, this); // 背包选项插件
 		this.gamepad = false;
@@ -42,6 +37,11 @@ class Bag {
 	}
 
 	place() {
+		this.type = config.bag.type as 'pc' | 'mobile' | 'vr' | 'xbox' | 'ps'; // 背包样式
+		this.items = config.bag.bagItem; // 背包中元素String[]
+		this.items.push(...Array(10).fill(null));
+		this.available = false;
+		this.items.length = 10;
 		if (this.plugin) this.plugin.destroy();
 		if (this.type === 'pc') {
 			this.plugin = new BagPcPlugin(this.bagElem, this);

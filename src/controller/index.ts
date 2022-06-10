@@ -93,6 +93,8 @@ class Controller {
 		if (config.weather === null) config.weather = Math.floor(Math.random() * weatherConfig.length);
 		// 载入log
 		this.log.load(config.log);
+		// 刷新背包
+		this.uiController.ui.bag.place();
 		// 尝试渲染
 		this.runGame();
 		// 提示当前游戏场景名
