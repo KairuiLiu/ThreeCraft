@@ -73,29 +73,39 @@
 
 ### 🛠️ 安装
 
-```shell
-// 安装pnpm
-npm install -g pnpm
+- 前端
 
-// 安装全部依赖
-pnpm install
+  ```bash
+  # 安装pnpm
+  > npm install -g pnpm
 
-// 安装某个依赖
-pnpm install xxx  -D/-S
+  # 安装全部依赖
+  > pnpm install
 
-// 运行
-pnpm dev
+  # 安装某个依赖
+  > pnpm install xxx  -D/-S
 
-// 打包
-pnpm build
-```
+  # 运行
+  > pnpm dev
+
+  # 打包
+  > pnpm build
+  ```
+
+- 后端
+
+  ```bash
+  # emm
+  ```
 
 ### 📃 文档
 
 - [开题报告.pdf](./doc/opening-report/build/slides-export.pdf)
 - [总体设计.md](./doc/overall-design)
+- [结课报告.md](./doc/final-report)
 
 ### 🥰 参考
 
 - 项目整体结构参考了 [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs), 这个项目很棒. 非常感谢这个项目!
 - 移动端游戏手柄的实现参考了[bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
+- 项目的后端整体结构参考了 [Merlin218/UNO-server](https://github.com/Merlin218/UNO-server/). 非常感谢这个项目!

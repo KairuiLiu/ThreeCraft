@@ -1,0 +1,32 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"module": "esnext",
+		"target": "esnext",
+		"lib": [
+			"esnext"
+		],
+		"strict": true,
+		"outDir": "./dist",
+		"jsx": "preserve",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"noUnusedLocals": true,
+		"useDefineForClassFields": true,
+		"sourceMap": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"types": [
+			"express",
+			"node"
+		],
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"forceConsistentCasingInFileNames": true,
+	},
+	"exclude": [
+		"dist",
+		"node_modules"
+	],
+}

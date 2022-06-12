@@ -72,24 +72,33 @@
 
 ### 🛠️ Install
 
-```shell
-// Install pnpm
-npm install -g pnpm
+- Frontend
 
-// Install all dependance
-pnpm install
+  ```bash
+  # Install pnpm
+  > npm install -g pnpm
 
-// Install a dependance
-pnpm install xxx  -D/-S
+  # Install all dependance
+  > pnpm install
 
-// Run
-pnpm dev
+  # Install a dependance
+  > pnpm install xxx  -D/-S
 
-// Build
-pnpm build
-```
+  # Run
+  > pnpm dev
+
+  # Build
+  > pnpm build
+  ```
+
+- Backend
+
+  ```bash
+  # emm
+  ```
 
 ### 🥰 Reference
 
 - The overall structure of the project refers from [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs). Thanks a lot for their work!
 - The implementation of the mobile joystick refers from [bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
+- The overall structure of backend refers from [Merlin218/UNO-server](https://github.com/Merlin218/UNO-server/). Thanks a lot for his work!

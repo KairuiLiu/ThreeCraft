@@ -78,7 +78,7 @@ export default {
 	low: 'Low',
 	norm: 'Normal',
 	threadNumber: 'Thread',
-	weatherName: ['Classic', 'Ice', 'Beach Melon Field', 'Halloween', 'Bizarre?'],
+	weatherName: ['Classic', 'Ice', 'Beach Melon Field', 'Pumpkin Field 🎃', 'Bizarre?'],
 	weather: 'Scenes',
 	chromeSupport: 'Newest Chrome is recommended →',
 	chromeAddress: 'https://chrome.google.com/',

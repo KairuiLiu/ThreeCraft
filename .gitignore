@@ -103,4 +103,3 @@ typings/
 dist
 .vscode
 /src/.vscode
-server
