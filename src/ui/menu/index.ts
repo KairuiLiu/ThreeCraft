@@ -3,6 +3,7 @@ import { deepCopy } from '../../utils/deep-copy';
 import { config, defaultConfig, language, languages } from '../../controller/config';
 import { downloadJson } from '../../utils/download';
 import { chromeTest } from '../../utils/chrome-test';
+import { addressTest } from '../../utils/address-test';
 
 class Menu {
 	elem: HTMLElement;
@@ -137,7 +138,7 @@ class Menu {
 		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');
 		multiPlayerGame.addEventListener('click', e => {
 			e.stopPropagation();
-			this.toSocketConfigMenu({ back: 'toStartMenu' });
+			this.toSocketServer({ back: 'toStartMenu' });
 		});
 		// 上传存档文件的上传文件按钮(已经被隐藏了)
 		const loadArchiveFile = this.boxElem.querySelector('#load-archive-file') as HTMLInputElement;
@@ -210,6 +211,79 @@ class Menu {
 		}
 	}
 
+	toSocketServer({ back }) {
+		this.showMenu();
+		this.showBorder();
+		this.removeTitle();
+		this.clearMenuItem();
+		this.boxElem.innerHTML = `
+			<div class="box-line title color-white">${language.linkServer}</div>
+			<div class="radio-item"><input type="radio" name="server-mod" id="default-server" checked/><label for="default-server">${language.defaultServer}</label></div>
+			<div class="radio-item"><input type="radio" name="server-mod" id="custom-server" /><label for="custom-server">${language.customServer}</label></div>
+			<br/>
+			<div class="box-line hidden" id="ip-row">
+				<label for="ip" class="fix-width color-white">${language.serverAddress}: </label><input type="text" class="text-input" id="ip"  />
+			</div>
+			<br/>
+			<button id="socket-link-server" class="button">${language.linkServer}</button>
+			<button id="socket-cancel-link-server" class="button hidden">${language.cancelLink}</button>
+			<button id="socket-choose-room" class="button hidden">${language.chooseRoom}</button>
+			<button class="button" id="backMenu">${language.backMenu}</button>`;
+
+		const serverModDefault = document.getElementById('default-server') as HTMLInputElement;
+		const serverModCustom = document.getElementById('custom-server') as HTMLInputElement;
+		const ipCustom = document.getElementById('ip') as HTMLInputElement;
+		const ipRow = document.getElementById('ip-row');
+		const linkServerButton = document.getElementById('socket-link-server') as HTMLInputElement;
+		const cancelLinkServer = document.getElementById('socket-cancel-link-server');
+		const chooseRoom = document.getElementById('socket-choose-room');
+
+		serverModDefault.addEventListener('click', () => {
+			ipRow.classList.add('hidden');
+			linkServerButton.disabled = false;
+		});
+
+		serverModCustom.addEventListener('click', () => {
+			ipRow.classList.remove('hidden');
+			if (addressTest(ipCustom.value)) linkServerButton.disabled = false;
+			else linkServerButton.disabled = true;
+		});
+
+		ipCustom.addEventListener('keyup', () => {
+			if (addressTest(ipCustom.value)) linkServerButton.disabled = false;
+			else linkServerButton.disabled = true;
+		});
+
+		linkServerButton.addEventListener('click', () => {
+			// link
+			linkServerButton.classList.add('hidden');
+			cancelLinkServer.classList.remove('hidden');
+			chooseRoom.classList.remove('hidden');
+			serverModDefault.disabled = true;
+			serverModCustom.disabled = true;
+		});
+
+		cancelLinkServer.addEventListener('click', () => {
+			// unlink
+			linkServerButton.classList.remove('hidden');
+			chooseRoom.classList.add('hidden');
+			cancelLinkServer.classList.add('hidden');
+			serverModDefault.disabled = false;
+			serverModCustom.disabled = false;
+		});
+
+		chooseRoom.addEventListener('click', () => {
+			this.toSocketConfigMenu({ back: 'toSocketServer' });
+		});
+
+		const backMenu = document.getElementById('backMenu');
+		backMenu.addEventListener('click', e => {
+			e.stopPropagation();
+			this[back]();
+		});
+		this.setNotify(language.developing, 2000, this.boxElem);
+	}
+
 	// TODO 实现Socket
 	toSocketConfigMenu({ back }) {
 		this.showMenu();
@@ -222,23 +296,77 @@ class Menu {
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">${language.joinRoom}</label></div>
 			<br/>
 			<div class="box-line">
-				<label  for="ip" class="fix-width color-white">${language.roomName}: </label><input type="text" class="text-input" id="ip" />
+				<label for="roomName" class="fix-width color-white">${language.roomName}: </label><input type="text" class="text-input" id="roomName" />
 			</div>
 			<div class="box-line">
-				<label  for="password" class="fix-width color-white">${language.token}: </label><input type="text" class="text-input" id="password" />
+				<label for="nickName" class="fix-width color-white">${language.nickname}: </label><input type="text" class="text-input" id="nickName" />
 				</div>
 			<div class="box-line">
-				<label  for="payer-number" class="fix-width color-white">${language.gameNumber}: </label><input type="text" class="text-input" id="payer-number" disabled />
+				<label for="player" class="fix-width color-white">${language.player}: </label><input type="text" class="text-input" id="player" disabled />
 			</div>
 			<br/>
-			<button id="socket-start-game" class="button">${language.startGame}</button>
+			<button id="socket-start-game" class="button hidden">${language.startGame}</button>
+			<button id="socket-create-room" class="button">${language.createRoom}</button>
+			<button id="socket-dissolve-room" class="button hidden">${language.dissolveRoom}</button>
 			<button id="socket-join-room" class="button hidden">${language.joinRoom}</button>
 			<button id="socket-exit-room" class="button hidden">${language.exitRoom}</button>
 			<button class="button" id="backMenu">${language.backMenu}</button>`;
+
+		const asServerButton = document.getElementById('as-server');
+		const asClientButton = document.getElementById('as-client');
+		const roomName = document.getElementById('roomName');
+		const nickName = document.getElementById('nickName');
+		const playerName = document.getElementById('player');
+
+		const startGameButton = document.getElementById('socket-start-game');
+		const createRoomButton = document.getElementById('socket-create-room');
+		const dissolveRoomButton = document.getElementById('socket-dissolve-room');
+		const joinRoomButton = document.getElementById('socket-join-room');
+		const exitRoomButton = document.getElementById('socket-exit-room');
+		const gameButtons = [startGameButton, createRoomButton, dissolveRoomButton, joinRoomButton, exitRoomButton];
+
+		asServerButton.addEventListener('click', () => {
+			// link
+			gameButtons.forEach(d => d.classList.add('hidden'));
+			createRoomButton.classList.remove('hidden');
+		});
+
+		asClientButton.addEventListener('click', () => {
+			// link
+			gameButtons.forEach(d => d.classList.add('hidden'));
+			joinRoomButton.classList.remove('hidden');
+		});
+
+		createRoomButton.addEventListener('click', () => {
+			createRoomButton.classList.add('hidden');
+			dissolveRoomButton.classList.remove('hidden');
+			startGameButton.classList.remove('hidden');
+		});
+
+		dissolveRoomButton.addEventListener('click', () => {
+			createRoomButton.classList.remove('hidden');
+			dissolveRoomButton.classList.add('hidden');
+			startGameButton.classList.add('hidden');
+		});
+
+		startGameButton.addEventListener('click', () => {
+			this.controller.startGame(false);
+		});
+
+		joinRoomButton.addEventListener('click', () => {
+			joinRoomButton.classList.add('hidden');
+			exitRoomButton.classList.remove('hidden');
+		});
+
+		exitRoomButton.addEventListener('click', () => {
+			joinRoomButton.classList.remove('hidden');
+			exitRoomButton.classList.add('hidden');
+		});
+
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
-			this[back]();
+			this[back]({ back: 'toStartMenu' });
 		});
 		this.setNotify(language.developing, 2000, this.boxElem);
 	}

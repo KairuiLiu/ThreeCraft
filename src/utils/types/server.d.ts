@@ -13,7 +13,7 @@ declare interface ServerDataType<T, D> {
 declare type ServerEventListenersCb<T, D> = (args: ServerDataType<T, D>) => void;
 declare type ClientEventListenersCb<T, D> = (args: ClientDataType<T, D>) => void;
 
-declare interface ClientToServerEvents {
+export declare interface ClientToServerEvents {
 	CREATE_ROOM: ClientEventListenersCb<
 		'CREATE_ROOM',
 		{
@@ -60,7 +60,7 @@ declare interface ClientToServerEvents {
 	>;
 }
 
-declare interface ServerToClientEvents {
+export declare interface ServerToClientEvents {
 	RES_CREATE_ROOM: ServerEventListenersCb<'RES_CREATE_ROOM', RoomInfo>;
 	RES_JOIN_ROOM: ServerEventListenersCb<'RES_JOIN_ROOM', { roomInfo: iRoomInfo }>;
 	RES_LEAVE_ROOM: ServerEventListenersCb<'RES_LEAVE_ROOM', null>;

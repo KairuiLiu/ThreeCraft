@@ -39,7 +39,15 @@ export default defineConfig({
 	publicDir: 'public',
 	server: {
 		host: '0.0.0.0',
-		proxy: {},
+		proxy: {
+			'/ws': {
+				target: '127.0.0.1:9000',
+				changeOrigin: true,
+				rewrite: path => {
+					return path.replace(/^\/ws/, '');
+				},
+			},
+		},
 	},
 	resolve: {
 		alias: {

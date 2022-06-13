@@ -30,8 +30,6 @@ MineCraft is a sandbox game from Microsoft. In the game, players can interact wi
 
 In recent years, with the booming of browser and front-end technology, more than 95% of browsers already support Canvas, WebGL and other drawing APIs, and there are many HTML5-based games and applications. This project is a web-based version of MineCraft developed by Three.js, which implements some basic functions of MineCraft. It aims to explore the front-end 3D animation and visualization field.
 
-Translated with www.DeepL.com/Translator (free version)
-
 ### 关键词
 
 MineCraft; WebGL; ThreeJS; WebWorker; PWA;
