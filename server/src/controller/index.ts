@@ -1,5 +1,5 @@
-import gameControllers from './game';
-import roomControllers from './room';
+import gameControllers from './game.js';
+import roomControllers from './room.js';
 
 const controllers: Controllers<ControllerKeys, SocketType, ServerType> = {
 	...roomControllers,

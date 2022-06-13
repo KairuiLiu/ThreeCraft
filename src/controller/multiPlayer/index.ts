@@ -1,7 +1,7 @@
 import { io, Socket } from 'socket.io-client';
 import { BlockLog } from '../../utils/types/block';
 import { Controller } from '..';
-import type { ClientToServerEvents, ServerToClientEvents } from '../../utils/types/server';
+import type { ClientToServerEvents, ServerToClientEvents } from '../../utils/types/multiPlayer/server';
 
 class MultiPlayer {
 	socket: Socket<ServerToClientEvents, ClientToServerEvents>;
@@ -12,18 +12,17 @@ class MultiPlayer {
 
 	constructor(controller: Controller) {
 		this.controller = controller;
-		this.socket = io();
-		this.init();
 		this.logs = [];
 	}
 
-	connect(address = '/socket') {
-		this.socket.connect();
-	}
-
-	init() {
-		this.socket.on('connect', () => {
-			console.log('connected!');
+	init(onConnect, address = '/socket') {
+		this.socket = io(address);
+		this.socket.on('connect', onConnect);
+		this.socket.on('disconnect', () => {
+			console.log('ok');
+		});
+		this.socket.on('START_GAME', res => {
+			const { message, data } = res;
 		});
 	}
 
