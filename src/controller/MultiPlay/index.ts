@@ -43,8 +43,8 @@ class MultiPlay {
 	}
 
 	bindMenuEvent({ onConnect, onDisconnect, onCreateRoom, onJoinRoom, onPlayerChange, onDissolve }) {
-		onConnect && this.socket!.on('connect', onConnect);
-		onDisconnect && this.socket!.on('disconnect', onDisconnect);
+		onConnect && this.socket?.on('connect', onConnect);
+		onDisconnect && this.socket?.on('disconnect', onDisconnect);
 		onCreateRoom &&
 			this.socket?.on('RES_CREATE_ROOM', res => {
 				this.roomId = res.data.roomInfo.roomId;
@@ -52,7 +52,7 @@ class MultiPlay {
 				onCreateRoom(res);
 			});
 		onJoinRoom &&
-			this.socket!.on('RES_JOIN_ROOM', res => {
+			this.socket?.on('RES_JOIN_ROOM', res => {
 				if (res.message === 'JOIN_SUCCESS') {
 					this.roomId = res.data.roomInfo.roomId;
 					[...res.data.roomInfo.players].forEach(d => this.players.add(d));
@@ -60,7 +60,7 @@ class MultiPlay {
 				onJoinRoom(res);
 			});
 		onPlayerChange &&
-			this.socket!.on('PLAYER_CHANGE', res => {
+			this.socket?.on('PLAYER_CHANGE', res => {
 				const { action, userName } = res;
 				if (action === 'join') this.players.add(userName);
 				else this.players.delete(userName);
@@ -68,11 +68,11 @@ class MultiPlay {
 				onPlayerChange(res);
 			});
 		onDissolve &&
-			this.socket!.on('ROOM_DISSOLVE', res => {
+			this.socket?.on('ROOM_DISSOLVE', res => {
 				this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED);
 				onDissolve(res);
 			});
-		this.socket!.on('START_GAME', res => {
+		this.socket?.on('START_GAME', res => {
 			if (this.controller.running) return;
 			deepCopy(res.config, config);
 			this.bindGame();
@@ -81,7 +81,7 @@ class MultiPlay {
 	}
 
 	bindGame() {
-		this.socket!.on('PLAYER_CHANGE', res => {
+		this.socket?.on('PLAYER_CHANGE', res => {
 			const { userName, action } = res;
 			if (action === 'join') this.players.add(userName);
 			else this.players.delete(userName);
@@ -91,15 +91,15 @@ class MultiPlay {
 				this.controller.uiController.ui.actionControl.elem
 			);
 		});
-		this.socket!.on('LOG_UPDATE', res => {
+		this.socket?.on('LOG_UPDATE', res => {
 			const { userName, log } = res;
 			if (userName !== this.userName) this.applyLog(log);
 		});
-		this.socket!.on('ROOM_DISSOLVE', () => {
+		this.socket?.on('ROOM_DISSOLVE', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED, 1000, this.controller.uiController.ui.actionControl.elem);
 			this.clear();
 		});
-		this.socket!.on('disconnect', () => {
+		this.socket?.on('disconnect', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.DISCONNECT, 1000, this.controller.uiController.ui.actionControl.elem);
 		});
 	}
@@ -140,7 +140,7 @@ class MultiPlay {
 	}
 
 	emitLeaveRoom() {
-		this.socket!.emit('LEAVE_ROOM', {
+		this.socket?.emit('LEAVE_ROOM', {
 			type: 'LEAVE_ROOM',
 			data: { roomId: this.roomId },
 		});
@@ -158,7 +158,7 @@ class MultiPlay {
 	emitStartGame() {
 		this.controller.startGame(false);
 		this.bindGame();
-		this.socket!.emit('START_GAME', {
+		this.socket?.emit('START_GAME', {
 			type: 'START_GAME',
 			data: { roomId: this.roomId, initConfig: MultiPlay.getConfig() },
 		});

@@ -135,9 +135,11 @@ class Controller {
 	endGame() {
 		deepCopy(defaultConfig, config);
 		this.core.terrain.clear();
-		this.multiPlay.emitLeaveRoom();
-		this.multiPlay.socket.close();
-		this.multiPlay.socket = null;
+		if (this.multiPlay.working) {
+			this.multiPlay?.emitLeaveRoom();
+			this.multiPlay.socket?.close();
+			this.multiPlay.socket = null;
+		}
 	}
 
 	// 用户切换了作弊模式

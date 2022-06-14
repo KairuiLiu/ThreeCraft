@@ -297,9 +297,11 @@ class Menu {
 
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
-			this.controller.multiPlay.clear();
-			this.controller.multiPlay.socket.close();
-			this.controller.multiPlay.socket = null;
+			if (this.controller.multiPlay.working) {
+				this.controller.multiPlay.clear();
+				this.controller.multiPlay.socket?.close();
+				this.controller.multiPlay.socket = null;
+			}
 			e.stopPropagation();
 			this[back]();
 		});
@@ -466,7 +468,7 @@ class Menu {
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
-			this.controller.multiPlay.emitLeaveRoom();
+			if (this.controller.multiPlay.working) this.controller.multiPlay?.emitLeaveRoom();
 			this[back]({ back: 'toStartMenu' });
 		});
 	}
