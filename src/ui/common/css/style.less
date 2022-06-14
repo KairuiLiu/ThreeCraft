@@ -7,6 +7,7 @@ body {
 	font-family: mplus, Arial, Helvetica, sans-serif;
 	font-size: 1.1rem;
 	line-height: 1.2rem;
+	overflow: hidden;
 }
 
 // 菜单组件
@@ -227,6 +228,16 @@ body {
 
 .mc-menu {
 	padding: 0;
+}
+
+#player-name-content textarea {
+	word-break: break-all;
+	word-wrap: break-word;
+	resize: none;
+	&::-webkit-scrollbar {
+		width: 0 !important;
+	}
+	overflow: -moz-scrollbars-none;
 }
 
 #HUD-stage,

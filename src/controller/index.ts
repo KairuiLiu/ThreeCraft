@@ -135,6 +135,9 @@ class Controller {
 	endGame() {
 		deepCopy(defaultConfig, config);
 		this.core.terrain.clear();
+		this.multiPlay.emitLeaveRoom();
+		this.multiPlay.socket.close();
+		this.multiPlay.socket = null;
 	}
 
 	// 用户切换了作弊模式
@@ -153,6 +156,8 @@ class Controller {
 		// 发送动作到游戏手柄
 		if (this.uiController.ui.actionControl.gamepad) this.uiController.ui.actionControl.sendGamepadAction(navigator?.getGamepads());
 		if (this.uiController.ui.bag.gamepad) this.uiController.ui.bag.sendGamepadAction(navigator?.getGamepads());
+		// 上传数据
+		if (this.multiPlay.working) this.multiPlay.emitUpdateState();
 		// FPS继续计数
 		this.uiController.ui.fps.work();
 		this.gameController.update();

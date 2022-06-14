@@ -1,8 +1,3 @@
-import './user';
-import './room';
-import './info';
-import { Socket } from 'socket.io-client';
-
 declare interface ClientDataType<T, D> {
 	type: T;
 	data: D;
@@ -18,7 +13,7 @@ declare interface ServerDataType<T, D> {
 declare type ServerEventListenersCb<T, D> = (args: ServerDataType<T, D>) => void;
 declare type ClientEventListenersCb<T, D> = (args: ClientDataType<T, D>) => void;
 
-export declare interface ClientToServerEvents {
+declare interface ClientToServerEvents {
 	CREATE_ROOM: ClientEventListenersCb<
 		'CREATE_ROOM',
 		{
@@ -56,14 +51,13 @@ export declare interface ClientToServerEvents {
 		{
 			roomId: string;
 			info: iBlockLog[];
-			position: iPositionLog;
 		}
 	>;
 }
 
-export declare interface ServerToClientEvents {
-	RES_CREATE_ROOM: ServerEventListenersCb<'RES_CREATE_ROOM', { roomInfo: iRoomInfo }>;
-	RES_JOIN_ROOM: ServerEventListenersCb<'RES_JOIN_ROOM', { roomInfo: iRoomInfo }>;
+declare interface ServerToClientEvents {
+	RES_CREATE_ROOM: ServerEventListenersCb<'RES_CREATE_ROOM', { roomInfo: iRoomInfoTrans }>;
+	RES_JOIN_ROOM: ServerEventListenersCb<'RES_JOIN_ROOM', { roomInfo: iRoomInfoTrans }>;
 	RES_LEAVE_ROOM: ServerEventListenersCb<'RES_LEAVE_ROOM', null>;
 	RES_DISSOLVE_ROOM: ServerEventListenersCb<'RES_DISSOLVE_ROOM', null>;
 	RES_START_GAME: ServerEventListenersCb<'START_GAME', null>;
@@ -75,10 +69,9 @@ export declare interface ServerToClientEvents {
 		{
 			userName: string;
 			log: iBlockLog[];
-			position: iPositionLog;
 		}
 	>;
-	ROOM_DISSOLVE: ServerEventListenersCb<'ROOM_DISSOLVE', null>;
+	ROOM_DISSOLVE: ServerEventListenersCb<'END_GAME', null>;
 	START_GAME: ServerEventListenersCb<'START_GAME', { config: iInitConfig }>;
 }
 
@@ -100,4 +93,5 @@ declare type Controllers<T extends keyof EToD, S, I> = {
 
 // eslint-disable-next-line
 declare interface InterServerEvents {}
+declare type ServerType = Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents>;
 declare type SocketType = Socket<ClientToServerEvents, ServerToClientEvents, InterServerEvents>;

@@ -22,6 +22,8 @@ class MultiPlay {
 
 	players: Set<string>;
 
+	lastUpdate: number;
+
 	constructor(controller: Controller) {
 		this.socket = null;
 		this.controller = controller;
@@ -31,42 +33,48 @@ class MultiPlay {
 		this.roomId = null;
 		this.playing = false;
 		this.players = new Set();
+		this.lastUpdate = 0;
 	}
 
-	init(address = '/socket') {
-		// this.socket = io(address);
-		this.socket = io('http://127.0.0.1:9000');
+	init(address = '') {
+		this.socket?.disconnect();
+		this.socket = io(address);
+		this.working = true;
 	}
 
 	bindMenuEvent({ onConnect, onDisconnect, onCreateRoom, onJoinRoom, onPlayerChange, onDissolve }) {
 		onConnect && this.socket!.on('connect', onConnect);
 		onDisconnect && this.socket!.on('disconnect', onDisconnect);
 		onCreateRoom &&
-			this.socket!.on('RES_CREATE_ROOM', res => {
+			this.socket?.on('RES_CREATE_ROOM', res => {
 				this.roomId = res.data.roomInfo.roomId;
-				// ! BUG!! cause of internet
-				// [...res.data.roomInfo.players].forEach(d => this.players.add(d[1].name));
+				res.data.roomInfo.players.forEach(d => this.players.add(d));
 				onCreateRoom(res);
 			});
 		onJoinRoom &&
 			this.socket!.on('RES_JOIN_ROOM', res => {
-				if (res.message !== 'JOIN_FAILED') {
+				if (res.message === 'JOIN_SUCCESS') {
 					this.roomId = res.data.roomInfo.roomId;
-					[...res.data.roomInfo.players].forEach(d => this.players.add(d[1].name));
+					[...res.data.roomInfo.players].forEach(d => this.players.add(d));
 				}
 				onJoinRoom(res);
 			});
 		onPlayerChange &&
 			this.socket!.on('PLAYER_CHANGE', res => {
-				const { action, userName } = res.data;
+				const { action, userName } = res;
 				if (action === 'join') this.players.add(userName);
 				else this.players.delete(userName);
+				this.controller.ui.menu.setNotify(`${userName} ${action === 'join' ? language.wsMessage.PLAYER_CHANGE_JOIN : language.wsMessage.PLAYER_CHANGE_LEAVE}`);
 				onPlayerChange(res);
 			});
-		onDissolve && this.socket!.on('ROOM_DISSOLVE', onDissolve);
+		onDissolve &&
+			this.socket!.on('ROOM_DISSOLVE', res => {
+				this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED);
+				onDissolve(res);
+			});
 		this.socket!.on('START_GAME', res => {
-			const { data } = res;
-			deepCopy(data.config, config);
+			if (this.controller.running) return;
+			deepCopy(res.config, config);
 			this.bindGame();
 			this.controller.startGame(false);
 		});
@@ -74,28 +82,29 @@ class MultiPlay {
 
 	bindGame() {
 		this.socket!.on('PLAYER_CHANGE', res => {
-			const { userName, action } = res.data;
+			const { userName, action } = res;
 			if (action === 'join') this.players.add(userName);
 			else this.players.delete(userName);
-			this.controller.ui.menu.setNotify(`${userName} ${action === 'join' ? language.joinedRoom : language.leavedRoom}`, 1000, this.controller.uiController.ui.actionControl.elem);
+			this.controller.ui.menu.setNotify(
+				`${userName} ${action === 'join' ? language.wsMessage.PLAYER_CHANGE_JOIN : language.wsMessage.PLAYER_CHANGE_LEAVE}`,
+				1000,
+				this.controller.uiController.ui.actionControl.elem
+			);
 		});
 		this.socket!.on('LOG_UPDATE', res => {
-			const { userName, log } = res.data;
-			if (userName === this.userName) this.insertLog(log);
+			const { userName, log } = res;
+			if (userName !== this.userName) this.applyLog(log);
 		});
 		this.socket!.on('ROOM_DISSOLVE', () => {
-			this.controller.ui.menu.setNotify(language.roomDissolved, 1000, this.controller.uiController.ui.actionControl.elem);
+			this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED, 1000, this.controller.uiController.ui.actionControl.elem);
 			this.clear();
 		});
 		this.socket!.on('disconnect', () => {
-			this.controller.ui.menu.setNotify(language.connectLose, 1000, this.controller.uiController.ui.actionControl.elem);
-			this.clear();
+			this.controller.ui.menu.setNotify(language.wsMessage.DISCONNECT, 1000, this.controller.uiController.ui.actionControl.elem);
 		});
 	}
 
 	clear() {
-		this.socket.disconnect();
-		this.socket = null;
 		this.logs = [];
 		this.working = false;
 		this.roomId = null;
@@ -104,12 +113,13 @@ class MultiPlay {
 		this.players.clear();
 	}
 
-	insertLog(logs: iBlockLog[]) {
+	insertLog(logs: BlockLog[]) {
 		this.logs.push(...logs);
 	}
 
-	applyLog(logs: iBlockLog[]) {
-		this.controller.gameController.blockController.update(logs);
+	applyLog(logs: BlockLog[]) {
+		this.controller.log.load(logs);
+		this.controller.gameController.blockController.update(logs, true);
 	}
 
 	emitCreateRoom(userName) {
@@ -120,9 +130,10 @@ class MultiPlay {
 		});
 	}
 
-	emitJoinRoom(userName) {
+	emitJoinRoom(userName, roomId) {
 		this.userName = userName;
-		this.socket!.emit('JOIN_ROOM', {
+		this.roomId = roomId;
+		this.socket?.emit('JOIN_ROOM', {
 			type: 'JOIN_ROOM',
 			data: { roomId: this.roomId, userName: this.userName },
 		});
@@ -133,6 +144,7 @@ class MultiPlay {
 			type: 'LEAVE_ROOM',
 			data: { roomId: this.roomId },
 		});
+		this.clear();
 	}
 
 	emitDissolveRoom() {
@@ -144,6 +156,8 @@ class MultiPlay {
 	}
 
 	emitStartGame() {
+		this.controller.startGame(false);
+		this.bindGame();
 		this.socket!.emit('START_GAME', {
 			type: 'START_GAME',
 			data: { roomId: this.roomId, initConfig: MultiPlay.getConfig() },
@@ -151,11 +165,14 @@ class MultiPlay {
 	}
 
 	emitUpdateState() {
-		this.socket!.emit('UPDATE_STATE', {
+		const curTime = performance.now();
+		if (curTime - this.lastUpdate < 500) return;
+		this.lastUpdate = curTime;
+		this.socket.emit('UPDATE_STATE', {
 			type: 'UPDATE_STATE',
 			data: {
 				roomId: this.roomId,
-				info: this.logs as iBlockLog[],
+				info: this.logs as BlockLog[],
 				position: {
 					...config.state,
 					dirX: this.controller.core!.camera.rotation.x,
@@ -169,7 +186,7 @@ class MultiPlay {
 
 	static getConfig() {
 		// eslint-disable-next-line
-		return (({ seed, cloudSeed, treeSeed, weather, state, log }) => arguments)(config) as unknown as iInitConfig;
+		return (({ seed, cloudSeed, treeSeed, weather, state, log }) => ({ seed, cloudSeed, treeSeed, weather, state, log }))(config);
 	}
 }
 

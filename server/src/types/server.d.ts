@@ -56,8 +56,8 @@ declare interface ClientToServerEvents {
 }
 
 declare interface ServerToClientEvents {
-	RES_CREATE_ROOM: ServerEventListenersCb<'RES_CREATE_ROOM', { roomInfo: iRoomInfo }>;
-	RES_JOIN_ROOM: ServerEventListenersCb<'RES_JOIN_ROOM', { roomInfo: iRoomInfo }>;
+	RES_CREATE_ROOM: ServerEventListenersCb<'RES_CREATE_ROOM', { roomInfo: iRoomInfoTrans }>;
+	RES_JOIN_ROOM: ServerEventListenersCb<'RES_JOIN_ROOM', { roomInfo: iRoomInfoTrans }>;
 	RES_LEAVE_ROOM: ServerEventListenersCb<'RES_LEAVE_ROOM', null>;
 	RES_DISSOLVE_ROOM: ServerEventListenersCb<'RES_DISSOLVE_ROOM', null>;
 	RES_START_GAME: ServerEventListenersCb<'START_GAME', null>;

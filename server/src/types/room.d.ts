@@ -4,3 +4,10 @@ declare type iRoomInfo = {
 	owner: iUserInfo | null;
 	status: 'WAITING' | 'GAMING' | 'END';
 };
+
+declare type iRoomInfoTrans = {
+	roomId: string;
+	players: string[];
+	owner: iUserInfo | null;
+	status: 'WAITING' | 'GAMING' | 'END';
+};

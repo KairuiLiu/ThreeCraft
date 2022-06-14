@@ -2,6 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import controllers from './controller/index.js';
+import os from 'os';
 
 const app = express();
 const httpServer = createServer(app);
@@ -22,5 +23,20 @@ io.on('connection', socket => {
 		});
 	});
 });
+
+(() => {
+	const interfaces = os.networkInterfaces();
+	for (let devName in interfaces) {
+		const iface = interfaces[devName];
+		for (let i = 0; i < iface!.length; i++) {
+			var alias = iface![i];
+			if (alias.address !== '127.0.0.1' && !alias.internal) {
+				console.log(`ThreeCraft v1.0.0 game server running at:\n> Local:\thttp://localhost:9000\n> Network:\thttp://${alias.address}:9000\n`);
+				console.log(`\x1b[40m\x1b[31mYOU MUST ENTER THE ADDRESS LIKE http://${alias.address}:9000 IN GAME, NO PART CAN BE OMITTED!\x1b[0m`);
+				return;
+			}
+		}
+	}
+})();
 
 httpServer.listen(9000);

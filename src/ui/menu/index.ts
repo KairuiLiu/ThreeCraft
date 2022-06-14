@@ -255,10 +255,6 @@ class Menu {
 		});
 
 		linkServerButton.addEventListener('click', () => {
-			linkServerButton.disabled = true;
-			setTimeout(() => {
-				linkServerButton.disabled = false;
-			}, 3000);
 			this.controller.multiPlay.init(serverModCustom.checked ? ipCustom.value : undefined);
 			this.controller.multiPlay.bindMenuEvent({
 				onConnect: () => {
@@ -269,7 +265,7 @@ class Menu {
 					serverModCustom.disabled = true;
 				},
 				onDisconnect: () => {
-					this.setNotify(language.disconnect);
+					this.setNotify(language.wsMessage.DISCONNECT);
 					linkServerButton.classList.remove('hidden');
 					cancelLinkServer.classList.add('hidden');
 					chooseRoom.classList.add('hidden');
@@ -290,6 +286,9 @@ class Menu {
 			cancelLinkServer.classList.add('hidden');
 			serverModDefault.disabled = false;
 			serverModCustom.disabled = false;
+			this.controller.multiPlay.clear();
+			this.controller.multiPlay.socket.disconnect();
+			this.controller.multiPlay.socket = null;
 		});
 
 		chooseRoom.addEventListener('click', () => {
@@ -299,10 +298,11 @@ class Menu {
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			this.controller.multiPlay.clear();
+			this.controller.multiPlay.socket.close();
+			this.controller.multiPlay.socket = null;
 			e.stopPropagation();
 			this[back]();
 		});
-		this.setNotify(language.developing, 2000, this.boxElem);
 	}
 
 	toSocketConfigMenu({ back }) {
@@ -312,17 +312,17 @@ class Menu {
 		this.clearMenuItem();
 		this.boxElem.innerHTML = `
 			<div class="box-line title color-white">${language.multiPlayerGame}</div>
-			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">${language.creatRoom}</label></div>
+			<div class="radio-item"><input type="radio" name="play-mod" id="as-server" checked/><label for="as-server">${language.createRoom}</label></div>
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">${language.joinRoom}</label></div>
 			<br/>
 			<div class="box-line">
 			<label for="nickName" class="fix-width color-white">${language.nickname}: </label><input type="text" class="text-input" id="nickName" />
 			</div>
-			<div class="box-line" id="roomNameContent">
+			<div class="box-line hidden" id="room-name-content">
 				<label for="roomName" class="fix-width color-white">${language.roomName}: </label><input type="text" class="text-input" id="roomName" />
 			</div>
-			<div class="box-line" id="playerNameContent">
-				<label for="player" class="fix-width color-white">${language.player}: </label><input type="text" class="text-input" id="player" disabled />
+			<div class="box-line hidden" id="player-name-content">
+				<label for="player" class="fix-width color-white input-break">${language.player}: </label><textarea rows="3" class="text-input" id="player" disabled></textarea>
 			</div>
 			<br/>
 			<button id="socket-start-game" class="button hidden">${language.startGame}</button>
@@ -337,6 +337,8 @@ class Menu {
 		const roomName = document.getElementById('roomName') as HTMLInputElement;
 		const nickName = document.getElementById('nickName') as HTMLInputElement;
 		const playerName = document.getElementById('player') as HTMLInputElement;
+		const roomNameContent = document.getElementById('room-name-content');
+		const playerNameContent = document.getElementById('player-name-content');
 
 		const startGameButton = document.getElementById('socket-start-game');
 		const createRoomButton = document.getElementById('socket-create-room');
@@ -349,49 +351,60 @@ class Menu {
 			onCreateRoom: res => {
 				const { data } = res;
 				roomName.value = data.roomInfo.roomId;
-				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+				playerName.value = [...this.controller.multiPlay.players].join(' / ');
 				createRoomButton.classList.add('hidden');
 				dissolveRoomButton.classList.remove('hidden');
 				asServerButton.disabled = true;
 				asClientButton.disabled = true;
 				nickName.disabled = true;
 				roomName.disabled = true;
+				roomNameContent.classList.remove('hidden');
+				playerNameContent.classList.remove('hidden');
+				startGameButton.classList.remove('hidden');
 			},
 			onJoinRoom: res => {
-				if (res.message === 'JOIN_FAILED') {
-					this.setNotify(language.joinFailed);
+				if (res.message !== 'JOIN_SUCCESS') {
+					this.setNotify(language.wsMessage[res.message]);
 					return;
 				}
 				const { data } = res;
 				roomName.value = data.roomInfo.roomId;
-				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+				playerName.value = [...this.controller.multiPlay.players].join(' / ');
 				joinRoomButton.classList.add('hidden');
 				exitRoomButton.classList.remove('hidden');
 				asServerButton.disabled = true;
 				asClientButton.disabled = true;
 				nickName.disabled = true;
 				roomName.disabled = true;
+				roomNameContent.classList.remove('hidden');
+				playerNameContent.classList.remove('hidden');
 			},
 			onDissolve: () => {
-				this.setNotify(language.dissolve);
+				this.setNotify(language.wsMessage.ROOM_DISSOLVED);
 				playerName.value = '';
 				gameButtons.forEach(d => d.classList.add('hidden'));
-				if (asServerButton.checked) createRoomButton.classList.remove('hidden');
-				else joinRoomButton.classList.remove('hidden');
+				if (asServerButton.checked) {
+					createRoomButton.classList.remove('hidden');
+					roomNameContent.classList.add('hidden');
+				} else joinRoomButton.classList.remove('hidden');
+				playerNameContent.classList.add('hidden');
 				asServerButton.disabled = false;
 				asClientButton.disabled = false;
 				nickName.disabled = false;
 				roomName.disabled = false;
 			},
 			onPlayerChange: () => {
-				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+				playerName.value = [...this.controller.multiPlay.players].join(' / ');
 			},
 			onDisconnect: () => {
-				this.setNotify(language.disconnect);
+				this.setNotify(language.wsMessage.DISCONNECT);
 				gameButtons.forEach(d => d.classList.add('hidden'));
 				playerName.value = '';
-				if (asServerButton.checked) createRoomButton.classList.remove('hidden');
-				else joinRoomButton.classList.remove('hidden');
+				if (asServerButton.checked) {
+					createRoomButton.classList.remove('hidden');
+					roomNameContent.classList.add('hidden');
+				} else joinRoomButton.classList.remove('hidden');
+				playerNameContent.classList.add('hidden');
 				asServerButton.disabled = false;
 				asClientButton.disabled = false;
 				nickName.disabled = false;
@@ -402,20 +415,32 @@ class Menu {
 
 		asServerButton.addEventListener('click', () => {
 			gameButtons.forEach(d => d.classList.add('hidden'));
+			roomNameContent.classList.add('hidden');
+			playerNameContent.classList.add('hidden');
 			createRoomButton.classList.remove('hidden');
+			roomName.value = '';
+			playerName.value = '';
 		});
 
 		asClientButton.addEventListener('click', () => {
 			gameButtons.forEach(d => d.classList.add('hidden'));
+			roomNameContent.classList.remove('hidden');
+			playerNameContent.classList.add('hidden');
 			joinRoomButton.classList.remove('hidden');
+			roomName.value = '';
+			playerName.value = '';
 		});
 
 		createRoomButton.addEventListener('click', () => {
-			this.controller.multiPlay.emitCreateRoom(nickName.value);
+			if (nickName.value.trim().length === 0) return;
+			this.controller.multiPlay.emitCreateRoom(nickName.value.trim());
 		});
 
 		dissolveRoomButton.addEventListener('click', () => {
 			this.controller.multiPlay.emitDissolveRoom();
+			roomNameContent.classList.add('hidden');
+			playerNameContent.classList.add('hidden');
+			dissolveRoomButton.classList.add('hidden');
 		});
 
 		startGameButton.addEventListener('click', () => {
@@ -423,11 +448,19 @@ class Menu {
 		});
 
 		joinRoomButton.addEventListener('click', () => {
-			this.controller.multiPlay.emitJoinRoom(nickName.value);
+			if (nickName.value.trim().length === 0 || roomName.value.trim().length === 0) return;
+			this.controller.multiPlay.emitJoinRoom(nickName.value.trim(), roomName.value.trim());
 		});
 
 		exitRoomButton.addEventListener('click', () => {
 			this.controller.multiPlay.emitLeaveRoom();
+			playerNameContent.classList.add('hidden');
+			exitRoomButton.classList.add('hidden');
+			joinRoomButton.classList.remove('hidden');
+			asServerButton.disabled = false;
+			asClientButton.disabled = false;
+			nickName.disabled = false;
+			roomName.disabled = false;
 		});
 
 		const backMenu = document.getElementById('backMenu');
@@ -436,7 +469,6 @@ class Menu {
 			this.controller.multiPlay.emitLeaveRoom();
 			this[back]({ back: 'toStartMenu' });
 		});
-		this.setNotify(language.developing, 2000, this.boxElem);
 	}
 
 	// 设置菜单

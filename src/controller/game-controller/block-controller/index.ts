@@ -20,7 +20,8 @@ class BlockController {
 	}
 
 	// 处理注册的块事件
-	update(blocks: BlockLog[]) {
+	update(blocks: BlockLog[], ignoreMultiPlay = false) {
+		if (this.host.host.multiPlay.working && !ignoreMultiPlay) this.host.host.multiPlay.insertLog([...blocks]);
 		blocks.forEach(d => {
 			if (d.type === null) this.core.blockAction.removeBlock(d);
 			else this.core.blockAction.placeBlock(d);

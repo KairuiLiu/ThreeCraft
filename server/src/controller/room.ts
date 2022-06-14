@@ -1,7 +1,13 @@
 import { Server } from 'socket.io';
-import { tryJoinRoom } from './user.js';
 
 export const roomCollisions: Map<string, iRoomInfo> = new Map();
+
+function toRoomTrans(room: iRoomInfo): iRoomInfoTrans {
+	return {
+		...room,
+		players: [...room.players].map(d => d[1].name),
+	};
+}
 
 function createRoom(id: string, name: string) {
 	let roomId;
@@ -25,7 +31,9 @@ function dissolveRoom(roomId: string, io: Server) {
 }
 
 function updateUserInfo(room: iRoomInfo, name: string, action: string, io: Server) {
-	io.sockets.in(room.roomId).emit('PLAYER_CHANGE', { userName: name, action });
+	io.sockets.in(room.roomId).emit('PLAYER_CHANGE', {
+		userName: name, action
+	});
 }
 
 const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
@@ -36,7 +44,7 @@ const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
 		sc.join(room.roomId);
 		return {
 			message: 'CREATE_ROOM_SUCCESS',
-			data: { roomInfo: room },
+			data: { roomInfo: toRoomTrans(room) },
 			type: 'RES_CREATE_ROOM',
 		};
 	},
@@ -44,17 +52,24 @@ const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
 		const { roomId, userName } = data;
 		const { id } = sc;
 		const room = roomCollisions.get(roomId);
-		if (!room || !tryJoinRoom(id, userName, room))
+		if (!room || room.status !== 'WAITING')
 			return {
-				message: 'JOIN_FAILED',
+				message: 'ROOM_NOT_FOUND',
 				data: null,
 				type: 'RES_JOIN_ROOM',
 			};
+		if ([...room.players].findIndex(d => d[1].name === userName) + 1)
+			return {
+				message: 'DUPlATE_NAME',
+				data: null,
+				type: 'RES_JOIN_ROOM',
+			};
+		room.players.set(id, { id, name: userName });
 		sc.join(room.roomId);
 		updateUserInfo(room, userName, 'join', io);
 		return {
 			message: 'JOIN_SUCCESS',
-			data: room,
+			data: { roomInfo: toRoomTrans(room) },
 			type: 'RES_JOIN_ROOM',
 		};
 	},
@@ -65,7 +80,7 @@ const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
 			const { name } = room.players.get(sc.id)!;
 			room.players.delete(sc.id);
 			sc.leave(roomId);
-			if (room?.owner?.id === sc.id || room.players.size === 1) dissolveRoom(roomId, io);
+			if (room?.owner?.id === sc.id || room.players.size === 0) dissolveRoom(roomId, io);
 			else updateUserInfo(room, name, 'leave', io);
 			return {
 				message: 'LEAVE_SUCCESS',

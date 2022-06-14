@@ -36,7 +36,7 @@ const gameControllers: Controllers<ClientGameKeys, SocketType, ServerType> = {
 		const userId = sc.id;
 		if (!roomCollisions.has(roomId) || !roomCollisions.get(roomId)?.players.has(userId))
 			return {
-				message: '房间不存在',
+				message: 'ROOM_NOT_FOUND',
 				data: null,
 				type: 'RES_START_GAME',
 			};

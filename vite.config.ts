@@ -40,12 +40,9 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0',
 		proxy: {
-			'/socket': {
-				target: 'http://127.0.0.1:9000',
+			'/socket.io': {
+				target: 'http://127.0.0.1:9000/',
 				changeOrigin: true,
-				rewrite: path => {
-					return path.replace(/^\/socket/, '');
-				},
 			},
 		},
 	},

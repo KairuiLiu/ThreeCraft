@@ -2,7 +2,7 @@ import '../../../utils/types/image.d.ts';
 import xboxImg from '../../../assets/pictures/joy-stick/xbox-cn.png';
 import psImg from '../../../assets/pictures/joy-stick/ps-cn.png';
 
-export default {
+const language = {
 	singlePlayerGame: '单人游戏',
 	multiPlayerGame: '多人游戏',
 	uploadArchive: '上载存档',
@@ -14,7 +14,7 @@ export default {
 	setting: '游戏设置',
 	help: '帮助',
 	about: '关于',
-	creatRoom: '创建房间',
+	createRoom: '创建房间',
 	joinRoom: '加入房间',
 	exitRoom: '退出房间',
 	roomName: '房间名',
@@ -98,10 +98,18 @@ export default {
 	serverAddress: '地址',
 	cancelLink: '断开连接',
 	chooseRoom: '下一步',
-	joinedRoom: '加入了房间',
-	leavedRoom: '离开了房间',
-	roomDissolved: '房间已解散, 请注意保存存档',
-	connectLose: '服务器连接失败, 请注意保存存档',
-	createRoom: '创建房间',
 	dissolveRoom: '解散房间',
+	wsMessage: {
+		PERMISSION_DENIED: '权限不足',
+		ROOM_NOT_FOUND: '未找到房间',
+		CREATE_ROOM_SUCCESS: '房间创建成功',
+		LEAVE_SUCCESS: '您已离开房间',
+		ROOM_DISSOLVED: '房间已解散',
+		PLAYER_CHANGE_JOIN: '加入了房间',
+		PLAYER_CHANGE_LEAVE: '离开了房间',
+		DISCONNECT: '服务器连接已断开',
+		DUPlATE_NAME: '昵称重复, 请修改昵称',
+	},
 };
+
+export default language;
