@@ -52,4 +52,4 @@ jobs:
           SOURCE: dist/*
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_USER: root
-          TARGET: /home/liukairui/wwwroot/mc
+          TARGET: /home/liukairui/wwwroot/mc/html

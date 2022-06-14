@@ -1,9 +1,11 @@
 {
 	"compilerOptions": {
 		"baseUrl": ".",
-		"module": "esnext",
+		"module": "CommonJS",
 		"target": "esnext",
-		"lib": ["esnext"],
+		"lib": [
+			"esnext"
+		],
 		"strict": true,
 		"outDir": "./dist",
 		"jsx": "preserve",
@@ -15,10 +17,16 @@
 		"sourceMap": false,
 		"noUnusedParameters": true,
 		"noImplicitReturns": true,
-		"types": ["express", "node"],
+		"types": [
+			"express",
+			"node"
+		],
 		"skipLibCheck": true,
 		"strictNullChecks": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"exclude": ["dist", "node_modules"]
+	"exclude": [
+		"dist",
+		"node_modules"
+	]
 }

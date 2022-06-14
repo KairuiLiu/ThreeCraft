@@ -26,15 +26,16 @@
 
 ### ✨ Feature
 
-- [ ] Multiplayer online games
-- [x] Efficient collision detection method
-- [x] Efficient multi-threaded dynamic infinite map generation and partial refresh method
-- [x] Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
-- [x] Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 Joy Stick, Xbox Joy Stick support)
-- [x] Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
-- [x] Multiple ways to save and load archive
-- [x] Dual language support (Chinese / English)
-- [x] Original sound
+- Multiplayer online games
+- Efficient collision detection method
+- Efficient multi-threaded dynamic infinite map generation and partial refresh method
+- Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
+- Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 Joy Stick, Xbox Joy Stick support)
+- Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
+- Multiple ways to save and load archive
+- Dual language support (Chinese / English)
+- Original sound
+- PWA support
 
 ### 🎮️ Operation
 
@@ -94,8 +95,40 @@
 - Backend
 
   ```bash
-  # emm
+  # Enter the backend directory
+  > cd server
+
+  # Install all dependance
+  > pnpm install
+
+  # Compile TS code
+  > tsc
+
+  # Execute backend programs (if process management tools such as PM2 are not required)
+  > node ./dist/index.js
+
+  # Install PM2
+  > pnpm install -g pm2
+
+  # Sign up for PM2 monitoring
+  > pm2 start --watch ./dist/index.js
+
+  # For reverse proxy, proxy /socket.io to localhost:9000 and configure same-origin policy
   ```
+
+  After the program runs, the following prompt will be output
+
+  ```
+  ThreeCraft v1.0.0 game server running at:
+  > Local:        http://localhost:9000
+  > Network:      http://xxx.xxx.xxx.xxx:9000
+
+  YOU MUST ENTER THE ADDRESS LIKE http://xxx.xxx.xxx.xxx:9000 IN GAME, NO PART CAN BE OMITTED!
+  ```
+
+  When connecting to the server, be sure to enter all `http://192.168.0.2:9000`, do not omit `http://` or `:9000`
+
+  If the frontend runs on https, then the backend should also runs on https. Some reverse proxy tools may be needed to implement https
 
 ### 🥰 Reference
 
