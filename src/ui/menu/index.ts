@@ -861,10 +861,10 @@ class Menu {
 			<div class="box-line title color-white">${language.about}</div>
 			<div class="box-line color-white">${language.aboutItems[0]}</div>
 			<div class="box-line color-white">
-			${language.aboutItems[1]}<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>${language.aboutItems[2]}
+			${language.aboutItems[1]}
 			</div>
 			<div class="box-line color-white">
-			${language.aboutItems[3]}
+			${language.aboutItems[2]}<a href="https://github.com/KairuiLiu/ThreeCraft" target="blank">Github</a>${language.aboutItems[3]}
 			</div>
 			<br/>
 			<div class="color-white">

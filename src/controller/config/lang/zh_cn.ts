@@ -60,7 +60,7 @@ const language = {
 		{ k: '转动头显', v: '变换朝向' },
 		{ k: '使用遥控器', v: '摧毁方块' },
 	],
-	aboutItems: ['基于Three.js的Minecraft实现.', '去', '了解更多:)', '未完成版: 202206092006.'],
+	aboutItems: ['基于Three.js的Minecraft实现.', '版本: 1.0.0', '去', '了解更多:)'],
 	tryRotate: '请先将您的设备设为横屏再开始游戏',
 	tryLock: '鼠标锁定失败, 请尝试再次点击',
 	allBlock: '全部方块',
