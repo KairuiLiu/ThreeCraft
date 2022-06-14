@@ -26,11 +26,11 @@
 
 ### ✨ Feature
 
-- Multiplayer online games
+- Multiplayer online game support
 - Efficient collision detection method
 - Efficient multi-threaded dynamic infinite map generation and partial refresh method
-- Five random game scenes (Classic / Ice / Beach Melon Field / Halloween / Bizarre)
-- Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 Joy Stick, Xbox Joy Stick support)
+- Five random game scenes (Classic / Ice / Beach Melon Field / Pumpkin Field / Bizarre)
+- Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 joy stick, Xbox joy stick support)
 - Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
 - Multiple ways to save and load archive
 - Dual language support (Chinese / English)
@@ -59,17 +59,17 @@
   - **Click Item Box**: Toggle Block
   - **Click Active Item**: Open Backpack
 
-- **Xbox Joy Sitck(test on Xbox one)**
+- **Xbox joy stick(test on Xbox One)**
 
   <img src="./doc/img/xbox-en.png" height="200px"/>
 
-- **PS Joy Sitck(test on PS4)**
+- **PS joy stick(test on PS4)**
 
   <img src="./doc/img/ps-en.png" height="200px"/>
 
 - **VR**
-  - **Turn Headset**: Change Orientation
-  - **Using Remote**: Destroy Blocks
+  - **Turn headset**: Change Orientation
+  - **Using remote**: Destroy Blocks
 
 ### 🛠️ Install
 
@@ -79,10 +79,10 @@
   # Install pnpm
   > npm install -g pnpm
 
-  # Install all dependance
+  # Install all dependencies
   > pnpm install
 
-  # Install a dependance
+  # Install a dependency
   > pnpm install xxx  -D/-S
 
   # Run
@@ -126,12 +126,12 @@
   YOU MUST ENTER THE ADDRESS LIKE http://xxx.xxx.xxx.xxx:9000 IN GAME, NO PART CAN BE OMITTED!
   ```
 
-  When connecting to the server, be sure to enter all `http://192.168.0.2:9000`, do not omit `http://` or `:9000`
+  When connecting to the server, be sure to enter all `http://xxx.xxx.xxx.xxx:9000`, do not omit `http://` or `:9000`
 
   If the frontend runs on https, then the backend should also runs on https. Some reverse proxy tools may be needed to implement https
 
 ### 🥰 Reference
 
 - The overall structure of the project refers from [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs). Thanks a lot for their work!
-- The implementation of the mobile joystick refers from [bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
+- The implementation of the mobile joystick refers from [bobboteck/JoyStick](https://github.com/bobboteck/JoyStick).
 - The overall structure of backend refers from [Merlin218/UNO-server](https://github.com/Merlin218/UNO-server/). Thanks a lot for his work!

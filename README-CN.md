@@ -26,10 +26,10 @@
 
 ### ✨ 特性
 
-- 支持多人联机游戏
+- 多人联机游戏支持
 - 高效的碰撞检测方法
 - 高效的多线程动态无限地图生成与局部刷新方法
-- 五种游戏场景随机出现(经典 / 冰雪 / 月下沙滩瓜田 / 万圣节 / 奇异)
+- 五种游戏场景随机出现(经典 / 冰雪 / 月下沙滩瓜田 / 南瓜田 / 奇异)
 - 多端多操控模式支持(PC 端, 移动端, VR 端, PS4/5 手柄支持, Xbox 手柄支持)
 - 多种参数可调(视角 / 雾气 / 场景大小 / 操纵范围 / 音量 / 线程数 / 操作灵敏度 / 语言 / 操作模式 / 十字准星颜色 / 背包模式 / 作弊模式)
 - 多种存档与读档方式
@@ -127,7 +127,7 @@
   YOU MUST ENTER THE ADDRESS LIKE http://xxx.xxx.xxx.xxx:9000 IN GAME, NO PART CAN BE OMITTED!
   ```
 
-  在游戏中连接服务器时候请务必输全`http://192.168.0.2:9000`, 不要省略`http://`或`:9000`
+  在游戏中连接服务器时候请务必输全`http://xxx.xxx.xxx.xxx:9000`, 不要省略`http://`或`:9000`
 
   如果前端运行在 https 上, 那么后端也应该运行在 https 上. 可能需要一些反向代理工具实现 https
 
@@ -135,10 +135,10 @@
 
 - [开题报告.pdf](./doc/opening-report/build/slides-export.pdf)
 - [总体设计.md](./doc/overall-design)
-- [结课报告.md](./doc/final-report)
+- [结题报告.md](./doc/final-report)
 
 ### 🥰 参考
 
 - 项目整体结构参考了 [vyse12138/minecraft-threejs](https://github.com/vyse12138/minecraft-threejs), 这个项目很棒. 非常感谢这个项目!
-- 移动端游戏手柄的实现参考了[bobboteck/JoyStick](https://github.com/bobboteck/JoyStick)
+- 移动端游戏手柄的实现参考了[bobboteck/JoyStick](https://github.com/bobboteck/JoyStick).
 - 项目的后端整体结构参考了 [Merlin218/UNO-server](https://github.com/Merlin218/UNO-server/). 非常感谢这个项目!
