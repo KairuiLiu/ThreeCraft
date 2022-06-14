@@ -32,7 +32,8 @@ function dissolveRoom(roomId: string, io: Server) {
 
 function updateUserInfo(room: iRoomInfo, name: string, action: string, io: Server) {
 	io.sockets.in(room.roomId).emit('PLAYER_CHANGE', {
-		userName: name, action
+		userName: name,
+		action,
 	});
 }
 
