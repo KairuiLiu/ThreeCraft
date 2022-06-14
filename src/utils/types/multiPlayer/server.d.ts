@@ -56,6 +56,7 @@ export declare interface ClientToServerEvents {
 		{
 			roomId: string;
 			info: iBlockLog[];
+			position: iPositionLog;
 		}
 	>;
 }
@@ -74,9 +75,10 @@ export declare interface ServerToClientEvents {
 		{
 			userName: string;
 			log: iBlockLog[];
+			position: iPositionLog;
 		}
 	>;
-	ROOM_DISSOLVE: ServerEventListenersCb<'END_GAME', null>;
+	ROOM_DISSOLVE: ServerEventListenersCb<'ROOM_DISSOLVE', null>;
 	START_GAME: ServerEventListenersCb<'START_GAME', { config: iInitConfig }>;
 }
 

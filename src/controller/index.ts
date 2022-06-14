@@ -7,6 +7,7 @@ import { config, defaultConfig, language } from './config';
 import { deepCopy } from '../utils/deep-copy';
 import weatherConfig from '../core/weather';
 import Log from './log';
+import MultiPlay from './MultiPlay';
 
 class Controller {
 	ui: UI;
@@ -33,6 +34,8 @@ class Controller {
 
 	log: Log;
 
+	multiPlay: MultiPlay;
+
 	constructor(el: HTMLElement) {
 		// 挂载游戏层和控制器层, 默认看不到
 		[...el.children].forEach(d => d.remove());
@@ -44,6 +47,8 @@ class Controller {
 		this.hudStage.setAttribute('id', 'HUD-stage');
 		this.hudStage.classList.add('hidden');
 		el.appendChild(this.hudStage);
+
+		this.multiPlay = new MultiPlay(this);
 
 		// 读取默认配置文件
 		deepCopy(defaultConfig, config);

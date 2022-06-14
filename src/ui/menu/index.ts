@@ -255,12 +255,55 @@ class Menu {
 		});
 
 		linkServerButton.addEventListener('click', () => {
-			// link
-			linkServerButton.classList.add('hidden');
-			cancelLinkServer.classList.remove('hidden');
-			chooseRoom.classList.remove('hidden');
-			serverModDefault.disabled = true;
-			serverModCustom.disabled = true;
+			linkServerButton.disabled = true;
+			setTimeout(() => {
+				linkServerButton.disabled = false;
+			}, 3000);
+			this.controller.multiPlay.init(serverModCustom.checked ? ipCustom.value : undefined);
+			this.controller.multiPlay.bindMenuEvent({
+				onConnect: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+				onDisconnect: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+				onCreateRoom: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+				onJoinRoom: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+				onPlayerChange: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+				onDissolve: () => {
+					linkServerButton.classList.add('hidden');
+					cancelLinkServer.classList.remove('hidden');
+					chooseRoom.classList.remove('hidden');
+					serverModDefault.disabled = true;
+					serverModCustom.disabled = true;
+				},
+			});
 		});
 
 		cancelLinkServer.addEventListener('click', () => {

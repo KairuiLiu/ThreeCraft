@@ -3,10 +3,16 @@ declare interface iBlockLog {
 	posX: number;
 	posY: number;
 	posZ: number;
+	action?: actionBlockEvent;
+}
+
+declare interface iPositionLog {
+	posX: number;
+	posY: number;
+	posZ: number;
 	dirX: number;
 	dirY: number;
 	dirZ: number;
-	action?: actionBlockEvent;
 }
 
 declare interface iInitConfig {
