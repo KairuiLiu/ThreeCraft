@@ -7,6 +7,10 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server<ClientToServerEvents, ServerToClientEvents, InterServerEvents>(httpServer, {
 	serveClient: false,
+	cors: {
+		origin: '*',
+		credentials: true,
+	},
 });
 
 io.on('connection', socket => {

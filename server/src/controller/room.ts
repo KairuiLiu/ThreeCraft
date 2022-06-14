@@ -7,7 +7,7 @@ function createRoom(id: string, name: string) {
 	let roomId;
 	do {
 		roomId = Math.random().toString(36).slice(-8).toUpperCase();
-	} while (!roomCollisions.has(roomId));
+	} while (roomCollisions.has(roomId));
 	const owner = { id, name };
 	const room = {
 		roomId,
@@ -36,7 +36,7 @@ const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
 		sc.join(room.roomId);
 		return {
 			message: 'CREATE_ROOM_SUCCESS',
-			data: room,
+			data: { roomInfo: room },
 			type: 'RES_CREATE_ROOM',
 		};
 	},

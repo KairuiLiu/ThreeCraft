@@ -269,45 +269,22 @@ class Menu {
 					serverModCustom.disabled = true;
 				},
 				onDisconnect: () => {
-					linkServerButton.classList.add('hidden');
-					cancelLinkServer.classList.remove('hidden');
-					chooseRoom.classList.remove('hidden');
-					serverModDefault.disabled = true;
-					serverModCustom.disabled = true;
+					this.setNotify(language.disconnect);
+					linkServerButton.classList.remove('hidden');
+					cancelLinkServer.classList.add('hidden');
+					chooseRoom.classList.add('hidden');
+					serverModDefault.disabled = false;
+					serverModCustom.disabled = false;
 				},
-				onCreateRoom: () => {
-					linkServerButton.classList.add('hidden');
-					cancelLinkServer.classList.remove('hidden');
-					chooseRoom.classList.remove('hidden');
-					serverModDefault.disabled = true;
-					serverModCustom.disabled = true;
-				},
-				onJoinRoom: () => {
-					linkServerButton.classList.add('hidden');
-					cancelLinkServer.classList.remove('hidden');
-					chooseRoom.classList.remove('hidden');
-					serverModDefault.disabled = true;
-					serverModCustom.disabled = true;
-				},
-				onPlayerChange: () => {
-					linkServerButton.classList.add('hidden');
-					cancelLinkServer.classList.remove('hidden');
-					chooseRoom.classList.remove('hidden');
-					serverModDefault.disabled = true;
-					serverModCustom.disabled = true;
-				},
-				onDissolve: () => {
-					linkServerButton.classList.add('hidden');
-					cancelLinkServer.classList.remove('hidden');
-					chooseRoom.classList.remove('hidden');
-					serverModDefault.disabled = true;
-					serverModCustom.disabled = true;
-				},
+				onCreateRoom: null,
+				onJoinRoom: null,
+				onPlayerChange: null,
+				onDissolve: null,
 			});
 		});
 
 		cancelLinkServer.addEventListener('click', () => {
-			// unlink
+			this.controller.multiPlay.clear();
 			linkServerButton.classList.remove('hidden');
 			chooseRoom.classList.add('hidden');
 			cancelLinkServer.classList.add('hidden');
@@ -321,13 +298,13 @@ class Menu {
 
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
+			this.controller.multiPlay.clear();
 			e.stopPropagation();
 			this[back]();
 		});
 		this.setNotify(language.developing, 2000, this.boxElem);
 	}
 
-	// TODO 实现Socket
 	toSocketConfigMenu({ back }) {
 		this.showMenu();
 		this.showBorder();
@@ -339,12 +316,12 @@ class Menu {
 			<div class="radio-item"><input type="radio" name="play-mod" id="as-client" /><label for="as-client">${language.joinRoom}</label></div>
 			<br/>
 			<div class="box-line">
+			<label for="nickName" class="fix-width color-white">${language.nickname}: </label><input type="text" class="text-input" id="nickName" />
+			</div>
+			<div class="box-line" id="roomNameContent">
 				<label for="roomName" class="fix-width color-white">${language.roomName}: </label><input type="text" class="text-input" id="roomName" />
 			</div>
-			<div class="box-line">
-				<label for="nickName" class="fix-width color-white">${language.nickname}: </label><input type="text" class="text-input" id="nickName" />
-				</div>
-			<div class="box-line">
+			<div class="box-line" id="playerNameContent">
 				<label for="player" class="fix-width color-white">${language.player}: </label><input type="text" class="text-input" id="player" disabled />
 			</div>
 			<br/>
@@ -355,11 +332,11 @@ class Menu {
 			<button id="socket-exit-room" class="button hidden">${language.exitRoom}</button>
 			<button class="button" id="backMenu">${language.backMenu}</button>`;
 
-		const asServerButton = document.getElementById('as-server');
-		const asClientButton = document.getElementById('as-client');
-		const roomName = document.getElementById('roomName');
-		const nickName = document.getElementById('nickName');
-		const playerName = document.getElementById('player');
+		const asServerButton = document.getElementById('as-server') as HTMLInputElement;
+		const asClientButton = document.getElementById('as-client') as HTMLInputElement;
+		const roomName = document.getElementById('roomName') as HTMLInputElement;
+		const nickName = document.getElementById('nickName') as HTMLInputElement;
+		const playerName = document.getElementById('player') as HTMLInputElement;
 
 		const startGameButton = document.getElementById('socket-start-game');
 		const createRoomButton = document.getElementById('socket-create-room');
@@ -368,47 +345,95 @@ class Menu {
 		const exitRoomButton = document.getElementById('socket-exit-room');
 		const gameButtons = [startGameButton, createRoomButton, dissolveRoomButton, joinRoomButton, exitRoomButton];
 
+		this.controller.multiPlay.bindMenuEvent({
+			onCreateRoom: res => {
+				const { data } = res;
+				roomName.value = data.roomInfo.roomId;
+				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+				createRoomButton.classList.add('hidden');
+				dissolveRoomButton.classList.remove('hidden');
+				asServerButton.disabled = true;
+				asClientButton.disabled = true;
+				nickName.disabled = true;
+				roomName.disabled = true;
+			},
+			onJoinRoom: res => {
+				if (res.message === 'JOIN_FAILED') {
+					this.setNotify(language.joinFailed);
+					return;
+				}
+				const { data } = res;
+				roomName.value = data.roomInfo.roomId;
+				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+				joinRoomButton.classList.add('hidden');
+				exitRoomButton.classList.remove('hidden');
+				asServerButton.disabled = true;
+				asClientButton.disabled = true;
+				nickName.disabled = true;
+				roomName.disabled = true;
+			},
+			onDissolve: () => {
+				this.setNotify(language.dissolve);
+				playerName.value = '';
+				gameButtons.forEach(d => d.classList.add('hidden'));
+				if (asServerButton.checked) createRoomButton.classList.remove('hidden');
+				else joinRoomButton.classList.remove('hidden');
+				asServerButton.disabled = false;
+				asClientButton.disabled = false;
+				nickName.disabled = false;
+				roomName.disabled = false;
+			},
+			onPlayerChange: () => {
+				playerName.value = [...this.controller.multiPlay.players].reduce((d, prev) => `${prev + d} `, '');
+			},
+			onDisconnect: () => {
+				this.setNotify(language.disconnect);
+				gameButtons.forEach(d => d.classList.add('hidden'));
+				playerName.value = '';
+				if (asServerButton.checked) createRoomButton.classList.remove('hidden');
+				else joinRoomButton.classList.remove('hidden');
+				asServerButton.disabled = false;
+				asClientButton.disabled = false;
+				nickName.disabled = false;
+				roomName.disabled = false;
+			},
+			onConnect: null,
+		});
+
 		asServerButton.addEventListener('click', () => {
-			// link
 			gameButtons.forEach(d => d.classList.add('hidden'));
 			createRoomButton.classList.remove('hidden');
 		});
 
 		asClientButton.addEventListener('click', () => {
-			// link
 			gameButtons.forEach(d => d.classList.add('hidden'));
 			joinRoomButton.classList.remove('hidden');
 		});
 
 		createRoomButton.addEventListener('click', () => {
-			createRoomButton.classList.add('hidden');
-			dissolveRoomButton.classList.remove('hidden');
-			startGameButton.classList.remove('hidden');
+			this.controller.multiPlay.emitCreateRoom(nickName.value);
 		});
 
 		dissolveRoomButton.addEventListener('click', () => {
-			createRoomButton.classList.remove('hidden');
-			dissolveRoomButton.classList.add('hidden');
-			startGameButton.classList.add('hidden');
+			this.controller.multiPlay.emitDissolveRoom();
 		});
 
 		startGameButton.addEventListener('click', () => {
-			this.controller.startGame(false);
+			this.controller.multiPlay.emitStartGame();
 		});
 
 		joinRoomButton.addEventListener('click', () => {
-			joinRoomButton.classList.add('hidden');
-			exitRoomButton.classList.remove('hidden');
+			this.controller.multiPlay.emitJoinRoom(nickName.value);
 		});
 
 		exitRoomButton.addEventListener('click', () => {
-			joinRoomButton.classList.remove('hidden');
-			exitRoomButton.classList.add('hidden');
+			this.controller.multiPlay.emitLeaveRoom();
 		});
 
 		const backMenu = document.getElementById('backMenu');
 		backMenu.addEventListener('click', e => {
 			e.stopPropagation();
+			this.controller.multiPlay.emitLeaveRoom();
 			this[back]({ back: 'toStartMenu' });
 		});
 		this.setNotify(language.developing, 2000, this.boxElem);

@@ -20,6 +20,8 @@ class MultiPlay {
 
 	userName: string | null;
 
+	players: Set<string>;
+
 	constructor(controller: Controller) {
 		this.socket = null;
 		this.controller = controller;
@@ -28,19 +30,40 @@ class MultiPlay {
 		this.working = false;
 		this.roomId = null;
 		this.playing = false;
+		this.players = new Set();
 	}
 
 	init(address = '/socket') {
-		this.socket = io(address);
+		// this.socket = io(address);
+		this.socket = io('http://127.0.0.1:9000');
 	}
 
 	bindMenuEvent({ onConnect, onDisconnect, onCreateRoom, onJoinRoom, onPlayerChange, onDissolve }) {
-		this.socket!.on('connect', onConnect);
-		this.socket!.on('disconnect', onDisconnect);
-		this.socket!.on('RES_CREATE_ROOM', onCreateRoom);
-		this.socket!.on('RES_JOIN_ROOM', onJoinRoom);
-		this.socket!.on('PLAYER_CHANGE', onPlayerChange);
-		this.socket!.on('ROOM_DISSOLVE', onDissolve);
+		onConnect && this.socket!.on('connect', onConnect);
+		onDisconnect && this.socket!.on('disconnect', onDisconnect);
+		onCreateRoom &&
+			this.socket!.on('RES_CREATE_ROOM', res => {
+				this.roomId = res.data.roomInfo.roomId;
+				// ! BUG!! cause of internet
+				// [...res.data.roomInfo.players].forEach(d => this.players.add(d[1].name));
+				onCreateRoom(res);
+			});
+		onJoinRoom &&
+			this.socket!.on('RES_JOIN_ROOM', res => {
+				if (res.message !== 'JOIN_FAILED') {
+					this.roomId = res.data.roomInfo.roomId;
+					[...res.data.roomInfo.players].forEach(d => this.players.add(d[1].name));
+				}
+				onJoinRoom(res);
+			});
+		onPlayerChange &&
+			this.socket!.on('PLAYER_CHANGE', res => {
+				const { action, userName } = res.data;
+				if (action === 'join') this.players.add(userName);
+				else this.players.delete(userName);
+				onPlayerChange(res);
+			});
+		onDissolve && this.socket!.on('ROOM_DISSOLVE', onDissolve);
 		this.socket!.on('START_GAME', res => {
 			const { data } = res;
 			deepCopy(data.config, config);
@@ -52,6 +75,8 @@ class MultiPlay {
 	bindGame() {
 		this.socket!.on('PLAYER_CHANGE', res => {
 			const { userName, action } = res.data;
+			if (action === 'join') this.players.add(userName);
+			else this.players.delete(userName);
 			this.controller.ui.menu.setNotify(`${userName} ${action === 'join' ? language.joinedRoom : language.leavedRoom}`, 1000, this.controller.uiController.ui.actionControl.elem);
 		});
 		this.socket!.on('LOG_UPDATE', res => {
@@ -69,12 +94,14 @@ class MultiPlay {
 	}
 
 	clear() {
+		this.socket.disconnect();
 		this.socket = null;
 		this.logs = [];
 		this.working = false;
 		this.roomId = null;
 		this.playing = false;
 		this.userName = '';
+		this.players.clear();
 	}
 
 	insertLog(logs: iBlockLog[]) {
@@ -85,21 +112,23 @@ class MultiPlay {
 		this.controller.gameController.blockController.update(logs);
 	}
 
-	emitCreateRoom() {
-		this.socket!.emit('CREATE_ROOM', {
+	emitCreateRoom(userName) {
+		this.userName = userName;
+		this.socket.emit('CREATE_ROOM', {
 			type: 'CREATE_ROOM',
 			data: { userName: this.userName },
 		});
 	}
 
-	joinRoom() {
+	emitJoinRoom(userName) {
+		this.userName = userName;
 		this.socket!.emit('JOIN_ROOM', {
 			type: 'JOIN_ROOM',
 			data: { roomId: this.roomId, userName: this.userName },
 		});
 	}
 
-	leaveRoom() {
+	emitLeaveRoom() {
 		this.socket!.emit('LEAVE_ROOM', {
 			type: 'LEAVE_ROOM',
 			data: { roomId: this.roomId },
@@ -107,10 +136,11 @@ class MultiPlay {
 	}
 
 	emitDissolveRoom() {
-		this.socket!.emit('DISSOLVE_ROOM', {
+		this.socket?.emit('DISSOLVE_ROOM', {
 			type: 'DISSOLVE_ROOM',
 			data: { roomId: this.roomId },
 		});
+		this.clear();
 	}
 
 	emitStartGame() {
