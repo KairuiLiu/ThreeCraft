@@ -123,6 +123,28 @@ import redSandstoneTextureTopImg from '../../assets/textures/blocks-clipped/redS
 import snowblockTextureSideImg from '../../assets/textures/blocks-clipped/snowblockSide.png';
 import snowblockTextureTopImg from '../../assets/textures/blocks-clipped/snowblockTop.png';
 
+import alexSkin from '../../assets/textures/entity/alex.png';
+import batmanSkin from '../../assets/textures/entity/batman.png';
+import candideSkin from '../../assets/textures/entity/candide.png';
+import coolmanSkin from '../../assets/textures/entity/coolman.png';
+import creeperSkin from '../../assets/textures/entity/creeper.png';
+import dogeSkin from '../../assets/textures/entity/doge.png';
+import dragonSkin from '../../assets/textures/entity/dragon.png';
+import hopemanSkin from '../../assets/textures/entity/hopeman.png';
+import hutaoSkin from '../../assets/textures/entity/hutao.png';
+import ironSkin from '../../assets/textures/entity/iron.png';
+import kingSkin from '../../assets/textures/entity/king.png';
+import knightBrokenArmorSkin from '../../assets/textures/entity/knight_in_broken_armor.png';
+import laserSkin from '../../assets/textures/entity/laser.png';
+import nohatSkin from '../../assets/textures/entity/nohat.png';
+import oldmanSkin from '../../assets/textures/entity/oldman.png';
+import pigmanSkin from '../../assets/textures/entity/pigman.png';
+import smartSkin from '../../assets/textures/entity/smart.png';
+import steveSkin from '../../assets/textures/entity/steve.png';
+import straySkin from '../../assets/textures/entity/stray.png';
+import witherSkeletonSkin from '../../assets/textures/entity/wither_skeleton.png';
+import wuwuwuSkin from '../../assets/textures/entity/wuwuwu.png';
+
 // 创建一个THREE加载器
 let loader = new THREE.TextureLoader();
 
@@ -165,7 +187,6 @@ const soulsandTexture = loader.load(soulsandTextureImg);
 const stoneTexture = loader.load(stoneTextureImg);
 const terracottaTexture = loader.load(terracottaTextureImg);
 const waterTexture = loader.load(waterTextureImg);
-// const waterTextureAlpha = loader.load(waterTextureAlphaImg);
 const emeraldOreTexture = loader.load(emeraldOreTextureImg);
 const acaciaWoodTextureSide = loader.load(acaciaWoodTextureSideImg);
 const acaciaWoodTextureTop = loader.load(acaciaWoodTextureTopImg);
@@ -191,71 +212,115 @@ const redSandstoneTextureSide = loader.load(redSandstoneTextureSideImg);
 const redSandstoneTextureTop = loader.load(redSandstoneTextureTopImg);
 const snowblockTextureSide = loader.load(snowblockTextureSideImg);
 const snowblockTextureTop = loader.load(snowblockTextureTopImg);
+const alexSkinTexture = loader.load(alexSkin);
+const batmanSkinTexture = loader.load(batmanSkin);
+const candideSkinTexture = loader.load(candideSkin);
+const coolmanSkinTexture = loader.load(coolmanSkin);
+const creeperSkinTexture = loader.load(creeperSkin);
+const dogeSkinTexture = loader.load(dogeSkin);
+const dragonSkinTexture = loader.load(dragonSkin);
+const hopemanSkinTexture = loader.load(hopemanSkin);
+const hutaoSkinTexture = loader.load(hutaoSkin);
+const ironSkinTexture = loader.load(ironSkin);
+const kingSkinTexture = loader.load(kingSkin);
+const knightBrokenArmorSkinTexture = loader.load(knightBrokenArmorSkin);
+const laserSkinTexture = loader.load(laserSkin);
+const nohatSkinTexture = loader.load(nohatSkin);
+const oldmanSkinTexture = loader.load(oldmanSkin);
+const pigmanSkinTexture = loader.load(pigmanSkin);
+const smartSkinTexture = loader.load(smartSkin);
+const steveSkinTexture = loader.load(steveSkin);
+const straySkinTexture = loader.load(straySkin);
+const witherSkeletonSkinTexture = loader.load(witherSkeletonSkin);
+const wuwuwuSkinTexture = loader.load(wuwuwuSkin);
 
 // 指定材质不做模糊
-acaciaLeavesTexture.magFilter = THREE.NearestFilter;
-andesiteTexture.magFilter = THREE.NearestFilter;
-bedrockTexture.magFilter = THREE.NearestFilter;
-birchLeavesTexture.magFilter = THREE.NearestFilter;
-brickBlockTexture.magFilter = THREE.NearestFilter;
-clayBlockTexture.magFilter = THREE.NearestFilter;
-coalOreTexture.magFilter = THREE.NearestFilter;
-cobblestoneTexture.magFilter = THREE.NearestFilter;
-blockDiamondTexture.magFilter = THREE.NearestFilter;
-diamondOreTexture.magFilter = THREE.NearestFilter;
-dioriteTexture.magFilter = THREE.NearestFilter;
-dirtTexture.magFilter = THREE.NearestFilter;
-endStoneTexture.magFilter = THREE.NearestFilter;
-glassTexture.magFilter = THREE.NearestFilter;
-glowstoneTexture.magFilter = THREE.NearestFilter;
-blockGoldTexture.magFilter = THREE.NearestFilter;
-graniteTexture.magFilter = THREE.NearestFilter;
-gravelTexture.magFilter = THREE.NearestFilter;
-iceTexture.magFilter = THREE.NearestFilter;
-blockIronTexture.magFilter = THREE.NearestFilter;
-ironOreTexture.magFilter = THREE.NearestFilter;
-blockLapisLazuliTexture.magFilter = THREE.NearestFilter;
-lapisLazuliOreTexture.magFilter = THREE.NearestFilter;
-netherBrickBlockTexture.magFilter = THREE.NearestFilter;
-netherQuartzOreTexture.magFilter = THREE.NearestFilter;
-netherrackTexture.magFilter = THREE.NearestFilter;
-noteBlockTexture.magFilter = THREE.NearestFilter;
-polishedDioriteTexture.magFilter = THREE.NearestFilter;
-polishedGraniteTexture.magFilter = THREE.NearestFilter;
-blockQuartzTexture.magFilter = THREE.NearestFilter;
-redSandTexture.magFilter = THREE.NearestFilter;
-blockRedstoneTexture.magFilter = THREE.NearestFilter;
-redstoneOreTexture.magFilter = THREE.NearestFilter;
-sandTexture.magFilter = THREE.NearestFilter;
-soulsandTexture.magFilter = THREE.NearestFilter;
-stoneTexture.magFilter = THREE.NearestFilter;
-terracottaTexture.magFilter = THREE.NearestFilter;
-waterTexture.magFilter = THREE.NearestFilter;
-emeraldOreTexture.magFilter = THREE.NearestFilter;
-acaciaWoodTextureSide.magFilter = THREE.NearestFilter;
-acaciaWoodTextureTop.magFilter = THREE.NearestFilter;
-birchWoodTextureSide.magFilter = THREE.NearestFilter;
-birchWoodTextureTop.magFilter = THREE.NearestFilter;
-cactusTextureSide.magFilter = THREE.NearestFilter;
-cactusTextureTop.magFilter = THREE.NearestFilter;
-cactusTextureBottom.magFilter = THREE.NearestFilter;
-chiseledSandstoneTextureSide.magFilter = THREE.NearestFilter;
-chiseledSandstoneTextureTop.magFilter = THREE.NearestFilter;
-dispenserTextureSide.magFilter = THREE.NearestFilter;
-dispenserTextureTop.magFilter = THREE.NearestFilter;
-grassBlockTextureSide.magFilter = THREE.NearestFilter;
-grassBlockTextureTop.magFilter = THREE.NearestFilter;
-myceliumTextureSide.magFilter = THREE.NearestFilter;
-myceliumTextureTop.magFilter = THREE.NearestFilter;
-podzolTextureSide.magFilter = THREE.NearestFilter;
-podzolTextureTop.magFilter = THREE.NearestFilter;
-pumpkinTextureFont.magFilter = THREE.NearestFilter;
-pumpkinTextureSide.magFilter = THREE.NearestFilter;
-pumpkinTextureTop.magFilter = THREE.NearestFilter;
-redSandstoneTextureSide.magFilter = THREE.NearestFilter;
-redSandstoneTextureTop.magFilter = THREE.NearestFilter;
-snowblockTextureSide.magFilter = THREE.NearestFilter;
-snowblockTextureTop.magFilter = THREE.NearestFilter;
+[
+	acaciaLeavesTexture,
+	andesiteTexture,
+	bedrockTexture,
+	birchLeavesTexture,
+	brickBlockTexture,
+	clayBlockTexture,
+	coalOreTexture,
+	cobblestoneTexture,
+	blockDiamondTexture,
+	diamondOreTexture,
+	dioriteTexture,
+	dirtTexture,
+	endStoneTexture,
+	glassTexture,
+	glowstoneTexture,
+	blockGoldTexture,
+	graniteTexture,
+	gravelTexture,
+	iceTexture,
+	blockIronTexture,
+	ironOreTexture,
+	blockLapisLazuliTexture,
+	lapisLazuliOreTexture,
+	netherBrickBlockTexture,
+	netherQuartzOreTexture,
+	netherrackTexture,
+	noteBlockTexture,
+	polishedDioriteTexture,
+	polishedGraniteTexture,
+	blockQuartzTexture,
+	redSandTexture,
+	blockRedstoneTexture,
+	redstoneOreTexture,
+	sandTexture,
+	soulsandTexture,
+	stoneTexture,
+	terracottaTexture,
+	waterTexture,
+	emeraldOreTexture,
+	acaciaWoodTextureSide,
+	acaciaWoodTextureTop,
+	birchWoodTextureSide,
+	birchWoodTextureTop,
+	cactusTextureSide,
+	cactusTextureTop,
+	cactusTextureBottom,
+	chiseledSandstoneTextureSide,
+	chiseledSandstoneTextureTop,
+	dispenserTextureSide,
+	dispenserTextureTop,
+	grassBlockTextureSide,
+	grassBlockTextureTop,
+	myceliumTextureSide,
+	myceliumTextureTop,
+	podzolTextureSide,
+	podzolTextureTop,
+	pumpkinTextureFont,
+	pumpkinTextureSide,
+	pumpkinTextureTop,
+	redSandstoneTextureSide,
+	redSandstoneTextureTop,
+	snowblockTextureSide,
+	snowblockTextureTop,
+	alexSkinTexture,
+	batmanSkinTexture,
+	candideSkinTexture,
+	coolmanSkinTexture,
+	creeperSkinTexture,
+	dogeSkinTexture,
+	dragonSkinTexture,
+	hopemanSkinTexture,
+	hutaoSkinTexture,
+	ironSkinTexture,
+	kingSkinTexture,
+	knightBrokenArmorSkinTexture,
+	laserSkinTexture,
+	nohatSkinTexture,
+	oldmanSkinTexture,
+	pigmanSkinTexture,
+	smartSkinTexture,
+	steveSkinTexture,
+	straySkinTexture,
+	witherSkeletonSkinTexture,
+	wuwuwuSkinTexture,
+].forEach(d => (d.magFilter = THREE.NearestFilter));
 
 import brickBreak from '../../assets/sounds/break/brick.ogg';
 import grassBreak from '../../assets/sounds/break/grass.ogg';
@@ -718,3 +783,27 @@ export const treeTypes = [
 ];
 // 高亮块
 export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.02, 1.02, 1.02), new THREE.MeshBasicMaterial({ opacity: 0.2, transparent: true }));
+// skins
+export const skinsMap = [
+	alexSkinTexture,
+	batmanSkinTexture,
+	candideSkinTexture,
+	coolmanSkinTexture,
+	creeperSkinTexture,
+	dogeSkinTexture,
+	dragonSkinTexture,
+	hopemanSkinTexture,
+	hutaoSkinTexture,
+	ironSkinTexture,
+	kingSkinTexture,
+	knightBrokenArmorSkinTexture,
+	laserSkinTexture,
+	nohatSkinTexture,
+	oldmanSkinTexture,
+	pigmanSkinTexture,
+	smartSkinTexture,
+	steveSkinTexture,
+	straySkinTexture,
+	witherSkeletonSkinTexture,
+	wuwuwuSkinTexture,
+];

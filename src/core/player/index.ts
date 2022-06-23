@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { skinsMap } from '../loader/index';
 import { symConfig } from '../../controller/config';
 import playerObject from './playerObject';
 
@@ -22,8 +23,10 @@ class Player {
 	constructor({ idx, pos }) {
 		this.obj = playerObject.clone();
 		// TODO
-		this.material = new THREE.MeshStandardMaterial({});
-		this.mesh = new THREE.Mesh();
+		this.material = new THREE.MeshStandardMaterial({
+			map: skinsMap[idx],
+		});
+		this.mesh = new THREE.Mesh(this.obj, this.mesh);
 		this.position = pos.clone();
 		this.target = this.position.clone();
 		this.rotation = new THREE.Euler();
