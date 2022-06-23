@@ -99,6 +99,7 @@ const symConfig = {
 	ps: {
 		viewMoveScale: 2,
 	},
+	eps: 0.03,
 };
 
 const defaultConfig = {

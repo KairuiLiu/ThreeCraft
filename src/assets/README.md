@@ -11,6 +11,7 @@
 - `./textures` folder: all textures, comes from `~/.minecraft/versions/1.18.2/1.18.2.jar`
 
   - `blocks-clipped` is the texture clipped from `~/.minecraft/versions/1.18.2/1.18.2.jar/blocks`
+  - entity is the texture clipped from `~/.minecraft/versions/1.18.2/1.18.2.jar`, and add some 3 part texture from  [MCBBS](https://www.mcbbs.net/thread-860483-1-1.html)
 
 - `./pictures` includes other image assets
 
