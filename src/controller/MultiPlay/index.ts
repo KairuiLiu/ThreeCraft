@@ -166,7 +166,7 @@ class MultiPlay {
 
 	emitUpdateState() {
 		const curTime = performance.now();
-		if (curTime - this.lastUpdate < 500) return;
+		if (curTime - this.lastUpdate < 300) return;
 		this.lastUpdate = curTime;
 		this.socket.emit('UPDATE_STATE', {
 			type: 'UPDATE_STATE',

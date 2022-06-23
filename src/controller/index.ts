@@ -108,6 +108,7 @@ class Controller {
 
 	// 运行游戏, 更新控制信息并重新绘制场景, 用于点击返回游戏后调用
 	runGame() {
+		this.gameController.hasChange = false;
 		// 特判移动端, 要求横屏游戏
 		if (config.controller.operation === 'mobile' && !config.controller.dev && window.innerHeight > window.innerWidth) {
 			this.uiController.ui.menu.setNotify(language.tryRotate);
@@ -159,7 +160,10 @@ class Controller {
 		if (this.uiController.ui.actionControl.gamepad) this.uiController.ui.actionControl.sendGamepadAction(navigator?.getGamepads());
 		if (this.uiController.ui.bag.gamepad) this.uiController.ui.bag.sendGamepadAction(navigator?.getGamepads());
 		// 上传数据
-		if (this.multiPlay.working) this.multiPlay.emitUpdateState();
+		if (this.multiPlay.working && this.gameController.hasChange) {
+			this.multiPlay.emitUpdateState();
+			this.gameController.hasChange = false;
+		}
 		// FPS继续计数
 		this.uiController.ui.fps.work();
 		this.gameController.update();

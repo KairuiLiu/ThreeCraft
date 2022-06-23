@@ -35,6 +35,8 @@ class GameController {
 	// 下一帧有哪些块要修改
 	nextTrickBlockTask: BlockLog[];
 
+	hasChange: boolean;
+
 	constructor(core: Core, host) {
 		this.core = core;
 		this.host = host;
@@ -68,6 +70,7 @@ class GameController {
 
 	// 请求块操作
 	handleBlockAction(key: actionBlockEvent) {
+		this.hasChange = true;
 		const collision = relativeOperateCollisionCheck({
 			posX: this.core.camera.position.x,
 			posY: this.core.camera.position.y,

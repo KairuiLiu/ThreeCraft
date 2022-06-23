@@ -34,6 +34,7 @@ class MoveController {
 		// 如果在作弊模式下就不进行碰撞检测, 直接设置位置
 		if (config.controller.cheat) {
 			const targetPos = getTargetPosition({ ...config.state, font, left, up, core: this.core });
+			if (targetPos.posX !== config.state.posX || targetPos.posY !== config.state.posY || targetPos.posZ !== config.state.posZ) this.host.hasChange = true;
 			this.core.camera.position.set(targetPos.posX, targetPos.posY, targetPos.posZ);
 			config.state = { ...targetPos };
 			return;
@@ -58,12 +59,20 @@ class MoveController {
 		});
 
 		// 如果OX方向没有撞上, 就替换为理想位置, 注意: 如果撞上去了, 就不让他运动, 而不是让他运动到碰撞点, 否则会造成因浮点误差产生了相机进入方块的问题
-		if (collisions[0] === null) config.state.posX = targetPos.posX;
+		if (collisions[0] === null) {
+			if (config.state.posX !== targetPos.posX) this.host.hasChange = true;
+			config.state.posX = targetPos.posX;
+		}
 		// 如果OZ方向没有撞上, 就替换为理想位置
-		if (collisions[2] === null) config.state.posZ = targetPos.posZ;
+		if (collisions[2] === null) {
+			if (config.state.posZ !== targetPos.posZ) this.host.hasChange = true;
+			config.state.posZ = targetPos.posZ;
+		}
 		// 如果OY方向没有撞上, 就替换为理想位置
-		if (collisions[1] === null) config.state.posY = targetPos.posY;
-		else {
+		if (collisions[1] === null) {
+			if (config.state.posY !== targetPos.posY) this.host.hasChange = true;
+			config.state.posY = targetPos.posY;
+		} else {
 			// 如果撞上了, 那么不管是撞上面还是下面了, 速度都为0, 如果撞地, 那么停止跳跃
 			if (this.jumpingSpeed < 0 && this.jumping === false && (left !== 0 || font !== 0)) this.core.audio.play('step', collisions[1].obj.object.name.split('_')[2], false);
 			if (this.jumpingSpeed < 0) this.jumping = false;
@@ -79,6 +88,7 @@ class MoveController {
 	// 修正相机角度
 	viewDirectionMove({ viewHorizontal, viewVertical }) {
 		if (viewHorizontal === 0 && viewVertical === 0) return;
+		this.host.hasChange = true;
 		this.core.camera.rotation.y += -viewHorizontal * symConfig.actionsScale.viewScale * config.controller.opSens;
 		while (this.core.camera.rotation.y > Math.PI) this.core.camera.rotation.y -= Math.PI * 2;
 		while (this.core.camera.rotation.y < -Math.PI) this.core.camera.rotation.y += Math.PI * 2;
