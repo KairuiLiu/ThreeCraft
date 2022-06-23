@@ -75,7 +75,8 @@ const roomControllers: Controllers<ClientRoomKeys, SocketType, ServerType> = {
 		};
 	},
 	LEAVE_ROOM: async (data, sc, io) => {
-		const { roomId } = data;
+		let { roomId } = data;
+		if (roomId === undefined) roomId = [...roomCollisions].find(d => [...d[1].players].find(dd => dd[1].id === sc.id));
 		const room = roomCollisions.get(roomId);
 		if (room && room.players.has(sc.id)) {
 			const { name } = room.players.get(sc.id)!;
