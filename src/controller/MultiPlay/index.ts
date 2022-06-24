@@ -4,6 +4,7 @@ import { Controller } from '..';
 import type { ClientToServerEvents, ServerToClientEvents } from '../../utils/types/multiPlayer/server';
 import { deepCopy } from '../../utils/deep-copy';
 import { config, language } from '../config';
+import PlayersController from './players';
 
 class MultiPlay {
 	socket: Socket<ServerToClientEvents, ClientToServerEvents> | null;
@@ -22,6 +23,8 @@ class MultiPlay {
 
 	players: Set<string>;
 
+	playersController: PlayersController;
+
 	lastUpdate: number;
 
 	constructor(controller: Controller) {
@@ -34,6 +37,7 @@ class MultiPlay {
 		this.playing = false;
 		this.players = new Set();
 		this.lastUpdate = 0;
+		this.playersController = new PlayersController();
 	}
 
 	init(address = '') {
@@ -76,6 +80,7 @@ class MultiPlay {
 			if (this.controller.running) return;
 			deepCopy(res.config, config);
 			this.bindGame();
+			this.playersController.init(this.controller.core.scene, res.playerName);
 			this.controller.startGame(false);
 		});
 	}
@@ -84,7 +89,10 @@ class MultiPlay {
 		this.socket?.on('PLAYER_CHANGE', res => {
 			const { userName, action } = res;
 			if (action === 'join') this.players.add(userName);
-			else this.players.delete(userName);
+			else {
+				this.players.delete(userName);
+				// TODO ROOM_DISSOLVE
+			}
 			this.controller.ui.menu.setNotify(
 				`${userName} ${action === 'join' ? language.wsMessage.PLAYER_CHANGE_JOIN : language.wsMessage.PLAYER_CHANGE_LEAVE}`,
 				1000,
@@ -94,13 +102,16 @@ class MultiPlay {
 		this.socket?.on('LOG_UPDATE', res => {
 			const { userName, log } = res;
 			if (userName !== this.userName) this.applyLog(log);
+			// TODO LOG UPDATE
 		});
 		this.socket?.on('ROOM_DISSOLVE', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED, 1000, this.controller.uiController.ui.actionControl.elem);
 			this.clear();
+			// TODO ROOM_DISSOLVE
 		});
 		this.socket?.on('disconnect', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.DISCONNECT, 1000, this.controller.uiController.ui.actionControl.elem);
+			// TODO ROOM_DISSOLVE
 		});
 	}
 

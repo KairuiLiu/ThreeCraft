@@ -1,14 +1,10 @@
 import * as THREE from 'three';
 import { skinsMap } from '../loader/index';
 import { symConfig } from '../../controller/config';
-import playerObject from './playerObject';
+import { PlayerObject } from './playerObject';
 
 class Player {
-	obj: THREE.Group;
-
-	material: THREE.MeshStandardMaterial;
-
-	mesh: THREE.Mesh;
+	player: PlayerObject;
 
 	target: THREE.Vector3;
 
@@ -21,12 +17,7 @@ class Player {
 	animateStamp: number;
 
 	constructor({ idx, pos }) {
-		this.obj = playerObject.clone();
-		// TODO
-		this.material = new THREE.MeshStandardMaterial({
-			map: skinsMap[idx],
-		});
-		this.mesh = new THREE.Mesh(this.obj, this.mesh);
+		this.player = new PlayerObject(skinsMap[idx]);
 		this.position = pos.clone();
 		this.target = this.position.clone();
 		this.rotation = new THREE.Euler();
@@ -52,11 +43,11 @@ class Player {
 		realMove.y *= this.speedJump / this.speedWalking;
 		realMove.multiplyScalar(delta / 300);
 		this.position.add(realMove.length() > move.length() ? move : realMove);
-		this.mesh.position.copy(this.position);
+		this.player.position.copy(this.position);
 	}
 
 	updateReward() {
-		this.mesh.rotation.copy(this.rotation);
+		this.player.rotation.copy(this.rotation);
 	}
 
 	reqAnimate(delta) {

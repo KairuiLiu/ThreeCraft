@@ -72,7 +72,7 @@ declare interface ServerToClientEvents {
 		}
 	>;
 	ROOM_DISSOLVE: ServerEventListenersCb<'END_GAME', null>;
-	START_GAME: ServerEventListenersCb<'START_GAME', { config: iInitConfig }>;
+	START_GAME: ServerEventListenersCb<'START_GAME', { config: iInitConfig; playerName: string[] }>;
 }
 
 type ClientKeys = keyof ClientToServerEvents;

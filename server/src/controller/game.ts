@@ -3,7 +3,7 @@ import { roomCollisions } from './room.js';
 
 function gameStart(room: iRoomInfo, initConfig: iInitConfig, io: Server) {
 	room.status = 'GAMING';
-	io.sockets.in(room.roomId).emit('START_GAME', { config: initConfig });
+	io.sockets.in(room.roomId).emit('START_GAME', { config: initConfig, playerName: [...room.players] });
 }
 
 function logPush(room: iRoomInfo, userInfo: iUserInfo, log: iBlockLog[], position: iPositionLog, io: Server) {
