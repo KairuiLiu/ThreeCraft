@@ -132,7 +132,7 @@ class Menu {
 		const singlePlayerGame = this.boxElem.querySelector('#single-player-game');
 		singlePlayerGame.addEventListener('click', e => {
 			e.stopPropagation();
-			this.controller.startGame(true);
+			this.controller.startGame(false);
 		});
 		// 多人游戏
 		const multiPlayerGame = this.boxElem.querySelector('#multi-player-game');

@@ -66,8 +66,6 @@ export class PlayerObject extends THREE.Group {
 
 	private modelListeners: Array<() => void> = []; // called when model(slim property) is changed
 
-	private slim = false;
-
 	constructor(Texture: THREE.Texture) {
 		super();
 
@@ -127,25 +125,25 @@ export class PlayerObject extends THREE.Group {
 		const rightArmBox = new THREE.BoxGeometry();
 		const rightArmMesh = new THREE.Mesh(rightArmBox, layer1MaterialBiased);
 		this.modelListeners.push(() => {
-			rightArmMesh.scale.x = this.slim ? 3 : 4;
+			rightArmMesh.scale.x = 3;
 			rightArmMesh.scale.y = 12;
 			rightArmMesh.scale.z = 4;
-			setSkinUVs(rightArmBox, 40, 16, this.slim ? 3 : 4, 12, 4);
+			setSkinUVs(rightArmBox, 40, 16, 3, 12, 4);
 		});
 
 		const rightArm2Box = new THREE.BoxGeometry();
 		const rightArm2Mesh = new THREE.Mesh(rightArm2Box, layer2MaterialBiased);
 		this.modelListeners.push(() => {
-			rightArm2Mesh.scale.x = this.slim ? 3.5 : 4.5;
+			rightArm2Mesh.scale.x = 3.5;
 			rightArm2Mesh.scale.y = 12.5;
 			rightArm2Mesh.scale.z = 4.5;
-			setSkinUVs(rightArm2Box, 40, 32, this.slim ? 3 : 4, 12, 4);
+			setSkinUVs(rightArm2Box, 40, 32, 3, 12, 4);
 		});
 
 		const rightArmPivot = new THREE.Group();
 		rightArmPivot.add(rightArmMesh, rightArm2Mesh);
 		this.modelListeners.push(() => {
-			rightArmPivot.position.x = this.slim ? -0.5 : -1;
+			rightArmPivot.position.x = -0.5;
 		});
 		rightArmPivot.position.y = -4;
 
@@ -160,25 +158,25 @@ export class PlayerObject extends THREE.Group {
 		const leftArmBox = new THREE.BoxGeometry();
 		const leftArmMesh = new THREE.Mesh(leftArmBox, layer1MaterialBiased);
 		this.modelListeners.push(() => {
-			leftArmMesh.scale.x = this.slim ? 3 : 4;
+			leftArmMesh.scale.x = 3;
 			leftArmMesh.scale.y = 12;
 			leftArmMesh.scale.z = 4;
-			setSkinUVs(leftArmBox, 32, 48, this.slim ? 3 : 4, 12, 4);
+			setSkinUVs(leftArmBox, 32, 48, 3, 12, 4);
 		});
 
 		const leftArm2Box = new THREE.BoxGeometry();
 		const leftArm2Mesh = new THREE.Mesh(leftArm2Box, layer2MaterialBiased);
 		this.modelListeners.push(() => {
-			leftArm2Mesh.scale.x = this.slim ? 3.5 : 4.5;
+			leftArm2Mesh.scale.x = 3.5;
 			leftArm2Mesh.scale.y = 12.5;
 			leftArm2Mesh.scale.z = 4.5;
-			setSkinUVs(leftArm2Box, 48, 48, this.slim ? 3 : 4, 12, 4);
+			setSkinUVs(leftArm2Box, 48, 48, 3, 12, 4);
 		});
 
 		const leftArmPivot = new THREE.Group();
 		leftArmPivot.add(leftArmMesh, leftArm2Mesh);
 		this.modelListeners.push(() => {
-			leftArmPivot.position.x = this.slim ? 0.5 : 1;
+			leftArmPivot.position.x = 0.5;
 		});
 		leftArmPivot.position.y = -4;
 
@@ -230,5 +228,7 @@ export class PlayerObject extends THREE.Group {
 		this.leftLeg.position.y = -12;
 		this.leftLeg.position.z = -0.1;
 		this.add(this.leftLeg);
+
+		this.modelListeners.forEach(d => d());
 	}
 }

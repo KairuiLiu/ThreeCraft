@@ -83,8 +83,9 @@ class MultiPlay {
 			this.bindGame();
 			this.controller.startGame(false);
 			this.playersController.init(
+				this.roomId,
 				this.controller.core.scene,
-				[...res.playerName].map(d => d[1].name).filter(d => d !== this.userName)
+				[...res.playerName].map(d => d[1].name).map(d => (d === this.userName ? null : d))
 			);
 		});
 	}
@@ -171,7 +172,7 @@ class MultiPlay {
 	}
 
 	emitStartGame() {
-		this.controller.startGame(false);
+		this.controller.startGame(true);
 		this.bindGame();
 		this.socket?.emit('START_GAME', {
 			type: 'START_GAME',
@@ -182,7 +183,7 @@ class MultiPlay {
 	emitUpdateState() {
 		const curTime = performance.now();
 		// ! HIGH PRESSURE
-		if (curTime - this.lastUpdate < 300) return;
+		// if (curTime - this.lastUpdate < 300) return;
 		this.lastUpdate = curTime;
 		this.socket.emit('UPDATE_STATE', {
 			type: 'UPDATE_STATE',

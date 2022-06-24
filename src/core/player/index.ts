@@ -25,6 +25,7 @@ class Player {
 		this.lastCall = performance.now();
 		this.player.name = `player_${idx}`;
 		this.player.scale.copy(new THREE.Vector3(1 / 16, 1 / 16, 1 / 16));
+		this.update();
 	}
 
 	update() {

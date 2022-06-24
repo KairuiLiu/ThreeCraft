@@ -213,11 +213,11 @@ const redSandstoneTextureTop = loader.load(redSandstoneTextureTopImg);
 const snowblockTextureSide = loader.load(snowblockTextureSideImg);
 const snowblockTextureTop = loader.load(snowblockTextureTopImg);
 const alexSkinTexture = loader.load(alexSkin);
-const batmanSkinTexture = loader.load(batmanSkin);
+// const batmanSkinTexture = loader.load(batmanSkin);
 const candideSkinTexture = loader.load(candideSkin);
 const coolmanSkinTexture = loader.load(coolmanSkin);
 const creeperSkinTexture = loader.load(creeperSkin);
-const dogeSkinTexture = loader.load(dogeSkin);
+// const dogeSkinTexture = loader.load(dogeSkin);
 const dragonSkinTexture = loader.load(dragonSkin);
 const hopemanSkinTexture = loader.load(hopemanSkin);
 const hutaoSkinTexture = loader.load(hutaoSkin);
@@ -225,14 +225,14 @@ const ironSkinTexture = loader.load(ironSkin);
 const kingSkinTexture = loader.load(kingSkin);
 const knightBrokenArmorSkinTexture = loader.load(knightBrokenArmorSkin);
 const laserSkinTexture = loader.load(laserSkin);
-const nohatSkinTexture = loader.load(nohatSkin);
-const oldmanSkinTexture = loader.load(oldmanSkin);
-const pigmanSkinTexture = loader.load(pigmanSkin);
+// const nohatSkinTexture = loader.load(nohatSkin);
+// const oldmanSkinTexture = loader.load(oldmanSkin);
+// const pigmanSkinTexture = loader.load(pigmanSkin);
 const smartSkinTexture = loader.load(smartSkin);
 const steveSkinTexture = loader.load(steveSkin);
-const straySkinTexture = loader.load(straySkin);
-const witherSkeletonSkinTexture = loader.load(witherSkeletonSkin);
-const wuwuwuSkinTexture = loader.load(wuwuwuSkin);
+// const straySkinTexture = loader.load(straySkin);
+// const witherSkeletonSkinTexture = loader.load(witherSkeletonSkin);
+// const wuwuwuSkinTexture = loader.load(wuwuwuSkin);
 
 // 指定材质不做模糊
 [
@@ -300,11 +300,11 @@ const wuwuwuSkinTexture = loader.load(wuwuwuSkin);
 	snowblockTextureSide,
 	snowblockTextureTop,
 	alexSkinTexture,
-	batmanSkinTexture,
+	// batmanSkinTexture,
 	candideSkinTexture,
 	coolmanSkinTexture,
 	creeperSkinTexture,
-	dogeSkinTexture,
+	// dogeSkinTexture,
 	dragonSkinTexture,
 	hopemanSkinTexture,
 	hutaoSkinTexture,
@@ -312,14 +312,14 @@ const wuwuwuSkinTexture = loader.load(wuwuwuSkin);
 	kingSkinTexture,
 	knightBrokenArmorSkinTexture,
 	laserSkinTexture,
-	nohatSkinTexture,
-	oldmanSkinTexture,
-	pigmanSkinTexture,
+	// nohatSkinTexture,
+	// oldmanSkinTexture,
+	// pigmanSkinTexture,
 	smartSkinTexture,
 	steveSkinTexture,
-	straySkinTexture,
-	witherSkeletonSkinTexture,
-	wuwuwuSkinTexture,
+	// straySkinTexture,
+	// witherSkeletonSkinTexture,
+	// wuwuwuSkinTexture,
 ].forEach(d => (d.magFilter = THREE.NearestFilter));
 
 import brickBreak from '../../assets/sounds/break/brick.ogg';
@@ -786,11 +786,11 @@ export const highLightBlockMesh = new THREE.Mesh(new THREE.BoxBufferGeometry(1.0
 // skins
 export const skinsMap = [
 	alexSkinTexture,
-	batmanSkinTexture,
+	// batmanSkinTexture,
 	candideSkinTexture,
 	coolmanSkinTexture,
 	creeperSkinTexture,
-	dogeSkinTexture,
+	// dogeSkinTexture,
 	dragonSkinTexture,
 	hopemanSkinTexture,
 	hutaoSkinTexture,
@@ -798,12 +798,12 @@ export const skinsMap = [
 	kingSkinTexture,
 	knightBrokenArmorSkinTexture,
 	laserSkinTexture,
-	nohatSkinTexture,
-	oldmanSkinTexture,
-	pigmanSkinTexture,
+	// nohatSkinTexture,
+	// oldmanSkinTexture,
+	// pigmanSkinTexture,
 	smartSkinTexture,
 	steveSkinTexture,
-	straySkinTexture,
-	witherSkeletonSkinTexture,
-	wuwuwuSkinTexture,
+	// straySkinTexture,
+	// witherSkeletonSkinTexture,
+	// wuwuwuSkinTexture,
 ];

@@ -1,4 +1,5 @@
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
+import * as THREE from 'three';
 import UI from '../ui';
 import Core from '../core';
 import UiController from './ui-controller';
@@ -8,6 +9,7 @@ import { deepCopy } from '../utils/deep-copy';
 import weatherConfig from '../core/weather';
 import Log from './log';
 import MultiPlay from './MultiPlay';
+import Player from '../core/player';
 
 class Controller {
 	ui: UI;
@@ -17,8 +19,6 @@ class Controller {
 	gameController: GameController;
 
 	uiController: UiController;
-
-	single: boolean;
 
 	running: boolean;
 
@@ -80,7 +80,7 @@ class Controller {
 	}
 
 	// 开始游戏, 载入/创建世界模型, 从头绘制场景(用于从主菜单点击开始游戏后调用)
-	startGame(single: boolean) {
+	startGame(justInit: boolean) {
 		// 特判移动端, 要求横屏游戏
 		if (config.controller.operation === 'mobile' && !config.controller.dev && window.innerHeight > window.innerWidth) {
 			this.uiController.ui.menu.setNotify(language.tryRotate);
@@ -90,7 +90,6 @@ class Controller {
 		this.gameStage.classList.remove('hidden');
 		this.hudStage.classList.remove('hidden');
 		// 单人游戏
-		this.single = single;
 		// 如果没有地形, 就生成
 		if (config.seed === null) config.seed = Math.random();
 		if (config.cloudSeed === null) config.cloudSeed = Math.random();
@@ -98,6 +97,7 @@ class Controller {
 		if (config.weather === null) config.weather = Math.floor(Math.random() * weatherConfig.length);
 		// 载入log
 		this.log.load(config.log);
+		if (justInit) return;
 		// 刷新背包
 		this.uiController.ui.bag.place();
 		// 尝试渲染
@@ -124,6 +124,13 @@ class Controller {
 		// 默认正在跳跃, 防止卡Bug
 		this.gameController.moveController.jumping = true;
 		this.tryRender();
+		this.multiPlay.playersController.addScene();
+
+		for (let i = 0; i <= 21; i += 1) {
+			const player = new Player({ idx: i, pos: new THREE.Vector3(0, 10, 3 * i), reward: new THREE.Euler(0, 0, 0, 'YXZ') });
+			player.player.name = `${i}`;
+			this.core.scene.add(player.player);
+		}
 	}
 
 	// 停止游戏(进入了菜单)

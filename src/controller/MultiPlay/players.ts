@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import Player from '../../core/player';
+import { skinsMap } from '../../core/loader';
+import { config } from '../config';
 
 class PlayersController {
 	players: Player[];
@@ -14,6 +16,11 @@ class PlayersController {
 	}
 
 	update(name: string, pos: THREE.Vector3, reward: THREE.Euler) {
+		this.players.forEach(d => {
+			if (!d) return;
+			if (Math.abs(d.position.x - config.state.posX) > config.renderer.stageSize / 2 || Math.abs(d.position.z - config.state.posZ) > config.renderer.stageSize / 2) d.player.visible = false;
+			else d.player.visible = true;
+		});
 		const idx = this.playerNames.findIndex(d => d === name);
 		if (idx === -1) return;
 		pos && this.players[idx].setPosition(pos);
@@ -21,12 +28,17 @@ class PlayersController {
 		(pos || reward) && this.players[idx].update();
 	}
 
-	init(scene: THREE.Scene, playerNames: string[]) {
+	init(roomId, scene: THREE.Scene, playerNames: string[]) {
+		const st = Number.parseInt(roomId, 36);
 		this.scene = scene;
-		this.players = playerNames.map((d, i) => new Player({ idx: i, pos: new THREE.Vector3(0, 0, 0), reward: new THREE.Euler(0, 0, 0, 'YXZ') }));
+		this.players = playerNames.map((d, i) => (d === null ? null : new Player({ idx: (st + i) % skinsMap.length, pos: new THREE.Vector3(0, 0, 0), reward: new THREE.Euler(0, 0, 0, 'YXZ') })));
 		this.playerNames = [...playerNames];
+		this.addScene();
+	}
+
+	addScene() {
 		this.players.forEach(d => {
-			this.scene.add(d.player);
+			d && this.scene.add(d.player);
 		});
 	}
 
