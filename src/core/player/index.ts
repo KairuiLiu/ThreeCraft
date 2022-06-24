@@ -16,13 +16,15 @@ class Player {
 
 	animateStamp: number;
 
-	constructor({ idx, pos }) {
+	constructor({ idx, pos, reward }: { idx: number; pos: THREE.Vector3; reward: THREE.Euler }) {
 		this.player = new PlayerObject(skinsMap[idx]);
 		this.position = pos.clone();
 		this.target = this.position.clone();
-		this.rotation = new THREE.Euler();
+		this.rotation = reward.clone();
 		this.animateStamp = 0;
 		this.lastCall = performance.now();
+		this.player.name = `player_${idx}`;
+		this.player.scale.copy(new THREE.Vector3(1 / 16, 1 / 16, 1 / 16));
 	}
 
 	update() {
@@ -67,11 +69,11 @@ class Player {
 	}
 
 	setPosition(v) {
-		this.position.copy(v);
+		this.position = new THREE.Vector3(v.x, v.y - 0.25, v.z);
 	}
 
 	setRotation(v) {
-		this.rotation.copy(v);
+		this.rotation = new THREE.Euler(0, v.y + Math.PI, 0, 'YXZ');
 	}
 
 	get speedWalking() {

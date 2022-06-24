@@ -1,4 +1,5 @@
 import { io, Socket } from 'socket.io-client';
+import * as THREE from 'three';
 import { BlockLog } from '../../utils/types/block';
 import { Controller } from '..';
 import type { ClientToServerEvents, ServerToClientEvents } from '../../utils/types/multiPlayer/server';
@@ -80,8 +81,11 @@ class MultiPlay {
 			if (this.controller.running) return;
 			deepCopy(res.config, config);
 			this.bindGame();
-			this.playersController.init(this.controller.core.scene, res.playerName);
 			this.controller.startGame(false);
+			this.playersController.init(
+				this.controller.core.scene,
+				[...res.playerName].map(d => d[1].name).filter(d => d !== this.userName)
+			);
 		});
 	}
 
@@ -90,8 +94,8 @@ class MultiPlay {
 			const { userName, action } = res;
 			if (action === 'join') this.players.add(userName);
 			else {
+				this.playersController.removeAll();
 				this.players.delete(userName);
-				// TODO ROOM_DISSOLVE
 			}
 			this.controller.ui.menu.setNotify(
 				`${userName} ${action === 'join' ? language.wsMessage.PLAYER_CHANGE_JOIN : language.wsMessage.PLAYER_CHANGE_LEAVE}`,
@@ -100,18 +104,18 @@ class MultiPlay {
 			);
 		});
 		this.socket?.on('LOG_UPDATE', res => {
-			const { userName, log } = res;
+			const { userName, log, position } = res;
 			if (userName !== this.userName) this.applyLog(log);
-			// TODO LOG UPDATE
+			this.playersController.update(userName, new THREE.Vector3(position.posX, position.posY, position.posZ), new THREE.Euler(position.dirX, position.dirY, position.dirZ, 'YXZ'));
 		});
 		this.socket?.on('ROOM_DISSOLVE', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.ROOM_DISSOLVED, 1000, this.controller.uiController.ui.actionControl.elem);
 			this.clear();
-			// TODO ROOM_DISSOLVE
+			this.playersController.removeAll();
 		});
 		this.socket?.on('disconnect', () => {
 			this.controller.ui.menu.setNotify(language.wsMessage.DISCONNECT, 1000, this.controller.uiController.ui.actionControl.elem);
-			// TODO ROOM_DISSOLVE
+			this.playersController.removeAll();
 		});
 	}
 
@@ -177,6 +181,7 @@ class MultiPlay {
 
 	emitUpdateState() {
 		const curTime = performance.now();
+		// ! HIGH PRESSURE
 		if (curTime - this.lastUpdate < 300) return;
 		this.lastUpdate = curTime;
 		this.socket.emit('UPDATE_STATE', {
