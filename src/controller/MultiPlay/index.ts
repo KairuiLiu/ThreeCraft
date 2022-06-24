@@ -182,8 +182,7 @@ class MultiPlay {
 
 	emitUpdateState() {
 		const curTime = performance.now();
-		// ! HIGH PRESSURE
-		// if (curTime - this.lastUpdate < 300) return;
+		if (curTime - this.lastUpdate < 150) return;
 		this.lastUpdate = curTime;
 		this.socket.emit('UPDATE_STATE', {
 			type: 'UPDATE_STATE',

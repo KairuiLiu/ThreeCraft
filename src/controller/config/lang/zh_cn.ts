@@ -17,7 +17,7 @@ const language = {
 	createRoom: '创建房间',
 	joinRoom: '加入房间',
 	exitRoom: '退出房间',
-	roomName: '房间名',
+	roomName: '房间号',
 	nickname: '昵称',
 	player: '玩家',
 	startGame: '开始游戏',

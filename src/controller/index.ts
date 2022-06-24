@@ -1,5 +1,4 @@
 import { VRButton } from 'three/examples/jsm/webxr/VRButton.js';
-import * as THREE from 'three';
 import UI from '../ui';
 import Core from '../core';
 import UiController from './ui-controller';
@@ -9,7 +8,6 @@ import { deepCopy } from '../utils/deep-copy';
 import weatherConfig from '../core/weather';
 import Log from './log';
 import MultiPlay from './MultiPlay';
-import Player from '../core/player';
 
 class Controller {
 	ui: UI;
@@ -125,12 +123,6 @@ class Controller {
 		this.gameController.moveController.jumping = true;
 		this.tryRender();
 		this.multiPlay.playersController.addScene();
-
-		for (let i = 0; i <= 21; i += 1) {
-			const player = new Player({ idx: i, pos: new THREE.Vector3(0, 10, 3 * i), reward: new THREE.Euler(0, 0, 0, 'YXZ') });
-			player.player.name = `${i}`;
-			this.core.scene.add(player.player);
-		}
 	}
 
 	// 停止游戏(进入了菜单)
@@ -171,6 +163,8 @@ class Controller {
 			this.multiPlay.emitUpdateState();
 			this.gameController.hasChange = false;
 		}
+		// 补充人物运动动画
+		this.multiPlay.playersController.render();
 		// FPS继续计数
 		this.uiController.ui.fps.work();
 		this.gameController.update();

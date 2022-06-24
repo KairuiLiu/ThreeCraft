@@ -61,6 +61,13 @@ class PlayersController {
 		this.players[idx].player.remove();
 		this.players[idx] = null;
 	}
+
+	render() {
+		this.players.forEach(d => {
+			if (d === null) return;
+			d.update();
+		});
+	}
 }
 
 export default PlayersController;

@@ -32,11 +32,14 @@ class Player {
 		let delta = this.lastCall;
 		this.lastCall = performance.now();
 		delta = this.lastCall - delta;
-
-		this.updatePosition(delta);
 		this.updateReward();
-		if (this.target.clone().sub(this.position).length() <= symConfig.eps) this.resetAnimate();
-		else this.reqAnimate(delta);
+
+		if (this.target.clone().sub(this.position).length() <= symConfig.eps) {
+			this.resetAnimate();
+		} else {
+			this.updatePosition(delta);
+			this.reqAnimate(delta);
+		}
 		// this.mesh.matrixWorldNeedsUpdate = true;
 	}
 
@@ -44,7 +47,7 @@ class Player {
 		const move = this.target.clone().sub(this.position).normalize().multiplyScalar(this.speedWalking);
 		const realMove = this.target.clone().sub(this.position).normalize().multiplyScalar(this.speedWalking);
 		realMove.y *= this.speedJump / this.speedWalking;
-		realMove.multiplyScalar(delta / 300);
+		realMove.multiplyScalar(delta / 30);
 		this.position.add(realMove.length() > move.length() ? move : realMove);
 		this.player.position.copy(this.position);
 	}
@@ -70,7 +73,7 @@ class Player {
 	}
 
 	setPosition(v) {
-		this.position = new THREE.Vector3(v.x, v.y - 0.25, v.z);
+		this.target = new THREE.Vector3(v.x, v.y - 0.25, v.z);
 	}
 
 	setRotation(v) {
