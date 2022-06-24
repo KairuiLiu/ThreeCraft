@@ -28,11 +28,12 @@
 
 - Multiplayer online game support
 - Efficient collision detection method
+- Multiple ways to save and load archive
 - Efficient multi-threaded dynamic infinite map generation and partial refresh method
-- Five random game scenes (Classic / Ice / Beach Melon Field / Pumpkin Field / Bizarre)
+- 30 random character skins (in multiplayer mode)
+- 5 random game scenes (Classic / Ice / Beach Melon Field / Pumpkin Field / Bizarre)
 - Multi-terminal and multi-control mode support (PC, mobile, VR, PS4/5 joy stick, Xbox joy stick support)
 - Multiple parameters can be adjusted(FOV / Fog factor / Simulate range / Operation range / Volume / Number of threads / Operation sensitivity / Language / Operation mode / Crosshair color / Backpack mode / Cheat mode)
-- Multiple ways to save and load archive
 - Dual language support (Chinese / English)
 - Original sound
 - PWA support

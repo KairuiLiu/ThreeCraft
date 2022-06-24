@@ -47,7 +47,7 @@ class Player {
 		const move = this.target.clone().sub(this.position).normalize().multiplyScalar(this.speedWalking);
 		const realMove = this.target.clone().sub(this.position).normalize().multiplyScalar(this.speedWalking);
 		realMove.y *= this.speedJump / this.speedWalking;
-		realMove.multiplyScalar(delta / 30);
+		realMove.multiplyScalar(delta / 20);
 		this.position.add(realMove.length() > move.length() ? move : realMove);
 		this.player.position.copy(this.position);
 	}
@@ -58,7 +58,7 @@ class Player {
 
 	reqAnimate(delta) {
 		this.animateStamp += delta;
-		if (this.animateStamp >= 2 * Math.PI) this.animateStamp -= 2 * Math.PI;
+		if (this.animateStamp >= 2 * Math.PI * 75) this.animateStamp -= 2 * Math.PI * 75;
 		this.setAnimate();
 	}
 
@@ -68,7 +68,10 @@ class Player {
 	}
 
 	setAnimate() {
-		// TODO ANIMATE
+		this.player.leftArm.rotation.x = Math.sin(this.animateStamp / 75);
+		this.player.rightArm.rotation.x = Math.sin(Math.PI + this.animateStamp / 75);
+		this.player.leftLeg.rotation.x = Math.sin(this.animateStamp / 75);
+		this.player.rightLeg.rotation.x = Math.sin(Math.PI + this.animateStamp / 75);
 		this;
 	}
 
