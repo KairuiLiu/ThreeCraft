@@ -60,7 +60,7 @@ export default {
 		{ k: 'Turn Headset', v: 'Change Orientation' },
 		{ k: 'Using Remote', v: 'Destroy Blocks' },
 	],
-	aboutItems: ['Minecraft release based on Three.js', 'Version: 1.0.0', 'More information, see', ':)'],
+	aboutItems: ['Minecraft release based on Three.js', 'Version: 1.0.1', 'More information, see', ':)'],
 	tryRotate: 'Please rotate the screen before start',
 	tryLock: 'Mouse lock failed, please try clicking again',
 	allBlock: 'All blocks',
