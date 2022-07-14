@@ -193,7 +193,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 	const eulerRotate = new THREE.Euler(0, core.camera.rotation.y, 0, 'YXZ');
 	// 计算在水平与垂直方向速度
 	const scaleXOZ = symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens;
-	const scaleOY = symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
+	const scaleOY = symConfig.actionsScale.jump * symConfig.actionsScale.moveScale;
 	// 计算绝对移动方向与速度
 	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(eulerRotate);
 	absolute.x *= scaleXOZ;
@@ -276,7 +276,7 @@ export function relativeCollisionCheckAll({ posX, posY, posZ, font, left, up, co
 export function getTargetPosition({ posX, posY, posZ, font, left, up, core }) {
 	// 水平与垂直的速度
 	const scaleXOZ = (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.walking * symConfig.actionsScale.moveScale * config.controller.opSens;
-	const scaleOY = (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale * config.controller.opSens;
+	const scaleOY = (config.controller.cheat ? symConfig.actionsScale.cheatFactor : 1) * symConfig.actionsScale.jump * symConfig.actionsScale.moveScale;
 	// 绝对移动方向
 	const absolute = new THREE.Vector3(-left, up, -font).applyEuler(new THREE.Euler(0, core.camera.rotation.y, 0, 'YXZ'));
 	absolute.x *= scaleXOZ;

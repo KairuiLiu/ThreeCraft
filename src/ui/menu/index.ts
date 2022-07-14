@@ -563,8 +563,8 @@ class Menu {
 		<div class="box-line">
 			<label for="crosshair-select" class="fix-width">${language.crossHair}</label>
 			<select class="select" name="crosshair-select" id="crosshair-select">
-			<option value="light">${language.light}</option>
-			<option value="dark">${language.dark}</option>
+				<option value="light">${language.light}</option>
+				<option value="dark">${language.dark}</option>
 			</select>
 			<label for="bag-type-select" class="fix-width">${language.bagMode}</label>
 			<select class="select" name="bag-type-select" id="bag-type-select">
@@ -675,8 +675,8 @@ class Menu {
 		// 操纵灵敏度
 		const opSensSelect = document.getElementById('op-sens-select') as HTMLInputElement;
 		opSensSelect.value = `${config.controller.opSens * 2}`;
-		crosshairSelect.addEventListener('change', () => {
-			config.controller.opSens = Number.parseInt('crosshairSelect.value', 10) / 2;
+		opSensSelect.addEventListener('change', () => {
+			config.controller.opSens = Number.parseInt(opSensSelect.value, 10) / 2;
 		});
 		// 线程数
 		const threadSelect = document.getElementById('thread-select') as HTMLInputElement;
