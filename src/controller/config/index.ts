@@ -26,7 +26,7 @@ const config = {
 	},
 	renderer: {
 		fog: 0.02,
-		stageSize: 64, // stage的边长 196
+		stageSize: deviceTest() === 'pc' ? 144 : 64, // stage的边长 196
 		// renderDistance: 500,
 	},
 	controller: {
@@ -125,7 +125,7 @@ const defaultConfig = {
 	},
 	renderer: {
 		fog: 0.02,
-		stageSize: 64, // stage的边长 196
+		stageSize: deviceTest() === 'pc' ? 144 : 64, // stage的边长 196
 		// renderDistance: 500,
 	},
 	controller: {

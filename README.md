@@ -120,7 +120,7 @@
   After the program runs, the following prompt will be output
 
   ```
-  ThreeCraft v1.0.0 game server running at:
+  ThreeCraft v1.0.2 game server running at:
   > Local:        http://localhost:9000
   > Network:      http://xxx.xxx.xxx.xxx:9000
 

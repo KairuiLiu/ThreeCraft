@@ -35,7 +35,7 @@ io.on('connection', socket => {
 		for (let i = 0; i < iface!.length; i++) {
 			const alias = iface![i];
 			if (alias.address !== '127.0.0.1' && !alias.internal) {
-				console.log(`ThreeCraft v1.0.0 game server running at:\n> Local:\thttp://localhost:9000\n> Network:\thttp://${alias.address}:9000\n`);
+				console.log(`ThreeCraft v1.0.2 game server running at:\n> Local:\thttp://localhost:9000\n> Network:\thttp://${alias.address}:9000\n`);
 				console.log(`\x1b[40m\x1b[31mYOU MUST ENTER THE ADDRESS LIKE http://${alias.address}:9000 IN GAME, NO PART CAN BE OMITTED!\x1b[0m`);
 				return;
 			}
